@@ -1,7 +1,7 @@
 ### Hi there 👋
 
 - 🔭 Currently working on PowerToys for OpenAI ™
-  - This is basically a ChatGPT Pro,for the fraction of the price ^^
+  - This is basically a ChatGPT Pro, for the fraction of the price ^^
   - I provide the interface, and you provide the API key
   - Like this you get integration with Chrome, Edge, Opera GX
    - And a whole bunch of extra functionality
