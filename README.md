@@ -7,11 +7,13 @@
    - And a whole bunch of extra functionality
   
   Roadmap:
+  - Token counter (see token count and $ amount consumed)
   - Chat interface
   - Api settings
   - Profile management (prompt engineering)
+  - Search box integration with selected websites (google, bing, duckduckgo, etc)
   - Context menus with custum actions on selected websites
-  - Writing assitant
+  - Writing assistant
   - ...and more
   
   ### [Check it out](https://chrome.google.com/webstore/detail/powertoys-for-openai/haijiigmikhgoflpocajpfldmjcfbdpa)
