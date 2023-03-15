@@ -16,7 +16,7 @@
   - Writing assistant
   - ...and more
   
-  ### [Check it out](https://chrome.google.com/webstore/detail/powertoys-for-openai/haijiigmikhgoflpocajpfldmjcfbdpa)
+  ### [Check it out](https://github.com/robert-hoffmann/PowerToys4OpenAI)
 <!--
 **robert-hoffmann/robert-hoffmann** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
