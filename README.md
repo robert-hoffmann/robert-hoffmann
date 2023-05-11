@@ -7,7 +7,7 @@
    - And a whole bunch of extra functionality
 
 <a href="https://github.com/sponsors/robert-hoffmann" target="_self">
-  <img alt="Become a Sponsor" src="https://github.com/robert-hoffmann/robert-hoffmann/assets/5472296/06e88ab2-7716-4b59-965a-efe125617cee"/>
+  Become a Sponsor
 </a>
 
   
