@@ -299,6 +299,7 @@ onUnmounted(() => {
         <button
           class="music-player-btn music-player-btn--main"
           type="button"
+          :aria-label="t('music.playPause')"
           @click="onPlayPause"
         >
           <!-- Pause icon -->

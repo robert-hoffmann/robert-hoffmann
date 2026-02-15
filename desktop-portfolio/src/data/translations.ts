@@ -108,6 +108,7 @@ const ui: Record<string, Localized> = {
 
   /* ---- Music player ---- */
   'music.seek'               : { en : 'Seek',               fr : 'Rechercher' },
+  'music.playPause'          : { en : 'Play / Pause',       fr : 'Lecture / Pause' },
   'music.disableLoop'        : { en : 'Disable loop',       fr : 'Désactiver la boucle' },
   'music.enableLoop'         : { en : 'Enable loop',        fr : 'Activer la boucle' },
   'music.stop'               : { en : 'Stop',               fr : 'Arrêter' },
