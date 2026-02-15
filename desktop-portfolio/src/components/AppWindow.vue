@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue'
+import { computed, defineAsyncComponent, provide, shallowRef, toRef } from 'vue'
 import type { WindowState } from '../types/desktop'
 import { windowRegistry } from '../data/registry'
 import { useLocale } from '../composables/useLocale'
@@ -10,6 +10,9 @@ const props = defineProps<{
   windowState  : WindowState
   isFocused    : boolean
 }>()
+
+/** Expose focus state to dynamically loaded content components */
+provide('windowFocused', toRef(props, 'isFocused'))
 
 const emit = defineEmits<{
   close     : [id: string]
@@ -28,29 +31,29 @@ const style = computed(() => ({
   zIndex : props.windowState.zIndex,
 }))
 
-/** Resolve async component from registry */
-const contentComponent = computed(() => {
-  const def = windowRegistry[props.windowState.itemId]
-  if (!def?.component) return null
-  return defineAsyncComponent(def.component)
-})
+/*
+ * Resolve the async component exactly once from the registry.
+ * Using shallowRef (not computed) ensures no reactive dependency
+ * on windowState — so zIndex bumps, position changes, etc. never
+ * cause Vue to see a "new" component and remount the content.
+ * This is critical for iframes (YouTube) that reload on remount.
+ */
+const def = windowRegistry[props.windowState.itemId]
+const contentComponent = shallowRef(
+  def?.component ? defineAsyncComponent(def.component) : null,
+)
 
-/** Forward optional componentProps from registry */
-const contentProps = computed(() => {
-  const def = windowRegistry[props.windowState.itemId]
-  return def?.componentProps ?? {}
-})
+/** Forward optional componentProps from registry (static per itemId) */
+const contentProps = def?.componentProps ?? {}
 
 /** Whether this window allows resizing */
-const isResizable = computed(() => {
-  const def = windowRegistry[props.windowState.itemId]
-  return def?.resizable !== false
-})
+const isResizable = def?.resizable !== false
 </script>
 
 <template>
   <section
     class="app-window"
+    :class="{ 'app-window--focused': isFocused }"
     role="dialog"
     :aria-labelledby="`window-title-${windowState.id}`"
     :style="style"

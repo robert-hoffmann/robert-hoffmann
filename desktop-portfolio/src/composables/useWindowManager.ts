@@ -27,10 +27,15 @@ const state = reactive<WindowManagerState>({
 
 export function useWindowManager() {
   /* ---- computed ---- */
+  /**
+   * Visible (non-minimized) windows in insertion order.
+   * We intentionally do NOT re-sort by zIndex here — CSS z-index
+   * already handles visual stacking. Re-sorting would cause Vue's
+   * v-for to move DOM nodes, and the browser reloads iframes
+   * (e.g. YouTube) every time an iframe element is re-attached.
+   */
   const visibleWindows = computed(() =>
-    state.windows
-      .filter(w => !w.isMinimized)
-      .sort((a, b) => a.zIndex - b.zIndex),
+    state.windows.filter(w => !w.isMinimized),
   )
 
   const focusedWindowTitle = computed(() => {

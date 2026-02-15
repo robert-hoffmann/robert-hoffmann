@@ -450,6 +450,7 @@
 }
 
 .app-window-content {
+  position             : relative;
   padding              : var(--space-6);
   overflow-y           : auto;
   flex-grow            : 1;
@@ -1207,8 +1208,19 @@
 }
 
 .video-player-frame {
-  flex        : 1;
+  position       : relative;
+  flex           : 1;
   min-block-size : 0;
+}
+
+/* Transparent click-interceptor over the iframe.
+   Prevents YouTube's native link / fullscreen handling
+   and routes all clicks through our custom controls. */
+.video-player-overlay {
+  position : absolute;
+  inset    : 0;
+  z-index  : 1;
+  cursor   : pointer;
 }
 
 /* Make the YT-injected iframe fill the container */

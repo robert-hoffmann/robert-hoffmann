@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { reactive, onMounted, onUnmounted, useTemplateRef } from 'vue'
+import { reactive, ref, inject, onMounted, onUnmounted, useTemplateRef } from 'vue'
 import { formatTime } from '../utils'
 import { useLocale } from '../composables/useLocale'
 
 const { t } = useLocale()
+
+/** Injected from AppWindow — true when this window is front-most */
+const windowFocused = inject<Readonly<import('vue').Ref<boolean>>>('windowFocused', ref(true))
 
 const VIDEO_ID = 'YkEVCFfms30'
 
@@ -168,6 +171,25 @@ onMounted(async () => {
   })
 })
 
+/**
+ * Handle pointerdown on the transparent overlay covering the iframe.
+ * - Unfocused window → auto-play (focus is handled by event bubbling)
+ * - Focused window   → toggle play / pause
+ *
+ * The overlay also prevents YouTube's native click behaviour
+ * (opening YouTube links, triggering fullscreen, etc.).
+ */
+function onOverlayPointerDown() {
+  if (!player || !state.ready) return
+  if (!windowFocused.value) {
+    // Window is about to receive focus via event bubbling — auto-play
+    if (!state.playing) player.playVideo()
+  } else {
+    // Already focused — toggle play/pause
+    onPlayPause()
+  }
+}
+
 onUnmounted(() => {
   stopTick()
   if (player) { player.destroy(); player = null }
@@ -176,8 +198,13 @@ onUnmounted(() => {
 
 <template>
   <div ref="videoWrapper" class="video-player">
-    <!-- YouTube player target div (replaced by iframe) -->
-    <div ref="playerContainer" class="video-player-frame" />
+    <!-- YouTube player target (YT API replaces inner div with iframe) -->
+    <div class="video-player-frame">
+      <div ref="playerContainer" />
+      <!-- Transparent overlay — intercepts all clicks so YouTube's
+           native link / fullscreen handling never fires -->
+      <div class="video-player-overlay" @pointerdown="onOverlayPointerDown" />
+    </div>
 
     <!-- Controls bar underneath the video -->
     <div class="video-player-controls">
