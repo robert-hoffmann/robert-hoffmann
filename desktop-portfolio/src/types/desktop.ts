@@ -79,6 +79,7 @@ export type Localized = Record<Locale, string>
 
 /** Serializable session state for localStorage */
 export interface SessionState {
+  version?        : number
   theme           : Theme
   locale          : Locale
   desktopItems    : DesktopItem[]

@@ -14,7 +14,14 @@ import { useViewMode } from './useViewMode'
 import { debounce, safeParse } from '../utils'
 import { getDefaultDesktopItems, windowRegistry } from '../data/registry'
 
-const STORAGE_KEY = 'desktop-portfolio-state'
+const STORAGE_KEY       = 'desktop-portfolio-state'
+
+/**
+ * Bump this number whenever default window dimensions, positions,
+ * or layout change. Stale sessions with a lower (or missing)
+ * version are discarded and the desktop resets to defaults.
+ */
+const SETTINGS_VERSION  = 1
 
 export function useSessionPersistence(desktopItems: DesktopItem[]) {
   const wm    = useWindowManager()
@@ -26,6 +33,7 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
   const save = debounce(() => {
     try {
       const data: SessionState = {
+        version         : SETTINGS_VERSION,
         theme           : th.theme.value,
         locale          : i18n.locale.value,
         desktopItems    : desktopItems,
@@ -49,6 +57,12 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
       const raw    = localStorage.getItem(STORAGE_KEY)
       const parsed = safeParse<SessionState>(raw)
       if (!parsed || typeof parsed !== 'object') return false
+
+      /* Stale or missing version → discard saved state */
+      if (!parsed.version || parsed.version < SETTINGS_VERSION) {
+        reset()
+        return false
+      }
 
       if (parsed.theme === 'dark' || parsed.theme === 'light') {
         th.setTheme(parsed.theme)
