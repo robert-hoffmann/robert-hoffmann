@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting&hellip;</title>
+    <script>
+      // SPA redirect for GitHub Pages
+      // Encodes the current path into a query string so index.html can restore it
+      const segment = 1; // number of path segments to keep (0 for user/org sites)
+      const path = window.location.pathname
+        .split('/')
+        .filter(Boolean)
+        .slice(segment)
+        .join('/');
+      const query = window.location.search;
+      window.location.replace(
+        window.location.origin +
+          '/' +
+          (path ? '?/' + path : '') +
+          (query ? (path ? '&' : '?') + query.slice(1) : '') +
+          window.location.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
