@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { onMounted, provide, watch } from 'vue'
+import { onMounted, provide, ref, watch } from 'vue'
 import TopBar from './components/TopBar.vue'
 import Dock from './components/Dock.vue'
 import AppWindow from './components/AppWindow.vue'
 import DesktopIcon from './components/DesktopIcon.vue'
 import MobileApp from './components/MobileApp.vue'
 import NotificationToast from './components/NotificationToast.vue'
+import AboutSiteModal from './components/AboutSiteModal.vue'
 import { useWindowManager } from './composables/useWindowManager'
 import { useDesktopIcons } from './composables/useDesktopIcons'
 import { useTheme } from './composables/useTheme'
@@ -34,6 +35,8 @@ const session         = useSessionPersistence(icons.items)
 
 /* ---- constants ---- */
 const OWNER_NAME = 'Robert Hoffmann'
+
+const showAboutSite = ref(false)
 
 /* ---- default windows to open on first visit ---- */
 const DEFAULT_WINDOWS = [
@@ -141,7 +144,7 @@ function onMenuAction(action: string) {
       break
 
     case 'aboutSite':
-      toast.show(t('toast.aboutSite'), 4000)
+      showAboutSite.value = true
       break
 
     case 'github':
@@ -276,6 +279,8 @@ watch(locale, (loc) => {
     <aside v-if="toast.message.value" class="toast" aria-live="polite">
       {{ toast.message.value }}
     </aside>
+
+    <AboutSiteModal v-if="showAboutSite" @close="showAboutSite = false" />
 
     <div class="notification-stack">
       <NotificationToast

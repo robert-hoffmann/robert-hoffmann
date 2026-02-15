@@ -138,6 +138,16 @@ const ui: Record<string, Localized> = {
   'mobile.desktopTeaser'     : { en : 'Visit this site on a desktop for an interactive macOS-style experience ✨',
                                  fr : 'Visitez ce site sur un ordinateur pour une expérience interactive style macOS ✨' },
 
+  /* ---- About Site modal ---- */
+  'aboutModal.title'       : { en : 'About Desktop Portfolio',
+                               fr : 'À propos de Desktop Portfolio' },
+  'aboutModal.version'     : { en : 'Version 1.0',            fr : 'Version 1.0' },
+  'aboutModal.description' : { en : 'A macOS-inspired interactive portfolio built with Vue, TypeScript & Vite.',
+                               fr : 'Un portfolio interactif inspiré de macOS, développé avec Vue, TypeScript & Vite.' },
+  'aboutModal.author'      : { en : 'Created by Robert Hoffmann',
+                               fr : 'Créé par Robert Hoffmann' },
+  'aboutModal.close'       : { en : 'Close',                  fr : 'Fermer' },
+
   /* ---- Notification toast ---- */
   'notification.followMessage'    : { en : 'Enjoying the portfolio? Follow me on X for updates!',
                                      fr : 'Vous aimez le portfolio ? Suivez-moi sur X pour les nouveaut\u00e9s !' },
