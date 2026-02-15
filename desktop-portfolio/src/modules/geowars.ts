@@ -194,7 +194,20 @@ function playNoise(duration = 0.08, vol = 0.10) {
   src.start()
 }
 
-function sfxShoot()    { playTone(880, 0.06, 'square', 0.07) }
+function sfxShoot() {
+  const ctx = ensureAudio()
+  if (!ctx) return
+  const osc  = ctx.createOscillator()
+  const gain = ctx.createGain()
+  osc.type = 'sine'
+  osc.frequency.setValueAtTime(1800, ctx.currentTime)
+  osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.1)
+  gain.gain.setValueAtTime(0.09, ctx.currentTime)
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1)
+  osc.connect(gain).connect(ctx.destination)
+  osc.start(ctx.currentTime)
+  osc.stop(ctx.currentTime + 0.12)
+}
 function sfxKill()     { playTone(520, 0.12, 'sawtooth', 0.10, 200); playNoise(0.06, 0.06) }
 function sfxHit()      { playNoise(0.18, 0.18); playTone(180, 0.25, 'sawtooth', 0.14) }
 function sfxWave()     { playTone(660, 0.10, 'sine', 0.10); setTimeout(() => playTone(880, 0.12, 'sine', 0.10), 120) }
