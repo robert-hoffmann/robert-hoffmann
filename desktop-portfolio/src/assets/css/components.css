@@ -1335,6 +1335,37 @@
   cursor   : pointer;
 }
 
+/* Lite facade — static thumbnail shown before first play */
+.video-player-poster {
+  position    : absolute;
+  inset       : 0;
+  inline-size : 100%;
+  block-size  : 100%;
+  object-fit  : cover;
+}
+
+.video-player-facade-play {
+  position         : absolute;
+  inset            : 0;
+  display          : flex;
+  align-items      : center;
+  justify-content  : center;
+  background       : none;
+  border           : none;
+  cursor           : pointer;
+  z-index          : 1;
+  transition       : opacity 0.2s ease;
+
+  &:hover {
+    opacity : 0.85;
+  }
+
+  & svg path:first-child {
+    fill         : #f00;
+    fill-opacity : 1;
+  }
+}
+
 /* Make the YT-injected iframe fill the container */
 .video-player-frame iframe {
   inline-size : 100%;

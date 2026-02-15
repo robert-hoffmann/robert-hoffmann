@@ -31,6 +31,7 @@ declare namespace YT {
 
   interface PlayerOptions {
     videoId?    : string
+    host?       : string
     width?      : string | number
     height?     : string | number
     playerVars? : Record<string, string | number>
