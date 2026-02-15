@@ -213,6 +213,7 @@ onMounted(() => {
       aria-label="Desktop area"
       @click.self="onClearSelection"
     >
+      <h1 class="sr-only">Robert Hoffmann — Full-Stack Engineer &amp; Consultant</h1>
       <div class="desktop-vignette" aria-hidden="true" />
 
       <DesktopIcon

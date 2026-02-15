@@ -3,19 +3,90 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Desktop-style portfolio landing page" />
-    <title>Desktop Portfolio</title>
 
+    <!-- ── SEO Core ── -->
+    <title>Robert Hoffmann — Full-Stack Engineer &amp; Consultant</title>
+    <meta name="description" content="Portfolio of Robert Hoffmann — 25+ years shipping high-traffic software across aerospace, telecom, media, and IoT. Full-stack engineer specializing in .NET, TypeScript, Vue, Python, and data pipelines." />
+    <meta name="author" content="Robert Hoffmann" />
+    <meta name="keywords" content="Robert Hoffmann, full-stack engineer, consultant, portfolio, Vue, TypeScript, .NET, Python, aerospace, IoT, data pipelines, Skywise, Foundry, software engineer, web developer" />
+    <link rel="canonical" href="https://i-technology.net/" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- ── Open Graph ── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Robert Hoffmann" />
+    <meta property="og:title" content="Robert Hoffmann — Full-Stack Engineer &amp; Consultant" />
+    <meta property="og:description" content="25+ years shipping high-traffic software across aerospace, telecom, media, and IoT. Explore projects, experience, and more in a macOS-inspired interactive portfolio." />
+    <meta property="og:url" content="https://i-technology.net/" />
+    <meta property="og:image" content="https://i-technology.net/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Robert Hoffmann's macOS-inspired portfolio desktop showing project windows, resume, and more" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ── Twitter Card ── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Robert Hoffmann — Full-Stack Engineer &amp; Consultant" />
+    <meta name="twitter:description" content="25+ years shipping high-traffic software across aerospace, telecom, media, and IoT. Interactive macOS-inspired portfolio." />
+    <meta name="twitter:image" content="https://i-technology.net/og-image.png" />
+    <meta name="twitter:image:alt" content="Robert Hoffmann's macOS-inspired portfolio desktop" />
+    <meta name="twitter:site" content="@itechnologynet" />
+    <meta name="twitter:creator" content="@itechnologynet" />
+
+    <!-- ── Structured Data (JSON-LD) ── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "Robert Hoffmann — Full-Stack Engineer & Consultant",
+          "url": "https://i-technology.net/"
+        },
+        {
+          "@type": "ProfilePage",
+          "mainEntity": {
+            "@type": "Person",
+            "name": "Robert Hoffmann",
+            "jobTitle": "Full-Stack Engineer & Consultant",
+            "description": "25+ years shipping high-traffic software across aerospace, telecom, media, and IoT — from chat platforms handling 400M daily requests to ad systems serving 3B+ impressions a month and industrial IoT pipelines for real-time dashboards.",
+            "url": "https://i-technology.net/",
+            "image": "https://i-technology.net/profile.avif",
+            "email": "robert.hoffmann@i-technology.net",
+            "sameAs": [
+              "https://github.com/robert-hoffmann",
+              "https://www.linkedin.com/in/hoffmannrobert",
+              "https://x.com/itechnologynet"
+            ],
+            "knowsAbout": [
+              "Full-Stack Development",
+              ".NET", "TypeScript", "Vue.js", "Python",
+              "Data Pipelines", "IoT",
+              "Skywise / Palantir Foundry",
+              "DevOps", "CI/CD",
+              "AI Tools & Agents"
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- ── Favicons & Manifest ── -->
+    <link rel="icon" href="./favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- ── Fonts (self-hosted) ── -->
+    <link rel="preload" href="./fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- ── Performance Hints ── -->
+    <link rel="preload" href="./wallpaper.webp" as="image" type="image/webp" />
+    <link rel="dns-prefetch" href="https://www.youtube.com" />
   </head>
   <body>
     <!-- SPA redirect decoder (pairs with 404.html for GitHub Pages) -->
@@ -31,9 +102,33 @@
     </script>
     <div id="app"></div>
     <noscript>
-      <p style="padding:2rem;text-align:center;color:#ccc;">
-        This portfolio requires JavaScript to run. Please enable it in your browser settings.
-      </p>
+      <div style="max-width:48rem;margin:2rem auto;padding:2rem;color:#e0e0e0;font-family:system-ui,sans-serif;line-height:1.6;">
+        <h1 style="font-size:1.5rem;margin-bottom:0.5rem;">Robert Hoffmann — Full-Stack Engineer &amp; Consultant</h1>
+        <p style="margin-bottom:1rem;color:#aaa;">25+ years shipping high-traffic software across aerospace, telecom, media, and IoT.</p>
+        <p style="margin-bottom:1.5rem;">
+          From white-label chat platforms handling 400M requests a day and ad systems serving 3B+ impressions a month,
+          to industrial IoT pipelines feeding real-time dashboards on the factory floor.
+        </p>
+        <h2 style="font-size:1.2rem;margin-bottom:0.5rem;">Expertise</h2>
+        <p style="margin-bottom:1.5rem;">AI Tools &amp; Agents · .NET · TypeScript · Vue · Python · Data Pipelines &amp; IoT · Skywise / Foundry · DevOps &amp; CI/CD · Agile &amp; Scrum</p>
+        <h2 style="font-size:1.2rem;margin-bottom:0.5rem;">Featured Projects</h2>
+        <ul style="margin-bottom:1.5rem;padding-left:1.2rem;list-style:disc;">
+          <li>tchatche.com — Real-time chat platform (600M page-views/mo, 400M daily requests)</li>
+          <li>Ad Proxy — Ad-distribution server (3B+ ads served/mo)</li>
+          <li>HeadJS — Open-source JS library (4K+ GitHub stars)</li>
+          <li>PowerToys for OpenAI — Browser extension for ChatGPT integration</li>
+        </ul>
+        <h2 style="font-size:1.2rem;margin-bottom:0.5rem;">Connect</h2>
+        <ul style="padding-left:1.2rem;list-style:disc;">
+          <li><a href="mailto:robert.hoffmann@i-technology.net" style="color:#6ca0dc;">robert.hoffmann@i-technology.net</a></li>
+          <li><a href="https://github.com/robert-hoffmann" style="color:#6ca0dc;">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/hoffmannrobert" style="color:#6ca0dc;">LinkedIn</a></li>
+          <li><a href="https://x.com/itechnologynet" style="color:#6ca0dc;">X (Twitter)</a></li>
+        </ul>
+        <p style="margin-top:1.5rem;color:#888;font-size:0.85rem;">
+          This portfolio uses an interactive macOS-inspired desktop interface. Please enable JavaScript for the full experience.
+        </p>
+      </div>
     </noscript>
     <script type="module" src="/src/main.ts"></script>
   </body>
