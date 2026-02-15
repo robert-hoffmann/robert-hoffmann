@@ -1,42 +1,49 @@
-Hi there, 
+# Hey, I'm Robert 👋
 
-I'm a curious little bugger, who has been making software, web applications, and frameworks for the community and various companies, since before the days of Google ^^
+**Full-Stack Engineer · Consultant · 25+ years in tech**
 
-Worked for 10 years behind the scenes, on all levels, on b2b (white label) social media dating site (.NET, Microsoft, Front-End, SEO/SMO/SMM, DevOps, Tech-Lead)
+I've been building software, shipping products, and breaking things in production since before Google was a thing. Over the years I've worked across aerospace, telecom, media, and health-tech ; from real-time chat platforms handling 400 M requests/day to ad servers pushing 3 B+ impressions/month. These days I'm deep into AI tooling, prompt engineering, and autonomous agent workflows.
 
-Currently working on: [VS-Copilot Prompts](https://github.com/robert-hoffmann/prompts)
+🌐 **Portfolio:** [i-technology.net](https://i-technology.net)
 
-----
+---
 
-Some of the projects i've worked on in the past
+### Highlighted Projects
 
-* [PowerToys for OpenAI ™](https://github.com/robert-hoffmann/PowerToys4OpenAI)
-  * Chrome plugin :  Custom GPT responses on search engine pages, and full chat IDE with settings and history
-* [HeadJS](https://headjs.github.io/)
-  * About the only library on the internet back in the day, that would allow developers make responsive/device friendly websites for IE6+ ^^
-* [FindUnusedFiles](https://marketplace.visualstudio.com/items?itemName=RobertHoffmann.FindUnusedFiles)
-  * A Visual Studio add-in to help devs clean up huge messy projects
-* [T4ResX (and others)](https://www.nuget.org/profiles/itechnology)
-  * A Visual Studio library to help devs easily add and manage internationalization inside their applications (windows/web)
-* PhpRPC
-  * An xmlRPC library that helped CMS frameworks implement RPC communication across websites & remote services
-* Healthmonitoring.NET
-  * Company internal health monitoring system, to monitor errors, speed, and status, across our farm of servers & applications (IIS, SQL Server, .NET).
-  * Same thing as [New Relic](https://newrelic.com/), but way before these kinds of solutions existed
-* AdProxy
-  * Company internal ad load-balancer, for distributing billions of targeted ads across our network of white label websites
-* Tchatche
-   * White label & internationalized chat application, that we would rent out to some of the biggest multimedia & telecom brands in France
-* TrackMaster
-  * Track editor for the racing game Rally Masters, from Canal+
-* [Stats COVID France](https://www.data.gouv.fr/fr/reuses/stats-covid-france/)
-  * A PowerBI application listed on the French governments public data platform, which pulls up official health statistics and presents them in an easy to read format so that politicians, academics, journalists, and others could report on data: straight-from-the-source
+| Project | What it is |
+| --- | --- |
+| [VS-Copilot Prompts](https://github.com/robert-hoffmann/prompts) | Curated prompt & agent toolkit for VS Code Copilot — my current focus |
+| [PowerToys for OpenAI](https://github.com/robert-hoffmann/PowerToys4OpenAI) | Chrome extension — custom GPT answers on search pages + full chat IDE |
+| [HeadJS](https://headjs.github.io/) | Responsive JS loader — 4 K+ ⭐ — made IE6+ websites device-friendly before it was cool |
+| [tchatche.com](https://github.com/robert-hoffmann) | White-label real-time chat rented to France's biggest telecom & media brands — 600 M pv/mo |
+| [FindUnusedFiles](https://marketplace.visualstudio.com/items?itemName=RobertHoffmann.FindUnusedFiles) | Visual Studio extension to clean up messy projects — 11 K+ installs |
 
-You can also connect with me on [LinkedIn](https://www.linkedin.com/in/hoffmannrobert) if you like 👍
+> Full project list & interactive resume on my [portfolio site](https://i-technology.net) ✨
 
-### [Check out PowerToys for OpenAI ™](https://github.com/robert-hoffmann/PowerToys4OpenAI)
+---
 
-<a href="https://github.com/sponsors/robert-hoffmann" target="_self">
-  <img src="https://user-images.githubusercontent.com/5472296/237694754-66c40c2e-08a0-40e2-a2d4-cafa68361d9f.jpg"/>
-</a>
+### Tech Stack
 
+![C#](https://img.shields.io/badge/C%23-512BD4?style=flat&logo=csharp&logoColor=white)
+![.NET](https://img.shields.io/badge/.NET-512BD4?style=flat&logo=dotnet&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=flat&logo=vuedotjs&logoColor=white)
+![Quasar](https://img.shields.io/badge/Quasar-1976D2?style=flat&logo=quasar&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-5FA04E?style=flat&logo=nodedotjs&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure-0078D4?style=flat&logo=microsoftazure&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat&logo=powerbi&logoColor=black)
+![AI / Agents](https://img.shields.io/badge/AI%20%2F%20Agents-FF6F00?style=flat&logo=openai&logoColor=white)
+
+---
+
+### Let's Connect
+
+<a href="https://github.com/robert-hoffmann"><img src="desktop-portfolio/public/icons/github.svg" width="28" alt="GitHub"></a>&ensp;
+<a href="https://www.linkedin.com/in/hoffmannrobert"><img src="desktop-portfolio/public/icons/linkedin.svg" width="28" alt="LinkedIn"></a>&ensp;
+<a href="https://x.com/itechnologynet"><img src="desktop-portfolio/public/icons/x.svg" width="28" alt="X"></a>&ensp;
+<a href="https://i-technology.net"><img src="desktop-portfolio/public/icons/globe.svg" width="28" alt="Website"></a>
