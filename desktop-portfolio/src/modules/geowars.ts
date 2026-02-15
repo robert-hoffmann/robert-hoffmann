@@ -208,8 +208,78 @@ function sfxShoot() {
   osc.start(ctx.currentTime)
   osc.stop(ctx.currentTime + 0.12)
 }
-function sfxKill()     { playTone(520, 0.12, 'sawtooth', 0.10, 200); playNoise(0.06, 0.06) }
-function sfxHit()      { playNoise(0.18, 0.18); playTone(180, 0.25, 'sawtooth', 0.14) }
+/** Enemy explosion — filtered noise burst + low thump */
+function sfxKill() {
+  const ctx = ensureAudio()
+  if (!ctx) return
+  const t = ctx.currentTime
+
+  /* Noise burst through a decaying band-pass filter */
+  const dur   = 0.22
+  const buf   = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate)
+  const data  = buf.getChannelData(0)
+  for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1
+  const src   = ctx.createBufferSource()
+  src.buffer  = buf
+  const bpf   = ctx.createBiquadFilter()
+  bpf.type    = 'bandpass'
+  bpf.frequency.setValueAtTime(2000, t)
+  bpf.frequency.exponentialRampToValueAtTime(200, t + dur)
+  bpf.Q.value = 1.2
+  const nGain = ctx.createGain()
+  nGain.gain.setValueAtTime(0.16, t)
+  nGain.gain.exponentialRampToValueAtTime(0.001, t + dur)
+  src.connect(bpf).connect(nGain).connect(ctx.destination)
+  src.start(t)
+
+  /* Low-frequency thump for impact body */
+  const osc  = ctx.createOscillator()
+  osc.type   = 'sine'
+  osc.frequency.setValueAtTime(120, t)
+  osc.frequency.exponentialRampToValueAtTime(30, t + 0.15)
+  const oGain = ctx.createGain()
+  oGain.gain.setValueAtTime(0.14, t)
+  oGain.gain.exponentialRampToValueAtTime(0.001, t + 0.18)
+  osc.connect(oGain).connect(ctx.destination)
+  osc.start(t)
+  osc.stop(t + 0.2)
+}
+
+/** Player-hit explosion — heavier version with longer tail */
+function sfxHit() {
+  const ctx = ensureAudio()
+  if (!ctx) return
+  const t = ctx.currentTime
+
+  /* Longer noise burst */
+  const dur   = 0.35
+  const buf   = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate)
+  const data  = buf.getChannelData(0)
+  for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1
+  const src   = ctx.createBufferSource()
+  src.buffer  = buf
+  const lpf   = ctx.createBiquadFilter()
+  lpf.type    = 'lowpass'
+  lpf.frequency.setValueAtTime(3000, t)
+  lpf.frequency.exponentialRampToValueAtTime(100, t + dur)
+  const nGain = ctx.createGain()
+  nGain.gain.setValueAtTime(0.22, t)
+  nGain.gain.exponentialRampToValueAtTime(0.001, t + dur)
+  src.connect(lpf).connect(nGain).connect(ctx.destination)
+  src.start(t)
+
+  /* Deep thump */
+  const osc  = ctx.createOscillator()
+  osc.type   = 'sine'
+  osc.frequency.setValueAtTime(80, t)
+  osc.frequency.exponentialRampToValueAtTime(20, t + 0.25)
+  const oGain = ctx.createGain()
+  oGain.gain.setValueAtTime(0.18, t)
+  oGain.gain.exponentialRampToValueAtTime(0.001, t + 0.3)
+  osc.connect(oGain).connect(ctx.destination)
+  osc.start(t)
+  osc.stop(t + 0.32)
+}
 function sfxWave()     { playTone(660, 0.10, 'sine', 0.10); setTimeout(() => playTone(880, 0.12, 'sine', 0.10), 120) }
 function sfxGameOver() { playTone(220, 0.4, 'sawtooth', 0.15); setTimeout(() => playTone(160, 0.5, 'sawtooth', 0.12), 250) }
 
