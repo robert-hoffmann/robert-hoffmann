@@ -18,6 +18,8 @@ const state = reactive<MusicPlayerState>({
   loop     : true,
   elapsed  : 0,
   duration : 0,
+  volume   : 0.8,
+  muted    : false,
 })
 
 /**
@@ -160,6 +162,36 @@ function toggleLoop() {
   if (audioRef.value) audioRef.value.loop = state.loop
 }
 
+/* -- Volume controls ---------------------------------------- */
+
+/** Volume level stored before muting so it can be restored */
+let preMuteVolume = state.volume
+
+function setVolume(vol: number) {
+  const clamped = Math.max(0, Math.min(1, vol))
+  state.volume = clamped
+  state.muted  = clamped === 0
+  if (audioRef.value) {
+    audioRef.value.volume = clamped
+    audioRef.value.muted  = clamped === 0
+  }
+}
+
+function toggleMute() {
+  if (state.muted) {
+    /* Unmute — restore previous level (fallback to 0.8 if it was 0) */
+    setVolume(preMuteVolume || 0.8)
+  } else {
+    preMuteVolume = state.volume
+    setVolume(0)
+  }
+}
+
+function onVolumeInput(event: Event) {
+  const target = event.target as HTMLInputElement
+  setVolume(Number(target.value))
+}
+
 /* -- Audio event handlers ----------------------------------- */
 
 function onAudioPlay()       { state.playing = true;  state.paused = false; startEqLoop() }
@@ -290,6 +322,45 @@ onUnmounted(() => {
           </svg>
         </button>
       </div>
+    </div>
+
+    <!-- Volume control -->
+    <div class="music-player-volume">
+      <button
+        class="music-player-btn music-player-btn--sm music-player-volume-icon"
+        type="button"
+        :aria-label="state.muted ? t('music.unmute') : t('music.mute')"
+        @click="toggleMute"
+      >
+        <!-- Muted / zero -->
+        <svg v-if="state.muted || state.volume === 0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" />
+          <line x1="23" y1="9" x2="17" y2="15" />
+          <line x1="17" y1="9" x2="23" y2="15" />
+        </svg>
+        <!-- Low volume -->
+        <svg v-else-if="state.volume < 0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" />
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+        </svg>
+        <!-- High volume -->
+        <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" />
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+        </svg>
+      </button>
+      <input
+        class="music-player-volume-slider"
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        :value="state.muted ? 0 : state.volume"
+        :aria-label="t('music.volume')"
+        @input="onVolumeInput"
+      />
+      <span class="music-player-volume-pct">{{ Math.round((state.muted ? 0 : state.volume) * 100) }}%</span>
     </div>
 
     <!-- EQ bars — driven by Web Audio FFT data -->

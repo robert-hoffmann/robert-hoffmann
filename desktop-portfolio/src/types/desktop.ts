@@ -101,4 +101,6 @@ export interface MusicPlayerState {
   loop     : boolean
   elapsed  : number
   duration : number
+  volume   : number
+  muted    : boolean
 }

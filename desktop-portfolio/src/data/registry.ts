@@ -53,8 +53,8 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'folder',
     defaultCol    : 1,
     defaultRow    : 2,
-    defaultWidth  : 561,
-    defaultHeight : 768,
+    defaultWidth  : 469,
+    defaultHeight : 691,
     component     : () => import('../components/ProjectsApp.vue'),
   },
   resume : {
@@ -64,8 +64,8 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'file',
     defaultCol    : 14,
     defaultRow    : 2,
-    defaultWidth  : 565,
-    defaultHeight : 763,
+    defaultWidth  : 546,
+    defaultHeight : 760,
     component     : () => import('../components/ResumeApp.vue'),
   },
   twitter : {
@@ -123,8 +123,8 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'app',
     defaultCol    : 1,
     defaultRow    : 8,
-    defaultWidth  : 452,
-    defaultHeight : 221,
+    defaultWidth  : 391,
+    defaultHeight : 244,
     component     : () => import('../components/MusicApp.vue'),
   },
   video : {

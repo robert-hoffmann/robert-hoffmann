@@ -36,11 +36,11 @@ const OWNER_NAME = 'Robert Hoffmann'
 
 /* ---- default windows to open on first visit ---- */
 const DEFAULT_WINDOWS = [
-  { itemId : 'projects', x : 150,  y : 90,  w : 561, h : 768, zIndex : 100 },
-  { itemId : 'about',    x : 557,  y : 36,  w : 497, h : 794, zIndex : 101 },
+  { itemId : 'projects', x : 150,  y : 90,  w : 469, h : 691, zIndex : 100 },
+  { itemId : 'about',    x : 558,  y : 37,  w : 497, h : 794, zIndex : 101 },
   { itemId : 'video',    x : 886,  y : 403, w : 466, h : 388, zIndex : 102 },
-  { itemId : 'music',    x : 721,  y : 650, w : 452, h : 221, zIndex : 103 },
-  { itemId : 'resume',   x : 1454, y : 70,  w : 565, h : 763, zIndex : 104 },
+  { itemId : 'music',    x : 721,  y : 650, w : 391, h : 244, zIndex : 103 },
+  { itemId : 'resume',   x : 1433, y : 69,  w : 546, h : 760, zIndex : 104 },
 ]
 
 /* ---- helpers ---- */
