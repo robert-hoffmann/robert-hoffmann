@@ -19,6 +19,7 @@ const ui: Record<string, Localized> = {
   'topbar.openGeoWars'       : { en : 'Open GeoWars',       fr : 'Ouvrir GeoWars' },
   'topbar.openMusic'         : { en : 'Open Music',         fr : 'Ouvrir Musique' },
   'topbar.openVideo'         : { en : 'Open Video',         fr : 'Ouvrir Vidéo' },
+  'topbar.openTerminal'      : { en : 'Open Terminal',       fr : 'Ouvrir Terminal' },
   'topbar.openTwitter'       : { en : 'Open X (Twitter)',   fr : 'Ouvrir X (Twitter)' },
   'topbar.openLinkedIn'      : { en : 'Open LinkedIn',      fr : 'Ouvrir LinkedIn' },
   'topbar.openGitHub'        : { en : 'Open GitHub',        fr : 'Ouvrir GitHub' },

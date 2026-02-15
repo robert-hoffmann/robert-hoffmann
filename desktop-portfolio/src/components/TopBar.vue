@@ -44,6 +44,7 @@ const menuDefinitions = computed<MenuGroup[]>(() => [
       { id : 'f-extras',   label : t('topbar.openGeoWars'),   shortcut : '⌘4', action : 'open:extras' },
       { id : 'f-music',    label : t('topbar.openMusic'),     shortcut : '⌘5', action : 'open:music' },
       { id : 'f-video',    label : t('topbar.openVideo'),     shortcut : '⌘6', action : 'open:video' },
+      { id : 'f-terminal', label : t('topbar.openTerminal'),  shortcut : '⌘7', action : 'open:terminal' },
       { type : 'separator' },
       { id : 'f-twitter',  label : t('topbar.openTwitter'),                     action : 'open:twitter' },
       { id : 'f-linkedin', label : t('topbar.openLinkedIn'),                    action : 'open:linkedin' },

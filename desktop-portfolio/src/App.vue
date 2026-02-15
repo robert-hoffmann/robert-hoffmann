@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { onMounted, provide, watch } from 'vue'
 import TopBar from './components/TopBar.vue'
 import Dock from './components/Dock.vue'
 import AppWindow from './components/AppWindow.vue'
@@ -52,6 +52,9 @@ function openItem(itemId: string) {
   }
   wm.openWindow(itemId, locale.value)
 }
+
+/* Expose openItem to child components (used by TerminalApp) */
+provide('openApp', openItem)
 
 
 function resetDesktop() {

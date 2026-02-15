@@ -21,6 +21,7 @@ const titles: Record<string, Record<Locale, string>> = {
   extras   : { en : 'GeoWars.app',   fr : 'GeoWars.app' },
   music    : { en : 'Music',         fr : 'Musique' },
   video    : { en : 'Video',         fr : 'Vidéo' },
+  terminal : { en : 'Terminal',      fr : 'Terminal' },
 }
 
 /** Resolve a registry entry's title for the given locale */
@@ -138,6 +139,18 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     defaultWidth  : 466,
     defaultHeight : 388,
     component     : () => import('../components/VideoApp.vue'),
+  },
+  terminal : {
+    id            : 'terminal',
+    title         : 'Terminal',
+    icon          : '>_',
+    iconUrl       : `${import.meta.env.BASE_URL}icons/terminal.svg`,
+    type          : 'app',
+    defaultCol    : 1,
+    defaultRow    : 4,
+    defaultWidth  : 680,
+    defaultHeight : 420,
+    component     : () => import('../components/TerminalApp.vue'),
   },
 }
 

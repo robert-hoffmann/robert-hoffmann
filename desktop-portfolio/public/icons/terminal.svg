@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#434354"/>
+      <stop offset="100%" stop-color="#1e1e2e"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3b3b4f"/>
+      <stop offset="100%" stop-color="#2a2a3d"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded app body -->
+  <rect x="4" y="4" width="112" height="112" rx="24" fill="url(#bg)"/>
+  <!-- Gloss overlay -->
+  <rect x="4" y="4" width="112" height="56" rx="24" fill="url(#shine)"/>
+  <!-- Title bar -->
+  <rect x="12" y="12" width="96" height="18" rx="6" fill="url(#bar)" opacity="0.7"/>
+  <!-- Traffic lights -->
+  <circle cx="24" cy="21" r="3.5" fill="#ff5f57"/>
+  <circle cx="36" cy="21" r="3.5" fill="#febc2e"/>
+  <circle cx="48" cy="21" r="3.5" fill="#28c840"/>
+  <!-- Prompt chevron > -->
+  <path d="M28 52 L48 68 L28 84" fill="none" stroke="#a3be8c" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Cursor underscore _ -->
+  <rect x="58" y="76" width="28" height="6" rx="3" fill="#a3be8c" opacity="0.9"/>
+  <!-- Faint output lines -->
+  <rect x="58" y="52" width="40" height="4" rx="2" fill="#6c7086" opacity="0.5"/>
+  <rect x="58" y="62" width="32" height="4" rx="2" fill="#6c7086" opacity="0.35"/>
+  <!-- Tmux bar at bottom -->
+  <rect x="12" y="94" width="96" height="14" rx="5" fill="#2e3440" opacity="0.8"/>
+  <rect x="18" y="98" width="8" height="6" rx="2" fill="#a3be8c" opacity="0.7"/>
+  <rect x="30" y="98" width="20" height="6" rx="2" fill="#6c7086" opacity="0.5"/>
+  <rect x="78" y="98" width="24" height="6" rx="2" fill="#6c7086" opacity="0.4"/>
+</svg>
