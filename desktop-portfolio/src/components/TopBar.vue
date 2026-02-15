@@ -2,14 +2,29 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import type { MenuItem, MenuGroup } from '../types/desktop'
 import { useLocale } from '../composables/useLocale'
+import { useViewMode } from '../composables/useViewMode'
 
 const { t, locale, toggleLocale } = useLocale()
+const { viewMode, toggleViewMode } = useViewMode()
+
+const isFullscreen = ref(false)
+
+function toggleFullscreen() {
+  if (document.fullscreenElement) {
+    void document.exitFullscreen()
+  } else {
+    void document.documentElement.requestFullscreen()
+  }
+}
+
+function onFullscreenChange() {
+  isFullscreen.value = !!document.fullscreenElement
+}
 
 defineProps<{
   ownerName          : string
   focusedWindowTitle : string | null
   theme              : string
-  weatherLabel       : string
 }>()
 
 const emit = defineEmits<{
@@ -110,11 +125,13 @@ function updateClock() {
 onMounted(() => {
   updateClock()
   clockInterval = setInterval(updateClock, 15_000)
+  document.addEventListener('fullscreenchange', onFullscreenChange)
 })
 
 onUnmounted(() => {
   if (clockInterval) clearInterval(clockInterval)
   if (menuLeaveTimer) clearTimeout(menuLeaveTimer)
+  document.removeEventListener('fullscreenchange', onFullscreenChange)
 })
 </script>
 
@@ -165,8 +182,29 @@ onUnmounted(() => {
     </div>
 
     <div class="topbar-group topbar-group--right">
-      <span class="status-pill">{{ weatherLabel }}</span>
       <span class="status-pill mono">{{ timeLabel }}</span>
+
+      <!-- View-mode toggle (desktop ↔ mobile preview) -->
+      <span class="locale-toggle" role="radiogroup" :aria-label="t('topbar.viewToggle')">
+        <button
+          class="locale-toggle-btn"
+          :class="{ 'locale-toggle-btn--active': viewMode === 'desktop' }"
+          type="button"
+          role="radio"
+          :aria-checked="viewMode === 'desktop'"
+          @click="viewMode !== 'desktop' && toggleViewMode()"
+        >🖥</button>
+        <button
+          class="locale-toggle-btn"
+          :class="{ 'locale-toggle-btn--active': viewMode === 'mobile' }"
+          type="button"
+          role="radio"
+          :aria-checked="viewMode === 'mobile'"
+          @click="viewMode !== 'mobile' && toggleViewMode()"
+        >📱</button>
+      </span>
+
+      <!-- Locale toggle -->
       <span class="locale-toggle" role="radiogroup" :aria-label="t('topbar.toggleLocale')">
         <button
           class="locale-toggle-btn"
@@ -191,6 +229,12 @@ onUnmounted(() => {
         :aria-label="t('topbar.switchTheme', { theme: t(`theme.${theme === 'dark' ? 'light' : 'dark'}`) })"
         @click="emit('toggleTheme')"
       >{{ theme === 'dark' ? '☀︎' : '☾' }}</button>
+      <button
+        class="topbar-icon-btn"
+        type="button"
+        :aria-label="t('topbar.toggleFullscreen')"
+        @click="toggleFullscreen"
+      ><svg class="topbar-fs-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><template v-if="!isFullscreen"><polyline points="1 5.5 1 1 5.5 1" /><polyline points="10.5 1 15 1 15 5.5" /><polyline points="15 10.5 15 15 10.5 15" /><polyline points="5.5 15 1 15 1 10.5" /></template><template v-else><polyline points="5.5 1 5.5 5.5 1 5.5" /><polyline points="15 5.5 10.5 5.5 10.5 1" /><polyline points="10.5 15 10.5 10.5 15 10.5" /><polyline points="1 10.5 5.5 10.5 5.5 15" /></template></svg></button>
       <button class="topbar-icon-btn" type="button" :aria-label="t('topbar.resetDesktopAria')" @click="emit('reset')">↺</button>
     </div>
   </header>

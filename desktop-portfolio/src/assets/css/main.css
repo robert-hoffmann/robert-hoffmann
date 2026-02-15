@@ -213,6 +213,14 @@
     overflow   : hidden;
   }
 
+  /* Allow scrolling when in mobile layout */
+  html:has(.mobile-root),
+  html:has(.mobile-root) body {
+    overflow        : auto;
+    block-size      : auto;
+    scroll-behavior : smooth;
+  }
+
   body {
     font-family   : var(--font-sans);
     font-size     : var(--text-base);

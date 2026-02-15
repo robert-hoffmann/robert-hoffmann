@@ -10,6 +10,7 @@ import type { DesktopItem, SessionState, WindowState } from '../types/desktop'
 import { useWindowManager } from './useWindowManager'
 import { useTheme } from './useTheme'
 import { useLocale } from './useLocale'
+import { useViewMode } from './useViewMode'
 import { debounce, safeParse } from '../utils'
 import { getDefaultDesktopItems, windowRegistry } from '../data/registry'
 
@@ -100,11 +101,18 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
   /* ---- deep links ---- */
   function applyDeepLinks(): boolean {
     try {
-      const params = new URLSearchParams(window.location.search)
+      const params     = new URLSearchParams(window.location.search)
       const themeParam = params.get('theme')
       const langParam  = params.get('lang')
       const openParam  = params.get('open')
       const focusParam = params.get('focus')
+      const viewParam  = params.get('view')
+
+      /* View-mode override (desktop/mobile) — session-only, not persisted */
+      if (viewParam === 'mobile' || viewParam === 'desktop') {
+        const { setViewOverride } = useViewMode()
+        setViewOverride(viewParam)
+      }
 
       if (themeParam === 'light' || themeParam === 'dark') {
         th.setTheme(themeParam)
@@ -126,7 +134,7 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
         if (win) wm.focusWindow(win.id)
       }
 
-      return !!(themeParam || langParam || openParam || focusParam)
+      return !!(themeParam || langParam || openParam || focusParam || viewParam)
     } catch {
       return false
     }

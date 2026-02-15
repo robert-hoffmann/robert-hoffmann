@@ -69,6 +69,9 @@ export type Theme = 'dark' | 'light'
 /** Supported locales */
 export type Locale = 'en' | 'fr'
 
+/** View mode for desktop vs mobile layout */
+export type ViewMode = 'desktop' | 'mobile'
+
 /** Bilingual text field — keyed by locale */
 export type Localized = Record<Locale, string>
 

@@ -36,6 +36,7 @@ const ui: Record<string, Localized> = {
   'topbar.desktop'           : { en : 'Desktop',            fr : 'Bureau' },
   'topbar.switchTheme'       : { en : 'Switch to {theme} theme', fr : 'Passer au thème {theme}' },
   'topbar.resetDesktopAria'  : { en : 'Reset desktop',      fr : 'Réinitialiser le bureau' },
+  'topbar.toggleFullscreen'  : { en : 'Toggle fullscreen',   fr : 'Basculer le plein écran' },
   'topbar.toggleLocale'      : { en : 'Switch to French',   fr : 'Passer en anglais' },
 
   /* ---- Toasts ---- */
@@ -102,6 +103,20 @@ const ui: Record<string, Localized> = {
   /* ---- Theme names (for interpolation) ---- */
   'theme.dark'               : { en : 'dark',               fr : 'sombre' },
   'theme.light'              : { en : 'light',              fr : 'clair' },
+
+  /* ---- Mobile layout ---- */
+  'mobile.about'             : { en : 'About',              fr : 'À propos' },
+  'mobile.resume'            : { en : 'Resume',             fr : 'CV' },
+  'mobile.projects'          : { en : 'Projects',           fr : 'Projets' },
+  'mobile.nav'               : { en : 'Section navigation', fr : 'Navigation de section' },
+  'mobile.footer'            : { en : 'Social links and site info', fr : 'Liens sociaux et informations du site' },
+  'mobile.desktopTeaser'     : { en : 'Visit this site on a desktop for an interactive macOS-style experience ✨',
+                                 fr : 'Visitez ce site sur un ordinateur pour une expérience interactive style macOS ✨' },
+
+  /* ---- View-mode toggle (desktop only) ---- */
+  'topbar.viewToggle'        : { en : 'Toggle desktop / mobile preview', fr : 'Basculer aperçu bureau / mobile' },
+  'toast.switchedToMobile'   : { en : 'Switched to mobile preview',    fr : 'Aperçu mobile activé' },
+  'toast.switchedToDesktop'  : { en : 'Switched to desktop view',      fr : 'Vue bureau activée' },
 } as const
 
 export default ui

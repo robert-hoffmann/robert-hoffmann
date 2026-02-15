@@ -4,6 +4,7 @@ import TopBar from './components/TopBar.vue'
 import Dock from './components/Dock.vue'
 import AppWindow from './components/AppWindow.vue'
 import DesktopIcon from './components/DesktopIcon.vue'
+import MobileApp from './components/MobileApp.vue'
 import { useWindowManager } from './composables/useWindowManager'
 import { useDesktopIcons } from './composables/useDesktopIcons'
 import { useTheme } from './composables/useTheme'
@@ -12,14 +13,18 @@ import { useLocale } from './composables/useLocale'
 import { useDraggable } from './composables/useDraggable'
 import { useResizable } from './composables/useResizable'
 import { useSessionPersistence } from './composables/useSessionPersistence'
+import { useViewMode } from './composables/useViewMode'
 import { windowRegistry } from './data/registry'
 
-/* ---- composables ---- */
-const wm    = useWindowManager()
-const icons = useDesktopIcons()
+/* ---- shared composables (used in both views) ---- */
 const theme = useTheme()
 const toast = useToast()
 const { t, locale } = useLocale()
+const { isMobile }  = useViewMode()
+
+/* ---- desktop-only composables ---- */
+const wm    = useWindowManager()
+const icons = useDesktopIcons()
 
 const findWindow = (id: string) => wm.state.windows.find(w => w.id === id)
 const { startDrag }   = useDraggable(findWindow)
@@ -27,8 +32,7 @@ const { startResize } = useResizable(findWindow)
 const session         = useSessionPersistence(icons.items)
 
 /* ---- constants ---- */
-const OWNER_NAME    = 'Robert Hoffmann'
-const WEATHER_LABEL = '22 °C ☀'
+const OWNER_NAME = 'Robert Hoffmann'
 
 /* ---- default windows to open on first visit ---- */
 const DEFAULT_WINDOWS = [
@@ -177,6 +181,9 @@ function onDockToggle(windowId: string) {
 
 /* ---- lifecycle ---- */
 onMounted(() => {
+  /* Skip desktop window initialisation when in mobile mode */
+  if (isMobile.value) return
+
   /* Restore saved state or apply deep-link params */
   const hasDeepLinks = session.applyDeepLinks()
   if (!hasDeepLinks) {
@@ -200,18 +207,22 @@ onMounted(() => {
 
 /* ---- locale watcher — re-derive titles when locale changes ---- */
 watch(locale, (loc) => {
+  if (isMobile.value) return
   wm.updateTitlesForLocale(loc)
   icons.updateTitlesForLocale(loc)
 })
 </script>
 
 <template>
-  <div class="desktop-root" :data-theme="theme.theme.value">
+  <!-- ---- Mobile layout ---- -->
+  <MobileApp v-if="isMobile" />
+
+  <!-- ---- Desktop layout ---- -->
+  <div v-else class="desktop-root" :data-theme="theme.theme.value">
     <TopBar
       :owner-name="OWNER_NAME"
       :focused-window-title="wm.focusedWindowTitle.value"
       :theme="theme.theme.value"
-      :weather-label="WEATHER_LABEL"
       @menu-action="onMenuAction"
       @toggle-theme="theme.toggle()"
       @reset="resetDesktop"
