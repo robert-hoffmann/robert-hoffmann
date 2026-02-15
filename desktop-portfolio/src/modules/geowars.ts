@@ -34,7 +34,8 @@ const BLOOM_STRENGTH  = 1.3
 const BLOOM_RADIUS    = 0.45
 const BLOOM_THRESHOLD = 0.1
 const GRID_DIVISIONS  = 24
-const GRID_HALF       = 18
+const GRID_HALF_Y     = 18
+const GRID_HALF_X     = GRID_HALF_Y * 1.6   // 16:10 aspect
 
 /* Neon palette */
 const COL = {
@@ -153,6 +154,120 @@ const _v3 = new THREE.Vector3()
 let resizeObs: ResizeObserver | null = null
 
 /* ----------------------------------------------------------
+   THRUST AUDIO — Rocket thruster roar
+   ----------------------------------------------------------
+   Rocket thrust is mostly turbulent noise, not tonal.
+   Two noise layers (low rumble + mid crackle) through a
+   waveshaper for grit, plus a subtle sub-bass sine for body.
+   ---------------------------------------------------------- */
+const THRUST_VOL_MAX = 0.09
+
+let thrustNoiseLow: AudioBufferSourceNode | null  = null
+let thrustNoiseHigh: AudioBufferSourceNode | null  = null
+let thrustSub: OscillatorNode | null               = null
+let thrustLowGain: GainNode | null                 = null
+let thrustHighGain: GainNode | null                = null
+let thrustSubGain: GainNode | null                 = null
+let thrustLowFilter: BiquadFilterNode | null       = null
+let thrustHighFilter: BiquadFilterNode | null      = null
+let thrustShaper: WaveShaperNode | null            = null
+
+/** Soft-clip distortion curve for crackle/grit. */
+function makeDistortionCurve(amount: number): Float32Array<ArrayBuffer> {
+  const n = 256
+  const curve = new Float32Array(n) as Float32Array<ArrayBuffer>
+  for (let i = 0; i < n; i++) {
+    const x = (i * 2) / n - 1
+    curve[i] = (Math.PI + amount) * x / (Math.PI + amount * Math.abs(x))
+  }
+  return curve
+}
+
+function startThrust() {
+  const ctx = ensureAudio()
+  if (!ctx || thrustNoiseLow) return
+
+  /* Shared noise buffer — 4 s of white noise */
+  const dur  = 4
+  const buf  = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate)
+  const data = buf.getChannelData(0)
+  for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1
+
+  /* Waveshaper on a shared bus for crackle */
+  thrustShaper = ctx.createWaveShaper()
+  thrustShaper.curve = makeDistortionCurve(8)
+  thrustShaper.oversample = '2x'
+  thrustShaper.connect(ctx.destination)
+
+  /* Low rumble noise — lowpass filtered, drives the body */
+  thrustNoiseLow        = ctx.createBufferSource()
+  thrustNoiseLow.buffer = buf
+  thrustNoiseLow.loop   = true
+  thrustLowFilter       = ctx.createBiquadFilter()
+  thrustLowFilter.type  = 'lowpass'
+  thrustLowFilter.frequency.value = 150
+  thrustLowFilter.Q.value = 0.5
+  thrustLowGain = ctx.createGain()
+  thrustLowGain.gain.value = 0
+  thrustNoiseLow.connect(thrustLowFilter).connect(thrustLowGain).connect(thrustShaper)
+  thrustNoiseLow.start()
+
+  /* Mid-high crackle noise — bandpass for turbulence texture */
+  thrustNoiseHigh        = ctx.createBufferSource()
+  thrustNoiseHigh.buffer = buf
+  thrustNoiseHigh.loop   = true
+  /* Offset start so the two layers don't correlate */
+  thrustNoiseHigh.loopStart = 1.7
+  thrustHighFilter       = ctx.createBiquadFilter()
+  thrustHighFilter.type  = 'bandpass'
+  thrustHighFilter.frequency.value = 800
+  thrustHighFilter.Q.value = 0.4
+  thrustHighGain = ctx.createGain()
+  thrustHighGain.gain.value = 0
+  thrustNoiseHigh.connect(thrustHighFilter).connect(thrustHighGain).connect(thrustShaper)
+  thrustNoiseHigh.start()
+
+  /* Sub-bass sine — subtle physical rumble you feel more than hear */
+  thrustSub           = ctx.createOscillator()
+  thrustSub.type      = 'sine'
+  thrustSub.frequency.value = 30
+  thrustSubGain       = ctx.createGain()
+  thrustSubGain.gain.value = 0
+  thrustSub.connect(thrustSubGain).connect(ctx.destination)
+  thrustSub.start()
+}
+
+function stopThrust() {
+  try { thrustNoiseLow?.stop() }  catch { /* already stopped */ }
+  try { thrustNoiseHigh?.stop() } catch { /* already stopped */ }
+  thrustSub?.stop()
+  thrustNoiseLow = null; thrustNoiseHigh = null; thrustSub = null
+  thrustLowGain = null; thrustHighGain = null; thrustSubGain = null
+  thrustLowFilter = null; thrustHighFilter = null
+  if (thrustShaper) { try { thrustShaper.disconnect() } catch { /* ok */ } thrustShaper = null }
+}
+
+/** Call every frame with the ship's current speed normalised 0…1. */
+function updateThrustAudio(t: number) {
+  if (!thrustLowGain || !thrustHighGain || !thrustSubGain
+    || !thrustLowFilter || !thrustHighFilter || !thrustSub || !audioCtx) return
+  const now = audioCtx.currentTime
+  const s   = 0.04                                     // smoothing time constant
+
+  /* Low rumble — volume scales linearly, filter opens with thrust */
+  thrustLowGain.gain.setTargetAtTime(t * THRUST_VOL_MAX, now, s)
+  thrustLowFilter.frequency.setTargetAtTime(150 + t * 350, now, s)
+
+  /* Mid crackle — kicks in harder at higher thrust (quadratic) */
+  thrustHighGain.gain.setTargetAtTime(t * t * THRUST_VOL_MAX * 0.7, now, s)
+  thrustHighFilter.frequency.setTargetAtTime(800 + t * 1400, now, s)
+
+  /* Sub-bass rumble — gentle pitch rise */
+  thrustSubGain.gain.setTargetAtTime(t * THRUST_VOL_MAX * 0.5, now, s)
+  thrustSub.frequency.setTargetAtTime(30 + t * 18, now, s)
+}
+
+/* ----------------------------------------------------------
    AUDIO — Web Audio SFX (procedural)
    ---------------------------------------------------------- */
 let audioCtx: AudioContext | null = null
@@ -177,21 +292,6 @@ function playTone(freq: number, duration: number, type: OscillatorType = 'square
   osc.connect(gain).connect(ctx.destination)
   osc.start(ctx.currentTime)
   osc.stop(ctx.currentTime + duration)
-}
-
-function playNoise(duration = 0.08, vol = 0.10) {
-  const ctx = ensureAudio()
-  if (!ctx) return
-  const buf  = ctx.createBuffer(1, Math.floor(ctx.sampleRate * duration), ctx.sampleRate)
-  const data = buf.getChannelData(0)
-  for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * 0.5
-  const src  = ctx.createBufferSource()
-  const gain = ctx.createGain()
-  src.buffer = buf
-  gain.gain.setValueAtTime(vol, ctx.currentTime)
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration)
-  src.connect(gain).connect(ctx.destination)
-  src.start()
 }
 
 function sfxShoot() {
@@ -424,10 +524,9 @@ function buildScene(w: number, h: number) {
   container!.appendChild(renderer.domElement)
 
   scene  = new THREE.Scene()
-  const aspect = w / h
-  const viewH  = GRID_HALF * 2
-  const viewW  = viewH * aspect
-  camera = new THREE.OrthographicCamera(-viewW / 2, viewW / 2, viewH / 2, -viewH / 2, 0.1, 100)
+  camera = new THREE.OrthographicCamera(
+    -GRID_HALF_X, GRID_HALF_X, GRID_HALF_Y, -GRID_HALF_Y, 0.1, 100,
+  )
   camera.position.z = 10
 
   try {
@@ -444,12 +543,18 @@ function buildScene(w: number, h: number) {
 }
 
 function buildGrid() {
-  const step = (GRID_HALF * 2) / GRID_DIVISIONS
+  const stepX = (GRID_HALF_X * 2) / GRID_DIVISIONS
+  const stepY = (GRID_HALF_Y * 2) / GRID_DIVISIONS
   const pts: THREE.Vector3[] = []
+  /* Vertical lines */
   for (let i = 0; i <= GRID_DIVISIONS; i++) {
-    const t = -GRID_HALF + i * step
-    pts.push(new THREE.Vector3(t, -GRID_HALF, 0), new THREE.Vector3(t, GRID_HALF, 0))
-    pts.push(new THREE.Vector3(-GRID_HALF, t, 0), new THREE.Vector3(GRID_HALF, t, 0))
+    const x = -GRID_HALF_X + i * stepX
+    pts.push(new THREE.Vector3(x, -GRID_HALF_Y, 0), new THREE.Vector3(x, GRID_HALF_Y, 0))
+  }
+  /* Horizontal lines */
+  for (let i = 0; i <= GRID_DIVISIONS; i++) {
+    const y = -GRID_HALF_Y + i * stepY
+    pts.push(new THREE.Vector3(-GRID_HALF_X, y, 0), new THREE.Vector3(GRID_HALF_X, y, 0))
   }
   const geo = new THREE.BufferGeometry().setFromPoints(pts)
   const mat = new THREE.LineBasicMaterial({
@@ -498,7 +603,7 @@ function updateBullets() {
     b.x += b.vx * 0.016
     b.y += b.vy * 0.016
     b.life--
-    if (b.life <= 0 || Math.abs(b.x) > GRID_HALF || Math.abs(b.y) > GRID_HALF) {
+    if (b.life <= 0 || Math.abs(b.x) > GRID_HALF_X || Math.abs(b.y) > GRID_HALF_Y) {
       b.alive = false; b.mesh.visible = false; continue
     }
     b.mesh.position.set(b.x, b.y, 0)
@@ -517,12 +622,11 @@ function spawnEnemy() {
   let ex = 0, ey = 0, attempts = 0
   do {
     const edge = Math.floor(Math.random() * 4)
-    const t    = (Math.random() - 0.5) * 2 * (GRID_HALF - 1)
     switch (edge) {
-      case 0 : ex = t;              ey =  GRID_HALF - 1; break
-      case 1 : ex = t;              ey = -GRID_HALF + 1; break
-      case 2 : ex =  GRID_HALF - 1; ey = t;              break
-      default: ex = -GRID_HALF + 1; ey = t;              break
+      case 0 : { const t = (Math.random() - 0.5) * 2 * (GRID_HALF_X - 1); ex = t; ey =  GRID_HALF_Y - 1; break }
+      case 1 : { const t = (Math.random() - 0.5) * 2 * (GRID_HALF_X - 1); ex = t; ey = -GRID_HALF_Y + 1; break }
+      case 2 : { const t = (Math.random() - 0.5) * 2 * (GRID_HALF_Y - 1); ex =  GRID_HALF_X - 1; ey = t; break }
+      default: { const t = (Math.random() - 0.5) * 2 * (GRID_HALF_Y - 1); ex = -GRID_HALF_X + 1; ey = t; break }
     }
     attempts++
   } while (player && Math.hypot(ex - player.x, ey - player.y) < SPAWN_MARGIN && attempts < 20)
@@ -564,8 +668,8 @@ function updateEnemies() {
     e.vy = (dy / dist) * spd
     e.x += e.vx * 0.016
     e.y += e.vy * 0.016
-    e.x = clamp(e.x, -GRID_HALF + 0.5, GRID_HALF - 0.5)
-    e.y = clamp(e.y, -GRID_HALF + 0.5, GRID_HALF - 0.5)
+    e.x = clamp(e.x, -GRID_HALF_X + 0.5, GRID_HALF_X - 0.5)
+    e.y = clamp(e.y, -GRID_HALF_Y + 0.5, GRID_HALF_Y - 0.5)
     e.mesh.position.set(e.x, e.y, 0)
     e.mesh.rotation.z += 0.02 * e.type.speed
   }
@@ -755,8 +859,14 @@ function updatePlayer() {
 
   playerVX *= PLAYER_DRAG
   playerVY *= PLAYER_DRAG
-  player.x = clamp(player.x + playerVX, -GRID_HALF + 0.6, GRID_HALF - 0.6)
-  player.y = clamp(player.y + playerVY, -GRID_HALF + 0.6, GRID_HALF - 0.6)
+
+  /* Update thrust audio based on current speed */
+  const speed = Math.hypot(playerVX, playerVY)
+  const maxSpeed = PLAYER_SPEED * 0.25          // practical max after drag
+  updateThrustAudio(clamp(speed / maxSpeed, 0, 1))
+
+  player.x = clamp(player.x + playerVX, -GRID_HALF_X + 0.6, GRID_HALF_X - 0.6)
+  player.y = clamp(player.y + playerVY, -GRID_HALF_Y + 0.6, GRID_HALF_Y - 0.6)
   playerGroup.position.set(player.x, player.y, 0)
   playerGroup.rotation.z = aimAngle + Math.PI / 2
 
@@ -777,13 +887,10 @@ function handleResize() {
   const h = container.clientHeight
   if (w === 0 || h === 0) return
   renderer.setSize(w, h)
-  const aspect = w / h
-  const viewH  = GRID_HALF * 2
-  const viewW  = viewH * aspect
-  camera.left   = -viewW / 2
-  camera.right  =  viewW / 2
-  camera.top    =  viewH / 2
-  camera.bottom = -viewH / 2
+  camera.left   = -GRID_HALF_X
+  camera.right  =  GRID_HALF_X
+  camera.top    =  GRID_HALF_Y
+  camera.bottom = -GRID_HALF_Y
   camera.updateProjectionMatrix()
   if (composer) {
     composer.setSize(w, h)
@@ -851,6 +958,7 @@ export function init(containerEl: HTMLElement) {
   running = true
   resetGameState()
   startMusic()
+  startThrust()
   startWave()
   tick()
 }
@@ -858,6 +966,7 @@ export function init(containerEl: HTMLElement) {
 export function destroy() {
   running = false
   stopMusic()
+  stopThrust()
   unbindInput()
   if (raf) { cancelAnimationFrame(raf); raf = null }
   if (resizeObs) { resizeObs.disconnect(); resizeObs = null }
@@ -903,14 +1012,16 @@ export function destroy() {
 export function restart() {
   if (!running) return
   stopMusic()
+  stopThrust()
   resetGameState()
   startMusic()
+  startThrust()
   startWave()
 }
 
 export function togglePause() {
   if (state.gameOver) return
   state.paused = !state.paused
-  if (state.paused) pauseMusic()
+  if (state.paused) { pauseMusic(); updateThrustAudio(0) }
   else resumeMusic()
 }

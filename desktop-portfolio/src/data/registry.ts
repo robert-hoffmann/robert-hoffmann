@@ -113,8 +113,8 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'app',
     defaultCol    : 1,
     defaultRow    : 5,
-    defaultWidth  : 560,
-    defaultHeight : 420,
+    defaultWidth  : 640,
+    defaultHeight : 400,
     component     : () => import('../components/GeoWarsApp.vue'),
   },
   music : {
