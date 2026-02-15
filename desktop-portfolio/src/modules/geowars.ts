@@ -201,6 +201,111 @@ function sfxWave()     { playTone(660, 0.10, 'sine', 0.10); setTimeout(() => pla
 function sfxGameOver() { playTone(220, 0.4, 'sawtooth', 0.15); setTimeout(() => playTone(160, 0.5, 'sawtooth', 0.12), 250) }
 
 /* ----------------------------------------------------------
+   BACKGROUND MUSIC — Procedural synthwave loop
+   ----------------------------------------------------------
+   A look-ahead scheduler plays bass + arpeggio patterns
+   through a shared GainNode so volume and muting are cheap.
+   ---------------------------------------------------------- */
+const MUSIC_BPM               = 128
+const MUSIC_STEP              = 60 / MUSIC_BPM / 4   // 16th-note duration (s)
+const MUSIC_LOOK_AHEAD        = 0.12                 // schedule window (s)
+const MUSIC_SCHEDULE_INTERVAL = 50                    // scheduler tick (ms)
+const MUSIC_VOL_BASS          = 0.010
+const MUSIC_VOL_ARP           = 0.007
+
+/* Frequencies — A minor key */
+const N = {
+  A2 : 110.00, C3 : 130.81, D3 : 146.83, E3 : 164.81,
+  F2 : 87.31,  G2 : 98.00,  F3 : 174.61, G3 : 196.00,
+  A3 : 220.00, C4 : 261.63, D4 : 293.66, E4 : 329.63,
+  F4 : 349.23, G4 : 392.00, A4 : 440.00,
+} as const
+
+/* 16-step bass pattern (0 = rest) */
+const BASS_PATTERN: readonly number[] = [
+  N.A2, 0, 0, N.A2,  0, 0, N.A2, 0,
+  N.F2, 0, 0, N.F2,  N.G2, 0, N.G2, 0,
+]
+
+/* 16-step arpeggio pattern */
+const ARP_PATTERN: readonly number[] = [
+  N.A4, N.E4, N.C4, N.E4,  N.A4, N.E4, N.C4, N.E4,
+  N.F4, N.C4, N.A3, N.C4,  N.G4, N.D4, N.A3, N.D4,
+]
+
+let musicGain: GainNode | null                       = null
+let musicScheduler: ReturnType<typeof setInterval> | null = null
+let musicStep                                         = 0
+let musicNextTime                                     = 0
+let musicPlaying                                      = false
+
+/** Schedule a single oscillator note on the music bus. */
+function scheduleMusicNote(
+  freq : number, time : number, dur : number,
+  type : OscillatorType, vol : number,
+) {
+  if (!audioCtx || !musicGain) return
+  const osc  = audioCtx.createOscillator()
+  const gain = audioCtx.createGain()
+  osc.type            = type
+  osc.frequency.value = freq
+  gain.gain.setValueAtTime(vol, time)
+  gain.gain.exponentialRampToValueAtTime(0.001, time + dur)
+  osc.connect(gain).connect(musicGain)
+  osc.start(time)
+  osc.stop(time + dur + 0.02)
+}
+
+/** Look-ahead scheduler tick — schedules notes within the look-ahead window. */
+function musicTick() {
+  if (!audioCtx || !musicGain) return
+  const deadline = audioCtx.currentTime + MUSIC_LOOK_AHEAD
+  while (musicNextTime < deadline) {
+    const step = musicStep % BASS_PATTERN.length
+    const bass = BASS_PATTERN[step]!
+    const arp  = ARP_PATTERN[step]!
+
+    if (bass > 0) scheduleMusicNote(bass, musicNextTime, MUSIC_STEP * 1.8, 'triangle', MUSIC_VOL_BASS)
+    if (arp  > 0) scheduleMusicNote(arp,  musicNextTime, MUSIC_STEP * 0.55, 'square',   MUSIC_VOL_ARP)
+
+    musicStep++
+    musicNextTime += MUSIC_STEP
+  }
+}
+
+function startMusic() {
+  const ctx = ensureAudio()
+  if (!ctx || musicPlaying) return
+  musicGain = ctx.createGain()
+  musicGain.gain.value = 1
+  musicGain.connect(ctx.destination)
+  musicStep     = 0
+  musicNextTime = ctx.currentTime + 0.05
+  musicPlaying  = true
+  musicScheduler = setInterval(musicTick, MUSIC_SCHEDULE_INTERVAL)
+}
+
+function stopMusic() {
+  if (musicScheduler) { clearInterval(musicScheduler); musicScheduler = null }
+  if (musicGain) {
+    try { musicGain.disconnect() } catch { /* already disconnected */ }
+    musicGain = null
+  }
+  musicPlaying = false
+}
+
+function pauseMusic() {
+  if (musicScheduler) { clearInterval(musicScheduler); musicScheduler = null }
+}
+
+function resumeMusic() {
+  if (!musicPlaying || musicScheduler) return
+  if (!audioCtx) return
+  musicNextTime = audioCtx.currentTime + 0.05
+  musicScheduler = setInterval(musicTick, MUSIC_SCHEDULE_INTERVAL)
+}
+
+/* ----------------------------------------------------------
    GEOMETRY HELPERS
    ---------------------------------------------------------- */
 function makeRing(sides: number, radius: number, color: number): THREE.LineLoop {
@@ -490,6 +595,7 @@ function onPlayerHit() {
     state.gameOver = true
     player.alive = false
     playerGroup.visible = false
+    pauseMusic()
     sfxGameOver()
     return
   }
@@ -661,12 +767,14 @@ export function init(containerEl: HTMLElement) {
   resizeObs.observe(container)
   running = true
   resetGameState()
+  startMusic()
   startWave()
   tick()
 }
 
 export function destroy() {
   running = false
+  stopMusic()
   unbindInput()
   if (raf) { cancelAnimationFrame(raf); raf = null }
   if (resizeObs) { resizeObs.disconnect(); resizeObs = null }
@@ -711,11 +819,15 @@ export function destroy() {
 
 export function restart() {
   if (!running) return
+  stopMusic()
   resetGameState()
+  startMusic()
   startWave()
 }
 
 export function togglePause() {
   if (state.gameOver) return
   state.paused = !state.paused
+  if (state.paused) pauseMusic()
+  else resumeMusic()
 }
