@@ -19,12 +19,12 @@ export const about = {
     en :
       'I use AI tools, agents, and workflows every day\u202F— for research, writing specs, ' +
       'reviewing codebases, and accelerating delivery. I\u2019m genuinely comfortable ' +
-      'with the whole stack, from prompt engineering to autonomous agent pipelines.',
+      'with the whole stack, from prompt engineering to raw code.',
     fr :
       'J\u2019utilise des outils d\u2019IA, des agents et des workflows au quotidien\u202F— ' +
       'pour la recherche, la rédaction de spécifications, la revue de code et ' +
       'l\u2019accélération des livraisons. Je suis réellement à l\u2019aise avec l\u2019ensemble ' +
-      'de la chaîne, du prompt engineering aux pipelines d\u2019agents autonomes.',
+      'de la chaîne, du prompt engineering au code brut.',
   } satisfies Localized,
 
   summary : {
