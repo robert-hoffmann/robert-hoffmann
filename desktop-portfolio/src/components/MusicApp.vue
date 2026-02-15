@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, onUnmounted, useTemplateRef } from 'vue'
+import { reactive, ref, shallowRef, triggerRef, onUnmounted, useTemplateRef } from 'vue'
 import { formatTime } from '../utils'
 import type { MusicPlayerState } from '../types/desktop'
 import { useLocale } from '../composables/useLocale'
@@ -20,8 +20,12 @@ const state = reactive<MusicPlayerState>({
   duration : 0,
 })
 
-/** Per-bar heights (0–100 %) driven by real FFT data */
-const barHeights = ref<number[]>(Array.from<number>({ length: EQ_BARS }).fill(0))
+/**
+ * Per-bar heights (0–100 %) driven by real FFT data.
+ * shallowRef avoids deep tracking — triggerRef is used for
+ * explicit, low-overhead updates at ~60 fps.
+ */
+const barHeights = shallowRef<number[]>(Array.from<number>({ length: EQ_BARS }).fill(0))
 
 /* -- Web Audio analyser ------------------------------------- */
 
@@ -71,8 +75,8 @@ function tickEq() {
     heights[i] = Math.max(8, (sum / binsPerBar / 255) * 100)
   }
 
-  /* Trigger reactivity (in-place mutation needs a manual trigger) */
-  barHeights.value = heights
+  /* Explicit trigger — no self-assignment, no deep tracking overhead */
+  triggerRef(barHeights)
 
   rafId = requestAnimationFrame(tickEq)
 }
@@ -84,8 +88,9 @@ function startEqLoop() {
 
 function stopEqLoop() {
   if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null }
-  /* Smoothly drop bars to baseline */
-  barHeights.value = Array.from<number>({ length: EQ_BARS }).fill(0)
+  /* Drop bars to baseline */
+  barHeights.value.fill(0)
+  triggerRef(barHeights)
 }
 
 /* -- Helpers ------------------------------------------------ */
@@ -121,11 +126,15 @@ function onSeekLeave() {
 
 /* -- Transport controls ------------------------------------- */
 
+/** Flag to distinguish user-initiated pauses from loop-boundary pauses */
+let userPause = false
+
 function onPlayPause() {
   const el = audioRef.value
   if (!el) return
 
   if (state.playing && !state.paused) {
+    userPause = true
     el.pause()
   } else {
     ensureAnalyser()
@@ -137,6 +146,7 @@ function onPlayPause() {
 function onStop() {
   const el = audioRef.value
   if (!el) return
+  userPause = true
   el.pause()
   el.currentTime = 0
   state.playing = false
@@ -153,7 +163,19 @@ function toggleLoop() {
 /* -- Audio event handlers ----------------------------------- */
 
 function onAudioPlay()       { state.playing = true;  state.paused = false; startEqLoop() }
-function onAudioPause()      { if (state.playing) state.paused = true; stopEqLoop() }
+function onAudioPause() {
+  if (!state.playing) return
+  /*
+   * When <audio loop> cycles, some browsers fire a transient
+   * pause → play pair.  Tearing down the rAF loop here causes
+   * allocation churn and a visible EQ flash every loop.
+   * Only act on explicit user-initiated pauses.
+   */
+  if (!userPause) return
+  userPause = false
+  state.paused = true
+  stopEqLoop()
+}
 function onAudioEnded()      { state.playing = false; state.paused = false; state.elapsed = 0; stopEqLoop() }
 function onDurationChange()  { state.duration = audioRef.value?.duration ?? 0 }
 function onTimeUpdate()      { state.elapsed  = audioRef.value?.currentTime ?? 0 }

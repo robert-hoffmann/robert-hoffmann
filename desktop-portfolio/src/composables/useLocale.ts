@@ -10,7 +10,16 @@ import type { Locale } from '../types/desktop'
 import { useToast } from './useToast'
 import ui from '../data/translations'
 
-const locale = ref<Locale>('en')
+/** Detect browser language preference — returns 'fr' for any fr variant, 'en' otherwise */
+function detectBrowserLocale(): Locale {
+  const langs = navigator.languages ?? [navigator.language]
+  for (const lang of langs) {
+    if (lang.startsWith('fr')) return 'fr'
+  }
+  return 'en'
+}
+
+const locale = ref<Locale>(detectBrowserLocale())
 
 export function useLocale() {
   const { show } = useToast()

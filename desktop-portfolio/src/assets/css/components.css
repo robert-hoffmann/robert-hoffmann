@@ -167,6 +167,39 @@
   }
 }
 
+/* ---- Locale toggle (EN | FR) ---- */
+.locale-toggle {
+  display        : inline-flex;
+  align-items    : center;
+  border-radius  : var(--radius-sm);
+  background     : var(--icon-hover-bg);
+  overflow       : hidden;
+}
+
+.locale-toggle-btn {
+  display         : inline-flex;
+  align-items     : center;
+  justify-content : center;
+  padding-inline  : var(--space-2);
+  padding-block   : 0.125rem;
+  font-size       : var(--text-xs);
+  font-weight     : 600;
+  color           : var(--text-tertiary);
+  opacity         : 0.45;
+  transition      : background var(--dur-fast) var(--ease-out),
+                    color var(--dur-fast) var(--ease-out),
+                    opacity var(--dur-fast) var(--ease-out);
+
+  &:hover:not(.locale-toggle-btn--active) {
+    opacity : 0.7;
+  }
+}
+
+.locale-toggle-btn--active {
+  color   : var(--text-primary);
+  opacity : 1;
+}
+
 .status-pill {
   display        : inline-flex;
   align-items    : center;

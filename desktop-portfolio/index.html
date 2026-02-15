@@ -104,17 +104,27 @@
     <script>
       (function () {
         try {
+          var lang = null;
           var params = new URLSearchParams(window.location.search);
-          var lang = params.get('lang');
-          if (lang === 'fr' || lang === 'en') {
-            document.documentElement.lang = lang;
+          var paramLang = params.get('lang');
+          if (paramLang === 'fr' || paramLang === 'en') {
+            lang = paramLang;
           } else {
             var raw = localStorage.getItem('desktop-portfolio-session');
             if (raw) {
               var data = JSON.parse(raw);
-              if (data.locale === 'fr') document.documentElement.lang = 'fr';
+              if (data.locale === 'fr' || data.locale === 'en') {
+                lang = data.locale;
+              }
             }
           }
+          if (!lang) {
+            var navLangs = navigator.languages || [navigator.language];
+            for (var i = 0; i < navLangs.length; i++) {
+              if (navLangs[i].indexOf('fr') === 0) { lang = 'fr'; break; }
+            }
+          }
+          if (lang) document.documentElement.lang = lang;
         } catch (_) { /* noop */ }
       })();
     </script>

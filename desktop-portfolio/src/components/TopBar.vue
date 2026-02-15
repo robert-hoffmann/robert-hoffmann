@@ -167,12 +167,24 @@ onUnmounted(() => {
     <div class="topbar-group topbar-group--right">
       <span class="status-pill">{{ weatherLabel }}</span>
       <span class="status-pill mono">{{ timeLabel }}</span>
-      <button
-        class="topbar-icon-btn"
-        type="button"
-        :aria-label="t('topbar.toggleLocale')"
-        @click="toggleLocale"
-      >{{ locale === 'en' ? 'FR' : 'EN' }}</button>
+      <span class="locale-toggle" role="radiogroup" :aria-label="t('topbar.toggleLocale')">
+        <button
+          class="locale-toggle-btn"
+          :class="{ 'locale-toggle-btn--active': locale === 'en' }"
+          type="button"
+          role="radio"
+          :aria-checked="locale === 'en'"
+          @click="locale !== 'en' && toggleLocale()"
+        >EN</button>
+        <button
+          class="locale-toggle-btn"
+          :class="{ 'locale-toggle-btn--active': locale === 'fr' }"
+          type="button"
+          role="radio"
+          :aria-checked="locale === 'fr'"
+          @click="locale !== 'fr' && toggleLocale()"
+        >FR</button>
+      </span>
       <button
         class="topbar-icon-btn"
         type="button"
