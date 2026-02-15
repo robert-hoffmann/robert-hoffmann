@@ -35,7 +35,7 @@ const BLOOM_RADIUS    = 0.45
 const BLOOM_THRESHOLD = 0.1
 const GRID_DIVISIONS  = 24
 const GRID_HALF_Y     = 18
-const GRID_HALF_X     = GRID_HALF_Y * 1.6   // 16:10 aspect
+const GRID_HALF_X     = GRID_HALF_Y * (4 / 3) // 4:3 aspect
 
 /* Neon palette */
 const COL = {
