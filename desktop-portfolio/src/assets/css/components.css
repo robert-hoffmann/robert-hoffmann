@@ -1464,6 +1464,109 @@
   }
 }
 
+@keyframes notif-bounce-in {
+  0%   { opacity : 0; transform : translateY(100%) scale(0.9); }
+  40%  { opacity : 1; transform : translateY(-14%) scale(1.02); }
+  60%  {              transform : translateY(6%)  scale(0.98); }
+  80%  {              transform : translateY(-3%) scale(1.01); }
+  100% {              transform : translateY(0)   scale(1); }
+}
+
+@keyframes notif-bounce-out {
+  0%   { opacity : 1; transform : translateY(0)    scale(1); }
+  100% { opacity : 0; transform : translateY(120%) scale(0.9); }
+}
+
+/* ========== NOTIFICATION TOAST ========== */
+.notification-stack {
+  position         : fixed;
+  inset-block-end  : var(--space-8);
+  inset-inline-end : var(--space-6);
+  z-index          : var(--z-toast);
+  display          : flex;
+  flex-direction   : column-reverse;
+  gap              : var(--space-3);
+  pointer-events   : none;
+}
+
+.notification-toast {
+  position         : relative;
+  pointer-events   : auto;
+  z-index          : var(--z-toast);
+  inline-size      : 18rem;
+  padding          : var(--space-4);
+  border-radius    : var(--radius-lg);
+  background       : var(--surface-overlay);
+  backdrop-filter   : blur(24px) saturate(1.4);
+  border           : 1px solid var(--border-default);
+  box-shadow       : var(--shadow-lg);
+  color            : var(--text-primary);
+  animation        : notif-bounce-in 600ms var(--ease-out) both;
+}
+
+.notification-close {
+  position        : absolute;
+  inset-block-start  : var(--space-2);
+  inset-inline-end   : var(--space-2);
+  display         : inline-flex;
+  align-items     : center;
+  justify-content : center;
+  inline-size     : 1.25rem;
+  block-size      : 1.25rem;
+  border-radius   : var(--radius-full);
+  font-size       : var(--text-base);
+  line-height     : 1;
+  color           : var(--text-muted);
+  transition      : background var(--dur-fast) var(--ease-out),
+                    color var(--dur-fast) var(--ease-out);
+
+  &:hover {
+    background : var(--icon-hover-bg);
+    color      : var(--text-primary);
+  }
+}
+
+.notification-body {
+  font-size        : var(--text-sm);
+  line-height      : var(--leading-normal);
+  color            : var(--text-secondary);
+  margin-block-end : var(--space-3);
+  padding-inline-end : var(--space-4);
+}
+
+.notification-action {
+  display        : inline-flex;
+  align-items    : center;
+  gap            : var(--space-1);
+  padding-inline : var(--space-3);
+  padding-block  : var(--space-1);
+  border-radius  : var(--radius-full);
+  background     : var(--icon-selected-bg);
+  border         : 1px solid var(--border-subtle);
+  color          : var(--text-secondary);
+  font-size      : var(--text-sm);
+  font-weight    : 500;
+  letter-spacing : 0.02em;
+  transition     : background var(--dur-fast) var(--ease-out),
+                   color var(--dur-fast) var(--ease-out),
+                   border-color var(--dur-fast) var(--ease-out);
+
+  &:hover {
+    background   : var(--c-accent);
+    color        : var(--c-white);
+    border-color : var(--c-accent);
+  }
+}
+
+/* Vue transition hooks for NotificationToast */
+.notif-enter-active {
+  animation : notif-bounce-in 600ms var(--ease-out) both;
+}
+
+.notif-leave-active {
+  animation : notif-bounce-out 300ms var(--ease-out) both;
+}
+
 /* ========== REDUCED MOTION ========== */
 @media (prefers-reduced-motion: reduce) {
   *,

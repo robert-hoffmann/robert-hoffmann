@@ -138,6 +138,15 @@ const ui: Record<string, Localized> = {
   'mobile.desktopTeaser'     : { en : 'Visit this site on a desktop for an interactive macOS-style experience ✨',
                                  fr : 'Visitez ce site sur un ordinateur pour une expérience interactive style macOS ✨' },
 
+  /* ---- Notification toast ---- */
+  'notification.followMessage'    : { en : 'Enjoying the portfolio? Follow me on X for updates!',
+                                     fr : 'Vous aimez le portfolio ? Suivez-moi sur X pour les nouveaut\u00e9s !' },
+  'notification.followCta'        : { en : 'Follow @itechnologynet',    fr : 'Suivre @itechnologynet' },
+  'notification.connectMessage'   : { en : 'Let\u2019s connect! Reach out to me on LinkedIn.',
+                                     fr : 'Restons en contact ! Retrouvez-moi sur LinkedIn.' },
+  'notification.connectCta'       : { en : 'Connect on LinkedIn',       fr : 'Se connecter sur LinkedIn' },
+  'notification.dismiss'          : { en : 'Dismiss notification',      fr : 'Fermer la notification' },
+
   /* ---- View-mode toggle (desktop only) ---- */
   'topbar.viewToggle'        : { en : 'Toggle desktop / mobile preview', fr : 'Basculer aperçu bureau / mobile' },
   'toast.switchedToMobile'   : { en : 'Switched to mobile preview',    fr : 'Aperçu mobile activé' },

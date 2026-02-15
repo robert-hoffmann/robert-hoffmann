@@ -5,6 +5,7 @@ import Dock from './components/Dock.vue'
 import AppWindow from './components/AppWindow.vue'
 import DesktopIcon from './components/DesktopIcon.vue'
 import MobileApp from './components/MobileApp.vue'
+import NotificationToast from './components/NotificationToast.vue'
 import { useWindowManager } from './composables/useWindowManager'
 import { useDesktopIcons } from './composables/useDesktopIcons'
 import { useTheme } from './composables/useTheme'
@@ -275,5 +276,20 @@ watch(locale, (loc) => {
     <aside v-if="toast.message.value" class="toast" aria-live="polite">
       {{ toast.message.value }}
     </aside>
+
+    <div class="notification-stack">
+      <NotificationToast
+        message-key="notification.followMessage"
+        cta-key="notification.followCta"
+        url="https://x.com/itechnologynet"
+        :delay="12000"
+      />
+      <NotificationToast
+        message-key="notification.connectMessage"
+        cta-key="notification.connectCta"
+        url="https://www.linkedin.com/in/hoffmannrobert"
+        :delay="15000"
+      />
+    </div>
   </div>
 </template>
