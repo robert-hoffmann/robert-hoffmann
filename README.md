@@ -31,9 +31,10 @@ I've been building software, shipping products, and breaking things in productio
 ![Quasar](https://img.shields.io/badge/Quasar-1976D2?style=flat&logo=quasar&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-5FA04E?style=flat&logo=nodedotjs&logoColor=white)
+
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white)
 ![Azure](https://img.shields.io/badge/Azure-0078D4?style=flat&logo=microsoftazure&logoColor=white)
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat&logo=powerbi&logoColor=black)
@@ -43,7 +44,6 @@ I've been building software, shipping products, and breaking things in productio
 
 ### Let's Connect
 
-<a href="https://github.com/robert-hoffmann"><img src="desktop-portfolio/public/icons/github.svg" width="28" alt="GitHub"></a>&ensp;
-<a href="https://www.linkedin.com/in/hoffmannrobert"><img src="desktop-portfolio/public/icons/linkedin.svg" width="28" alt="LinkedIn"></a>&ensp;
-<a href="https://x.com/itechnologynet"><img src="desktop-portfolio/public/icons/x.svg" width="28" alt="X"></a>&ensp;
-<a href="https://i-technology.net"><img src="desktop-portfolio/public/icons/globe.svg" width="28" alt="Website"></a>
+<a href="https://www.linkedin.com/in/hoffmannrobert"><img src="desktop-portfolio/public/icons/linkedin.svg" width="28" height="28" alt="LinkedIn"></a>&ensp;
+<a href="https://x.com/itechnologynet"><img src="desktop-portfolio/public/icons/x-white.svg" width="28" height="28" alt="X"></a>&ensp;
+<a href="https://i-technology.net"><img src="desktop-portfolio/public/icons/globe.svg" width="28" height="28" alt="Website"></a>
