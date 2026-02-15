@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { experience } from '../data/content'
+import { useLocale } from '../composables/useLocale'
+
+const { l } = useLocale()
 </script>
 
 <template>
@@ -9,25 +12,25 @@ import { experience } from '../data/content'
 
       <div class="resume-content">
         <div class="resume-header">
-          <h3 class="project-title">{{ entry.company }}</h3>
+          <h3 class="project-title">{{ l(entry.company) }}</h3>
           <span class="project-period">{{ entry.period }}</span>
         </div>
 
         <div class="resume-role-row">
-          <span class="resume-role">{{ entry.role }}</span>
-          <span v-if="'type' in entry" class="resume-type">{{ entry.type }}</span>
+          <span class="resume-role">{{ l(entry.role) }}</span>
+          <span v-if="'type' in entry" class="resume-type">{{ l(entry.type) }}</span>
         </div>
 
-        <span v-if="'location' in entry" class="resume-location">{{ entry.location }}</span>
+        <span v-if="'location' in entry" class="resume-location">{{ l(entry.location) }}</span>
 
         <p v-if="'highlight' in entry" class="project-highlight">
-          {{ entry.highlight }}
+          {{ l(entry.highlight) }}
         </p>
 
-        <p class="panel-paragraph">{{ entry.summary }}</p>
+        <p class="panel-paragraph">{{ l(entry.summary) }}</p>
 
         <ul v-if="entry.bullets.length" class="panel-list">
-          <li v-for="bullet in entry.bullets" :key="`${entry.id}-${bullet}`">{{ bullet }}</li>
+          <li v-for="bullet in entry.bullets" :key="`${entry.id}-${l(bullet)}`">{{ l(bullet) }}</li>
         </ul>
 
         <div v-if="'stack' in entry" class="project-stack">

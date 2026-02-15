@@ -66,9 +66,16 @@ export interface MenuGroup {
 /** Theme variant */
 export type Theme = 'dark' | 'light'
 
+/** Supported locales */
+export type Locale = 'en' | 'fr'
+
+/** Bilingual text field — keyed by locale */
+export type Localized = Record<Locale, string>
+
 /** Serializable session state for localStorage */
 export interface SessionState {
   theme           : Theme
+  locale          : Locale
   desktopItems    : DesktopItem[]
   focusedWindowId : string | null
   nextZIndex      : number

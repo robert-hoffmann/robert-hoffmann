@@ -9,6 +9,7 @@ import { watch } from 'vue'
 import type { DesktopItem, SessionState, WindowState } from '../types/desktop'
 import { useWindowManager } from './useWindowManager'
 import { useTheme } from './useTheme'
+import { useLocale } from './useLocale'
 import { debounce, safeParse } from '../utils'
 import { getDefaultDesktopItems, windowRegistry } from '../data/registry'
 
@@ -17,13 +18,15 @@ const STORAGE_KEY = 'desktop-portfolio-state'
 export function useSessionPersistence(desktopItems: DesktopItem[]) {
   const wm    = useWindowManager()
   const th    = useTheme()
-  const defaults = getDefaultDesktopItems()
+  const i18n  = useLocale()
+  const defaults = getDefaultDesktopItems(i18n.locale.value)
 
   /* ---- save ---- */
   const save = debounce(() => {
     try {
       const data: SessionState = {
         theme           : th.theme.value,
+        locale          : i18n.locale.value,
         desktopItems    : desktopItems,
         focusedWindowId : wm.state.focusedWindowId,
         nextZIndex      : wm.state.nextZIndex,
@@ -48,6 +51,10 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
 
       if (parsed.theme === 'dark' || parsed.theme === 'light') {
         th.setTheme(parsed.theme)
+      }
+
+      if (parsed.locale === 'en' || parsed.locale === 'fr') {
+        i18n.setLocale(parsed.locale)
       }
 
       if (Array.isArray(parsed.desktopItems)) {
@@ -95,11 +102,16 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
     try {
       const params = new URLSearchParams(window.location.search)
       const themeParam = params.get('theme')
+      const langParam  = params.get('lang')
       const openParam  = params.get('open')
       const focusParam = params.get('focus')
 
       if (themeParam === 'light' || themeParam === 'dark') {
         th.setTheme(themeParam)
+      }
+
+      if (langParam === 'en' || langParam === 'fr') {
+        i18n.setLocale(langParam)
       }
 
       if (openParam) {
@@ -114,7 +126,7 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
         if (win) wm.focusWindow(win.id)
       }
 
-      return !!(themeParam || openParam || focusParam)
+      return !!(themeParam || langParam || openParam || focusParam)
     } catch {
       return false
     }
@@ -127,7 +139,7 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
 
   /* ---- auto-save watcher ---- */
   function startAutoSave() {
-    watch(() => [wm.state.windows, wm.state.focusedWindowId, th.theme.value, desktopItems], save, { deep : true })
+    watch(() => [wm.state.windows, wm.state.focusedWindowId, th.theme.value, i18n.locale.value, desktopItems], save, { deep : true })
   }
 
   return { save, restore, applyDeepLinks, reset, startAutoSave }

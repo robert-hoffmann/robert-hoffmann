@@ -2,6 +2,9 @@
 import { computed, defineAsyncComponent } from 'vue'
 import type { WindowState } from '../types/desktop'
 import { windowRegistry } from '../data/registry'
+import { useLocale } from '../composables/useLocale'
+
+const { t } = useLocale()
 
 const props = defineProps<{
   windowState  : WindowState
@@ -52,23 +55,23 @@ const contentProps = computed(() => {
       class="app-window-header"
       @pointerdown.stop="emit('dragStart', $event, windowState.id)"
     >
-      <div class="traffic-lights" role="group" aria-label="Window controls">
+      <div class="traffic-lights" role="group" :aria-label="t('window.controls')">
         <button
           class="traffic-light traffic-light--close"
           type="button"
-          aria-label="Close window"
+          :aria-label="t('window.close')"
           @click.stop="emit('close', windowState.id)"
         />
         <button
           class="traffic-light traffic-light--minimize"
           type="button"
-          aria-label="Minimize window"
+          :aria-label="t('window.minimize')"
           @click.stop="emit('minimize', windowState.id)"
         />
         <button
           class="traffic-light traffic-light--focus"
           type="button"
-          aria-label="Restore window"
+          :aria-label="t('window.restore')"
           @click.stop="emit('restore', windowState.id)"
         />
       </div>

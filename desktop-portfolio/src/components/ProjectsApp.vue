@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import { projects } from '../data/content'
+import { useLocale } from '../composables/useLocale'
+
+const { l } = useLocale()
 </script>
 
 <template>
   <div class="projects-grid">
     <article v-for="project in projects" :key="project.id" class="project-card">
       <div class="project-header">
-        <h3 class="project-title">{{ project.name }}</h3>
+        <h3 class="project-title">{{ l(project.name) }}</h3>
         <span class="project-period">{{ project.period }}</span>
       </div>
 
-      <span class="project-org">{{ project.org }}</span>
+      <span class="project-org">{{ l(project.org) }}</span>
 
       <p v-if="'highlight' in project" class="project-highlight">
-        {{ project.highlight }}
+        {{ l(project.highlight) }}
       </p>
 
-      <p class="panel-paragraph">{{ project.summary }}</p>
+      <p class="panel-paragraph">{{ l(project.summary) }}</p>
 
       <div class="project-stack">
         <span

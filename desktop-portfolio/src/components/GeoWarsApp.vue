@@ -3,6 +3,9 @@ import { reactive, onMounted, onUnmounted, useTemplateRef } from 'vue'
 import { init, destroy, restart, togglePause, state as engineState } from '../modules/geowars'
 import { easterEgg } from '../data/content'
 import type { GameState } from '../types/desktop'
+import { useLocale } from '../composables/useLocale'
+
+const { t, l } = useLocale()
 
 const containerRef = useTemplateRef<HTMLDivElement>('geowarsContainer')
 
@@ -50,18 +53,18 @@ function onRestart()     { restart() }
 <template>
   <div class="geowars-wrapper">
     <div class="geowars-hud">
-      <span>Score: <span class="geowars-value">{{ gameState.score }}</span></span>
-      <span>Wave: <span class="geowars-value">{{ gameState.wave }}</span></span>
-      <span>Lives: <span class="geowars-value">{{ gameState.lives }}</span></span>
+      <span>{{ t('geowars.score') }} <span class="geowars-value">{{ gameState.score }}</span></span>
+      <span>{{ t('geowars.wave') }} <span class="geowars-value">{{ gameState.wave }}</span></span>
+      <span>{{ t('geowars.lives') }} <span class="geowars-value">{{ gameState.lives }}</span></span>
       <button class="geowars-btn" type="button" @click="onTogglePause">
-        {{ gameState.paused ? '▶ Resume' : '⏸ Pause' }}
+        {{ gameState.paused ? t('geowars.resume') : t('geowars.pause') }}
       </button>
-      <button class="geowars-btn" type="button" @click="onRestart">↻ Restart</button>
+      <button class="geowars-btn" type="button" @click="onRestart">{{ t('geowars.restart') }}</button>
     </div>
     <div
       ref="geowarsContainer"
       class="geowars-container"
     />
-    <p class="panel-meta">{{ easterEgg.body }}</p>
+    <p class="panel-meta">{{ l(easterEgg.body) }}</p>
   </div>
 </template>

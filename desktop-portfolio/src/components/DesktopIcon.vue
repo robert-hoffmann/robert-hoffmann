@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type { DesktopItem } from '../types/desktop'
+import { useLocale } from '../composables/useLocale'
+
+const { t } = useLocale()
 
 defineProps<{
   item       : DesktopItem
@@ -20,7 +23,7 @@ const emit = defineEmits<{
     :class="{ 'desktop-icon--selected': isSelected }"
     type="button"
     :style="style"
-    :aria-label="`${item.title} ${item.type}`"
+    :aria-label="`${item.title} ${t(`iconType.${item.type}`)}`"
     @click.stop="emit('select', item.id)"
     @dblclick.stop="emit('open', item.id)"
     @pointerdown="emit('pointerdown', $event, item.id)"

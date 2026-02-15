@@ -6,7 +6,27 @@
    ============================================================ */
 
 import { defineAsyncComponent } from 'vue'
-import type { DesktopItem, WindowAppDefinition } from '../types/desktop'
+import type { DesktopItem, Locale, WindowAppDefinition } from '../types/desktop'
+
+/* ----------------------------------------------------------
+   Localized window titles — keyed by registry ID
+   ---------------------------------------------------------- */
+const titles: Record<string, Record<Locale, string>> = {
+  about    : { en : 'About Me',      fr : 'À propos' },
+  projects : { en : 'Projects',      fr : 'Projets' },
+  resume   : { en : 'Resume',        fr : 'CV' },
+  twitter  : { en : 'X',             fr : 'X' },
+  linkedin : { en : 'LinkedIn',      fr : 'LinkedIn' },
+  github   : { en : 'GitHub',        fr : 'GitHub' },
+  extras   : { en : 'GeoWars.app',   fr : 'GeoWars.app' },
+  music    : { en : 'Music',         fr : 'Musique' },
+  video    : { en : 'Video',         fr : 'Vidéo' },
+}
+
+/** Resolve a registry entry's title for the given locale */
+export function getRegistryTitle(id: string, locale: Locale): string {
+  return titles[id]?.[locale] ?? windowRegistry[id]?.title ?? id
+}
 
 /* ----------------------------------------------------------
    Window Registry
@@ -130,10 +150,10 @@ export function resolveAppComponent(id: string) {
 /* ----------------------------------------------------------
    Default Desktop Items (derived from registry)
    ---------------------------------------------------------- */
-export function getDefaultDesktopItems(): DesktopItem[] {
+export function getDefaultDesktopItems(locale: Locale = 'en'): DesktopItem[] {
   return Object.values(windowRegistry).map(def => ({
     id      : def.id,
-    title   : def.title,
+    title   : getRegistryTitle(def.id, locale),
     icon    : def.icon,
     iconUrl : def.iconUrl,
     type    : def.type,

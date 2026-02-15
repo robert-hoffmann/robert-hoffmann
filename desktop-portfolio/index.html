@@ -100,6 +100,24 @@
         }
       })();
     </script>
+    <!-- Locale: set lang attribute early to prevent FOUC -->
+    <script>
+      (function () {
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var lang = params.get('lang');
+          if (lang === 'fr' || lang === 'en') {
+            document.documentElement.lang = lang;
+          } else {
+            var raw = localStorage.getItem('desktop-portfolio-session');
+            if (raw) {
+              var data = JSON.parse(raw);
+              if (data.locale === 'fr') document.documentElement.lang = 'fr';
+            }
+          }
+        } catch (_) { /* noop */ }
+      })();
+    </script>
     <div id="app"></div>
     <noscript>
       <div style="max-width:48rem;margin:2rem auto;padding:2rem;color:#e0e0e0;font-family:system-ui,sans-serif;line-height:1.6;">

@@ -6,8 +6,8 @@
    ============================================================ */
 
 import { reactive, computed } from 'vue'
-import type { WindowState } from '../types/desktop'
-import { windowRegistry } from '../data/registry'
+import type { Locale, WindowState } from '../types/desktop'
+import { windowRegistry, getRegistryTitle } from '../data/registry'
 import { uid } from '../utils'
 
 const BASE_WINDOW = { w : 560, h : 420, x : 120, y : 60 }
@@ -41,7 +41,7 @@ export function useWindowManager() {
   /* ---- lifecycle ---- */
 
   /** Open a window — single-instance: re-focuses if already open */
-  function openWindow(itemId: string): WindowState | null {
+  function openWindow(itemId: string, locale: Locale = 'en'): WindowState | null {
     const existing = state.windows.find(w => w.itemId === itemId)
     if (existing) {
       restoreWindow(existing.id)
@@ -57,7 +57,7 @@ export function useWindowManager() {
     const newWindow: WindowState = {
       id          : uid(),
       itemId      : def.id,
-      title       : def.title,
+      title       : getRegistryTitle(def.id, locale),
       x           : isMusic ? 672 : BASE_WINDOW.x + cascade,
       y           : isMusic ? 580 : BASE_WINDOW.y + cascade,
       w           : def.defaultWidth,
@@ -163,6 +163,13 @@ export function useWindowManager() {
     state.nextZIndex = z
   }
 
+  /** Re-derive all window titles from the registry for the given locale */
+  function updateTitlesForLocale(locale: Locale) {
+    for (const w of state.windows) {
+      w.title = getRegistryTitle(w.itemId, locale)
+    }
+  }
+
   return {
     state,
     visibleWindows,
@@ -180,5 +187,6 @@ export function useWindowManager() {
     setWindows,
     setFocusedId,
     setNextZIndex,
+    updateTitlesForLocale,
   }
 }

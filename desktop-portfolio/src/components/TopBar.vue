@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import type { MenuItem, MenuGroup } from '../types/desktop'
+import { useLocale } from '../composables/useLocale'
+
+const { t, locale, toggleLocale } = useLocale()
 
 defineProps<{
   ownerName          : string
@@ -15,55 +18,55 @@ const emit = defineEmits<{
   reset       : []
 }>()
 
-/* ---- menu definitions ---- */
-const menuDefinitions: MenuGroup[] = [
+/* ---- menu definitions (reactive to locale) ---- */
+const menuDefinitions = computed<MenuGroup[]>(() => [
   {
-    label : 'File',
+    label : t('topbar.file'),
     items : [
-      { id : 'f-about',    label : 'Open About',         shortcut : '⌘1', action : 'open:about' },
-      { id : 'f-projects', label : 'Open Projects',      shortcut : '⌘2', action : 'open:projects' },
-      { id : 'f-resume',   label : 'Open Resume',        shortcut : '⌘3', action : 'open:resume' },
-      { id : 'f-extras',   label : 'Open GeoWars',       shortcut : '⌘4', action : 'open:extras' },
-      { id : 'f-music',    label : 'Open Music',         shortcut : '⌘5', action : 'open:music' },
-      { id : 'f-video',    label : 'Open Video',         shortcut : '⌘6', action : 'open:video' },
+      { id : 'f-about',    label : t('topbar.openAbout'),     shortcut : '⌘1', action : 'open:about' },
+      { id : 'f-projects', label : t('topbar.openProjects'),  shortcut : '⌘2', action : 'open:projects' },
+      { id : 'f-resume',   label : t('topbar.openResume'),    shortcut : '⌘3', action : 'open:resume' },
+      { id : 'f-extras',   label : t('topbar.openGeoWars'),   shortcut : '⌘4', action : 'open:extras' },
+      { id : 'f-music',    label : t('topbar.openMusic'),     shortcut : '⌘5', action : 'open:music' },
+      { id : 'f-video',    label : t('topbar.openVideo'),     shortcut : '⌘6', action : 'open:video' },
       { type : 'separator' },
-      { id : 'f-twitter',  label : 'Open X (Twitter)',                     action : 'open:twitter' },
-      { id : 'f-linkedin', label : 'Open LinkedIn',                        action : 'open:linkedin' },
-      { id : 'f-github',   label : 'Open GitHub',                          action : 'open:github' },
+      { id : 'f-twitter',  label : t('topbar.openTwitter'),                     action : 'open:twitter' },
+      { id : 'f-linkedin', label : t('topbar.openLinkedIn'),                    action : 'open:linkedin' },
+      { id : 'f-github',   label : t('topbar.openGitHub'),                      action : 'open:github' },
       { type : 'separator' },
-      { id : 'f-closeall', label : 'Close All Windows',  shortcut : '⇧⌘W', action : 'closeAll' },
+      { id : 'f-closeall', label : t('topbar.closeAll'),      shortcut : '⇧⌘W', action : 'closeAll' },
     ],
   },
   {
-    label : 'Edit',
+    label : t('topbar.edit'),
     items : [
-      { id : 'e-reset', label : 'Reset Desktop',   shortcut : '⌘R',  action : 'reset' },
+      { id : 'e-reset', label : t('topbar.resetDesktop'),   shortcut : '⌘R',  action : 'reset' },
       { type : 'separator' },
-      { id : 'e-copy',  label : 'Copy Page URL',   shortcut : '⌘C',  action : 'copyUrl' },
-      { id : 'e-share', label : 'Copy Share Link', shortcut : '⇧⌘C', action : 'copyShareLink' },
+      { id : 'e-copy',  label : t('topbar.copyPageUrl'),    shortcut : '⌘C',  action : 'copyUrl' },
+      { id : 'e-share', label : t('topbar.copyShareLink'),  shortcut : '⇧⌘C', action : 'copyShareLink' },
     ],
   },
   {
-    label : 'View',
+    label : t('topbar.view'),
     items : [
-      { id : 'v-theme',   label : 'Toggle Theme',       shortcut : '⌘T',  action : 'toggleTheme' },
+      { id : 'v-theme',   label : t('topbar.toggleTheme'),       shortcut : '⌘T',  action : 'toggleTheme' },
       { type : 'separator' },
-      { id : 'v-tile',    label : 'Tile All Windows',    shortcut : '⌘G',  action : 'tileWindows' },
-      { id : 'v-cascade', label : 'Cascade Windows',     shortcut : '⇧⌘G', action : 'cascadeWindows' },
+      { id : 'v-tile',    label : t('topbar.tileWindows'),       shortcut : '⌘G',  action : 'tileWindows' },
+      { id : 'v-cascade', label : t('topbar.cascadeWindows'),    shortcut : '⇧⌘G', action : 'cascadeWindows' },
       { type : 'separator' },
-      { id : 'v-minim',   label : 'Minimize All',        shortcut : '⌘M',  action : 'minimizeAll' },
-      { id : 'v-restore', label : 'Restore All',         shortcut : '⇧⌘M', action : 'restoreAll' },
+      { id : 'v-minim',   label : t('topbar.minimizeAll'),       shortcut : '⌘M',  action : 'minimizeAll' },
+      { id : 'v-restore', label : t('topbar.restoreAll'),        shortcut : '⇧⌘M', action : 'restoreAll' },
     ],
   },
   {
-    label : 'Help',
+    label : t('topbar.help'),
     items : [
-      { id : 'h-about',  label : 'About This Site',       action : 'aboutSite' },
+      { id : 'h-about',  label : t('topbar.aboutSite'),       action : 'aboutSite' },
       { type : 'separator' },
-      { id : 'h-github', label : 'View Source on GitHub',  action : 'github' },
+      { id : 'h-github', label : t('topbar.viewSource'),      action : 'github' },
     ],
   },
-]
+])
 
 /* ---- menu interaction state ---- */
 const openMenuId = ref<string | null>(null)
@@ -98,7 +101,7 @@ const timeLabel = ref('')
 let clockInterval: ReturnType<typeof setInterval> | null = null
 
 function updateClock() {
-  timeLabel.value = new Date().toLocaleTimeString(undefined, {
+  timeLabel.value = new Date().toLocaleTimeString(locale.value === 'fr' ? 'fr-FR' : undefined, {
     hour   : '2-digit',
     minute : '2-digit',
   })
@@ -158,7 +161,7 @@ onUnmounted(() => {
     </div>
 
     <div class="topbar-center" aria-live="polite">
-      <span class="topbar-context">{{ focusedWindowTitle || 'Desktop' }}</span>
+      <span class="topbar-context">{{ focusedWindowTitle || t('topbar.desktop') }}</span>
     </div>
 
     <div class="topbar-group topbar-group--right">
@@ -167,10 +170,16 @@ onUnmounted(() => {
       <button
         class="topbar-icon-btn"
         type="button"
-        :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`"
+        :aria-label="t('topbar.toggleLocale')"
+        @click="toggleLocale"
+      >{{ locale === 'en' ? 'FR' : 'EN' }}</button>
+      <button
+        class="topbar-icon-btn"
+        type="button"
+        :aria-label="t('topbar.switchTheme', { theme: t(`theme.${theme === 'dark' ? 'light' : 'dark'}`) })"
         @click="emit('toggleTheme')"
       >{{ theme === 'dark' ? '☀︎' : '☾' }}</button>
-      <button class="topbar-icon-btn" type="button" aria-label="Reset desktop" @click="emit('reset')">↺</button>
+      <button class="topbar-icon-btn" type="button" :aria-label="t('topbar.resetDesktopAria')" @click="emit('reset')">↺</button>
     </div>
   </header>
 </template>

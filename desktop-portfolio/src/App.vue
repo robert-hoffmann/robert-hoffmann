@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import TopBar from './components/TopBar.vue'
 import Dock from './components/Dock.vue'
 import AppWindow from './components/AppWindow.vue'
@@ -8,6 +8,7 @@ import { useWindowManager } from './composables/useWindowManager'
 import { useDesktopIcons } from './composables/useDesktopIcons'
 import { useTheme } from './composables/useTheme'
 import { useToast } from './composables/useToast'
+import { useLocale } from './composables/useLocale'
 import { useDraggable } from './composables/useDraggable'
 import { useResizable } from './composables/useResizable'
 import { useSessionPersistence } from './composables/useSessionPersistence'
@@ -18,6 +19,7 @@ const wm    = useWindowManager()
 const icons = useDesktopIcons()
 const theme = useTheme()
 const toast = useToast()
+const { t, locale } = useLocale()
 
 const findWindow = (id: string) => wm.state.windows.find(w => w.id === id)
 const { startDrag }   = useDraggable(findWindow)
@@ -30,11 +32,11 @@ const WEATHER_LABEL = '22 °C ☀'
 
 /* ---- default windows to open on first visit ---- */
 const DEFAULT_WINDOWS = [
-  { itemId : 'projects', title : 'Projects', x : 150,  y : 90,  w : 561, h : 768, zIndex : 100 },
-  { itemId : 'about',    title : 'About Me', x : 557,  y : 36,  w : 497, h : 794, zIndex : 101 },
-  { itemId : 'video',    title : 'Video',    x : 886,  y : 403, w : 466, h : 388, zIndex : 102 },
-  { itemId : 'music',    title : 'Music',    x : 721,  y : 650, w : 452, h : 221, zIndex : 103 },
-  { itemId : 'resume',   title : 'Resume',   x : 1454, y : 70,  w : 565, h : 763, zIndex : 104 },
+  { itemId : 'projects', x : 150,  y : 90,  w : 561, h : 768, zIndex : 100 },
+  { itemId : 'about',    x : 557,  y : 36,  w : 497, h : 794, zIndex : 101 },
+  { itemId : 'video',    x : 886,  y : 403, w : 466, h : 388, zIndex : 102 },
+  { itemId : 'music',    x : 721,  y : 650, w : 452, h : 221, zIndex : 103 },
+  { itemId : 'resume',   x : 1454, y : 70,  w : 565, h : 763, zIndex : 104 },
 ]
 
 /* ---- helpers ---- */
@@ -44,7 +46,7 @@ function openItem(itemId: string) {
     window.open(def.url, '_blank', 'noopener')
     return
   }
-  wm.openWindow(itemId)
+  wm.openWindow(itemId, locale.value)
 }
 
 
@@ -52,7 +54,7 @@ function resetDesktop() {
   session.reset()
   wm.closeAll()
   for (const def of DEFAULT_WINDOWS) {
-    const newWin = wm.openWindow(def.itemId)
+    const newWin = wm.openWindow(def.itemId, locale.value)
     if (newWin) {
       newWin.x = def.x
       newWin.y = def.y
@@ -62,7 +64,7 @@ function resetDesktop() {
     }
   }
   theme.setTheme('dark')
-  toast.show('Desktop reset')
+  toast.show(t('toast.desktopReset'))
 }
 
 /* ---- menu actions ---- */
@@ -77,7 +79,7 @@ function onMenuAction(action: string) {
   switch (action) {
     case 'closeAll':
       wm.closeAll()
-      toast.show('All windows closed')
+      toast.show(t('toast.allWindowsClosed'))
       break
 
     case 'reset':
@@ -86,8 +88,8 @@ function onMenuAction(action: string) {
 
     case 'copyUrl':
       void navigator.clipboard?.writeText(window.location.href)
-        .then(() => toast.show('Page URL copied'))
-        .catch(() => toast.show('Copy failed — use browser address bar'))
+        .then(() => toast.show(t('toast.pageUrlCopied')))
+        .catch(() => toast.show(t('toast.copyFailed')))
       break
 
     case 'copyShareLink': {
@@ -98,9 +100,10 @@ function onMenuAction(action: string) {
       if (openIds) url.searchParams.set('open', openIds)
       if (focused) url.searchParams.set('focus', focused)
       url.searchParams.set('theme', theme.theme.value)
+      url.searchParams.set('lang', locale.value)
       void navigator.clipboard?.writeText(url.toString())
-        .then(() => toast.show('Share link copied'))
-        .catch(() => toast.show('Copy failed'))
+        .then(() => toast.show(t('toast.shareLinkCopied')))
+        .catch(() => toast.show(t('toast.copyFailedShort')))
       break
     }
 
@@ -110,27 +113,27 @@ function onMenuAction(action: string) {
 
     case 'tileWindows': {
       const n = wm.tileWindows()
-      if (n) toast.show(`Tiled ${n} windows`)
+      if (n) toast.show(t('toast.tiledWindows', { n }))
       break
     }
 
     case 'cascadeWindows':
       wm.cascadeWindows()
-      toast.show('Windows cascaded')
+      toast.show(t('toast.cascaded'))
       break
 
     case 'minimizeAll':
       wm.minimizeAll()
-      toast.show('All windows minimized')
+      toast.show(t('toast.minimizedAll'))
       break
 
     case 'restoreAll':
       wm.restoreAll()
-      toast.show('All windows restored')
+      toast.show(t('toast.restoredAll'))
       break
 
     case 'aboutSite':
-      toast.show('Desktop Portfolio — a macOS-inspired static portfolio by Robert Hoffmann', 4000)
+      toast.show(t('toast.aboutSite'), 4000)
       break
 
     case 'github':
@@ -181,7 +184,7 @@ onMounted(() => {
     if (!restored) {
       /* First visit — open default windows */
       for (const def of DEFAULT_WINDOWS) {
-        const newWin = wm.openWindow(def.itemId)
+        const newWin = wm.openWindow(def.itemId, locale.value)
         if (newWin) {
           newWin.x = def.x
           newWin.y = def.y
@@ -193,6 +196,12 @@ onMounted(() => {
     }
   }
   session.startAutoSave()
+})
+
+/* ---- locale watcher — re-derive titles when locale changes ---- */
+watch(locale, (loc) => {
+  wm.updateTitlesForLocale(loc)
+  icons.updateTitlesForLocale(loc)
 })
 </script>
 
@@ -210,10 +219,10 @@ onMounted(() => {
 
     <main
       class="desktop-area"
-      aria-label="Desktop area"
+      :aria-label="t('desktop.area')"
       @click.self="onClearSelection"
     >
-      <h1 class="sr-only">Robert Hoffmann — Full-Stack Engineer &amp; Consultant</h1>
+      <h1 class="sr-only">{{ t('desktop.srTitle') }}</h1>
       <div class="desktop-vignette" aria-hidden="true" />
 
       <DesktopIcon

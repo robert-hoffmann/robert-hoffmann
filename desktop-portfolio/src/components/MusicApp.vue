@@ -2,6 +2,9 @@
 import { reactive, ref, onUnmounted, useTemplateRef } from 'vue'
 import { formatTime } from '../utils'
 import type { MusicPlayerState } from '../types/desktop'
+import { useLocale } from '../composables/useLocale'
+
+const { t } = useLocale()
 
 const EQ_BARS   = 16
 const FFT_SIZE  = 64  /* smallest power-of-2 ≥ 2×EQ_BARS → 32 bins */
@@ -201,7 +204,7 @@ onUnmounted(() => {
             class="music-player-bar music-player-bar--seekable"
             role="slider"
             tabindex="0"
-            :aria-label="'Seek'"
+            :aria-label="t('music.seek')"
             :aria-valuemin="0"
             :aria-valuemax="Math.round(state.duration)"
             :aria-valuenow="Math.round(state.elapsed)"
@@ -229,7 +232,7 @@ onUnmounted(() => {
           class="music-player-btn music-player-btn--sm"
           type="button"
           :class="{ 'music-player-btn--active': state.loop }"
-          :aria-label="state.loop ? 'Disable loop' : 'Enable loop'"
+          :aria-label="state.loop ? t('music.disableLoop') : t('music.enableLoop')"
           @click="toggleLoop"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -257,7 +260,7 @@ onUnmounted(() => {
           class="music-player-btn music-player-btn--sm"
           type="button"
           :disabled="!state.playing"
-          aria-label="Stop"
+          :aria-label="t('music.stop')"
           @click="onStop"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">

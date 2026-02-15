@@ -2,6 +2,9 @@
 import { computed } from 'vue'
 import type { DesktopItem, WindowState } from '../types/desktop'
 import { windowRegistry } from '../data/registry'
+import { useLocale } from '../composables/useLocale'
+
+const { t } = useLocale()
 
 const props = defineProps<{
   desktopItems    : DesktopItem[]
@@ -30,7 +33,7 @@ function iconUrlForItem(itemId: string): string | undefined {
 </script>
 
 <template>
-  <footer class="dock" aria-label="Dock">
+  <footer class="dock" :aria-label="t('dock.label')">
     <div class="dock-tray">
       <!-- Launcher icons -->
       <button
@@ -38,7 +41,7 @@ function iconUrlForItem(itemId: string): string | undefined {
         :key="`launch-${item.id}`"
         class="dock-launch"
         type="button"
-        :aria-label="`Launch ${item.title}`"
+        :aria-label="t('dock.launch', { title: item.title })"
         @click="emit('launch', item.id)"
       >
         <img v-if="item.iconUrl" :src="item.iconUrl" :alt="item.title" class="dock-icon-img" width="32" height="32" />
@@ -58,7 +61,7 @@ function iconUrlForItem(itemId: string): string | undefined {
           'dock-launch--minimized': ws.isMinimized,
         }"
         type="button"
-        :aria-label="`Toggle ${ws.title}`"
+        :aria-label="t('dock.toggle', { title: ws.title })"
         @click="emit('toggleDock', ws.id)"
       >
         <img v-if="iconUrlForItem(ws.itemId)" :src="iconUrlForItem(ws.itemId)" :alt="ws.title" class="dock-icon-img" width="32" height="32" />
@@ -70,9 +73,9 @@ function iconUrlForItem(itemId: string): string | undefined {
       <span class="dock-separator" aria-hidden="true" />
 
       <!-- Trash -->
-      <button class="dock-launch dock-launch--trash" type="button" aria-label="Trash">
+      <button class="dock-launch dock-launch--trash" type="button" :aria-label="t('dock.trash')">
         <span class="dock-launch-icon" aria-hidden="true">🗑️</span>
-        <span class="dock-tooltip">Trash</span>
+        <span class="dock-tooltip">{{ t('dock.trash') }}</span>
       </button>
     </div>
   </footer>

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { reactive, onMounted, onUnmounted, useTemplateRef } from 'vue'
 import { formatTime } from '../utils'
+import { useLocale } from '../composables/useLocale'
+
+const { t } = useLocale()
 
 const VIDEO_ID = 'YkEVCFfms30'
 
@@ -189,7 +192,7 @@ onUnmounted(() => {
           class="vp-btn vp-btn--main"
           type="button"
           :disabled="!state.ready"
-          aria-label="Play / Pause"
+          :aria-label="t('video.playPause')"
           @click="onPlayPause"
         >
           <!-- Pause icon -->
@@ -207,7 +210,7 @@ onUnmounted(() => {
           class="vp-btn"
           type="button"
           :disabled="!state.playing"
-          aria-label="Stop"
+          :aria-label="t('video.stop')"
           @click="onStop"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -227,7 +230,7 @@ onUnmounted(() => {
         <button
           class="vp-btn"
           type="button"
-          aria-label="Toggle mute"
+          :aria-label="t('video.toggleMute')"
           @click="toggleMute"
         >
           <!-- Muted -->
@@ -245,7 +248,7 @@ onUnmounted(() => {
           min="0"
           max="100"
           :value="state.muted ? 0 : state.volume"
-          aria-label="Volume"
+          :aria-label="t('video.volume')"
           @input="onVolumeChange"
         />
 
@@ -253,7 +256,7 @@ onUnmounted(() => {
         <button
           class="vp-btn"
           type="button"
-          aria-label="Toggle fullscreen"
+          :aria-label="t('video.fullscreen')"
           @click="toggleFullscreen"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

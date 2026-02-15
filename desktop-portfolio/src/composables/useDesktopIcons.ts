@@ -3,8 +3,8 @@
    ============================================================ */
 
 import { ref, reactive } from 'vue'
-import type { DesktopItem } from '../types/desktop'
-import { getDefaultDesktopItems } from '../data/registry'
+import type { DesktopItem, Locale } from '../types/desktop'
+import { getDefaultDesktopItems, getRegistryTitle } from '../data/registry'
 
 const selectedIconId = ref<string | null>(null)
 const items          = reactive<DesktopItem[]>(getDefaultDesktopItems())
@@ -46,16 +46,23 @@ export function useDesktopIcons() {
     if (target) selectedIconId.value = target.id
   }
 
-  function onIconPointerDown(event: PointerEvent, iconId: string) {
-    if (event.button !== 0) return
+  /** Re-derive all desktop icon titles from the registry for the given locale */
+  function updateTitlesForLocale(locale: Locale) {
+    for (const item of items) {
+      item.title = getRegistryTitle(item.id, locale)
+    }
+  }
+
+  function onIconPointerDown(ev: PointerEvent, iconId: string) {
+    if (ev.button !== 0) return
 
     const item = items.find(i => i.id === iconId)
     if (!item) return
 
     selectIcon(iconId)
 
-    const startX   = event.clientX
-    const startY   = event.clientY
+    const startX   = ev.clientX
+    const startY   = ev.clientY
     const origLeft = (item.col - 1) * 100 + 24
     const origTop  = (item.row - 1) * 100 + 24
     let moved      = false
@@ -86,5 +93,6 @@ export function useDesktopIcons() {
     iconStyle,
     navigateIcons,
     onIconPointerDown,
+    updateTitlesForLocale,
   }
 }

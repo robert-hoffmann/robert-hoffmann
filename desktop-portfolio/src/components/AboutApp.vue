@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { about } from '../data/content'
+import { useLocale } from '../composables/useLocale'
+
+const { l, t } = useLocale()
 </script>
 
 <template>
@@ -15,31 +18,31 @@ import { about } from '../data/content'
       />
       <div class="about-header-text">
         <h3 class="about-name">{{ about.name }}</h3>
-        <p class="about-tagline">{{ about.tagline }}</p>
+        <p class="about-tagline">{{ l(about.tagline) }}</p>
       </div>
     </div>
 
     <!-- ---- AI callout ---- -->
     <blockquote class="about-ai-callout">
       <span class="about-ai-icon" aria-hidden="true">⚡</span>
-      <p>{{ about.aiCallout }}</p>
+      <p>{{ l(about.aiCallout) }}</p>
     </blockquote>
 
     <!-- ---- Expertise pills ---- -->
     <div class="about-pills">
       <span
         v-for="skill in about.expertise"
-        :key="skill"
+        :key="l(skill)"
         class="about-pill"
-      >{{ skill }}</span>
+      >{{ l(skill) }}</span>
     </div>
 
     <!-- ---- Narrative ---- -->
-    <p class="panel-paragraph">{{ about.summary }}</p>
+    <p class="panel-paragraph">{{ l(about.summary) }}</p>
 
     <!-- ---- Certifications ---- -->
     <div class="about-certs">
-      <h4 class="about-section-title">Certifications</h4>
+      <h4 class="about-section-title">{{ t('about.certifications') }}</h4>
       <div class="about-cert-pills">
         <span
           v-for="cert in about.certifications"
@@ -146,7 +149,7 @@ import { about } from '../data/content'
   font-weight     : 500;
   color           : var(--text-secondary);
   letter-spacing  : 0.02em;
-  cursor          : pointer;
+  cursor          : default;
   white-space     : nowrap;
   transition      : background var(--dur-fast) var(--ease-out),
                     color var(--dur-fast) var(--ease-out),
