@@ -40,6 +40,27 @@ const ui: Record<string, Localized> = {
   'topbar.toggleFullscreen'  : { en : 'Toggle fullscreen',   fr : 'Basculer le plein écran' },
   'topbar.toggleLocale'      : { en : 'Switch to French',   fr : 'Passer en anglais' },
 
+  /* ---- Calendar ---- */
+  'calendar.month.0'           : { en : 'January',     fr : 'Janvier' },
+  'calendar.month.1'           : { en : 'February',    fr : 'Février' },
+  'calendar.month.2'           : { en : 'March',       fr : 'Mars' },
+  'calendar.month.3'           : { en : 'April',       fr : 'Avril' },
+  'calendar.month.4'           : { en : 'May',         fr : 'Mai' },
+  'calendar.month.5'           : { en : 'June',        fr : 'Juin' },
+  'calendar.month.6'           : { en : 'July',        fr : 'Juillet' },
+  'calendar.month.7'           : { en : 'August',      fr : 'Août' },
+  'calendar.month.8'           : { en : 'September',   fr : 'Septembre' },
+  'calendar.month.9'           : { en : 'October',     fr : 'Octobre' },
+  'calendar.month.10'          : { en : 'November',    fr : 'Novembre' },
+  'calendar.month.11'          : { en : 'December',    fr : 'Décembre' },
+  'calendar.day.0'             : { en : 'Su',          fr : 'Di' },
+  'calendar.day.1'             : { en : 'Mo',          fr : 'Lu' },
+  'calendar.day.2'             : { en : 'Tu',          fr : 'Ma' },
+  'calendar.day.3'             : { en : 'We',          fr : 'Me' },
+  'calendar.day.4'             : { en : 'Th',          fr : 'Je' },
+  'calendar.day.5'             : { en : 'Fr',          fr : 'Ve' },
+  'calendar.day.6'             : { en : 'Sa',          fr : 'Sa' },
+
   /* ---- Toasts ---- */
   'toast.allWindowsClosed'   : { en : 'All windows closed',                   fr : 'Toutes les fenêtres fermées' },
   'toast.desktopReset'       : { en : 'Desktop reset',                        fr : 'Bureau réinitialisé' },

@@ -3,6 +3,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import type { MenuItem, MenuGroup } from '../types/desktop'
 import { useLocale } from '../composables/useLocale'
 import { useViewMode } from '../composables/useViewMode'
+import CalendarPopup from './CalendarPopup.vue'
 
 const { t, locale, toggleLocale } = useLocale()
 const { viewMode, toggleViewMode } = useViewMode()
@@ -112,6 +113,17 @@ function onAction(item: MenuItem) {
   }
 }
 
+/* ---- calendar popup ---- */
+const showCalendar = ref(false)
+
+function toggleCalendar() {
+  showCalendar.value = !showCalendar.value
+}
+
+function closeCalendar() {
+  showCalendar.value = false
+}
+
 /* ---- clock ---- */
 const timeLabel = ref('')
 let clockInterval: ReturnType<typeof setInterval> | null = null
@@ -183,7 +195,16 @@ onUnmounted(() => {
     </div>
 
     <div class="topbar-group topbar-group--right">
-      <span class="status-pill mono">{{ timeLabel }}</span>
+      <div class="topbar-clock-wrapper">
+        <button
+          class="status-pill mono"
+          type="button"
+          aria-haspopup="dialog"
+          :aria-expanded="showCalendar"
+          @click="toggleCalendar"
+        >{{ timeLabel }}</button>
+        <CalendarPopup v-if="showCalendar" @close="closeCalendar" />
+      </div>
 
       <!-- View-mode toggle (desktop ↔ mobile preview) -->
       <span class="locale-toggle" role="radiogroup" :aria-label="t('topbar.viewToggle')">
