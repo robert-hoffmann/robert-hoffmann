@@ -132,27 +132,42 @@ export function useWindowManager() {
     const tileW = Math.floor(areaW / cols)
     const tileH = Math.floor(areaH / rows)
     wins.forEach((w, i) => {
+      const def = windowRegistry[w.itemId]
+      const fixed = def?.resizable === false
       w.x = (i % cols) * tileW
       w.y = Math.floor(i / cols) * tileH + 32
-      w.w = tileW
-      w.h = tileH
+      if (!fixed) {
+        w.w = tileW
+        w.h = tileH
+      }
     })
     return wins.length
   }
 
   function cascadeWindows() {
     state.windows.forEach((w, i) => {
+      const def = windowRegistry[w.itemId]
+      const fixed = def?.resizable === false
       w.x = BASE_WINDOW.x + i * CASCADE
       w.y = BASE_WINDOW.y + i * CASCADE
-      w.w = BASE_WINDOW.w
-      w.h = BASE_WINDOW.h
+      if (!fixed) {
+        w.w = BASE_WINDOW.w
+        w.h = BASE_WINDOW.h
+      }
     })
   }
 
   /** Replace windows array (used by session restore) */
   function setWindows(windows: WindowState[]) {
     state.windows.length = 0
-    state.windows.push(...windows)
+    for (const w of windows) {
+      const def = windowRegistry[w.itemId]
+      if (def?.resizable === false) {
+        w.w = def.defaultWidth
+        w.h = def.defaultHeight
+      }
+      state.windows.push(w)
+    }
   }
 
   function setFocusedId(id: string | null) {

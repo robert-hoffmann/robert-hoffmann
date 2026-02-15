@@ -40,6 +40,12 @@ const contentProps = computed(() => {
   const def = windowRegistry[props.windowState.itemId]
   return def?.componentProps ?? {}
 })
+
+/** Whether this window allows resizing */
+const isResizable = computed(() => {
+  const def = windowRegistry[props.windowState.itemId]
+  return def?.resizable !== false
+})
 </script>
 
 <template>
@@ -90,6 +96,7 @@ const contentProps = computed(() => {
 
     <!-- Resize handle -->
     <div
+      v-if="isResizable"
       class="app-window-resize"
       aria-hidden="true"
       @pointerdown.stop="emit('resizeStart', $event, windowState.id)"

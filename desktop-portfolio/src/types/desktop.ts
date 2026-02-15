@@ -38,6 +38,8 @@ export interface WindowAppDefinition {
   defaultRow   : number
   defaultWidth : number
   defaultHeight   : number
+  /** Whether the window can be resized (default: true) */
+  resizable?     : boolean
   /** Lazy-loaded component for the window content (omit for links) */
   component?     : () => Promise<{ default: import('vue').Component }>
   /** Optional props forwarded to the content component */

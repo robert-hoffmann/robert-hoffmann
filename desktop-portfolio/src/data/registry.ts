@@ -123,8 +123,9 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'app',
     defaultCol    : 1,
     defaultRow    : 8,
-    defaultWidth  : 391,
-    defaultHeight : 244,
+    defaultWidth  : 388,
+    defaultHeight : 228,
+    resizable     : false,
     component     : () => import('../components/MusicApp.vue'),
   },
   video : {
