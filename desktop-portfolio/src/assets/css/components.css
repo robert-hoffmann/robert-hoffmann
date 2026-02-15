@@ -284,6 +284,20 @@
   box-shadow : none;
 }
 
+/* Profile icon — no white pill, photo fills the space */
+.desktop-icon-img[src*="profile"] {
+  padding    : 0;
+  background : transparent;
+  box-shadow : none;
+}
+
+.dock-icon-img[src*="profile"] {
+  padding     : 0;
+  background  : transparent;
+  inline-size : 42px;
+  block-size  : 42px;
+}
+
 .dock-icon-img {
   inline-size   : 32px;
   block-size    : 32px;
