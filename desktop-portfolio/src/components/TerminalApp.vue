@@ -3,15 +3,16 @@ import { inject, onMounted, onUnmounted, nextTick, useTemplateRef, ref } from 'v
 import { useTerminal } from '../composables/useTerminal'
 import { useLocale } from '../composables/useLocale'
 
-const { locale } = useLocale()
+const { t, locale } = useLocale()
 
 /* ---- app launcher bridge ---- */
 const openApp = inject<(id: string) => void>('openApp')
 
-const { lines, currentInput, processCommand, historyUp, historyDown, showWelcome } =
+const { lines, currentInput, processCommand, historyUp, historyDown, showWelcome, resolveLine } =
   useTerminal({
     onLaunchApp : (id) => openApp?.(id),
     getLocale   : () => locale.value,
+    t,
   })
 
 /* ---- refs ---- */
@@ -104,7 +105,7 @@ onUnmounted(() => {
         class="terminal-line"
         :class="{ 'terminal-line--input': line.type === 'input' }"
       >
-        <pre class="terminal-text">{{ line.text }}</pre>
+        <pre class="terminal-text">{{ resolveLine(line) }}</pre>
       </div>
 
       <!-- Active input line -->

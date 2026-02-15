@@ -6,32 +6,38 @@
    so the host component can bridge to the window manager.
    ============================================================ */
 
-import { reactive, ref, nextTick } from 'vue'
+import { reactive, ref } from 'vue'
 import { windowRegistry, getRegistryTitle } from '../data/registry'
 import type { Locale } from '../types/desktop'
 
 /* ---- public types ---- */
 
 export interface TerminalLine {
-  id   : number
-  type : 'input' | 'output'
-  text : string
+  id      : number
+  type    : 'input' | 'output'
+  text    : string
+  tKey?   : string
+  tParams?: Record<string, string | number>
 }
 
 interface TerminalOptions {
   onLaunchApp : (id: string) => void
   getLocale   : () => Locale
+  t           : (key: string, params?: Record<string, string | number>) => string
 }
+
+/** A single output line — either raw text or a translation reference. */
+type OutputEntry = string | { tKey: string; tParams?: Record<string, string | number> }
 
 interface TerminalCommand {
   description : string
-  handler     : (args: string[]) => string[]
+  handler     : (args: string[]) => OutputEntry[]
 }
 
 /* ---- composable ---- */
 
 export function useTerminal(options: TerminalOptions) {
-  const { onLaunchApp, getLocale } = options
+  const { onLaunchApp, getLocale, t } = options
 
   const lines        = reactive<TerminalLine[]>([])
   const currentInput = ref('')
@@ -43,10 +49,25 @@ export function useTerminal(options: TerminalOptions) {
 
   /* ---- helpers ---- */
 
-  function pushOutput(text: string | string[]) {
-    const arr = Array.isArray(text) ? text : [text]
-    for (const t of arr) {
-      lines.push({ id : ++lineCounter, type : 'output', text : t })
+  /** Helper to create a translatable output entry. */
+  function tr(tKey: string, tParams?: Record<string, string | number>): OutputEntry {
+    return { tKey, tParams }
+  }
+
+  function pushOutput(entries: OutputEntry | OutputEntry[]) {
+    const arr = Array.isArray(entries) ? entries : [entries]
+    for (const entry of arr) {
+      if (typeof entry === 'string') {
+        lines.push({ id : ++lineCounter, type : 'output', text : entry })
+      } else {
+        lines.push({
+          id      : ++lineCounter,
+          type    : 'output',
+          text    : t(entry.tKey, entry.tParams),
+          tKey    : entry.tKey,
+          tParams : entry.tParams,
+        })
+      }
     }
   }
 
@@ -54,11 +75,10 @@ export function useTerminal(options: TerminalOptions) {
     lines.push({ id : ++lineCounter, type : 'input', text })
   }
 
-  /** All launchable app IDs (excludes links) */
-  function launchableApps() {
-    return Object.entries(windowRegistry)
-      .filter(([, def]) => def.type !== 'link')
-      .map(([key, def]) => ({ key, title : getRegistryTitle(key, getLocale()) }))
+  /** Format a Date as pretty ISO 8601 local time: YYYY-MM-DD HH:MM:SS */
+  function isoLocal(d: Date): string {
+    const pad = (n: number) => String(n).padStart(2, '0')
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
   }
 
   /** All registry entries for `ls` display */
@@ -76,24 +96,24 @@ export function useTerminal(options: TerminalOptions) {
 
   const commands: Record<string, TerminalCommand> = {
     help : {
-      description : 'Show available commands',
+      description : 'term.cmd.help',
       handler() {
-        const out = [
-          'Available commands:',
+        const out: OutputEntry[] = [
+          tr('term.help.header'),
           '',
         ]
         for (const [name, cmd] of Object.entries(commands)) {
-          out.push(`  ${name.padEnd(12)} ${cmd.description}`)
+          out.push(`  ${name.padEnd(12)} ${t(cmd.description)}`)
         }
         out.push('')
-        out.push('You can also type any app name to launch it.')
-        out.push('Type "ls" to see all available apps.')
+        out.push(tr('term.help.launchHint'))
+        out.push(tr('term.help.lsHint'))
         return out
       },
     },
 
     clear : {
-      description : 'Clear the terminal',
+      description : 'term.cmd.clear',
       handler() {
         lines.length = 0
         return []
@@ -101,7 +121,7 @@ export function useTerminal(options: TerminalOptions) {
     },
 
     ls : {
-      description : 'List available apps',
+      description : 'term.cmd.ls',
       handler() {
         const apps = allApps()
         const maxKey = Math.max(...apps.map(a => a.key.length))
@@ -116,32 +136,32 @@ export function useTerminal(options: TerminalOptions) {
     },
 
     pwd : {
-      description : 'Print working directory',
+      description : 'term.cmd.pwd',
       handler : () => ['/Users/guest/desktop-portfolio'],
     },
 
     whoami : {
-      description : 'Display current user',
+      description : 'term.cmd.whoami',
       handler : () => ['guest'],
     },
 
     date : {
-      description : 'Display current date and time',
+      description : 'term.cmd.date',
       handler() {
-        return [new Date().toString()]
+        return [isoLocal(new Date())]
       },
     },
 
     echo : {
-      description : 'Print arguments to terminal',
+      description : 'term.cmd.echo',
       handler : (args) => [args.join(' ')],
     },
 
     cat : {
-      description : 'Display file contents',
+      description : 'term.cmd.cat',
       handler(args) {
         const file = args[0]
-        if (!file) return ['cat: missing operand', 'Usage: cat <filename>']
+        if (!file) return [tr('term.cat.missing'), tr('term.cat.usage')]
 
         const files: Record<string, string[]> = {
           'README.md' : [
@@ -186,13 +206,13 @@ export function useTerminal(options: TerminalOptions) {
         }
 
         const content = files[file]
-        if (!content) return [`cat: ${file}: No such file or directory`]
+        if (!content) return [tr('term.cat.notFound', { file })]
         return content
       },
     },
 
     top : {
-      description : 'Display running processes',
+      description : 'term.cmd.top',
       handler() {
         const uptimeSec = Math.floor((Date.now() - startTime) / 1000)
         const uptimeMin = Math.floor(uptimeSec / 60)
@@ -202,7 +222,7 @@ export function useTerminal(options: TerminalOptions) {
           : `${uptimeMin}m ${uptimeSec % 60}s`
 
         return [
-          `Processes: 12  total, 2 running  —  up ${upStr}`,
+          tr('term.top.header', { uptime : upStr }),
           '',
           '  PID  COMMAND          CPU%   MEM%',
           '  ───  ───────────────  ─────  ─────',
@@ -223,7 +243,7 @@ export function useTerminal(options: TerminalOptions) {
     },
 
     neofetch : {
-      description : 'Display system info',
+      description : 'term.cmd.neofetch',
       handler() {
         const hours = Math.floor((Date.now() - startTime) / 3_600_000)
         const mins  = Math.floor(((Date.now() - startTime) % 3_600_000) / 60_000)
@@ -248,7 +268,7 @@ export function useTerminal(options: TerminalOptions) {
     },
 
     uptime : {
-      description : 'Show session uptime',
+      description : 'term.cmd.uptime',
       handler() {
         const sec = Math.floor((Date.now() - startTime) / 1000)
         const hr  = Math.floor(sec / 3600)
@@ -258,24 +278,24 @@ export function useTerminal(options: TerminalOptions) {
         if (hr > 0) parts.push(`${hr} hour${hr > 1 ? 's' : ''}`)
         parts.push(`${min} min${min !== 1 ? 's' : ''}`)
         parts.push(`${s} sec${s !== 1 ? 's' : ''}`)
-        return [`up ${parts.join(', ')}`]
+        return [tr('term.uptime.up', { time : parts.join(', ') })]
       },
     },
 
     hostname : {
-      description : 'Display hostname',
+      description : 'term.cmd.hostname',
       handler : () => ['portfolio.local'],
     },
 
     uname : {
-      description : 'Display system name',
+      description : 'term.cmd.uname',
       handler : () => ['PortfolioOS 1.0.0 Vue/Vite arm64'],
     },
 
     history : {
-      description : 'Show command history',
+      description : 'term.cmd.history',
       handler() {
-        if (history.value.length === 0) return ['No commands in history.']
+        if (history.value.length === 0) return [tr('term.noHistory')]
         return history.value.map((cmd, i) => `  ${String(i + 1).padStart(4)}  ${cmd}`)
       },
     },
@@ -307,18 +327,18 @@ export function useTerminal(options: TerminalOptions) {
       key => key.toLowerCase() === lowerCmd,
     )
     if (matchedApp) {
-      const def = windowRegistry[matchedApp]
+      const def = windowRegistry[matchedApp]!
       if (def.type === 'link' && def.url) {
-        pushOutput(`Opening ${def.title} in a new tab...`)
+        pushOutput(tr('term.launch.opening', { title : def.title }))
         window.open(def.url, '_blank', 'noopener')
       } else {
-        pushOutput(`Launching ${getRegistryTitle(matchedApp, getLocale())}...`)
+        pushOutput(tr('term.launch.launching', { title : getRegistryTitle(matchedApp, getLocale()) }))
         onLaunchApp(matchedApp)
       }
       return
     }
 
-    pushOutput(`zsh: command not found: ${cmd}`)
+    pushOutput(tr('term.notFound', { cmd : cmd! }))
   }
 
   /* ---- history navigation ---- */
@@ -350,14 +370,22 @@ export function useTerminal(options: TerminalOptions) {
 
   function showWelcome() {
     pushOutput([
-      'Last login: ' + new Date().toLocaleString() + ' on ttys000',
+      tr('term.welcome.lastLogin', { date : isoLocal(new Date()) }),
       '',
       '  ╔══════════════════════════════════════════════╗',
-      '  ║       Welcome to Desktop Portfolio           ║',
-      '  ║  Type "help" for commands or "ls" for apps   ║',
+      tr('term.welcome.title'),
+      tr('term.welcome.hint'),
       '  ╚══════════════════════════════════════════════╝',
       '',
     ])
+  }
+
+  /* ---- line resolver (reactive to locale) ---- */
+
+  /** Resolve text for a terminal line. Translatable lines re-resolve on locale change. */
+  function resolveLine(line: TerminalLine): string {
+    if (line.tKey) return t(line.tKey, line.tParams)
+    return line.text
   }
 
   return {
@@ -367,5 +395,6 @@ export function useTerminal(options: TerminalOptions) {
     historyUp,
     historyDown,
     showWelcome,
+    resolveLine,
   }
 }
