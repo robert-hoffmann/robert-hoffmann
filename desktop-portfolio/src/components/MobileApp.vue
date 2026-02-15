@@ -9,7 +9,7 @@ import { useTheme } from '../composables/useTheme'
 import { useToast } from '../composables/useToast'
 
 const OWNER_NAME  = 'Robert Hoffmann'
-const TEASER_IMG  = `${import.meta.env.BASE_URL}og-image.avif`
+const TEASER_IMG  = `${import.meta.env.BASE_URL}screenshot-teaser.avif`
 
 const { t }    = useLocale()
 const theme    = useTheme()
@@ -68,8 +68,8 @@ const toast    = useToast()
           :src="TEASER_IMG"
           alt="Desktop portfolio preview"
           class="mobile-teaser-img"
-          width="600"
-          height="315"
+          width="800"
+          height="369"
           loading="lazy"
         />
         <p class="mobile-teaser-text">{{ t('mobile.desktopTeaser') }}</p>
