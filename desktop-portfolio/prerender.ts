@@ -6,7 +6,7 @@
    Vue's createApp().mount() replaces this on client hydration.
    ============================================================ */
 
-import { about, projects, experience, contact } from './src/data/content.ts'
+import { about, projects, experience } from './src/data/content.ts'
 
 /* Prerender runs outside Vue reactivity; force deterministic EN strings. */
 function asEnglishText(value: unknown): string {
@@ -85,7 +85,7 @@ export function prerender() {
       <section>
         <h2>Contact</h2>
         <ul>
-          ${contact.links.map((l) => `<li><a href="${l.href}">${l.label}</a></li>`).join('\n          ')}
+          ${about.links.map((l) => `<li><a href="${l.href}">${l.label}</a></li>`).join('\n          ')}
         </ul>
       </section>
     </div>

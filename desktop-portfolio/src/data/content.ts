@@ -961,13 +961,6 @@ export const experience = [
   },
 ] as const
 
-export const contact = {
-  links : [
-    { label : 'GitHub',   href : 'https://github.com/robert-hoffmann' },
-    { label : 'LinkedIn', href : 'https://www.linkedin.com/in/hoffmannrobert' },
-  ],
-} as const
-
 export const easterEgg = {
   title : {
     en : '🎮 GeoWars',
