@@ -172,21 +172,6 @@ function onMenuAction(action: string) {
         .catch(() => toast.show(t('toast.copyFailed')))
       break
 
-    case 'copyShareLink': {
-      const openIds = wm.state.windows.map(w => w.itemId).join(',')
-      const focused = wm.state.windows.find(w => w.id === wm.state.focusedWindowId)?.itemId ?? ''
-      const url     = new URL(window.location.href)
-      url.search    = ''
-      if (openIds) url.searchParams.set('open', openIds)
-      if (focused) url.searchParams.set('focus', focused)
-      url.searchParams.set('theme', theme.theme.value)
-      url.searchParams.set('lang', locale.value)
-      void navigator.clipboard?.writeText(url.toString())
-        .then(() => toast.show(t('toast.shareLinkCopied')))
-        .catch(() => toast.show(t('toast.copyFailedShort')))
-      break
-    }
-
     case 'toggleTheme':
       theme.toggle()
       break
@@ -257,20 +242,17 @@ function onDockToggle(windowId: string) {
 
 /* ---- lifecycle ---- */
 onMounted(() => {
-  /* Skip desktop window initialisation when in mobile mode */
-  if (isMobile.value) return
+  const restored = session.restore()
 
-  preloadDesktopWallpaper()
+  if (!isMobile.value) {
+    preloadDesktopWallpaper()
 
-  /* Restore saved state or apply deep-link params */
-  const hasDeepLinks = session.applyDeepLinks()
-  if (!hasDeepLinks) {
-    const restored = session.restore()
     if (!restored) {
       /* First visit — open default windows in staggered batches */
       openDefaultWindowsStaggered()
     }
   }
+
   session.startAutoSave()
 })
 

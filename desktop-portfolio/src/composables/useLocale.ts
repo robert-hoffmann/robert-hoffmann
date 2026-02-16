@@ -14,7 +14,7 @@ import ui from '../data/translations'
 function detectBrowserLocale(): Locale {
   const langs = navigator.languages ?? [navigator.language]
   for (const lang of langs) {
-    if (lang.startsWith('fr')) return 'fr'
+    if (String(lang).toLowerCase().startsWith('fr')) return 'fr'
   }
   return 'en'
 }

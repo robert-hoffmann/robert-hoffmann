@@ -60,7 +60,6 @@ const menuDefinitions = computed<MenuGroup[]>(() => [
       { id : 'e-reset', label : t('topbar.resetDesktop'),   shortcut : '⌘R',  action : 'reset' },
       { type : 'separator' },
       { id : 'e-copy',  label : t('topbar.copyPageUrl'),    shortcut : '⌘C',  action : 'copyUrl' },
-      { id : 'e-share', label : t('topbar.copyShareLink'),  shortcut : '⇧⌘C', action : 'copyShareLink' },
     ],
   },
   {
