@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.1.0...desktop-portfolio-v1.2.0) (2026-02-16)
+
+
+### Features
+
+* remove contact links from prerender and content data ([0d42e65](https://github.com/robert-hoffmann/robert-hoffmann/commit/0d42e65d184b6339c6aa2dc12f6aa024312c4222))
+* streamline language detection and remove share link functionality ([b4e5428](https://github.com/robert-hoffmann/robert-hoffmann/commit/b4e5428fd4232c320a558c3f46d6df0300bfde60))
+* update icons to white variants ([e745513](https://github.com/robert-hoffmann/robert-hoffmann/commit/e74551360bd372aa2fa42a24f7c351d2a1eba788))
+
 ## [1.1.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.0.0...desktop-portfolio-v1.1.0) (2026-02-16)
 
 
