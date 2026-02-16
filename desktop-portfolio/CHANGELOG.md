@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.2.0...desktop-portfolio-v1.3.0) (2026-02-16)
+
+
+### Features
+
+* add previous and next video controls to VideoApp and update translations ([987f4cd](https://github.com/robert-hoffmann/robert-hoffmann/commit/987f4cdf7b18e2defc85b7f7372567813d09b42e))
+
 ## [1.2.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.1.0...desktop-portfolio-v1.2.0) (2026-02-16)
 
 
