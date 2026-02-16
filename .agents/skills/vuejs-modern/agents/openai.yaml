@@ -1,0 +1,4 @@
+interface:
+  display_name: "VueJS Modern"
+  short_description: "Modern Vue 3.5+ TypeScript guardrails"
+  default_prompt: "Use $vuejs-modern to implement and review Vue 3.5+ code with `<script setup lang=\"ts\">`, modern macros, and strict no-legacy output rules."

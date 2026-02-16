@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Governance"
+  short_description: "Cross-stack modern repository governance baseline"
+  default_prompt: "Use $repository-governance to bootstrap or audit repository governance with GitHub-first controls, strict exceptions, CI/security gates, and release-please release policy."

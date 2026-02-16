@@ -1,0 +1,4 @@
+interface:
+  display_name: "TS Modern"
+  short_description: "Modern TypeScript 5.9.3 guardrails"
+  default_prompt: "Use $ts-modern to modernize TypeScript code and tsconfig files to strict 5.9.3 patterns with no legacy output unless migration constraints are explicitly documented."

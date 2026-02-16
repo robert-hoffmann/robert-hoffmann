@@ -1,0 +1,4 @@
+interface:
+  display_name: "Python Modern"
+  short_description: "Project Python standards for modern typed development"
+  default_prompt: "Use $python-modern to implement or refactor Python code in this repository with modern Python 3.12.x patterns and strict typing."

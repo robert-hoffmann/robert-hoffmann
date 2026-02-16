@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence Governance"
+  short_description: "Risk-tiered EBD gates for web and Python services"
+  default_prompt: "Use $evidence-governance to audit merge and confidence gate evidence for this web app and Python service change."

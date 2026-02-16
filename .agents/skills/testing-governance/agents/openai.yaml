@@ -1,0 +1,4 @@
+interface:
+  display_name: "Testing Governance"
+  short_description: "Cross-stack modern testing governance policy"
+  default_prompt: "Use $testing-governance to define or audit modern unit, integration, contract, and E2E policy with TDD-default workflow, merge and confidence gates, flaky-test quarantine SLA, and agent-safe testing controls."

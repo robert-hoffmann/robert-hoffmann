@@ -1,0 +1,4 @@
+interface:
+  display_name: "Modern CSS"
+  short_description: "Modern CSS with DTCG tokens and progressive enhancement"
+  default_prompt: "Apply modern CSS patterns with DTCG-aligned tokens, native nesting, container queries, cascade layers, and tiered progressive enhancement for web app styles."

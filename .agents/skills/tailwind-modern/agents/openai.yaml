@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tailwind Modern"
+  short_description: "Tailwind v4 setup and migration guardrails"
+  default_prompt: "Use $tailwind-modern to enforce Tailwind v4 CSS-first semantics, follow the official Nuxt framework setup path (`@tailwindcss/vite` in `nuxt.config.*` + `@import \"tailwindcss\"` stylesheet registration), apply v3->v4 upgrade-aware replacements, and reject legacy defaults unless compatibility is explicitly required."

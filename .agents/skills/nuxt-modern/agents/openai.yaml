@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nuxt Modern"
+  short_description: "Modern Nuxt 4 + Vue + TypeScript workflows"
+  default_prompt: "Apply Nuxt 4 app-directory structure only (`app/` source layout), enforce Nuxt 4 async-data/runtime defaults (`deep: false`, `pendingWhenIdle: false`, `dedupe: cancel`, shared keyed refs, `sharedPrerenderData`), prefer VueUse + Nuxt-native capabilities, and avoid Nuxt 3 directory conventions or legacy APIs."
