@@ -9,6 +9,9 @@ const { t } = useLocale()
 const windowFocused = inject<Readonly<import('vue').Ref<boolean>>>('windowFocused', ref(true))
 
 const VIDEO_ID = 'YkEVCFfms30'
+/* Local poster avoids third-party handshake cost on initial desktop load. */
+const VIDEO_POSTER_AVIF = `${import.meta.env.BASE_URL}video-poster.avif`
+const VIDEO_POSTER_WEBP = `${import.meta.env.BASE_URL}video-poster.webp`
 
 /** Privacy-enhanced embed host — avoids most YouTube tracking cookies */
 const YT_NOCOOKIE_HOST = 'https://www.youtube-nocookie.com'
@@ -221,13 +224,18 @@ onUnmounted(() => {
       <!-- Lite facade — static thumbnail shown until the user clicks play.
            Avoids loading the YouTube IFrame API (and its cookies) on page load. -->
       <template v-if="showFacade">
-        <img
-          class="video-player-poster"
-          :src="`https://i.ytimg.com/vi/${VIDEO_ID}/hqdefault.jpg`"
-          alt=""
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source :srcset="VIDEO_POSTER_AVIF" type="image/avif" />
+          <source :srcset="VIDEO_POSTER_WEBP" type="image/webp" />
+          <img
+            class="video-player-poster"
+            :src="VIDEO_POSTER_WEBP"
+            alt=""
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
         <button
           class="video-player-facade-play"
           type="button"

@@ -14,11 +14,81 @@
   inline-size           : 100dvw;
   overflow              : hidden;
   position              : relative;
-  background-image      : url('/wallpaper.webp');
-  background-size       : cover;
-  background-position   : center;
-  background-repeat     : no-repeat;
-  background-color      : var(--wallpaper-from);
+  isolation             : isolate;
+  background-image      : linear-gradient(135deg, #1a0a35, #9964ac);
+  background-color      : #1a0a35;
+}
+
+.desktop-root > * {
+  position : relative;
+  z-index  : 1;
+}
+
+.desktop-root::before,
+.desktop-root::after {
+  content           : '';
+  position          : absolute;
+  inset             : 0;
+  z-index           : 0;
+  pointer-events    : none;
+  background-size   : cover;
+  background-position: center;
+  background-repeat : no-repeat;
+  transition        : opacity var(--dur-slow) var(--ease-out);
+}
+
+.desktop-root::before {
+  /* Blurred LQIP placeholder shown immediately under throttle. */
+  background-image : url('/wallpaper-lqip.webp'),
+  linear-gradient(135deg, #1a0a35, #9964ac);
+  filter           : blur(16px) saturate(1.1);
+  transform        : scale(1.04);
+  opacity          : 1;
+}
+
+.desktop-root::after {
+  /* Sharp layer fades in only after JS preloader confirms decode. */
+  background-image : url('/wallpaper-1280.webp');
+  background-image : image-set(
+    url('/wallpaper-1280.avif') type('image/avif'),
+    url('/wallpaper-1280.webp') type('image/webp')
+  );
+  opacity          : 0;
+}
+
+.desktop-root--wallpaper-ready::after {
+  opacity : 1;
+}
+
+.desktop-root--wallpaper-ready::before {
+  opacity : 0;
+}
+
+@media (min-width: 1281px) {
+  .desktop-root::after {
+    background-image : url('/wallpaper-1920.webp');
+    background-image : image-set(
+      url('/wallpaper-1920.avif') type('image/avif'),
+      url('/wallpaper-1920.webp') type('image/webp')
+    );
+  }
+}
+
+@media (min-width: 1921px) {
+  .desktop-root::after {
+    background-image : url('/wallpaper-2560.webp');
+    background-image : image-set(
+      url('/wallpaper-2560.avif') type('image/avif'),
+      url('/wallpaper-2560.webp') type('image/webp')
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-root::before,
+  .desktop-root::after {
+    transition : none;
+  }
 }
 
 /* ========== TOP BAR ========== */
@@ -943,60 +1013,6 @@
   color           : var(--text-primary);
   animation       : toast-in var(--dur-slow) var(--ease-spring) both;
   max-inline-size : 20rem;
-}
-
-/* ========== GEOWARS GAME ========== */
-.geowars-wrapper {
-  display        : flex;
-  flex-direction : column;
-  gap            : var(--space-3);
-  block-size     : 100%;
-}
-
-.geowars-container {
-  position       : relative;
-  flex           : 1 1 0;
-  min-block-size : 240px;
-  border-radius  : var(--radius-md);
-  overflow       : hidden;
-  background     : #040412;
-
-  & canvas {
-    display     : block;
-    inline-size : 100%;
-    block-size  : 100%;
-  }
-}
-
-.geowars-hud {
-  display     : flex;
-  align-items : center;
-  gap         : var(--space-4);
-  font-size   : var(--text-sm);
-  color       : var(--text-secondary);
-  flex-wrap   : wrap;
-}
-
-.geowars-value {
-  font-family : var(--font-mono);
-  font-weight : 600;
-  color       : var(--c-accent);
-}
-
-.geowars-btn {
-  padding-inline : var(--space-3);
-  padding-block  : var(--space-1);
-  border-radius  : var(--radius-md);
-  background     : var(--icon-selected-bg);
-  color          : var(--c-accent);
-  font-size      : var(--text-sm);
-  font-weight    : 500;
-  transition     : background var(--dur-fast) var(--ease-out);
-
-  &:hover {
-    background : var(--c-accent);
-    color      : var(--c-white);
-  }
 }
 
 /* ========== MUSIC PLAYER ========== */

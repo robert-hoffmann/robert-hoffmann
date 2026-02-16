@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { onMounted, provide, ref, watch } from 'vue'
+import { defineAsyncComponent, onMounted, onUnmounted, provide, ref, watch } from 'vue'
 import TopBar from './components/TopBar.vue'
 import Dock from './components/Dock.vue'
 import AppWindow from './components/AppWindow.vue'
 import DesktopIcon from './components/DesktopIcon.vue'
-import MobileApp from './components/MobileApp.vue'
 import NotificationToast from './components/NotificationToast.vue'
 import AboutSiteModal from './components/AboutSiteModal.vue'
 import { useWindowManager } from './composables/useWindowManager'
@@ -17,6 +16,9 @@ import { useResizable } from './composables/useResizable'
 import { useSessionPersistence } from './composables/useSessionPersistence'
 import { useViewMode } from './composables/useViewMode'
 import { windowRegistry } from './data/registry'
+
+/* Keep mobile-only graph out of initial desktop bundle. */
+const MobileApp = defineAsyncComponent(() => import('./components/MobileApp.vue'))
 
 /* ---- shared composables (used in both views) ---- */
 const theme = useTheme()
@@ -37,6 +39,14 @@ const session         = useSessionPersistence(icons.items)
 const OWNER_NAME = 'Robert Hoffmann'
 
 const showAboutSite = ref(false)
+const wallpaperReady = ref(false)
+
+const STARTUP_INITIAL_BATCH = 2
+const STARTUP_STAGGER_MS    = 120
+
+let startupRafId: number | null = null
+const startupTimerIds: number[] = []
+let wallpaperLoader: HTMLImageElement | null = null
 
 /* ---- default windows to open on first visit ---- */
 const DEFAULT_WINDOWS = [
@@ -48,6 +58,73 @@ const DEFAULT_WINDOWS = [
 ]
 
 /* ---- helpers ---- */
+function clearStartupSchedule() {
+  if (startupRafId !== null) {
+    window.cancelAnimationFrame(startupRafId)
+    startupRafId = null
+  }
+  for (const id of startupTimerIds) window.clearTimeout(id)
+  startupTimerIds.length = 0
+}
+
+/* Keep default desktop layout deterministic while deferring heavy mounts. */
+function applyWindowLayout(def: (typeof DEFAULT_WINDOWS)[number]) {
+  const newWin = wm.openWindow(def.itemId, locale.value)
+  if (!newWin) return
+  newWin.x = def.x
+  newWin.y = def.y
+  newWin.w = def.w
+  newWin.h = def.h
+  newWin.zIndex = def.zIndex
+}
+
+function openDefaultWindowsStaggered() {
+  clearStartupSchedule()
+
+  /* Delay first app mounts until the shell has had a chance to paint once. */
+  startupRafId = window.requestAnimationFrame(() => {
+    startupRafId = null
+
+    for (const def of DEFAULT_WINDOWS.slice(0, STARTUP_INITIAL_BATCH)) {
+      applyWindowLayout(def)
+    }
+
+    DEFAULT_WINDOWS.slice(STARTUP_INITIAL_BATCH).forEach((def, idx) => {
+      const timerId = window.setTimeout(() => {
+        applyWindowLayout(def)
+      }, STARTUP_STAGGER_MS * (idx + 1))
+      startupTimerIds.push(timerId)
+    })
+  })
+}
+
+function resolveWallpaperWidth(): 1280 | 1920 | 2560 {
+  const viewportWidth = window.innerWidth
+  if (viewportWidth >= 1921) return 2560
+  if (viewportWidth >= 1281) return 1920
+  return 1280
+}
+
+/* Blur-up: keep LQIP visible until the selected sharp wallpaper is decoded. */
+function preloadDesktopWallpaper() {
+  wallpaperReady.value = false
+
+  const width = resolveWallpaperWidth()
+  const loader = new Image()
+  wallpaperLoader = loader
+  loader.decoding = 'async'
+
+  const finish = () => {
+    if (wallpaperLoader !== loader) return
+    wallpaperReady.value = true
+    wallpaperLoader = null
+  }
+
+  loader.addEventListener('load', finish, { once : true })
+  loader.addEventListener('error', finish, { once : true })
+  loader.src = `${import.meta.env.BASE_URL}wallpaper-${width}.webp`
+}
+
 function openItem(itemId: string) {
   const def = windowRegistry[itemId]
   if (def?.type === 'link' && def.url) {
@@ -62,18 +139,10 @@ provide('openApp', openItem)
 
 
 function resetDesktop() {
+  clearStartupSchedule()
   session.reset()
   wm.closeAll()
-  for (const def of DEFAULT_WINDOWS) {
-    const newWin = wm.openWindow(def.itemId, locale.value)
-    if (newWin) {
-      newWin.x = def.x
-      newWin.y = def.y
-      newWin.w = def.w
-      newWin.h = def.h
-      newWin.zIndex = def.zIndex
-    }
-  }
+  openDefaultWindowsStaggered()
   theme.setTheme('dark')
   toast.show(t('toast.desktopReset'))
 }
@@ -191,25 +260,24 @@ onMounted(() => {
   /* Skip desktop window initialisation when in mobile mode */
   if (isMobile.value) return
 
+  preloadDesktopWallpaper()
+
   /* Restore saved state or apply deep-link params */
   const hasDeepLinks = session.applyDeepLinks()
   if (!hasDeepLinks) {
     const restored = session.restore()
     if (!restored) {
-      /* First visit — open default windows */
-      for (const def of DEFAULT_WINDOWS) {
-        const newWin = wm.openWindow(def.itemId, locale.value)
-        if (newWin) {
-          newWin.x = def.x
-          newWin.y = def.y
-          newWin.w = def.w
-          newWin.h = def.h
-          newWin.zIndex = def.zIndex
-        }
-      }
+      /* First visit — open default windows in staggered batches */
+      openDefaultWindowsStaggered()
     }
   }
   session.startAutoSave()
+})
+
+onUnmounted(() => {
+  clearStartupSchedule()
+  if (wallpaperLoader) wallpaperLoader.src = ''
+  wallpaperLoader = null
 })
 
 /* ---- locale watcher — re-derive titles when locale changes ---- */
@@ -225,7 +293,12 @@ watch(locale, (loc) => {
   <MobileApp v-if="isMobile" />
 
   <!-- ---- Desktop layout ---- -->
-  <div v-else class="desktop-root" :data-theme="theme.theme.value">
+  <div
+    v-else
+    class="desktop-root"
+    :class="{ 'desktop-root--wallpaper-ready': wallpaperReady }"
+    :data-theme="theme.theme.value"
+  >
     <TopBar
       :owner-name="OWNER_NAME"
       :focused-window-title="wm.focusedWindowTitle.value"

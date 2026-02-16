@@ -6,6 +6,8 @@
  * 2. Generates favicons (favicon.ico 32×32, apple-touch-icon 180×180,
  *    favicon-32.png, favicon-16.png) from public/profile.jpg.
  * 3. Generates a 64×64 circular desktop-icon thumbnail (profile-icon.webp).
+ * 4. Generates local video poster assets (video-poster.webp / .avif).
+ * 5. Generates responsive wallpaper variants for startup performance.
  *
  * Usage:  node scripts/optimize-images.mjs
  */
@@ -18,6 +20,15 @@ const PUBLIC   = new URL('../public/', import.meta.url).pathname
 const QUALITY  = { webp: 80, avif: 55 }
 const EXTS     = new Set(['.jpg', '.jpeg', '.png'])
 const SKIP     = new Set(['favicon-16.png', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'])
+
+async function exists(pathname) {
+  try {
+    await access(pathname)
+    return true
+  } catch {
+    return false
+  }
+}
 
 /* ---- 1. WebP + AVIF variants ---- */
 const files = await readdir(PUBLIC)
@@ -86,6 +97,75 @@ try {
   console.log(`✓ Desktop icon: profile-icon.webp (${(iconSize2 / 1024).toFixed(1)}KB)`)
 } catch {
   console.log('⚠ No profile.jpg found — skipping favicon + icon generation')
+}
+
+/* ---- 4. Local video poster (for Video app facade) ---- */
+const videoPosterCandidates = [
+  /* Preferred source requested for video facade poster. */
+  join(PUBLIC, 'drib.jpg'),
+  join(PUBLIC, 'video-poster.jpg'),
+  join(PUBLIC, 'video-poster.png'),
+  /* Keeps build deterministic even if no dedicated poster asset exists yet. */
+  join(PUBLIC, 'screenshot-teaser.avif'),
+]
+const videoPosterSrc = await (async () => {
+  for (const candidate of videoPosterCandidates) {
+    if (await exists(candidate)) return candidate
+  }
+  return null
+})()
+
+if (videoPosterSrc) {
+  const base = sharp(videoPosterSrc).resize(1280, 720, { fit : 'cover', position : 'centre' })
+  await Promise.all([
+    base.clone().webp({ quality : 78 }).toFile(join(PUBLIC, 'video-poster.webp')),
+    base.clone().avif({ quality : 52 }).toFile(join(PUBLIC, 'video-poster.avif')),
+  ])
+
+  const webpSize = (await stat(join(PUBLIC, 'video-poster.webp'))).size
+  const avifSize = (await stat(join(PUBLIC, 'video-poster.avif'))).size
+  console.log(
+    `✓ Video poster from ${basename(videoPosterSrc)} → ` +
+    `video-poster.webp (${(webpSize / 1024).toFixed(1)}KB) + ` +
+    `video-poster.avif (${(avifSize / 1024).toFixed(1)}KB)`,
+  )
+} else {
+  console.log('⚠ No source found for video poster generation')
+}
+
+/* ---- 5. Responsive wallpaper variants ---- */
+const wallpaperSrc = join(PUBLIC, 'wallpaper.webp')
+if (await exists(wallpaperSrc)) {
+  /* Match common viewport bands to avoid shipping 4K wallpaper to smaller screens. */
+  const widths = [1280, 1920, 2560]
+  for (const width of widths) {
+    const outputWebp = join(PUBLIC, `wallpaper-${width}.webp`)
+    const outputAvif = join(PUBLIC, `wallpaper-${width}.avif`)
+    const base = sharp(wallpaperSrc).resize({ width, withoutEnlargement : true })
+    await Promise.all([
+      base.clone().webp({ quality : 78 }).toFile(outputWebp),
+      base.clone().avif({ quality : 52 }).toFile(outputAvif),
+    ])
+    const webpSize = (await stat(outputWebp)).size
+    const avifSize = (await stat(outputAvif)).size
+    console.log(
+      `✓ Wallpaper ${width}px → ` +
+      `wallpaper-${width}.webp (${(webpSize / 1024).toFixed(1)}KB) + ` +
+      `wallpaper-${width}.avif (${(avifSize / 1024).toFixed(1)}KB)`,
+    )
+  }
+
+  const lqipOutput = join(PUBLIC, 'wallpaper-lqip.webp')
+  await sharp(wallpaperSrc)
+    .resize({ width : 96, withoutEnlargement : true })
+    .blur(3)
+    .webp({ quality : 42 })
+    .toFile(lqipOutput)
+
+  const lqipSize = (await stat(lqipOutput)).size
+  console.log(`✓ Wallpaper LQIP → wallpaper-lqip.webp (${(lqipSize / 1024).toFixed(1)}KB)`)
+} else {
+  console.log('⚠ No wallpaper.webp found — skipping responsive wallpaper generation')
 }
 
 console.log('Done.')

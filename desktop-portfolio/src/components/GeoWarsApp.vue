@@ -68,3 +68,58 @@ function onRestart()     { restart() }
     <p class="panel-meta">{{ l(easterEgg.body) }}</p>
   </div>
 </template>
+
+<style scoped>
+.geowars-wrapper {
+  display        : flex;
+  flex-direction : column;
+  gap            : var(--space-3);
+  block-size     : 100%;
+}
+
+.geowars-container {
+  position       : relative;
+  flex           : 1 1 0;
+  min-block-size : 240px;
+  border-radius  : var(--radius-md);
+  overflow       : hidden;
+  background     : #040412;
+
+  & canvas {
+    display     : block;
+    inline-size : 100%;
+    block-size  : 100%;
+  }
+}
+
+.geowars-hud {
+  display     : flex;
+  align-items : center;
+  gap         : var(--space-4);
+  font-size   : var(--text-sm);
+  color       : var(--text-secondary);
+  flex-wrap   : wrap;
+}
+
+.geowars-value {
+  font-family : var(--font-mono);
+  font-weight : 600;
+  color       : var(--c-accent);
+}
+
+.geowars-btn {
+  padding-inline : var(--space-3);
+  padding-block  : var(--space-1);
+  border-radius  : var(--radius-md);
+  background     : var(--icon-selected-bg);
+  color          : var(--c-accent);
+  font-size      : var(--text-sm);
+  font-weight    : 500;
+  transition     : background var(--dur-fast) var(--ease-out);
+
+  &:hover {
+    background : var(--c-accent);
+    color      : var(--c-white);
+  }
+}
+</style>

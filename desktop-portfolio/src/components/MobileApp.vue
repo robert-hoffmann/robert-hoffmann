@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
 import MobileHeader from './MobileHeader.vue'
-import AboutApp from './AboutApp.vue'
-import ResumeApp from './ResumeApp.vue'
-import ProjectsApp from './ProjectsApp.vue'
 import { about } from '../data/content'
 import { useLocale } from '../composables/useLocale'
 import { useTheme } from '../composables/useTheme'
 import { useToast } from '../composables/useToast'
+
+/* Preserve chunk isolation between mobile and desktop startup paths. */
+const AboutApp    = defineAsyncComponent(() => import('./AboutApp.vue'))
+const ResumeApp   = defineAsyncComponent(() => import('./ResumeApp.vue'))
+const ProjectsApp = defineAsyncComponent(() => import('./ProjectsApp.vue'))
 
 const OWNER_NAME  = 'Robert Hoffmann'
 const TEASER_IMG  = `${import.meta.env.BASE_URL}screenshot-teaser.avif`

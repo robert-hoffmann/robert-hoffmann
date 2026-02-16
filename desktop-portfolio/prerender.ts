@@ -8,15 +8,25 @@
 
 import { about, projects, experience, contact } from './src/data/content.ts'
 
+/* Prerender runs outside Vue reactivity; force deterministic EN strings. */
+function asEnglishText(value: unknown): string {
+  if (typeof value === 'string') return value
+  if (value && typeof value === 'object' && 'en' in value) {
+    const english = (value as { en?: unknown }).en
+    if (typeof english === 'string') return english
+  }
+  return String(value ?? '')
+}
+
 export function prerender() {
   const projectsHtml = projects
     .slice(0, 6)
     .map(
       (p) => `
       <article>
-        <h3>${p.name}</h3>
-        <p>${p.summary}</p>
-        ${p.highlight ? `<p><strong>${p.highlight}</strong></p>` : ''}
+        <h3>${asEnglishText(p.name)}</h3>
+        <p>${asEnglishText(p.summary)}</p>
+        ${p.highlight ? `<p><strong>${asEnglishText(p.highlight)}</strong></p>` : ''}
         <p>Stack: ${p.stack.join(', ')}</p>
       </article>`,
     )
@@ -27,15 +37,15 @@ export function prerender() {
     .map(
       (e) => `
       <article>
-        <h3>${e.role} — ${e.company}</h3>
-        <p>${e.period}${e.location ? ` · ${e.location}` : ''}</p>
-        <p>${e.summary}</p>
+        <h3>${asEnglishText(e.role)} — ${asEnglishText(e.company)}</h3>
+        <p>${e.period}${e.location ? ` · ${asEnglishText(e.location)}` : ''}</p>
+        <p>${asEnglishText(e.summary)}</p>
       </article>`,
     )
     .join('\n')
 
   const expertiseHtml = about.expertise
-    .map((e) => `<li>${e}</li>`)
+    .map((e) => `<li>${asEnglishText(e)}</li>`)
     .join('\n          ')
 
   const certHtml = about.certifications
@@ -43,15 +53,15 @@ export function prerender() {
     .join('\n          ')
 
   const html = `
-    <div style="max-width:48rem;margin:0 auto;padding:2rem;font-family:system-ui,sans-serif;line-height:1.6;color:#e0e0e0;">
+    <div data-prerender-root style="max-width:48rem;margin:0 auto;padding:2rem;font-family:system-ui,sans-serif;line-height:1.6;color:#e0e0e0;">
       <header>
         <h1>${about.name} — Full-Stack Engineer &amp; Consultant</h1>
-        <p>${about.tagline}</p>
+        <p>${asEnglishText(about.tagline)}</p>
       </header>
 
       <section>
         <h2>About</h2>
-        <p>${about.summary}</p>
+        <p>${asEnglishText(about.summary)}</p>
         <h3>Expertise</h3>
         <ul>
           ${expertiseHtml}
