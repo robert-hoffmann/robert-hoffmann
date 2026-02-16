@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.0.0...desktop-portfolio-v1.1.0) (2026-02-16)
+
+
+### Features
+
+* Add governance policies and modern coding standards for TypeScript and Vue ([2c9fe4f](https://github.com/robert-hoffmann/robert-hoffmann/commit/2c9fe4fc96468ca016d617069c3f6b17fcf26ce8))
+* add preview mode styling to mobile app component ([0be065c](https://github.com/robert-hoffmann/robert-hoffmann/commit/0be065cde1267cf9d92df627d00bc142ba75e2ca))
+* enhance terminal functionality with close command and improved context exposure ([1f672e5](https://github.com/robert-hoffmann/robert-hoffmann/commit/1f672e51cf6e2e245e9d4613c70771b200add804))
+* extend notification display durations for improved user engagement ([8f428f4](https://github.com/robert-hoffmann/robert-hoffmann/commit/8f428f4cc0e23c5900154f47d3e77c3749eeaefc))
+* implement manual and auto pause functionality for improved game control ([d4ea66b](https://github.com/robert-hoffmann/robert-hoffmann/commit/d4ea66bd19f6948c5771115ed1052397b2bdade5))
+* increase notification display durations for improved user engagement ([c378044](https://github.com/robert-hoffmann/robert-hoffmann/commit/c3780446896f152337b073e842d15c8f2972452e))
+* update SVG icons to use a uniform fill color ([ef26cbf](https://github.com/robert-hoffmann/robert-hoffmann/commit/ef26cbf04f7fc9e3722fe5af99e28a71da552049))
+* update window rendering logic to handle minimized state and improve performance ([0767471](https://github.com/robert-hoffmann/robert-hoffmann/commit/0767471c42a038d24737eef49c6632794d8deb75))
+
 ## 1.0.0 (2026-02-16)
 
 
