@@ -123,6 +123,53 @@ Or with lighter separators:
 
 ---
 
+## Folding Regions (Where Supported)
+
+Use fold-region markers to improve navigation in larger files where the language/editor supports marker-based folding.
+
+### Enforcement Contract (Hybrid)
+
+- **MUST** use fold regions when a file is `>= 160` lines or has `>= 4` major sections.
+- **SHOULD** use fold regions for files between `80-159` lines when scanability is poor.
+- **SHOULD NOT** add fold markers to small/simple files (`< 80` lines).
+
+### Region Hygiene Rules
+
+- Use stable Title Case names (for example: `Imports`, `Types`, `Main Logic`).
+- Region start/end names must match semantically.
+- Maximum nesting depth is 2.
+- Do not create empty regions.
+- Always close regions before EOF.
+
+### VS Code Canonical Marker Matrix
+
+| File Type                     | Preferred Marker Pair                                       | Notes                                                          |
+|------------------------------|--------------------------------------------------------------|----------------------------------------------------------------|
+| `*.py`, `*.pyi`              | `# region Name` / `# endregion Name`                        | Primary for Python modules and type stubs                      |
+| `*.ts`, `*.js`, `*.mjs`      | `// #region Name` / `// #endregion Name`                    | Primary for script blocks                                      |
+| `*.css`                      | `/* #region Name */` / `/* #endregion Name */`              | Keep inside stylesheet logic blocks                            |
+| `*.html`                     | `<!-- #region Name -->` / `<!-- #endregion Name -->`        | For large templates                                            |
+| `*.md`                       | `<!-- #region Name -->` / `<!-- #endregion Name -->`        | Useful in long Markdown docs                                   |
+| `*.vue`                      | Marker style by block (`<script>`, `<style>`, `<template>`) | Follow JS/CSS/HTML marker conventions for each block           |
+| `*.json`                     | No marker comments                                           | Use structural/object folding only; comments require JSONC     |
+
+### Unsupported-Format Fallback
+
+If a language extension does not support region markers:
+
+- Keep visual separator headers (`===`, `---`) for scanability.
+- Rely on indentation/syntax-based folding instead of marker comments.
+
+### Reference Links (VS Code)
+
+- Folding basics and marker behavior: https://code.visualstudio.com/docs/editor/codebasics#_folding
+- Language configuration folding markers: https://code.visualstudio.com/api/language-extensions/language-configuration-guide#_folding
+- Python language configuration (fold markers): https://github.com/microsoft/vscode/blob/main/extensions/python/language-configuration.json
+- HTML language support: https://code.visualstudio.com/docs/languages/html
+- JSON language support: https://code.visualstudio.com/docs/languages/json
+
+---
+
 ## Documentation Goals
 
 > **Make the code understandable even for developers new to the project.**
@@ -307,6 +354,9 @@ When reviewing code for refactoring opportunities, check for:
 - [ ] Missing logging for debugging
 - [ ] Inefficient algorithms or data structures
 - [ ] Magic numbers/strings that should be constants
+- [ ] Region markers are balanced in files that use fold regions
+- [ ] Region names are meaningful and consistent
+- [ ] Region usage is not over-fragmented by excessive nesting/splitting
 
 ---
 
@@ -315,6 +365,6 @@ When reviewing code for refactoring opportunities, check for:
 1. **Make small, incremental changes** - to isolate issues
 2. **Verify behavior**                 - after each change
 3. **Keep commits focused**            — one refactoring per commit
+4. **Preserve fold structure**         — when moving code, preserve or rebalance region boundaries
 
 ---
-
