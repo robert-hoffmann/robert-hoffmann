@@ -380,11 +380,11 @@ export const projects = [
       en :
         'Full rewrite of the HealthMonitoring app, used as a testbed for modern cloud ' +
         'technologies. Integrated SSO via LinkedIn, Google, Facebook, and Live; hosted ' +
-        'on Windows Azure with Azure SQL; and cloud email via Mandrill.',
+        'on Windows Azure with Azure SQL; and cloud messaging via Mandrill.',
       fr :
         'Réécriture complète de l\u2019application HealthMonitoring, utilisée comme banc d\u2019essai ' +
         'pour les technologies cloud modernes. SSO intégré via LinkedIn, Google, Facebook et ' +
-        'Live\u202F; hébergé sur Windows Azure avec Azure SQL\u202F; et email cloud via Mandrill.',
+        'Live\u202F; hébergé sur Windows Azure avec Azure SQL\u202F; et messagerie cloud via Mandrill.',
     } satisfies Localized,
     stack     : ['AngularJS', 'MVC5', 'Bootstrap', 'Azure'],
   },
@@ -962,7 +962,6 @@ export const experience = [
 ] as const
 
 export const contact = {
-  email : 'robert.hoffmann@i-technology.net',
   links : [
     { label : 'GitHub',   href : 'https://github.com/robert-hoffmann' },
     { label : 'LinkedIn', href : 'https://www.linkedin.com/in/hoffmannrobert' },

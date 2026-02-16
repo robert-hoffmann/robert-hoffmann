@@ -85,7 +85,6 @@ export function prerender() {
       <section>
         <h2>Contact</h2>
         <ul>
-          <li><a href="mailto:${contact.email}">${contact.email}</a></li>
           ${contact.links.map((l) => `<li><a href="${l.href}">${l.label}</a></li>`).join('\n          ')}
         </ul>
       </section>
