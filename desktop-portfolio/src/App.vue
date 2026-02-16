@@ -360,13 +360,13 @@ watch(locale, (loc) => {
         message-key="notification.followMessage"
         cta-key="notification.followCta"
         url="https://x.com/itechnologynet"
-        :delay="12000"
+        :delay="30000"
       />
       <NotificationToast
         message-key="notification.connectMessage"
         cta-key="notification.connectCta"
         url="https://www.linkedin.com/in/hoffmannrobert"
-        :delay="15000"
+        :delay="60000"
       />
     </div>
   </div>
