@@ -29,7 +29,7 @@ function follow() {
 onMounted(() => {
   delayTimer = setTimeout(() => {
     visible.value = true
-    dismissTimer = setTimeout(dismiss, 10_000)
+    dismissTimer = setTimeout(dismiss, 30_000)
   }, props.delay)
 })
 
