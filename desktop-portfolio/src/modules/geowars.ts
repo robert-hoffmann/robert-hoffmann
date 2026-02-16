@@ -134,6 +134,8 @@ const keys: Record<string, boolean> = {}
 let mouseX    = 0
 let mouseY    = 0
 let mouseDown = false
+let manualPauseRequested = false
+let autoPauseRequested   = false
 
 /* Player velocity */
 let playerVX = 0
@@ -488,6 +490,14 @@ function resumeMusic() {
   musicScheduler = setInterval(musicTick, MUSIC_SCHEDULE_INTERVAL)
 }
 
+function syncPauseState() {
+  const nextPaused = manualPauseRequested || autoPauseRequested
+  if (state.paused === nextPaused) return
+  state.paused = nextPaused
+  if (state.paused) { pauseMusic(); updateThrustAudio(0) }
+  else resumeMusic()
+}
+
 /* ----------------------------------------------------------
    GEOMETRY HELPERS
    ---------------------------------------------------------- */
@@ -817,12 +827,27 @@ function onPointerMove(e: PointerEvent) {
 function onPointerDown(e: PointerEvent) { if (e.button === 0) mouseDown = true }
 function onPointerUp()                  { mouseDown = false }
 
+function onMouseEnterCanvas() {
+  if (state.gameOver) return
+  autoPauseRequested = false
+  syncPauseState()
+}
+
+function onMouseLeaveCanvas() {
+  if (state.gameOver) return
+  autoPauseRequested = true
+  mouseDown = false
+  syncPauseState()
+}
+
 function bindInput() {
   document.addEventListener('keydown', onKeyDown)
   document.addEventListener('keyup', onKeyUp)
   renderer?.domElement.addEventListener('pointermove', onPointerMove)
   renderer?.domElement.addEventListener('pointerdown', onPointerDown)
   renderer?.domElement.addEventListener('pointerup', onPointerUp)
+  renderer?.domElement.addEventListener('mouseenter', onMouseEnterCanvas)
+  renderer?.domElement.addEventListener('mouseleave', onMouseLeaveCanvas)
 }
 
 function unbindInput() {
@@ -831,6 +856,8 @@ function unbindInput() {
   renderer?.domElement.removeEventListener('pointermove', onPointerMove)
   renderer?.domElement.removeEventListener('pointerdown', onPointerDown)
   renderer?.domElement.removeEventListener('pointerup', onPointerUp)
+  renderer?.domElement.removeEventListener('mouseenter', onMouseEnterCanvas)
+  renderer?.domElement.removeEventListener('mouseleave', onMouseLeaveCanvas)
 }
 
 /* ----------------------------------------------------------
@@ -927,6 +954,8 @@ function resetGameState() {
   state.score = 0; state.wave = 1; state.lives = 3
   state.paused = false; state.gameOver = false
   frameCount = 0; fireCooldown = 0; playerVX = 0; playerVY = 0
+  manualPauseRequested = false
+  autoPauseRequested = false
 
   if (player && playerGroup) {
     player.x = 0; player.y = 0; player.alive = true
@@ -967,6 +996,8 @@ export function destroy() {
   running = false
   stopMusic()
   stopThrust()
+  manualPauseRequested = false
+  autoPauseRequested = false
   unbindInput()
   if (raf) { cancelAnimationFrame(raf); raf = null }
   if (resizeObs) { resizeObs.disconnect(); resizeObs = null }
@@ -1021,7 +1052,6 @@ export function restart() {
 
 export function togglePause() {
   if (state.gameOver) return
-  state.paused = !state.paused
-  if (state.paused) { pauseMusic(); updateThrustAudio(0) }
-  else resumeMusic()
+  manualPauseRequested = !manualPauseRequested
+  syncPauseState()
 }
