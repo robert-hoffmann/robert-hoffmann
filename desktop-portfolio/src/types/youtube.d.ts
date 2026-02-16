@@ -47,6 +47,8 @@ declare namespace YT {
     playVideo()                       : void
     pauseVideo()                      : void
     stopVideo()                       : void
+    nextVideo()                       : void
+    previousVideo()                   : void
     seekTo(seconds: number, allowSeekAhead: boolean) : void
     mute()                            : void
     unMute()                          : void

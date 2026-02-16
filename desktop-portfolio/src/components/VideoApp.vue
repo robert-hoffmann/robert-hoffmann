@@ -8,7 +8,7 @@ const { t } = useLocale()
 /** Injected from AppWindow — true when this window is front-most */
 const windowFocused = inject<Readonly<import('vue').Ref<boolean>>>('windowFocused', ref(true))
 
-const VIDEO_ID = 'YkEVCFfms30'
+const PLAYLIST_ID = 'PLLBhCscredzYvSwHG3PJm4w-LIC4xwYaJ'
 /* Local poster avoids third-party handshake cost on initial desktop load. */
 const VIDEO_POSTER_AVIF = `${import.meta.env.BASE_URL}video-poster.avif`
 const VIDEO_POSTER_WEBP = `${import.meta.env.BASE_URL}video-poster.webp`
@@ -95,6 +95,18 @@ function onStop() {
   stopTick()
 }
 
+function onPrevious() {
+  if (!player || !state.ready) return
+  player.previousVideo()
+  state.elapsed = 0
+}
+
+function onNext() {
+  if (!player || !state.ready) return
+  player.nextVideo()
+  state.elapsed = 0
+}
+
 function onSeek(e: MouseEvent) {
   if (!player || !state.duration) return
   const bar  = e.currentTarget as HTMLElement
@@ -143,13 +155,15 @@ async function bootstrapPlayer(autoplay = true) {
   if (!el) return
 
   player = new YT.Player(el, {
-    videoId : VIDEO_ID,
     host    : YT_NOCOOKIE_HOST,
     width   : '100%',
     height  : '100%',
     playerVars : {
       controls       : 0,    /* hide native controls */
       disablekb      : 1,
+      listType       : 'playlist',
+      list           : PLAYLIST_ID,
+      loop           : 1,
       rel            : 0,
       modestbranding : 1,
       playsinline    : 1,
@@ -264,6 +278,19 @@ onUnmounted(() => {
       </div>
 
       <div class="video-player-controls-row">
+        <!-- Previous -->
+        <button
+          class="vp-btn"
+          type="button"
+          :disabled="showFacade || !state.ready"
+          :aria-label="t('video.previous')"
+          @click="onPrevious"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 5h2v14H6zM19 6l-9 6 9 6V6z" />
+          </svg>
+        </button>
+
         <!-- Play / Pause -->
         <button
           class="vp-btn vp-btn--main"
@@ -279,6 +306,19 @@ onUnmounted(() => {
           <!-- Play icon -->
           <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
             <path d="M6 4l15 8-15 8V4z" />
+          </svg>
+        </button>
+
+        <!-- Next -->
+        <button
+          class="vp-btn"
+          type="button"
+          :disabled="showFacade || !state.ready"
+          :aria-label="t('video.next')"
+          @click="onNext"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 5h2v14h-2zM5 6l9 6-9 6V6z" />
           </svg>
         </button>
 
