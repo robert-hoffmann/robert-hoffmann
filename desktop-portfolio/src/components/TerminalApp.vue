@@ -7,10 +7,12 @@ const { t, locale } = useLocale()
 
 /* ---- app launcher bridge ---- */
 const openApp = inject<(id: string) => void>('openApp')
+const closeWindow = inject<() => void>('closeWindow')
 
 const { lines, currentInput, processCommand, historyUp, historyDown, showWelcome, resolveLine } =
   useTerminal({
     onLaunchApp : (id) => openApp?.(id),
+    onClose     : () => closeWindow?.(),
     getLocale   : () => locale.value,
     t,
   })

@@ -22,6 +22,7 @@ export interface TerminalLine {
 
 interface TerminalOptions {
   onLaunchApp : (id: string) => void
+  onClose?    : () => void
   getLocale   : () => Locale
   t           : (key: string, params?: Record<string, string | number>) => string
 }
@@ -37,7 +38,7 @@ interface TerminalCommand {
 /* ---- composable ---- */
 
 export function useTerminal(options: TerminalOptions) {
-  const { onLaunchApp, getLocale, t } = options
+  const { onLaunchApp, onClose, getLocale, t } = options
 
   const lines        = reactive<TerminalLine[]>([])
   const currentInput = ref('')
@@ -92,6 +93,11 @@ export function useTerminal(options: TerminalOptions) {
       }))
   }
 
+  function closeTerminal(): OutputEntry[] {
+    onClose?.()
+    return []
+  }
+
   /* ---- command registry ---- */
 
   const commands: Record<string, TerminalCommand> = {
@@ -118,6 +124,16 @@ export function useTerminal(options: TerminalOptions) {
         lines.length = 0
         return []
       },
+    },
+
+    exit : {
+      description : 'term.cmd.exit',
+      handler     : closeTerminal,
+    },
+
+    quit : {
+      description : 'term.cmd.quit',
+      handler     : closeTerminal,
     },
 
     ls : {

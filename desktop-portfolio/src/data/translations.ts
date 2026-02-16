@@ -173,6 +173,8 @@ const ui: Record<string, Localized> = {
 
   'term.cmd.help'                : { en : 'Show available commands',        fr : 'Afficher les commandes disponibles' },
   'term.cmd.clear'               : { en : 'Clear the terminal',            fr : 'Effacer le terminal' },
+  'term.cmd.exit'                : { en : 'Close the terminal window',     fr : 'Fermer la fenêtre Terminal' },
+  'term.cmd.quit'                : { en : 'Close the terminal window',     fr : 'Fermer la fenêtre Terminal' },
   'term.cmd.ls'                  : { en : 'List available apps',            fr : 'Lister les applications' },
   'term.cmd.pwd'                 : { en : 'Print working directory',       fr : 'Afficher le répertoire courant' },
   'term.cmd.whoami'              : { en : 'Display current user',          fr : 'Afficher l\u2019utilisateur courant' },

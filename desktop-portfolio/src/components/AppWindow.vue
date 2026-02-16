@@ -11,9 +11,6 @@ const props = defineProps<{
   isFocused    : boolean
 }>()
 
-/** Expose focus state to dynamically loaded content components */
-provide('windowFocused', toRef(props, 'isFocused'))
-
 const emit = defineEmits<{
   close     : [id: string]
   minimize  : [id: string]
@@ -22,6 +19,10 @@ const emit = defineEmits<{
   dragStart : [event: PointerEvent, id: string]
   resizeStart: [event: PointerEvent, id: string]
 }>()
+
+/** Expose window context to dynamically loaded content components */
+provide('windowFocused', toRef(props, 'isFocused'))
+provide('closeWindow', () => emit('close', props.windowState.id))
 
 const style = computed(() => ({
   left   : `${props.windowState.x}px`,
