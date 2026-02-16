@@ -1,0 +1,31 @@
+# Changelog
+
+## 1.0.0 (2026-02-16)
+
+
+### Features
+
+* add AboutSiteModal component with localization support and backdrop functionality ([db831e4](https://github.com/robert-hoffmann/robert-hoffmann/commit/db831e41cd3bfdf480696e87ca804d6f6f88389e))
+* add aria-label for play/pause button and update translations for music player ([a9d970c](https://github.com/robert-hoffmann/robert-hoffmann/commit/a9d970cf8bcc11bfa932f9591cd80c22678db089))
+* add calendar popup component with localization support ([e923c85](https://github.com/robert-hoffmann/robert-hoffmann/commit/e923c858aa319d5d1fafec98b6e0fe10ee7e549e))
+* add procedural background music with scheduling and control functions ([07a34e5](https://github.com/robert-hoffmann/robert-hoffmann/commit/07a34e5f9f643f4231786330cc18789549a5c320))
+* add static thumbnail facade and lazy loading for YouTube player in VideoApp component ([cec4ba6](https://github.com/robert-hoffmann/robert-hoffmann/commit/cec4ba61450f60b0efad7198977ca23ed48e0aef))
+* add styles for dock icons with specific image sources ([bcc2cfc](https://github.com/robert-hoffmann/robert-hoffmann/commit/bcc2cfcec9af794580651220e7f9b16c011448a2))
+* add terminal app with command handling and UI integration ([7240b05](https://github.com/robert-hoffmann/robert-hoffmann/commit/7240b0566ce10199dc1e6919c1a6055ec7bba701))
+* adjust default dimensions for window registry and update grid aspect ratio in GeoWars module ([aed8108](https://github.com/robert-hoffmann/robert-hoffmann/commit/aed81080ca5a0ad0b64667e5b677c9d7b88fba96))
+* enhance enemy and player hit sound effects with dynamic audio processing ([5478f66](https://github.com/robert-hoffmann/robert-hoffmann/commit/5478f66e1df6a680e9937cd455d578b1b934f362))
+* enhance shooting sound effect with dynamic audio parameters ([4624ab4](https://github.com/robert-hoffmann/robert-hoffmann/commit/4624ab4674fc56c93166971c4b1c135d07f32be2))
+* enhance terminal functionality with translatable output and command descriptions ([d2593c7](https://github.com/robert-hoffmann/robert-hoffmann/commit/d2593c793e354cb8c22c7313605a621372bde7de))
+* implement NotificationToast component with animations and localization support ([567c18a](https://github.com/robert-hoffmann/robert-hoffmann/commit/567c18a4546319d2b3ad2c00c869e44d8b718add))
+* update grid dimensions and implement thrust audio effects for enhanced gameplay experience ([ea38b4d](https://github.com/robert-hoffmann/robert-hoffmann/commit/ea38b4dd7af3e2f529ffa91f84955526178bee78))
+
+
+### Bug Fixes
+
+* adjust profile icon styles for consistent appearance ([a9fef8f](https://github.com/robert-hoffmann/robert-hoffmann/commit/a9fef8fa34a2fd52e9665e3bf6b6b1fb8e29f857))
+* update about section to clarify technical expertise ([8fcb7e2](https://github.com/robert-hoffmann/robert-hoffmann/commit/8fcb7e2079e18429ba9eb86f2403a557fcd45417))
+
+
+### Performance Improvements
+
+* optimized image loading with blur up ([37ac711](https://github.com/robert-hoffmann/robert-hoffmann/commit/37ac7112e21a89b246cd4a8fd0e4f040476d0249))
