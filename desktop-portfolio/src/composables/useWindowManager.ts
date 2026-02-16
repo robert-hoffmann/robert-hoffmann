@@ -28,7 +28,11 @@ const state = reactive<WindowManagerState>({
 export function useWindowManager() {
   /* ---- computed ---- */
   /**
-   * Visible (non-minimized) windows in insertion order.
+   * Non-minimized windows in insertion order.
+   * This remains a manager-internal helper (focus fallback, tiling, etc.);
+   * desktop rendering now iterates all windows and uses `v-show` so
+   * minimized windows stay mounted and preserve runtime state.
+   *
    * We intentionally do NOT re-sort by zIndex here — CSS z-index
    * already handles visual stacking. Re-sorting would cause Vue's
    * v-for to move DOM nodes, and the browser reloads iframes

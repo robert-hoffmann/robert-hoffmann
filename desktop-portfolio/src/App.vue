@@ -329,8 +329,9 @@ watch(locale, (loc) => {
     </main>
 
     <AppWindow
-      v-for="ws in wm.visibleWindows.value"
+      v-for="ws in wm.state.windows"
       :key="ws.id"
+      v-show="!ws.isMinimized"
       :window-state="ws"
       :is-focused="wm.state.focusedWindowId === ws.id"
       @close="wm.closeWindow"
