@@ -5,6 +5,7 @@ import { about } from '../data/content'
 import { useLocale } from '../composables/useLocale'
 import { useTheme } from '../composables/useTheme'
 import { useToast } from '../composables/useToast'
+import { useViewMode } from '../composables/useViewMode'
 
 /* Preserve chunk isolation between mobile and desktop startup paths. */
 const AboutApp    = defineAsyncComponent(() => import('./AboutApp.vue'))
@@ -17,10 +18,15 @@ const TEASER_IMG  = `${import.meta.env.BASE_URL}screenshot-teaser.avif`
 const { t }    = useLocale()
 const theme    = useTheme()
 const toast    = useToast()
+const { isPreview } = useViewMode()
 </script>
 
 <template>
-  <div class="mobile-root" :data-theme="theme.theme.value">
+  <div
+    class="mobile-root"
+    :class="{ 'mobile-root--preview': isPreview }"
+    :data-theme="theme.theme.value"
+  >
     <MobileHeader :owner-name="OWNER_NAME" />
 
     <!-- Section navigation -->
@@ -97,6 +103,11 @@ const toast    = useToast()
   min-block-size : 100dvh;
   background     : var(--surface-base);
   color          : var(--text-primary);
+}
+
+.mobile-root--preview {
+  max-inline-size : 430px;
+  margin-inline   : auto;
 }
 
 /* ---- Section nav bar ---- */
