@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.4.0...desktop-portfolio-v1.4.1) (2026-02-17)
+
+
+### Bug Fixes
+
+* update paths in HTML, webmanifest, and Vue files for consistency ([7b0d23e](https://github.com/robert-hoffmann/robert-hoffmann/commit/7b0d23ed700ad379d65b1d0aa22b171c967e011a))
+
 ## [1.4.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.3.0...desktop-portfolio-v1.4.0) (2026-02-17)
 
 
