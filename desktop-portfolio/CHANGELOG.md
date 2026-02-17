@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.4.1...desktop-portfolio-v1.5.0) (2026-02-17)
+
+
+### Features
+
+* add resetToDefaults function for desktop icons ([f05979b](https://github.com/robert-hoffmann/robert-hoffmann/commit/f05979be120fb6416a8f2167e151b9561d63330f))
+
 ## [1.4.1](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.4.0...desktop-portfolio-v1.4.1) (2026-02-17)
 
 
