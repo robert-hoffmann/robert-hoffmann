@@ -144,6 +144,7 @@ provide('openApp', openItem)
 function resetDesktop() {
   clearStartupSchedule()
   session.reset()
+  icons.resetToDefaults(locale.value)
   wm.closeAll()
   openDefaultWindowsStaggered()
   theme.setTheme('dark')

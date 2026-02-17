@@ -53,6 +53,13 @@ export function useDesktopIcons() {
     }
   }
 
+  function resetToDefaults(locale: Locale) {
+    const defaults = getDefaultDesktopItems(locale)
+    items.length = 0
+    items.push(...defaults)
+    selectedIconId.value = null
+  }
+
   function onIconPointerDown(ev: PointerEvent, iconId: string) {
     if (ev.button !== 0) return
 
@@ -94,5 +101,6 @@ export function useDesktopIcons() {
     navigateIcons,
     onIconPointerDown,
     updateTitlesForLocale,
+    resetToDefaults,
   }
 }
