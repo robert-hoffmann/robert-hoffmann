@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.3.0...desktop-portfolio-v1.4.0) (2026-02-17)
+
+
+### Features
+
+* add desktop profile icons in .af and .webp formats ([ebce0fa](https://github.com/robert-hoffmann/robert-hoffmann/commit/ebce0fa3e1f2fac3bf0ea83ba4e8b27255a306dc))
+
 ## [1.3.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.2.0...desktop-portfolio-v1.3.0) (2026-02-16)
 
 
