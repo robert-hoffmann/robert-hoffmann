@@ -37,6 +37,9 @@ const session         = useSessionPersistence(icons.items)
 
 /* ---- constants ---- */
 const OWNER_NAME = 'Robert Hoffmann'
+const desktopRootStyle = {
+  '--desktop-sprite-url' : `url("${import.meta.env.BASE_URL}icons/desktop-profile-icons.webp")`,
+}
 
 const showAboutSite = ref(false)
 const wallpaperReady = ref(false)
@@ -280,6 +283,7 @@ watch(locale, (loc) => {
     class="desktop-root"
     :class="{ 'desktop-root--wallpaper-ready': wallpaperReady }"
     :data-theme="theme.theme.value"
+    :style="desktopRootStyle"
   >
     <TopBar
       :owner-name="OWNER_NAME"

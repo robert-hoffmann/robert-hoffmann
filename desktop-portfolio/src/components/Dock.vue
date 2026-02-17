@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { DesktopItem, WindowState } from '../types/desktop'
+import type { DesktopItem, DesktopSpriteKey, WindowState } from '../types/desktop'
 import { windowRegistry } from '../data/registry'
 import { useLocale } from '../composables/useLocale'
 
@@ -30,6 +30,10 @@ function iconForItem(itemId: string): string {
 function iconUrlForItem(itemId: string): string | undefined {
   return windowRegistry[itemId]?.iconUrl
 }
+
+function iconSpriteForItem(itemId: string): DesktopSpriteKey | undefined {
+  return windowRegistry[itemId]?.iconSprite
+}
 </script>
 
 <template>
@@ -44,7 +48,13 @@ function iconUrlForItem(itemId: string): string | undefined {
         :aria-label="t('dock.launch', { title: item.title })"
         @click="emit('launch', item.id)"
       >
-        <img v-if="item.iconUrl" :src="item.iconUrl" :alt="item.title" class="dock-icon-img" width="32" height="32" />
+        <span
+          v-if="item.iconSprite"
+          class="icon-sprite dock-icon-sprite"
+          :class="`icon-sprite--${item.iconSprite}`"
+          aria-hidden="true"
+        />
+        <img v-else-if="item.iconUrl" :src="item.iconUrl" :alt="item.title" class="dock-icon-img" width="48" height="48" />
         <span v-else class="dock-launch-icon" aria-hidden="true">{{ item.icon }}</span>
         <span class="dock-tooltip">{{ item.title }}</span>
       </button>
@@ -64,7 +74,13 @@ function iconUrlForItem(itemId: string): string | undefined {
         :aria-label="t('dock.toggle', { title: ws.title })"
         @click="emit('toggleDock', ws.id)"
       >
-        <img v-if="iconUrlForItem(ws.itemId)" :src="iconUrlForItem(ws.itemId)" :alt="ws.title" class="dock-icon-img" width="32" height="32" />
+        <span
+          v-if="iconSpriteForItem(ws.itemId)"
+          class="icon-sprite dock-icon-sprite"
+          :class="`icon-sprite--${iconSpriteForItem(ws.itemId)}`"
+          aria-hidden="true"
+        />
+        <img v-else-if="iconUrlForItem(ws.itemId)" :src="iconUrlForItem(ws.itemId)" :alt="ws.title" class="dock-icon-img" width="48" height="48" />
         <span v-else class="dock-launch-icon" aria-hidden="true">{{ iconForItem(ws.itemId) }}</span>
         <span class="dock-tooltip">{{ ws.title }}</span>
         <span class="dock-window-dot" aria-hidden="true" />
@@ -74,7 +90,7 @@ function iconUrlForItem(itemId: string): string | undefined {
 
       <!-- Trash -->
       <button class="dock-launch dock-launch--trash" type="button" :aria-label="t('dock.trash')">
-        <span class="dock-launch-icon" aria-hidden="true">🗑️</span>
+        <span class="icon-sprite dock-icon-sprite icon-sprite--trashcan" aria-hidden="true" />
         <span class="dock-tooltip">{{ t('dock.trash') }}</span>
       </button>
     </div>

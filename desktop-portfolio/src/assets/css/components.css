@@ -407,6 +407,100 @@
   filter      : drop-shadow(0 2px 4px oklch(0% 0 0 / 0.25));
 }
 
+/* Sprite metadata follows design/icons/desktop-profile-icons.md */
+.icon-sprite {
+  --sprite-cols     : 4;
+  --sprite-rows     : 3;
+  --sprite-cell-w   : 210px;
+  --sprite-cell-h   : 200px;
+  --sprite-pad      : 4px;
+  --sprite-col      : 0;
+  --sprite-row      : 0;
+  --sprite-icon-w   : calc(var(--sprite-cell-w) - (var(--sprite-pad) * 2));
+  --sprite-icon-h   : calc(var(--sprite-cell-h) - (var(--sprite-pad) * 2));
+  --sprite-target-w : 48px;
+  --sprite-sheet-w  : calc(var(--sprite-cols) * var(--sprite-cell-w));
+  --sprite-sheet-h  : calc(var(--sprite-rows) * var(--sprite-cell-h));
+  --sprite-scale    : calc(var(--sprite-target-w) / var(--sprite-icon-w));
+
+  display           : inline-block;
+  inline-size       : var(--sprite-target-w);
+  block-size        : calc(var(--sprite-icon-h) * var(--sprite-scale));
+  flex-shrink       : 0;
+  background-image  : var(--desktop-sprite-url);
+  background-repeat : no-repeat;
+  background-size   : calc(var(--sprite-sheet-w) * var(--sprite-scale))
+                      calc(var(--sprite-sheet-h) * var(--sprite-scale));
+  background-position : calc((var(--sprite-col) * var(--sprite-cell-w) + var(--sprite-pad)) * -1 * var(--sprite-scale))
+                        calc((var(--sprite-row) * var(--sprite-cell-h) + var(--sprite-pad)) * -1 * var(--sprite-scale));
+  filter            : drop-shadow(0 2px 4px oklch(0% 0 0 / 0.25));
+}
+
+.desktop-icon-sprite {
+  --sprite-target-w : 48px;
+}
+
+.dock-icon-sprite {
+  --sprite-target-w : 48px;
+  filter            : drop-shadow(0 1px 2px oklch(0% 0 0 / 0.2));
+}
+
+.icon-sprite--joystick {
+  --sprite-col : 0;
+  --sprite-row : 0;
+}
+
+.icon-sprite--video {
+  --sprite-col : 1;
+  --sprite-row : 0;
+}
+
+.icon-sprite--terminal {
+  --sprite-col : 2;
+  --sprite-row : 0;
+}
+
+.icon-sprite--social-github {
+  --sprite-col : 3;
+  --sprite-row : 0;
+}
+
+.icon-sprite--profile {
+  --sprite-col : 0;
+  --sprite-row : 1;
+}
+
+.icon-sprite--trashcan {
+  --sprite-col : 1;
+  --sprite-row : 1;
+}
+
+.icon-sprite--projects {
+  --sprite-col : 2;
+  --sprite-row : 1;
+}
+
+.icon-sprite--social-x {
+  --sprite-col : 3;
+  --sprite-row : 1;
+}
+
+.icon-sprite--music {
+  --sprite-col : 0;
+  --sprite-row : 2;
+}
+
+.icon-sprite--social-linkedin {
+  --sprite-col : 1;
+  --sprite-row : 2;
+}
+
+.icon-sprite--resume {
+  --sprite-col : 2;
+  --sprite-row : 2;
+}
+
+/* Fallback-only path when no sprite class is mapped. */
 .desktop-icon-img {
   inline-size   : 48px;
   block-size    : 48px;
@@ -435,13 +529,14 @@
 .dock-icon-img[src*="profile"] {
   padding     : 0;
   background  : transparent;
-  inline-size : 42px;
-  block-size  : 42px;
+  inline-size : 48px;
+  block-size  : 48px;
 }
 
+/* Fallback-only path when no sprite class is mapped. */
 .dock-icon-img {
-  inline-size   : 32px;
-  block-size    : 32px;
+  inline-size   : 48px;
+  block-size    : 48px;
   border-radius : var(--radius-lg);
   object-fit    : contain;
   padding       : 0.3rem;
@@ -451,15 +546,15 @@
 .dock-icon-img[src*="terminal"] {
   background  : transparent;
   padding     : 0;
-  inline-size : 42px;
-  block-size  : 42px;
+  inline-size : 48px;
+  block-size  : 48px;
 }
 
 .dock-icon-img[src*="x.svg"],
 .dock-icon-img[src*="linkedin"],
 .dock-icon-img[src*="github"] {
-  inline-size : 42px;
-  block-size  : 42px;
+  inline-size : 48px;
+  block-size  : 48px;
 }
 
 .desktop-icon-label {
@@ -900,7 +995,7 @@
 .dock-tray {
   display        : flex;
   align-items    : center;
-  gap            : var(--space-1);
+  gap            : var(--space-2);
   padding-inline : var(--space-3);
   padding-block  : var(--space-2);
   border-radius  : var(--radius-2xl);
@@ -934,13 +1029,13 @@
 
 .dock-launch-icon {
   line-height : 1;
-  font-size   : 2.5rem;
+  font-size   : 3rem;
   filter      : drop-shadow(0 1px 2px oklch(0% 0 0 / 0.2));
 }
 
 .dock-tooltip {
   position           : absolute;
-  inset-block-start  : -2rem;
+  inset-block-start  : -1.5rem;
   inset-inline-start : 50%;
   translate          : -50% 0;
   padding-inline     : var(--space-2);

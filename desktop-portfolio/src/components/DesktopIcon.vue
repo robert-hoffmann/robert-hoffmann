@@ -28,7 +28,13 @@ const emit = defineEmits<{
     @dblclick.stop="emit('open', item.id)"
     @pointerdown="emit('pointerdown', $event, item.id)"
   >
-    <img v-if="item.iconUrl" :src="item.iconUrl" :alt="item.title" class="desktop-icon-img" width="48" height="48" />
+    <span
+      v-if="item.iconSprite"
+      class="icon-sprite desktop-icon-sprite"
+      :class="`icon-sprite--${item.iconSprite}`"
+      aria-hidden="true"
+    />
+    <img v-else-if="item.iconUrl" :src="item.iconUrl" :alt="item.title" class="desktop-icon-img" width="48" height="48" />
     <span v-else class="desktop-icon-glyph" aria-hidden="true">{{ item.icon }}</span>
     <span class="desktop-icon-label">{{ item.title }}</span>
   </button>

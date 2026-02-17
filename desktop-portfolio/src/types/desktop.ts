@@ -2,12 +2,26 @@
    Desktop Portfolio — Core Type Definitions
    ============================================================ */
 
+export type DesktopSpriteKey =
+  | 'joystick'
+  | 'video'
+  | 'terminal'
+  | 'social-github'
+  | 'profile'
+  | 'trashcan'
+  | 'projects'
+  | 'social-x'
+  | 'music'
+  | 'social-linkedin'
+  | 'resume'
+
 /** Desktop icon definition (file, folder, app, or external link) */
 export interface DesktopItem {
   id       : string
   title    : string
   icon     : string
   iconUrl? : string
+  iconSprite? : DesktopSpriteKey
   type     : 'file' | 'folder' | 'app' | 'link'
   col      : number
   row      : number
@@ -33,6 +47,7 @@ export interface WindowAppDefinition {
   title        : string
   icon         : string
   iconUrl?     : string
+  iconSprite?  : DesktopSpriteKey
   type         : 'file' | 'folder' | 'app' | 'link'
   defaultCol   : number
   defaultRow   : number
