@@ -2,23 +2,23 @@
   "name": "Robert Hoffmann — Full-Stack Engineer & Consultant",
   "short_name": "RH Portfolio",
   "description": "Interactive macOS-inspired portfolio showcasing 25+ years of full-stack engineering.",
-  "start_url": "./",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#1a1a2e",
   "background_color": "#0a0a14",
   "icons": [
     {
-      "src": "./icon-192.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./icon-512.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "./icon-512.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

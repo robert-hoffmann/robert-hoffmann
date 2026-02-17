@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { vitePrerenderPlugin } from 'vite-prerender-plugin'
 
 export default defineConfig({
-  base    : './',
+  base    : '/',
   plugins : [
     vue(),
     tailwindcss(),

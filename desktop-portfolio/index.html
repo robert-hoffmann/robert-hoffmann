@@ -73,16 +73,16 @@
     </script>
 
     <!-- ── Favicons & Manifest ── -->
-    <link rel="icon" href="./favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
-    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- ── Fonts (self-hosted) ── -->
-    <link rel="preload" href="./fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="./fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="./wallpaper-lqip.webp" as="image" type="image/webp" fetchpriority="high" />
+    <link rel="preload" href="/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/wallpaper-lqip.webp" as="image" type="image/webp" fetchpriority="high" />
 
     <script>
       (function () {
@@ -134,17 +134,6 @@
     </style>
   </head>
   <body>
-    <!-- SPA redirect decoder (pairs with 404.html for GitHub Pages) -->
-    <script>
-      (function () {
-        var redirect = window.location.search.match(/^\?\/(.*)/);
-        if (redirect) {
-          window.history.replaceState(null, '',
-            '/' + redirect[1] + window.location.hash
-          );
-        }
-      })();
-    </script>
     <!-- Locale: set lang attribute early to prevent FOUC -->
     <script>
       (function () {

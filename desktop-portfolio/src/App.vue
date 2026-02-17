@@ -38,7 +38,7 @@ const session         = useSessionPersistence(icons.items)
 /* ---- constants ---- */
 const OWNER_NAME = 'Robert Hoffmann'
 const desktopRootStyle = {
-  '--desktop-sprite-url' : `url("${import.meta.env.BASE_URL}icons/desktop-profile-icons.webp")`,
+  '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons.webp")',
 }
 
 const showAboutSite = ref(false)
