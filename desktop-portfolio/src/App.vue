@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent, onMounted, onUnmounted, provide, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, onMounted, onUnmounted, provide, ref, watch } from 'vue'
 import TopBar from './components/TopBar.vue'
 import Dock from './components/Dock.vue'
 import AppWindow from './components/AppWindow.vue'
@@ -15,6 +15,7 @@ import { useDraggable } from './composables/useDraggable'
 import { useResizable } from './composables/useResizable'
 import { useSessionPersistence } from './composables/useSessionPersistence'
 import { useViewMode } from './composables/useViewMode'
+import { aboutWallpaperParallaxKey } from './composables/useAboutWallpaperParallax'
 import { windowRegistry } from './data/registry'
 
 /* Keep mobile-only graph out of initial desktop bundle. */
@@ -43,13 +44,42 @@ const desktopRootStyle = {
 
 const showAboutSite = ref(false)
 const wallpaperReady = ref(false)
+const desktopRootRef = ref<HTMLElement | null>(null)
 
 const STARTUP_INITIAL_BATCH = 2
 const STARTUP_STAGGER_MS    = 120
+const WALLPAPER_PARALLAX_LIMIT_PX = 2
 
 let startupRafId: number | null = null
 const startupTimerIds: number[] = []
 let wallpaperLoader: HTMLImageElement | null = null
+
+const isAboutVisible = computed(() =>
+  wm.state.windows.some(windowState =>
+    windowState.itemId === 'about' && !windowState.isMinimized,
+  ),
+)
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max)
+}
+
+function setWallpaperParallax(normX: number, normY: number) {
+  const desktopRoot = desktopRootRef.value
+  if (!desktopRoot) return
+
+  const parallaxX = clamp(-normX, -1, 1) * WALLPAPER_PARALLAX_LIMIT_PX
+  const parallaxY = clamp(-normY, -1, 1) * WALLPAPER_PARALLAX_LIMIT_PX
+  desktopRoot.style.setProperty('--wallpaper-parallax-x', `${parallaxX}px`)
+  desktopRoot.style.setProperty('--wallpaper-parallax-y', `${parallaxY}px`)
+}
+
+function resetWallpaperParallax() {
+  const desktopRoot = desktopRootRef.value
+  if (!desktopRoot) return
+  desktopRoot.style.setProperty('--wallpaper-parallax-x', '0px')
+  desktopRoot.style.setProperty('--wallpaper-parallax-y', '0px')
+}
 
 /* ---- default windows to open on first visit ---- */
 const DEFAULT_WINDOWS = [
@@ -139,6 +169,18 @@ function openItem(itemId: string) {
 
 /* Expose openItem to child components (used by TerminalApp) */
 provide('openApp', openItem)
+provide(aboutWallpaperParallaxKey, {
+  publish(normX, normY) {
+    if (isMobile.value || !isAboutVisible.value) {
+      resetWallpaperParallax()
+      return
+    }
+    setWallpaperParallax(normX, normY)
+  },
+  reset() {
+    resetWallpaperParallax()
+  },
+})
 
 
 function resetDesktop() {
@@ -272,6 +314,10 @@ watch(locale, (loc) => {
   wm.updateTitlesForLocale(loc)
   icons.updateTitlesForLocale(loc)
 })
+
+watch(isAboutVisible, (visible) => {
+  if (!visible) resetWallpaperParallax()
+}, { immediate : true })
 </script>
 
 <template>
@@ -281,6 +327,7 @@ watch(locale, (loc) => {
   <!-- ---- Desktop layout ---- -->
   <div
     v-else
+    ref="desktopRootRef"
     class="desktop-root"
     :class="{ 'desktop-root--wallpaper-ready': wallpaperReady }"
     :data-theme="theme.theme.value"

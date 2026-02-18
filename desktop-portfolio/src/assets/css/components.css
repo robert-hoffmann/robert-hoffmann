@@ -7,6 +7,9 @@
 
 /* ========== LAYOUT ========== */
 .desktop-root {
+  --wallpaper-parallax-x : 0px;
+  --wallpaper-parallax-y : 0px;
+
   display               : grid;
   grid-template-rows    : auto 1fr auto;
   grid-template-columns : 1fr;
@@ -34,7 +37,10 @@
   background-size   : cover;
   background-position: center;
   background-repeat : no-repeat;
-  transition        : opacity var(--dur-slow) var(--ease-out);
+  transition        : opacity var(--dur-slow) var(--ease-out),
+                      transform var(--dur-fast) var(--ease-out);
+  transform         : translate3d(var(--wallpaper-parallax-x), var(--wallpaper-parallax-y), 0)
+                      scale(1.03);
 }
 
 .desktop-root::before {
@@ -42,7 +48,6 @@
   background-image : url('/wallpaper-lqip.webp'),
   linear-gradient(135deg, #1a0a35, #9964ac);
   filter           : blur(16px) saturate(1.1);
-  transform        : scale(1.04);
   opacity          : 1;
 }
 
