@@ -1321,26 +1321,40 @@
 
 .music-player-bar--seekable {
   cursor        : pointer;
-  block-size    : 6px;
-  border-radius : 3px;
+  block-size    : 8px;
+  border-radius : 4px;
 }
 
 .music-player-bar-hover {
-  position      : absolute;
-  inset-block   : 0;
+  position           : absolute;
+  inset-block        : 0;
   inset-inline-start : 0;
-  background    : color-mix(in srgb, var(--c-accent) 25%, transparent);
-  border-radius : 3px;
-  pointer-events : none;
+  border-radius      : 4px;
+  pointer-events     : none;
+  z-index            : 2;
+}
+
+.seek-preview--forward {
+  background : color-mix(in srgb, #8ed8ff 70%, transparent);
+}
+
+.seek-preview--backward {
+  background : color-mix(in srgb, #ff9aa2 65%, transparent);
+}
+
+.seek-fill--backward {
+  background : color-mix(in srgb, #8ed8ff 85%, transparent);
+  box-shadow : 0 0 6px #8ed8ff;
 }
 
 .music-player-bar-fill {
   position      : relative;
   block-size    : 100%;
   background    : var(--c-accent);
-  border-radius : 3px;
+  border-radius : 4px;
   transition    : width 0.3s linear;
   box-shadow    : 0 0 6px var(--c-accent);
+  z-index       : 1;
 }
 
 .music-player-times {
@@ -1595,8 +1609,8 @@
 
 /* --- Seek bar --- */
 .video-player-bar {
-  block-size       : 6px;
-  border-radius    : 3px;
+  block-size       : 8px;
+  border-radius    : 4px;
   background       : var(--surface-overlay);
   cursor           : pointer;
   position         : relative;
@@ -1608,18 +1622,19 @@
   position           : absolute;
   inset-block        : 0;
   inset-inline-start : 0;
-  background         : color-mix(in srgb, var(--c-accent) 25%, transparent);
-  border-radius      : 3px;
+  border-radius      : 4px;
   pointer-events     : none;
+  z-index            : 2;
 }
 
 .video-player-bar-fill {
   position      : relative;
   block-size    : 100%;
-  border-radius : 3px;
+  border-radius : 4px;
   background    : var(--c-accent);
   box-shadow    : 0 0 6px var(--c-accent);
   transition    : width 0.3s linear;
+  z-index       : 1;
 }
 
 /* --- Controls row --- */

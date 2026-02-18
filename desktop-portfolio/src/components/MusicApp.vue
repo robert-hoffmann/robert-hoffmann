@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, shallowRef, triggerRef, onUnmounted, useTemplateRef } from 'vue'
+import { computed, reactive, shallowRef, triggerRef, onUnmounted, useTemplateRef } from 'vue'
 import { formatTime } from '../utils'
 import type { MusicPlayerState } from '../types/desktop'
 import { useLocale } from '../composables/useLocale'
@@ -99,11 +99,14 @@ function stopEqLoop() {
 /* -- Helpers ------------------------------------------------ */
 
 const seekBar = useSeekBar()
-const { seekHoverPct } = seekBar
+
+function progressValue(): number {
+  if (!state.duration) return 0
+  return Math.max(0, Math.min(100, (state.elapsed / state.duration) * 100))
+}
 
 function progressPct(): string {
-  if (!state.duration) return '0%'
-  return `${(state.elapsed / state.duration) * 100}%`
+  return `${progressValue()}%`
 }
 
 /** Seek to a position based on click/pointer location on the progress bar */
@@ -122,6 +125,8 @@ function onSeekHover(event: MouseEvent) {
 function onSeekLeave() {
   seekBar.leave()
 }
+
+const seekPreview = computed(() => seekBar.preview(progressValue()))
 
 /* -- Transport controls ------------------------------------- */
 
@@ -264,11 +269,15 @@ onUnmounted(() => {
             @pointerleave="onSeekLeave"
           >
             <div
-              v-if="seekHoverPct !== null"
-              class="music-player-bar-hover"
-              :style="{ width: `${seekHoverPct}%` }"
+              v-if="seekPreview"
+              :class="['music-player-bar-hover', `seek-preview--${seekPreview.direction}`]"
+              :style="{ inlineSize: `${seekPreview.width}%`, insetInlineStart: `${seekPreview.start}%` }"
             />
-            <div class="music-player-bar-fill" :style="{ width: progressPct() }" />
+            <div
+              class="music-player-bar-fill"
+              :class="{ 'seek-fill--backward': seekPreview?.direction === 'backward' }"
+              :style="{ width: progressPct() }"
+            />
           </div>
           <div class="music-player-times">
             <span>{{ formatTime(state.elapsed) }}</span>

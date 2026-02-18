@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, inject, onUnmounted, useTemplateRef } from 'vue'
+import { computed, reactive, ref, inject, onUnmounted, useTemplateRef } from 'vue'
 import { formatTime } from '../utils'
 import { useLocale } from '../composables/useLocale'
 import { useSeekBar } from '../composables/useSeekBar'
@@ -72,12 +72,16 @@ function stopTick() {
 /* -- Helpers ------------------------------------------------ */
 
 function progressPct(): string {
-  if (!state.duration) return '0%'
-  return `${(state.elapsed / state.duration) * 100}%`
+  return `${progressValue()}%`
+}
+
+function progressValue(): number {
+  if (!state.duration) return 0
+  return Math.max(0, Math.min(100, (state.elapsed / state.duration) * 100))
 }
 
 const seekBar = useSeekBar()
-const { seekHoverPct } = seekBar
+const seekPreview = computed(() => seekBar.preview(progressValue()))
 
 /* -- Transport controls ------------------------------------- */
 
@@ -286,11 +290,15 @@ onUnmounted(() => {
       <!-- Progress bar (clickable to seek) -->
       <div class="video-player-bar" @click="onSeek" @pointermove="onSeekHover" @pointerleave="onSeekLeave">
         <div
-          v-if="seekHoverPct !== null"
-          class="video-player-bar-hover"
-          :style="{ width: `${seekHoverPct}%` }"
+          v-if="seekPreview"
+          :class="['video-player-bar-hover', `seek-preview--${seekPreview.direction}`]"
+          :style="{ inlineSize: `${seekPreview.width}%`, insetInlineStart: `${seekPreview.start}%` }"
         />
-        <div class="video-player-bar-fill" :style="{ width: progressPct() }" />
+        <div
+          class="video-player-bar-fill"
+          :class="{ 'seek-fill--backward': seekPreview?.direction === 'backward' }"
+          :style="{ width: progressPct() }"
+        />
       </div>
 
       <div class="video-player-controls-row">
