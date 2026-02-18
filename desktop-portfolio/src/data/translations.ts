@@ -166,9 +166,9 @@ const ui: Record<string, Localized> = {
   'term.welcome.lastLogin'       : { en : 'Last login: {date} on ttys000',
                                      fr : 'Dernière connexion : {date} sur ttys000' },
   'term.welcome.title'           : { en : '  ║       Welcome to Desktop Portfolio           ║',
-                                     fr : '  ║     Bienvenue sur Desktop Portfolio           ║' },
+                                     fr : '  ║     Bienvenue sur Desktop Portfolio          ║' },
   'term.welcome.hint'            : { en : '  ║  Type "help" for commands or "ls" for apps   ║',
-                                     fr : '  ║  Tapez "help" pour les commandes ou "ls"      ║' },
+                                     fr : '  ║  Tapez "help" pour les commandes ou "ls"     ║' },
 
   'term.cmd.help'                : { en : 'Show available commands',        fr : 'Afficher les commandes disponibles' },
   'term.cmd.clear'               : { en : 'Clear the terminal',            fr : 'Effacer le terminal' },
