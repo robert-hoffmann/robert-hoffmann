@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.3](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.2...desktop-portfolio-v1.6.3) (2026-02-18)
+
+
+### Features
+
+* add window sound effects for minimize and restore actions ([a465629](https://github.com/robert-hoffmann/robert-hoffmann/commit/a4656298815b16178e006738c5e0b6448e150d61))
+
 ## [1.6.2](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.1...desktop-portfolio-v1.6.2) (2026-02-18)
 
 
