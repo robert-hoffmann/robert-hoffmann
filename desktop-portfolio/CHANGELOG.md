@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.6.2](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.1...desktop-portfolio-v1.6.2) (2026-02-18)
+
+
+### Features
+
+* enhance traffic-light styles with CSS variables for improved customization ([40d035a](https://github.com/robert-hoffmann/robert-hoffmann/commit/40d035a3000c63c6a42f6b7fa196e488dbe9017a))
+* enhance traffic-light styles with inline offset for improved layout ([f54e3e8](https://github.com/robert-hoffmann/robert-hoffmann/commit/f54e3e8a1795ac497192fc52d12c73dbbac1ab3d))
+* update traffic-light styles for improved accessibility and interaction ([ae9f1bf](https://github.com/robert-hoffmann/robert-hoffmann/commit/ae9f1bf0873ede1626cd85b8a1e61e1794af30b9))
+
 ## [1.6.1](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.0...desktop-portfolio-v1.6.1) (2026-02-18)
 
 
