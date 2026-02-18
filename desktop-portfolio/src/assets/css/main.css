@@ -135,7 +135,7 @@
     --surface-glass    : oklch(14% 0.006 250 / 0.6);
     --surface-window   : oklch(17% 0.008 250 / 0.94);
     --surface-content  : transparent;
-    --surface-header   : oklch(15% 0.007 250 / 0.88);
+    --surface-header   : oklch(15% 0.007 250 / 0.76);
 
     --text-primary     : var(--c-gray-50);
     --text-secondary   : var(--c-gray-300);
@@ -167,7 +167,7 @@
     --surface-glass    : oklch(98% 0.006 330 / 0.72);
     --surface-window   : oklch(98.5% 0.006 330 / 0.97);
     --surface-content  : oklch(96% 0.010 330 / 0.95);
-    --surface-header   : oklch(94% 0.018 330 / 0.85);
+    --surface-header   : oklch(94% 0.018 330 / 0.74);
 
     --text-primary     : var(--c-gray-900);
     --text-secondary   : var(--c-gray-600);

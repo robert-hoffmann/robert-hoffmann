@@ -583,7 +583,7 @@
   min-inline-size : 20rem;
   min-block-size  : 12rem;
   border-radius   : var(--radius-xl);
-  background      : var(--surface-window);
+  background      : transparent;
   backdrop-filter : blur(20px) saturate(1.4);
   box-shadow      : var(--shadow-xl);
   border          : 1px solid var(--border-subtle);
@@ -625,12 +625,27 @@
   gap              : var(--space-3);
   padding-inline   : var(--space-4);
   padding-block    : var(--space-2);
-  background       : var(--surface-header);
-  backdrop-filter  : blur(24px) saturate(1.5);
-  border-block-end : 1px solid var(--border-subtle);
+  position         : relative;
+  isolation        : isolate;
+  background       : transparent;
   cursor           : grab;
   user-select      : none;
   flex-shrink      : 0;
+
+  &::before {
+    content           : '';
+    position          : absolute;
+    inset             : 0;
+    z-index           : 0;
+    pointer-events    : none;
+    background        : var(--surface-header);
+    border-block-end  : 1px solid var(--border-subtle);
+  }
+
+  & > * {
+    position : relative;
+    z-index  : 1;
+  }
 
   &:active {
     cursor : grabbing;
@@ -731,7 +746,7 @@
   overflow-y           : auto;
   flex-grow            : 1;
   overscroll-behavior  : contain;
-  background           : var(--surface-content);
+  background           : var(--surface-window);
 
   &::-webkit-scrollbar {
     inline-size : 8px;
@@ -1129,12 +1144,14 @@
 .app-window-content:has(.music-player) {
   overflow : hidden;
   padding  : 0;
+  background : var(--surface-window);
 }
 
 /* Terminal fills the entire window content area */
 .app-window-content:has(.terminal-container) {
   overflow : hidden;
   padding  : 0;
+  background : transparent;
 }
 
 .music-player-row {
