@@ -108,7 +108,7 @@
   position         : relative;
   z-index          : var(--z-topbar);
   background       : var(--surface-glass);
-  backdrop-filter  : blur(24px) saturate(1.5);
+  backdrop-filter  : blur(10px) saturate(1.2);
   border-block-end : 1px solid var(--border-subtle);
   font-size        : var(--text-sm);
   user-select      : none;
@@ -163,7 +163,7 @@
   margin-block-start : var(--space-1);
   border-radius      : var(--radius-lg);
   background         : var(--surface-overlay);
-  backdrop-filter    : blur(24px) saturate(1.4);
+  backdrop-filter    : none;
   border             : 1px solid var(--border-default);
   box-shadow         : var(--shadow-lg);
   animation          : dropdown-in var(--dur-fast) var(--ease-out) both;
@@ -305,7 +305,7 @@
   padding            : var(--space-3);
   border-radius      : var(--radius-lg);
   background         : var(--surface-overlay);
-  backdrop-filter    : blur(24px) saturate(1.4);
+  backdrop-filter    : none;
   border             : 1px solid var(--border-default);
   box-shadow         : var(--shadow-lg);
   animation          : dropdown-in var(--dur-fast) var(--ease-out) both;
@@ -584,11 +584,15 @@
   min-block-size  : 12rem;
   border-radius   : var(--radius-xl);
   background      : transparent;
-  backdrop-filter : blur(20px) saturate(1.4);
+  backdrop-filter : blur(9px) saturate(1.12);
   box-shadow      : var(--shadow-xl);
   border          : 1px solid var(--border-subtle);
   overflow        : hidden;
   animation       : window-open var(--dur-normal) var(--ease-spring) both;
+}
+
+.app-window:not(.app-window--focused) {
+  backdrop-filter : none;
 }
 
 .app-window-resize {
@@ -1020,7 +1024,7 @@
   padding-block  : var(--space-2);
   border-radius  : var(--radius-2xl);
   background     : var(--dock-bg);
-  backdrop-filter: blur(24px) saturate(1.5);
+  backdrop-filter: blur(8px) saturate(1.15);
   border         : 1px solid var(--border-subtle);
   box-shadow     : var(--shadow-lg);
 }
@@ -1668,7 +1672,7 @@
   padding          : var(--space-4);
   border-radius    : var(--radius-lg);
   background       : var(--surface-overlay);
-  backdrop-filter   : blur(24px) saturate(1.4);
+  backdrop-filter   : none;
   border           : 1px solid var(--border-default);
   box-shadow       : var(--shadow-lg);
   color            : var(--text-primary);
@@ -1747,7 +1751,7 @@
   align-items     : center;
   justify-content : center;
   background      : oklch(0% 0 0 / 0.45);
-  backdrop-filter  : blur(6px);
+  backdrop-filter  : none;
   animation       : about-modal-backdrop-in var(--dur-normal) var(--ease-out) both;
 }
 

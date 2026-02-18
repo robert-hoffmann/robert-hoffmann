@@ -157,6 +157,7 @@
     --wallpaper-to     : oklch(10% 0.02 230);
 
     --focus-ring       : oklch(68% 0.16 250 / 0.7);
+
   }
 
   /* — Semantic tokens : light — */
