@@ -1228,11 +1228,15 @@
   background : var(--surface-window);
 }
 
+.app-window-content:has(.video-player) {
+  background : var(--surface-window);
+}
+
 /* Terminal fills the entire window content area */
 .app-window-content:has(.terminal-container) {
   overflow : hidden;
   padding  : 0;
-  background : transparent;
+  background : var(--surface-window);
 }
 
 .music-player-row {
@@ -1538,7 +1542,7 @@
   position        : relative;
   inline-size     : 100%;
   block-size      : 100%;
-  background      : #000;
+  background      : var(--surface-window);
   display         : flex;
   flex-direction  : column;
   overflow        : hidden;
@@ -1548,6 +1552,7 @@
   position       : relative;
   flex           : 1;
   min-block-size : 0;
+  background     : #000;
 }
 
 /* Transparent click-interceptor over the iframe.
