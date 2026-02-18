@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.6.6](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.5...desktop-portfolio-v1.6.6) (2026-02-18)
+
+
+### Features
+
+* enhance seek bar functionality with hover preview support for music and video players ([670e53b](https://github.com/robert-hoffmann/robert-hoffmann/commit/670e53bedefd885d69ad1e9783994c1d238927b0))
+* implement shared seek-bar logic for media players with hover preview support ([eeae89b](https://github.com/robert-hoffmann/robert-hoffmann/commit/eeae89b821b8b9e8711be5ced6a501c7d44b1b27))
+
+
+### Bug Fixes
+
+* adjust default height for video app window to improve layout consistency ([da7ff34](https://github.com/robert-hoffmann/robert-hoffmann/commit/da7ff34cba1d00eca7e5a7193b7cad8c138cc73d))
+* adjust default height for video app window to improve layout consistency ([8a7e9ef](https://github.com/robert-hoffmann/robert-hoffmann/commit/8a7e9ef7a90f16ef6d9222cd63bf598795e76a2c))
+* adjust layout and dimensions for music app window and related styles ([dee84eb](https://github.com/robert-hoffmann/robert-hoffmann/commit/dee84eba4d81d6bd28bf7b04d79bed3711d3a2ff))
+* remove backdrop filter from app windows and adjust padding for music player volume ([7721b29](https://github.com/robert-hoffmann/robert-hoffmann/commit/7721b2993c3e5dd0badddbc66d9d45d3b48b2104))
+* remove backdrop filters and drop shadows for improved performance and consistency ([faa451e](https://github.com/robert-hoffmann/robert-hoffmann/commit/faa451e9e019597f0574366587c3f02170ab5324))
+* update background colors for app windows to ensure consistent styling ([745b375](https://github.com/robert-hoffmann/robert-hoffmann/commit/745b3758955f1f7bfed05925d7dfcef9a3dc1c55))
+
 ## [1.6.5](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.4...desktop-portfolio-v1.6.5) (2026-02-18)
 
 
