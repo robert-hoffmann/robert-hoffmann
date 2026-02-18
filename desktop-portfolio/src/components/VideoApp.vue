@@ -2,6 +2,7 @@
 import { reactive, ref, inject, onUnmounted, useTemplateRef } from 'vue'
 import { formatTime } from '../utils'
 import { useLocale } from '../composables/useLocale'
+import { useSeekBar } from '../composables/useSeekBar'
 
 const { t } = useLocale()
 
@@ -75,6 +76,9 @@ function progressPct(): string {
   return `${(state.elapsed / state.duration) * 100}%`
 }
 
+const seekBar = useSeekBar()
+const { seekHoverPct } = seekBar
+
 /* -- Transport controls ------------------------------------- */
 
 function onPlayPause() {
@@ -109,11 +113,18 @@ function onNext() {
 
 function onSeek(e: MouseEvent) {
   if (!player || !state.duration) return
-  const bar  = e.currentTarget as HTMLElement
-  const rect = bar.getBoundingClientRect()
-  const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
+  const pct = seekBar.pointerRatio(e)
+  if (pct === null) return
   player.seekTo(pct * state.duration, true)
   state.elapsed = pct * state.duration
+}
+
+function onSeekHover(e: MouseEvent) {
+  seekBar.hover(e, state.duration)
+}
+
+function onSeekLeave() {
+  seekBar.leave()
 }
 
 function onVolumeChange(e: Event) {
@@ -273,7 +284,12 @@ onUnmounted(() => {
     <!-- Controls bar underneath the video -->
     <div class="video-player-controls">
       <!-- Progress bar (clickable to seek) -->
-      <div class="video-player-bar" @click="onSeek">
+      <div class="video-player-bar" @click="onSeek" @pointermove="onSeekHover" @pointerleave="onSeekLeave">
+        <div
+          v-if="seekHoverPct !== null"
+          class="video-player-bar-hover"
+          :style="{ width: `${seekHoverPct}%` }"
+        />
         <div class="video-player-bar-fill" :style="{ width: progressPct() }" />
       </div>
 

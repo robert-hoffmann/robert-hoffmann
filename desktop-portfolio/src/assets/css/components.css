@@ -1595,20 +1595,31 @@
 
 /* --- Seek bar --- */
 .video-player-bar {
-  block-size       : 4px;
-  border-radius    : 2px;
+  block-size       : 6px;
+  border-radius    : 3px;
   background       : var(--surface-overlay);
   cursor           : pointer;
   position         : relative;
+  overflow         : hidden;
   margin-block-end : var(--space-2);
 }
 
+.video-player-bar-hover {
+  position           : absolute;
+  inset-block        : 0;
+  inset-inline-start : 0;
+  background         : color-mix(in srgb, var(--c-accent) 25%, transparent);
+  border-radius      : 3px;
+  pointer-events     : none;
+}
+
 .video-player-bar-fill {
+  position      : relative;
   block-size    : 100%;
-  border-radius : 2px;
+  border-radius : 3px;
   background    : var(--c-accent);
   box-shadow    : 0 0 6px var(--c-accent);
-  transition    : width 0.15s linear;
+  transition    : width 0.3s linear;
 }
 
 /* --- Controls row --- */

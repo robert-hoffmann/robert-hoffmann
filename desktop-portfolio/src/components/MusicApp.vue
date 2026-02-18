@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { reactive, ref, shallowRef, triggerRef, onUnmounted, useTemplateRef } from 'vue'
+import { reactive, shallowRef, triggerRef, onUnmounted, useTemplateRef } from 'vue'
 import { formatTime } from '../utils'
 import type { MusicPlayerState } from '../types/desktop'
 import { useLocale } from '../composables/useLocale'
+import { useSeekBar } from '../composables/useSeekBar'
 
 const { t } = useLocale()
 
@@ -97,7 +98,8 @@ function stopEqLoop() {
 
 /* -- Helpers ------------------------------------------------ */
 
-const seekHoverPct = ref<number | null>(null)
+const seekBar = useSeekBar()
+const { seekHoverPct } = seekBar
 
 function progressPct(): string {
   if (!state.duration) return '0%'
@@ -107,23 +109,18 @@ function progressPct(): string {
 /** Seek to a position based on click/pointer location on the progress bar */
 function onSeek(event: MouseEvent) {
   const el  = audioRef.value
-  const bar = event.currentTarget as HTMLElement
-  if (!el || !state.duration || !bar) return
-
-  const rect = bar.getBoundingClientRect()
-  const pct  = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width))
+  if (!el || !state.duration) return
+  const pct = seekBar.pointerRatio(event)
+  if (pct === null) return
   el.currentTime = pct * state.duration
 }
 
 function onSeekHover(event: MouseEvent) {
-  const bar = event.currentTarget as HTMLElement
-  if (!bar || !state.duration) return
-  const rect = bar.getBoundingClientRect()
-  seekHoverPct.value = Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100))
+  seekBar.hover(event, state.duration)
 }
 
 function onSeekLeave() {
-  seekHoverPct.value = null
+  seekBar.leave()
 }
 
 /* -- Transport controls ------------------------------------- */
