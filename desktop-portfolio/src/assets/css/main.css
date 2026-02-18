@@ -125,6 +125,13 @@
     --dur-fast   : 120ms;
     --dur-normal : 200ms;
     --dur-slow   : 350ms;
+
+    /* — Traffic-light controls — */
+    --traffic-light-size            : 0.75rem;
+    --traffic-light-gap             : 0.5rem;
+    --traffic-light-hover-scale     : 1.14;
+    --traffic-light-hover-brightness: 1.1;
+    --traffic-light-hover-glow-alpha: 0.38;
   }
 
   /* — Semantic tokens : dark (default) — */
