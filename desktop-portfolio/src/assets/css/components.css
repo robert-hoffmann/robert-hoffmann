@@ -1323,11 +1323,6 @@
   cursor        : pointer;
   block-size    : 6px;
   border-radius : 3px;
-  transition    : block-size var(--dur-fast) var(--ease-out);
-
-  &:hover {
-    block-size : 10px;
-  }
 }
 
 .music-player-bar-hover {
@@ -1606,11 +1601,6 @@
   cursor           : pointer;
   position         : relative;
   margin-block-end : var(--space-2);
-  transition       : block-size 0.15s ease;
-}
-
-.video-player-bar:hover {
-  block-size : 6px;
 }
 
 .video-player-bar-fill {
