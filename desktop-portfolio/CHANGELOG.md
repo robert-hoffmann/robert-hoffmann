@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.5](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.4...desktop-portfolio-v1.6.5) (2026-02-18)
+
+
+### Features
+
+* add theme transition support with reduced motion handling ([6895210](https://github.com/robert-hoffmann/robert-hoffmann/commit/6895210a8263e6fd57baf122c90f21266e6b7f51))
+
 ## [1.6.4](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.3...desktop-portfolio-v1.6.4) (2026-02-18)
 
 
