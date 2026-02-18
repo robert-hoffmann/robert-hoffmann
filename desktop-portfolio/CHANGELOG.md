@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.4](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.3...desktop-portfolio-v1.6.4) (2026-02-18)
+
+
+### Features
+
+* update nope-penguin GIF for smaller size ([f9ea06c](https://github.com/robert-hoffmann/robert-hoffmann/commit/f9ea06cee92eeea642db35d60d0acd8be94761af))
+
 ## [1.6.3](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.2...desktop-portfolio-v1.6.3) (2026-02-18)
 
 
