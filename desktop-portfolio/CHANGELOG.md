@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.5.0...desktop-portfolio-v1.6.0) (2026-02-18)
+
+
+### Features
+
+* implement interactive photo effect in AboutApp component ([ba6eaad](https://github.com/robert-hoffmann/robert-hoffmann/commit/ba6eaad2bdfb486f8328c1517b355f5094fa1f94))
+
 ## [1.5.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.4.1...desktop-portfolio-v1.5.0) (2026-02-17)
 
 
