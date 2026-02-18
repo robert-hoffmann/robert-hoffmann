@@ -87,7 +87,7 @@ function resetWallpaperParallax() {
 const DEFAULT_WINDOWS = [
   { itemId : 'projects', x : 150,  y : 90,  w : 469, h : 691, zIndex : 100 },
   { itemId : 'about',    x : 558,  y : 37,  w : 497, h : 794, zIndex : 101 },
-  { itemId : 'video',    x : 886,  y : 403, w : 466, h : 394, zIndex : 102 },
+  { itemId : 'video',    x : 886,  y : 403, w : 466, h : 393, zIndex : 102 },
   { itemId : 'music',    x : 721,  y : 650, w : 391, h : 227, zIndex : 103 },
   { itemId : 'resume',   x : 1433, y : 69,  w : 546, h : 760, zIndex : 104 },
 ]
