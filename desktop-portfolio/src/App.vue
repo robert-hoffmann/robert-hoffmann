@@ -15,6 +15,7 @@ import { useDraggable } from './composables/useDraggable'
 import { useResizable } from './composables/useResizable'
 import { useSessionPersistence } from './composables/useSessionPersistence'
 import { useViewMode } from './composables/useViewMode'
+import { useWindowSfx } from './composables/useWindowSfx'
 import { aboutWallpaperParallaxKey } from './composables/useAboutWallpaperParallax'
 import { windowRegistry } from './data/registry'
 
@@ -30,6 +31,7 @@ const { isMobile }  = useViewMode()
 /* ---- desktop-only composables ---- */
 const wm    = useWindowManager()
 const icons = useDesktopIcons()
+const windowSfx = useWindowSfx()
 
 const findWindow = (id: string) => wm.state.windows.find(w => w.id === id)
 const { startDrag }   = useDraggable(findWindow)
@@ -258,6 +260,20 @@ function onClearSelection() {
   icons.clearSelection()
 }
 
+function onWindowMinimize(windowId: string) {
+  const win = wm.state.windows.find(w => w.id === windowId)
+  if (!win || win.isMinimized) return
+  wm.minimizeWindow(windowId)
+  windowSfx.playMinimize()
+}
+
+function onWindowRestore(windowId: string) {
+  const win = wm.state.windows.find(w => w.id === windowId)
+  if (!win || !win.isMinimized) return
+  wm.restoreWindow(windowId)
+  windowSfx.playRestore()
+}
+
 /* ---- drag / resize forwarding ---- */
 function onDragStart(event: PointerEvent, windowId: string) {
   wm.focusWindow(windowId)
@@ -277,10 +293,10 @@ function onDockToggle(windowId: string) {
   const win = wm.state.windows.find(w => w.id === windowId)
   if (!win) return
   if (win.isMinimized) {
-    wm.restoreWindow(win.id)
+    onWindowRestore(win.id)
     wm.focusWindow(win.id)
   } else if (wm.state.focusedWindowId === win.id) {
-    wm.minimizeWindow(win.id)
+    onWindowMinimize(win.id)
   } else {
     wm.focusWindow(win.id)
   }
@@ -369,8 +385,8 @@ watch(isAboutVisible, (visible) => {
       :window-state="ws"
       :is-focused="wm.state.focusedWindowId === ws.id"
       @close="wm.closeWindow"
-      @minimize="wm.minimizeWindow"
-      @restore="wm.restoreWindow"
+      @minimize="onWindowMinimize"
+      @restore="onWindowRestore"
       @focus="wm.focusWindow"
       @drag-start="onDragStart"
       @resize-start="onResizeStart"
