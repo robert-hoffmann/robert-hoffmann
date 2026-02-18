@@ -3,7 +3,8 @@
   "packages": {
     "desktop-portfolio": {
       "release-type": "node",
-      "component": "desktop-portfolio"
+      "component": "desktop-portfolio",
+      "versioning": "always-bump-patch"
     }
   },
   "include-v-in-tag": true,
