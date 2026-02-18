@@ -127,10 +127,11 @@
     --dur-slow   : 350ms;
 
     /* — Traffic-light controls — */
-    --traffic-light-dot-size        : 0.75rem;
+    --traffic-light-dot-size        : 0.9rem;
     --traffic-light-hit-size        : 1.5rem;
     --traffic-light-visual-gap      : 0.5rem;
     --traffic-light-hit-gap         : 0;
+    --traffic-light-inline-offset   : -0.55rem;
     --traffic-light-hover-scale     : 1.14;
     --traffic-light-hover-brightness: 1.1;
     --traffic-light-hover-glow-alpha: 0.38;

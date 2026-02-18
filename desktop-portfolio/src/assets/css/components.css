@@ -657,8 +657,9 @@
 }
 
 .traffic-lights {
-  display : flex;
-  gap     : var(--traffic-light-hit-gap);
+  display   : flex;
+  gap       : var(--traffic-light-hit-gap);
+  transform : translateX(var(--traffic-light-inline-offset));
 }
 
 .traffic-light {
