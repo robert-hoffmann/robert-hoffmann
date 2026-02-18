@@ -146,7 +146,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     defaultCol    : 1,
     defaultRow    : 7,
     defaultWidth  : 466,
-    defaultHeight : 388,
+    defaultHeight : 394,
     component     : () => import('../components/VideoApp.vue'),
   },
   terminal : {
