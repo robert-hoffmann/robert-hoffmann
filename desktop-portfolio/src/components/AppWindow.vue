@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, provide, shallowRef, toRef } from 'vue'
+import { computed, defineAsyncComponent, provide, ref, shallowRef, toRef } from 'vue'
 import type { WindowState } from '../types/desktop'
 import { windowRegistry } from '../data/registry'
 import { useLocale } from '../composables/useLocale'
@@ -24,7 +24,7 @@ const emit = defineEmits<{
 provide('windowFocused', toRef(props, 'isFocused'))
 provide('closeWindow', () => emit('close', props.windowState.id))
 
-const style = computed(() => ({
+const shellStyle = computed(() => ({
   left   : `${props.windowState.x}px`,
   top    : `${props.windowState.y}px`,
   width  : `${props.windowState.w}px`,
@@ -49,61 +49,84 @@ const contentProps = def?.componentProps ?? {}
 
 /** Whether this window allows resizing */
 const isResizable = def?.resizable !== false
+
+const showNopePenguin = ref(false)
+const nopeAnimationKey = ref(0)
+
+function onGreenButtonClick() {
+  nopeAnimationKey.value += 1
+  showNopePenguin.value = true
+}
+
+function onNopeAnimationEnd() {
+  showNopePenguin.value = false
+}
 </script>
 
 <template>
-  <section
-    class="app-window"
-    :class="{ 'app-window--focused': isFocused }"
-    role="dialog"
-    :aria-labelledby="`window-title-${windowState.id}`"
-    :style="style"
-    @pointerdown="emit('focus', windowState.id)"
-  >
-    <!-- Title bar -->
-    <header
-      class="app-window-header"
-      @pointerdown.stop="emit('dragStart', $event, windowState.id)"
+  <div class="app-window-shell" :style="shellStyle">
+    <section
+      class="app-window"
+      :class="{ 'app-window--focused': isFocused }"
+      role="dialog"
+      :aria-labelledby="`window-title-${windowState.id}`"
+      @pointerdown="emit('focus', windowState.id)"
     >
-      <div class="traffic-lights" role="group" :aria-label="t('window.controls')">
-        <button
-          class="traffic-light traffic-light--close"
-          type="button"
-          :aria-label="t('window.close')"
-          @click.stop="emit('close', windowState.id)"
-        />
-        <button
-          class="traffic-light traffic-light--minimize"
-          type="button"
-          :aria-label="t('window.minimize')"
-          @click.stop="emit('minimize', windowState.id)"
-        />
-        <button
-          class="traffic-light traffic-light--focus"
-          type="button"
-          :aria-label="t('window.restore')"
-          @click.stop="emit('restore', windowState.id)"
-        />
-      </div>
-      <h2
-        class="app-window-title"
-        :id="`window-title-${windowState.id}`"
+      <!-- Title bar -->
+      <header
+        class="app-window-header"
+        @pointerdown.stop="emit('dragStart', $event, windowState.id)"
       >
-        {{ windowState.title }}
-      </h2>
-    </header>
+        <div class="traffic-lights" role="group" :aria-label="t('window.controls')">
+          <button
+            class="traffic-light traffic-light--close"
+            type="button"
+            :aria-label="t('window.close')"
+            @click.stop="emit('close', windowState.id)"
+          />
+          <button
+            class="traffic-light traffic-light--minimize"
+            type="button"
+            :aria-label="t('window.minimize')"
+            @click.stop="emit('minimize', windowState.id)"
+          />
+          <button
+            class="traffic-light traffic-light--focus"
+            type="button"
+            :aria-label="t('window.restore')"
+            @click.stop="onGreenButtonClick"
+          />
+        </div>
+        <h2
+          class="app-window-title"
+          :id="`window-title-${windowState.id}`"
+        >
+          {{ windowState.title }}
+        </h2>
+      </header>
 
-    <!-- Dynamic content -->
-    <div class="app-window-content">
-      <component :is="contentComponent" v-if="contentComponent" v-bind="contentProps" />
-    </div>
+      <!-- Dynamic content -->
+      <div class="app-window-content">
+        <component :is="contentComponent" v-if="contentComponent" v-bind="contentProps" />
+      </div>
 
-    <!-- Resize handle -->
-    <div
-      v-if="isResizable"
-      class="app-window-resize"
+      <!-- Resize handle -->
+      <div
+        v-if="isResizable"
+        class="app-window-resize"
+        aria-hidden="true"
+        @pointerdown.stop="emit('resizeStart', $event, windowState.id)"
+      />
+    </section>
+
+    <img
+      v-if="showNopePenguin"
+      :key="nopeAnimationKey"
+      class="app-window-nope"
+      src="/nope-penguin.gif"
+      alt=""
       aria-hidden="true"
-      @pointerdown.stop="emit('resizeStart', $event, windowState.id)"
-    />
-  </section>
+      @animationend="onNopeAnimationEnd"
+    >
+  </div>
 </template>

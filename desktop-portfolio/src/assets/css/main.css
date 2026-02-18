@@ -135,6 +135,10 @@
     --traffic-light-hover-scale     : 1.14;
     --traffic-light-hover-brightness: 1.1;
     --traffic-light-hover-glow-alpha: 0.38;
+    --nope-penguin-size             : 2.5rem;
+    --nope-peek-duration            : 3s;
+    --nope-peek-rise-ratio          : 35%;
+    --nope-peek-hold-ratio          : 65%;
   }
 
   /* — Semantic tokens : dark (default) — */

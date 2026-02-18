@@ -576,10 +576,19 @@
 }
 
 /* ========== APP WINDOW ========== */
-.app-window {
+.app-window-shell {
   position        : absolute;
+  overflow        : visible;
+  isolation       : isolate;
+}
+
+.app-window {
+  position        : relative;
+  z-index         : 2;
   display         : flex;
   flex-direction  : column;
+  inline-size     : 100%;
+  block-size      : 100%;
   min-inline-size : 20rem;
   min-block-size  : 12rem;
   border-radius   : var(--radius-xl);
@@ -660,6 +669,27 @@
   display   : flex;
   gap       : var(--traffic-light-hit-gap);
   transform : translateX(var(--traffic-light-inline-offset));
+}
+
+.app-window-nope {
+  position           : absolute;
+  inset-block-start  : 0;
+  inset-inline-start : calc(
+    var(--space-4) +
+    var(--traffic-light-inline-offset) +
+    (var(--traffic-light-hit-size) * 2)
+  );
+  inline-size        : var(--nope-penguin-size);
+  block-size         : var(--nope-penguin-size);
+  z-index            : 1;
+  pointer-events     : none;
+  user-select        : none;
+  object-fit         : contain;
+  opacity            : 0;
+  transform          : translate(-50%, 34%);
+  filter             : drop-shadow(0 6px 10px oklch(0% 0 0 / 0.32));
+  animation          : nope-peek var(--nope-peek-duration) var(--ease-out) both;
+  will-change        : transform, opacity;
 }
 
 .traffic-light {
@@ -1657,6 +1687,28 @@
   from {
     opacity   : 0;
     transform : scale(0.92) translateY(8px);
+  }
+}
+
+@keyframes nope-peek {
+  0% {
+    opacity   : 0;
+    transform : translate(-50%, 34%);
+  }
+
+  35% {
+    opacity   : 1;
+    transform : translate(-50%, calc(-92% - 3px));
+  }
+
+  65% {
+    opacity   : 1;
+    transform : translate(-50%, calc(-92% - 3px));
+  }
+
+  100% {
+    opacity   : 0;
+    transform : translate(-50%, 34%);
   }
 }
 
