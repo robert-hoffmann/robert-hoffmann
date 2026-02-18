@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.1](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.0...desktop-portfolio-v1.6.1) (2026-02-18)
+
+
+### Features
+
+* add wallpaper parallax effect and related functionality ([28edeb3](https://github.com/robert-hoffmann/robert-hoffmann/commit/28edeb3787630a8475d6947a1a6fbeb1c6032294))
+* update background styles for improved UI clarity and consistency ([3adb4c3](https://github.com/robert-hoffmann/robert-hoffmann/commit/3adb4c3757b0b89959ab96527fd8949c85a5f409))
+
 ## [1.6.0](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.5.0...desktop-portfolio-v1.6.0) (2026-02-18)
 
 
