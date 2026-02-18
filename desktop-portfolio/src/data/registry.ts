@@ -133,7 +133,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     defaultCol    : 1,
     defaultRow    : 8,
     defaultWidth  : 388,
-    defaultHeight : 227,
+    defaultHeight : 203,
     resizable     : false,
     component     : () => import('../components/MusicApp.vue'),
   },

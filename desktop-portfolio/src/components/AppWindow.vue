@@ -28,7 +28,7 @@ const shellStyle = computed(() => ({
   left   : `${props.windowState.x}px`,
   top    : `${props.windowState.y}px`,
   width  : `${props.windowState.w}px`,
-  height : `${props.windowState.h}px`,
+  height : props.windowState.itemId === 'music' ? '203px' : `${props.windowState.h}px`,
   zIndex : props.windowState.zIndex,
 }))
 
