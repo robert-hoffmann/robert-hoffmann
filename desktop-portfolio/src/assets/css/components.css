@@ -593,15 +593,10 @@
   min-block-size  : 12rem;
   border-radius   : var(--radius-xl);
   background      : transparent;
-  backdrop-filter : blur(9px) saturate(1.12);
   box-shadow      : var(--shadow-xl);
   border          : 1px solid var(--border-subtle);
   overflow        : hidden;
   animation       : window-open var(--dur-normal) var(--ease-spring) both;
-}
-
-.app-window:not(.app-window--focused) {
-  backdrop-filter : none;
 }
 
 .app-window-resize {
@@ -1457,7 +1452,7 @@
   display       : flex;
   align-items   : center;
   gap           : var(--space-2);
-  padding-inline: var(--space-4);
+  padding-inline: var(--space-5);
 }
 
 .music-player-volume-icon {

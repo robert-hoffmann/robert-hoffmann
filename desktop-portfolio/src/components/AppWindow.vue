@@ -67,7 +67,6 @@ function onNopeAnimationEnd() {
   <div class="app-window-shell" :style="shellStyle">
     <section
       class="app-window"
-      :class="{ 'app-window--focused': isFocused }"
       role="dialog"
       :aria-labelledby="`window-title-${windowState.id}`"
       @pointerdown="emit('focus', windowState.id)"
