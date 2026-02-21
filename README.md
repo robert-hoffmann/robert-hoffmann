@@ -14,9 +14,11 @@ I've been building software, shipping products, and breaking things in productio
 | --- | --- |
 | [VS-Copilot Prompts](https://github.com/robert-hoffmann/prompts) | Curated prompt & agent toolkit for VS Code Copilot — my current focus |
 | [PowerToys for OpenAI](https://github.com/robert-hoffmann/PowerToys4OpenAI) | Chrome extension — custom GPT answers on search pages + full chat IDE |
+| [Parallax Desiger](https://github.com/robert-hoffmann/parallax-designer) | Visual editor for designing parallax scenes with real-time preview - 100% AI Generated |
 | [HeadJS](https://headjs.github.io/) | Responsive JS loader — 4 K+ ⭐ — made IE6+ websites device-friendly before it was cool |
 | [tchatche.com](https://github.com/robert-hoffmann) | White-label real-time chat rented to France's biggest telecom & media brands — 600 M pv/mo |
 | [FindUnusedFiles](https://marketplace.visualstudio.com/items?itemName=RobertHoffmann.FindUnusedFiles) | Visual Studio extension to clean up messy projects — 11 K+ installs |
+
 
 > Full project list & interactive resume on my [portfolio site](https://i-technology.net) ✨
 
