@@ -225,12 +225,21 @@ export function resolveWindowPolicy(itemId: string): ResolvedWindowPolicy {
   return normalizePolicy(windowRegistry[itemId]?.window)
 }
 
-function clampSizeToPolicy(itemId: string, size: WindowSize): WindowSize {
+function clampSizeToPolicy(
+  itemId : string,
+  size   : WindowSize,
+  mode   : WindowMode = 'normal',
+): WindowSize {
   const policy = resolveWindowPolicy(itemId)
   const work = getWorkAreaRect()
+  const viewport = currentViewport()
 
-  const maxW = Math.max(1, Math.min(policy.size.max.w, work.w))
-  const maxH = Math.max(1, Math.min(policy.size.max.h, work.h))
+  const viewportBoundWidth = Math.max(1, viewport.width)
+  const viewportBoundHeight = Math.max(1, viewport.height - work.y)
+  const boundedMaxHeight = mode === 'maximized' ? work.h : viewportBoundHeight
+
+  const maxW = Math.max(1, Math.min(policy.size.max.w, viewportBoundWidth))
+  const maxH = Math.max(1, Math.min(policy.size.max.h, boundedMaxHeight))
   const minW = Math.max(1, Math.min(policy.size.min.w, maxW))
   const minH = Math.max(1, Math.min(policy.size.min.h, maxH))
 
@@ -293,7 +302,7 @@ function normalizeRectForWindow(
   rect   : WindowRect,
   mode   : WindowMode = 'normal',
 ): WindowRect {
-  const clampedSize = clampSizeToPolicy(itemId, { w : rect.w, h : rect.h })
+  const clampedSize = clampSizeToPolicy(itemId, { w : rect.w, h : rect.h }, mode)
   const clampedPos = clampPositionForReachability(itemId, { x : rect.x, y : rect.y }, clampedSize, mode)
   return {
     ...clampedPos,
@@ -417,7 +426,7 @@ function computeResizeRectFromHandle(
   const clampedSize = clampSizeToPolicy(itemId, {
     w : requestedWidth,
     h : requestedHeight,
-  })
+  }, 'normal')
 
   if (moveWest && !moveEast) {
     left = right - clampedSize.w
@@ -441,7 +450,7 @@ function computeResizeRectFromHandle(
 
 function resolveOpenRect(itemId: string, index: number): WindowRect {
   const policy = resolveWindowPolicy(itemId)
-  const size = clampSizeToPolicy(itemId, policy.size.default)
+  const size = clampSizeToPolicy(itemId, policy.size.default, 'normal')
   const cascadeOffset = index * CASCADE
   const basePoint = policy.placement.defaultPosition ?? DEFAULT_WINDOW_POINT
   const work = getWorkAreaRect()
