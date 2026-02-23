@@ -1,8 +1,9 @@
 /* ============================================================
    useDraggable — Pointer-event-based drag composable
+   ============================================================
+   Tracks pointer offsets only; window manager owns geometry rules.
    ============================================================ */
 
-import { clamp } from '../utils'
 import type { WindowState } from '../types/desktop'
 
 interface DragContext {
@@ -14,17 +15,20 @@ interface DragContext {
 let dragCtx: DragContext | null = null
 
 /** Shared drag handlers — only one drag active at a time */
-function onDragMove(e: PointerEvent, findWindow: (id: string) => WindowState | undefined) {
+function onDragMove(
+  e            : PointerEvent,
+  findWindow   : (id: string) => WindowState | undefined,
+  moveWindowTo : (id: string, x: number, y: number) => void,
+) {
   if (!dragCtx) return
   const win = findWindow(dragCtx.windowId)
   if (!win) return
 
-  const minY = 32
-  const maxY = window.innerHeight - 60
-  const maxX = window.innerWidth - 40
-
-  win.x = clamp(e.clientX - dragCtx.offsetX, 0, maxX)
-  win.y = clamp(e.clientY - dragCtx.offsetY, minY, maxY)
+  moveWindowTo(
+    dragCtx.windowId,
+    e.clientX - dragCtx.offsetX,
+    e.clientY - dragCtx.offsetY,
+  )
 }
 
 function onDragEnd() {
@@ -36,7 +40,10 @@ function onDragEnd() {
 /* We need a closure to pass findWindow through — set during startDrag */
 let boundMove: (e: PointerEvent) => void = () => {}
 
-export function useDraggable(findWindow: (id: string) => WindowState | undefined) {
+export function useDraggable(
+  findWindow  : (id: string) => WindowState | undefined,
+  moveWindowTo: (id: string, x: number, y: number) => void,
+) {
   function startDrag(event: PointerEvent, windowId: string) {
     const win = findWindow(windowId)
     if (!win) return
@@ -47,7 +54,7 @@ export function useDraggable(findWindow: (id: string) => WindowState | undefined
       offsetY : event.clientY - win.y,
     }
 
-    boundMove = (e: PointerEvent) => onDragMove(e, findWindow)
+    boundMove = (e: PointerEvent) => onDragMove(e, findWindow, moveWindowTo)
     document.addEventListener('pointermove', boundMove)
     document.addEventListener('pointerup', onDragEnd)
   }

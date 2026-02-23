@@ -78,6 +78,7 @@ const ui: Record<string, Localized> = {
   'window.controls'          : { en : 'Window controls',    fr : 'Contrôles de fenêtre' },
   'window.close'             : { en : 'Close window',       fr : 'Fermer la fenêtre' },
   'window.minimize'          : { en : 'Minimize window',    fr : 'Réduire la fenêtre' },
+  'window.maximize'          : { en : 'Maximize window',    fr : 'Agrandir la fenêtre' },
   'window.restore'           : { en : 'Restore window',     fr : 'Restaurer la fenêtre' },
 
   /* ---- Desktop / Dock ---- */

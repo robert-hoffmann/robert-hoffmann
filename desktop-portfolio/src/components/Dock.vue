@@ -67,8 +67,8 @@ function iconSpriteForItem(itemId: string): DesktopSpriteKey | undefined {
         :key="`dock-${ws.id}`"
         class="dock-launch dock-launch--window"
         :class="{
-          'dock-launch--active'   : focusedWindowId === ws.id && !ws.isMinimized,
-          'dock-launch--minimized': ws.isMinimized,
+          'dock-launch--active'   : focusedWindowId === ws.id && ws.mode !== 'minimized',
+          'dock-launch--minimized': ws.mode === 'minimized',
         }"
         type="button"
         :aria-label="t('dock.toggle', { title: ws.title })"

@@ -1,0 +1,18 @@
+{
+	"servers": {
+		"microsoft/playwright-mcp": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"@playwright/mcp@latest"
+			],
+		},
+		"context7": {
+			"type": "http",
+			"url": "https://mcp.context7.com/mcp",
+			"headers": {
+				"CONTEXT7_API_KEY": "ctx7sk-252cc178-c58f-491c-8e74-ee6ec2459279"
+			}
+		}
+	}
+}

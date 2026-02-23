@@ -1,5 +1,7 @@
 /* ============================================================
    useResizable — Pointer-event-based resize composable
+   ============================================================
+   Tracks pointer deltas only; window manager owns size constraints.
    ============================================================ */
 
 import type { WindowState } from '../types/desktop'
@@ -15,7 +17,11 @@ interface ResizeContext {
 let resizeCtx: ResizeContext | null = null
 let boundResizeMove: (e: PointerEvent) => void = () => {}
 
-function onResizeMove(e: PointerEvent, findWindow: (id: string) => WindowState | undefined) {
+function onResizeMove(
+  e            : PointerEvent,
+  findWindow   : (id: string) => WindowState | undefined,
+  resizeWindowTo: (id: string, w: number, h: number) => void,
+) {
   if (!resizeCtx) return
   const win = findWindow(resizeCtx.windowId)
   if (!win) return
@@ -23,8 +29,11 @@ function onResizeMove(e: PointerEvent, findWindow: (id: string) => WindowState |
   const dx = e.clientX - resizeCtx.startX
   const dy = e.clientY - resizeCtx.startY
 
-  win.w = Math.max(320, resizeCtx.startW + dx)
-  win.h = Math.max(200, resizeCtx.startH + dy)
+  resizeWindowTo(
+    resizeCtx.windowId,
+    resizeCtx.startW + dx,
+    resizeCtx.startH + dy,
+  )
 }
 
 function onResizeEnd() {
@@ -33,7 +42,10 @@ function onResizeEnd() {
   document.removeEventListener('pointerup', onResizeEnd)
 }
 
-export function useResizable(findWindow: (id: string) => WindowState | undefined) {
+export function useResizable(
+  findWindow   : (id: string) => WindowState | undefined,
+  resizeWindowTo: (id: string, w: number, h: number) => void,
+) {
   function startResize(event: PointerEvent, windowId: string) {
     const win = findWindow(windowId)
     if (!win) return
@@ -46,7 +58,7 @@ export function useResizable(findWindow: (id: string) => WindowState | undefined
       startH : win.h,
     }
 
-    boundResizeMove = (e: PointerEvent) => onResizeMove(e, findWindow)
+    boundResizeMove = (e: PointerEvent) => onResizeMove(e, findWindow, resizeWindowTo)
     document.addEventListener('pointermove', boundResizeMove)
     document.addEventListener('pointerup', onResizeEnd)
   }

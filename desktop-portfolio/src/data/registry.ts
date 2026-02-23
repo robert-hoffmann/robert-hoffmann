@@ -44,8 +44,13 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'file',
     defaultCol    : 1,
     defaultRow    : 1,
-    defaultWidth  : 497,
-    defaultHeight : 794,
+    window        : {
+      size : {
+        default : { w : 497, h : 794 },
+        min     : { w : 420, h : 520 },
+        max     : { w : 1200, h : 980 },
+      },
+    },
     component     : () => import('../components/AboutApp.vue'),
   },
   projects : {
@@ -56,8 +61,13 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'folder',
     defaultCol    : 1,
     defaultRow    : 2,
-    defaultWidth  : 469,
-    defaultHeight : 691,
+    window        : {
+      size : {
+        default : { w : 469, h : 691 },
+        min     : { w : 420, h : 420 },
+        max     : { w : 1400, h : 1100 },
+      },
+    },
     component     : () => import('../components/ProjectsApp.vue'),
   },
   resume : {
@@ -68,8 +78,13 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'file',
     defaultCol    : 14,
     defaultRow    : 2,
-    defaultWidth  : 546,
-    defaultHeight : 760,
+    window        : {
+      size : {
+        default : { w : 546, h : 760 },
+        min     : { w : 480, h : 540 },
+        max     : { w : 1400, h : 1100 },
+      },
+    },
     component     : () => import('../components/ResumeApp.vue'),
   },
   twitter : {
@@ -81,8 +96,6 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'link',
     defaultCol    : 14,
     defaultRow    : 4,
-    defaultWidth  : 0,
-    defaultHeight : 0,
     url           : 'https://x.com/itechnologynet',
   },
   linkedin : {
@@ -94,8 +107,6 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'link',
     defaultCol    : 14,
     defaultRow    : 5,
-    defaultWidth  : 0,
-    defaultHeight : 0,
     url           : 'https://www.linkedin.com/in/hoffmannrobert',
   },
   github : {
@@ -107,8 +118,6 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'link',
     defaultCol    : 14,
     defaultRow    : 6,
-    defaultWidth  : 0,
-    defaultHeight : 0,
     url           : 'https://github.com/robert-hoffmann',
   },
 
@@ -120,8 +129,13 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'app',
     defaultCol    : 1,
     defaultRow    : 5,
-    defaultWidth  : 553,
-    defaultHeight : 440,
+    window        : {
+      size : {
+        default : { w : 553, h : 440 },
+        min     : { w : 420, h : 320 },
+        max     : { w : 1200, h : 900 },
+      },
+    },
     component     : () => import('../components/GeoWarsApp.vue'),
   },
   music : {
@@ -132,9 +146,21 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'app',
     defaultCol    : 1,
     defaultRow    : 8,
-    defaultWidth  : 388,
-    defaultHeight : 203,
-    resizable     : false,
+    window        : {
+      size : {
+        default : { w : 388, h : 203 },
+        min     : { w : 388, h : 203 },
+        max     : { w : 388, h : 203 },
+      },
+      behavior : {
+        resizable   : false,
+        maximizable : false,
+      },
+      placement : {
+        openStrategy    : 'fixed',
+        defaultPosition : { x : 672, y : 580 },
+      },
+    },
     component     : () => import('../components/MusicApp.vue'),
   },
   video : {
@@ -145,8 +171,13 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'app',
     defaultCol    : 1,
     defaultRow    : 7,
-    defaultWidth  : 466,
-    defaultHeight : 393,
+    window        : {
+      size : {
+        default : { w : 466, h : 393 },
+        min     : { w : 360, h : 240 },
+        max     : { w : 1280, h : 900 },
+      },
+    },
     component     : () => import('../components/VideoApp.vue'),
   },
   terminal : {
@@ -158,8 +189,16 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'app',
     defaultCol    : 1,
     defaultRow    : 4,
-    defaultWidth  : 680,
-    defaultHeight : 420,
+    window        : {
+      size : {
+        default : { w : 680, h : 420 },
+        min     : { w : 520, h : 260 },
+        max     : { w : 1600, h : 1000 },
+      },
+      behavior : {
+        maximizable : true,
+      },
+    },
     component     : () => import('../components/TerminalApp.vue'),
   },
 }

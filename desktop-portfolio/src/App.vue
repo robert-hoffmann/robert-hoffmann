@@ -18,6 +18,7 @@ import { useViewMode } from './composables/useViewMode'
 import { useWindowSfx } from './composables/useWindowSfx'
 import { aboutWallpaperParallaxKey } from './composables/useAboutWallpaperParallax'
 import { windowRegistry } from './data/registry'
+import { getStartupWindowLayouts } from './data/windowLayouts'
 
 /* Keep mobile-only graph out of initial desktop bundle. */
 const MobileApp = defineAsyncComponent(() => import('./components/MobileApp.vue'))
@@ -34,8 +35,8 @@ const icons = useDesktopIcons()
 const windowSfx = useWindowSfx()
 
 const findWindow = (id: string) => wm.state.windows.find(w => w.id === id)
-const { startDrag }   = useDraggable(findWindow)
-const { startResize } = useResizable(findWindow)
+const { startDrag }   = useDraggable(findWindow, wm.moveWindowTo)
+const { startResize } = useResizable(findWindow, wm.resizeWindowTo)
 const session         = useSessionPersistence(icons.items)
 
 /* ---- constants ---- */
@@ -58,7 +59,7 @@ let wallpaperLoader: HTMLImageElement | null = null
 
 const isAboutVisible = computed(() =>
   wm.state.windows.some(windowState =>
-    windowState.itemId === 'about' && !windowState.isMinimized,
+    windowState.itemId === 'about' && windowState.mode !== 'minimized',
   ),
 )
 
@@ -83,15 +84,6 @@ function resetWallpaperParallax() {
   desktopRoot.style.setProperty('--wallpaper-parallax-y', '0px')
 }
 
-/* ---- default windows to open on first visit ---- */
-const DEFAULT_WINDOWS = [
-  { itemId : 'projects', x : 150,  y : 90,  w : 469, h : 691, zIndex : 100 },
-  { itemId : 'about',    x : 558,  y : 37,  w : 497, h : 794, zIndex : 101 },
-  { itemId : 'video',    x : 886,  y : 403, w : 466, h : 393, zIndex : 102 },
-  { itemId : 'music',    x : 721,  y : 650, w : 391, h : 227, zIndex : 103 },
-  { itemId : 'resume',   x : 1433, y : 69,  w : 546, h : 760, zIndex : 104 },
-]
-
 /* ---- helpers ---- */
 function clearStartupSchedule() {
   if (startupRafId !== null) {
@@ -103,28 +95,26 @@ function clearStartupSchedule() {
 }
 
 /* Keep default desktop layout deterministic while deferring heavy mounts. */
-function applyWindowLayout(def: (typeof DEFAULT_WINDOWS)[number]) {
-  const newWin = wm.openWindow(def.itemId, locale.value)
-  if (!newWin) return
-  newWin.x = def.x
-  newWin.y = def.y
-  newWin.w = def.w
-  newWin.h = def.h
-  newWin.zIndex = def.zIndex
+function applyWindowLayout(def: ReturnType<typeof getStartupWindowLayouts>[number]) {
+  wm.openWindow(def.itemId, locale.value, {
+    rect   : def.rect,
+    zIndex : def.zIndex,
+  })
 }
 
 function openDefaultWindowsStaggered() {
   clearStartupSchedule()
+  const layouts = getStartupWindowLayouts(window.innerWidth)
 
   /* Delay first app mounts until the shell has had a chance to paint once. */
   startupRafId = window.requestAnimationFrame(() => {
     startupRafId = null
 
-    for (const def of DEFAULT_WINDOWS.slice(0, STARTUP_INITIAL_BATCH)) {
+    for (const def of layouts.slice(0, STARTUP_INITIAL_BATCH)) {
       applyWindowLayout(def)
     }
 
-    DEFAULT_WINDOWS.slice(STARTUP_INITIAL_BATCH).forEach((def, idx) => {
+    layouts.slice(STARTUP_INITIAL_BATCH).forEach((def, idx) => {
       const timerId = window.setTimeout(() => {
         applyWindowLayout(def)
       }, STARTUP_STAGGER_MS * (idx + 1))
@@ -262,16 +252,20 @@ function onClearSelection() {
 
 function onWindowMinimize(windowId: string) {
   const win = wm.state.windows.find(w => w.id === windowId)
-  if (!win || win.isMinimized) return
+  if (!win || win.mode === 'minimized') return
   wm.minimizeWindow(windowId)
   windowSfx.playMinimize()
 }
 
 function onWindowRestore(windowId: string) {
   const win = wm.state.windows.find(w => w.id === windowId)
-  if (!win || !win.isMinimized) return
+  if (!win || win.mode !== 'minimized') return
   wm.restoreWindow(windowId)
   windowSfx.playRestore()
+}
+
+function onWindowToggleMaximize(windowId: string) {
+  wm.toggleMaximizeWindow(windowId)
 }
 
 /* ---- drag / resize forwarding ---- */
@@ -292,7 +286,7 @@ function onDockLaunch(itemId: string) {
 function onDockToggle(windowId: string) {
   const win = wm.state.windows.find(w => w.id === windowId)
   if (!win) return
-  if (win.isMinimized) {
+  if (win.mode === 'minimized') {
     onWindowRestore(win.id)
     wm.focusWindow(win.id)
   } else if (wm.state.focusedWindowId === win.id) {
@@ -381,12 +375,16 @@ watch(isAboutVisible, (visible) => {
     <AppWindow
       v-for="ws in wm.state.windows"
       :key="ws.id"
-      v-show="!ws.isMinimized"
+      v-show="ws.mode !== 'minimized'"
       :window-state="ws"
       :is-focused="wm.state.focusedWindowId === ws.id"
+      :can-minimize="wm.getWindowCapabilities(ws.id).canMinimize"
+      :can-maximize="wm.getWindowCapabilities(ws.id).canMaximize"
+      :can-resize="wm.getWindowCapabilities(ws.id).canResize"
+      :can-move="wm.getWindowCapabilities(ws.id).canMove"
       @close="wm.closeWindow"
       @minimize="onWindowMinimize"
-      @restore="onWindowRestore"
+      @toggle-maximize="onWindowToggleMaximize"
       @focus="wm.focusWindow"
       @drag-start="onDragStart"
       @resize-start="onResizeStart"

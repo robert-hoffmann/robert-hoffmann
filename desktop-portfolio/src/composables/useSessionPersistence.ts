@@ -15,11 +15,10 @@ import { getDefaultDesktopItems } from '../data/registry'
 const STORAGE_KEY       = 'desktop-portfolio-state'
 
 /**
- * Bump this number whenever default window dimensions, positions,
- * or layout change. Stale sessions with a lower (or missing)
- * version are discarded and the desktop resets to defaults.
+ * Schema version for persisted desktop state.
+ * Any version mismatch is treated as incompatible and reset.
  */
-const SETTINGS_VERSION  = 1
+const SETTINGS_VERSION  = 2
 
 export function useSessionPersistence(desktopItems: DesktopItem[]) {
   const wm    = useWindowManager()
@@ -40,7 +39,10 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
         windows         : wm.state.windows.map(w => ({
           id : w.id, itemId : w.itemId, title : w.title,
           x : w.x, y : w.y, w : w.w, h : w.h,
-          zIndex : w.zIndex, isMinimized : w.isMinimized,
+          zIndex : w.zIndex,
+          mode : w.mode,
+          restoreBounds : w.restoreBounds,
+          restoreMode : w.restoreMode,
         })),
       }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
@@ -56,8 +58,8 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
       const parsed = safeParse<SessionState>(raw)
       if (!parsed || typeof parsed !== 'object') return false
 
-      /* Stale or missing version → discard saved state */
-      if (!parsed.version || parsed.version < SETTINGS_VERSION) {
+      /* Incompatible persisted schema → discard and reinitialize */
+      if (parsed.version !== SETTINGS_VERSION) {
         reset()
         return false
       }
