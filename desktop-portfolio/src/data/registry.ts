@@ -174,7 +174,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     window        : {
       size : {
         default : { w : 466, h : 393 },
-        min     : { w : 360, h : 240 },
+        min     : { w : 460, h : 340 },
         max     : { w : 1280, h : 900 },
       },
     },

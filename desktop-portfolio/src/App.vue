@@ -18,7 +18,7 @@ import { useViewMode } from './composables/useViewMode'
 import { useWindowSfx } from './composables/useWindowSfx'
 import { aboutWallpaperParallaxKey } from './composables/useAboutWallpaperParallax'
 import { windowRegistry } from './data/registry'
-import { getStartupWindowLayouts } from './data/windowLayouts'
+import { getStartupWindowLayoutsForWorkArea } from './data/windowLayouts'
 
 /* Keep mobile-only graph out of initial desktop bundle. */
 const MobileApp = defineAsyncComponent(() => import('./components/MobileApp.vue'))
@@ -56,6 +56,7 @@ const WALLPAPER_PARALLAX_LIMIT_PX = 2
 let startupRafId: number | null = null
 const startupTimerIds: number[] = []
 let wallpaperLoader: HTMLImageElement | null = null
+let previousWorkAreaRect: ReturnType<typeof wm.getWorkAreaRect> | null = null
 
 const isAboutVisible = computed(() =>
   wm.state.windows.some(windowState =>
@@ -95,16 +96,21 @@ function clearStartupSchedule() {
 }
 
 /* Keep default desktop layout deterministic while deferring heavy mounts. */
-function applyWindowLayout(def: ReturnType<typeof getStartupWindowLayouts>[number]) {
+function applyWindowLayout(def: ReturnType<typeof getStartupWindowLayoutsForWorkArea>[number]) {
   wm.openWindow(def.itemId, locale.value, {
-    rect   : def.rect,
+    rect   : {
+      x : def.x,
+      y : def.y,
+      ...(def.size ?? {}),
+    },
     zIndex : def.zIndex,
   })
 }
 
 function openDefaultWindowsStaggered() {
   clearStartupSchedule()
-  const layouts = getStartupWindowLayouts(window.innerWidth)
+  const workArea = wm.getWorkAreaRect()
+  const layouts = getStartupWindowLayoutsForWorkArea({ w : workArea.w, h : workArea.h })
 
   /* Delay first app mounts until the shell has had a chance to paint once. */
   startupRafId = window.requestAnimationFrame(() => {
@@ -296,11 +302,27 @@ function onDockToggle(windowId: string) {
   }
 }
 
+function onViewportResize() {
+  if (isMobile.value) {
+    previousWorkAreaRect = null
+    return
+  }
+
+  const nextWorkArea = wm.getWorkAreaRect()
+  const prevWorkArea = previousWorkAreaRect
+  previousWorkAreaRect = nextWorkArea
+  if (!prevWorkArea) return
+
+  wm.autoFitInaccessibleWindowsForViewportChange(prevWorkArea, nextWorkArea)
+}
+
 /* ---- lifecycle ---- */
 onMounted(() => {
   const restored = session.restore()
+  window.addEventListener('resize', onViewportResize, { passive : true })
 
   if (!isMobile.value) {
+    previousWorkAreaRect = wm.getWorkAreaRect()
     preloadDesktopWallpaper()
 
     if (!restored) {
@@ -314,6 +336,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   clearStartupSchedule()
+  window.removeEventListener('resize', onViewportResize)
   if (wallpaperLoader) wallpaperLoader.src = ''
   wallpaperLoader = null
 })
@@ -328,6 +351,10 @@ watch(locale, (loc) => {
 watch(isAboutVisible, (visible) => {
   if (!visible) resetWallpaperParallax()
 }, { immediate : true })
+
+watch(isMobile, (mobile) => {
+  previousWorkAreaRect = mobile ? null : wm.getWorkAreaRect()
+})
 </script>
 
 <template>

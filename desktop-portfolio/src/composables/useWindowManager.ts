@@ -22,9 +22,11 @@ import { clamp, uid } from '../utils'
 
 const CASCADE = 30
 const DEFAULT_WINDOW_POINT = { x : 120, y : 60 } as const
-const TOP_BAR_HEIGHT_PX = 32
-const DOCK_SAFE_MARGIN_PX = 60
-const RIGHT_VISIBLE_EDGE_PX = 40
+const TOP_BAR_HEIGHT_FALLBACK_PX = 32
+const DOCK_SAFE_MARGIN_FALLBACK_PX = 60
+const TITLEBAR_HEIGHT_PX = 40
+const TITLEBAR_REACHABLE_WIDTH_PX = 140
+const RESIZE_HANDLE_SIZE_PX = 18
 
 interface WindowManagerState {
   windows         : WindowState[]
@@ -99,18 +101,57 @@ function currentViewport() {
   }
   return {
     width  : Math.max(window.innerWidth, 1),
-    height : Math.max(window.innerHeight, TOP_BAR_HEIGHT_PX + 1),
+    height : Math.max(window.innerHeight, TOP_BAR_HEIGHT_FALLBACK_PX + 1),
   }
+}
+
+function getDesktopChromeInsets() {
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return {
+      topBarInset : TOP_BAR_HEIGHT_FALLBACK_PX,
+      dockInset   : DOCK_SAFE_MARGIN_FALLBACK_PX,
+    }
+  }
+
+  const viewport = currentViewport()
+  const topBarEl = document.querySelector<HTMLElement>('.topbar')
+  const dockEl = document.querySelector<HTMLElement>('.dock')
+  const topBarRect = topBarEl?.getBoundingClientRect()
+  const dockRect = dockEl?.getBoundingClientRect()
+
+  /*
+   * Measure against viewport edges instead of raw element heights so the work
+   * area stays correct even if chrome is offset, padded, or gains borders.
+   */
+  const topBarInset = Math.max(
+    0,
+    Math.ceil(topBarRect?.bottom ?? TOP_BAR_HEIGHT_FALLBACK_PX),
+  )
+  const dockInset = Math.max(
+    0,
+    Math.ceil(dockRect ? (viewport.height - dockRect.top) : DOCK_SAFE_MARGIN_FALLBACK_PX),
+  )
+
+  return { topBarInset, dockInset }
 }
 
 function getWorkAreaRect(): WindowRect {
   const viewport = currentViewport()
+  const { topBarInset, dockInset } = getDesktopChromeInsets()
   return {
     x : 0,
-    y : TOP_BAR_HEIGHT_PX,
+    y : topBarInset,
     w : viewport.width,
-    h : Math.max(1, viewport.height - TOP_BAR_HEIGHT_PX - DOCK_SAFE_MARGIN_PX),
+    h : Math.max(1, viewport.height - topBarInset - dockInset),
   }
+}
+
+function rectRight(rect: WindowRect): number {
+  return rect.x + rect.w
+}
+
+function rectBottom(rect: WindowRect): number {
+  return rect.y + rect.h
 }
 
 function mergeSize(
@@ -191,17 +232,47 @@ function clampSizeToPolicy(itemId: string, size: WindowSize): WindowSize {
   }
 }
 
-function clampPositionToViewport(itemId: string, point: WindowPoint): WindowPoint {
+function clampPositionForReachability(
+  itemId : string,
+  point  : WindowPoint,
+  size   : WindowSize,
+  mode   : WindowMode = 'normal',
+): WindowPoint {
   const policy = resolveWindowPolicy(itemId)
   if (!policy.placement.keepTitlebarVisible) {
     return { x : point.x, y : point.y }
   }
 
+  const work = getWorkAreaRect()
   const viewport = currentViewport()
-  const minX = 0
-  const maxX = Math.max(0, viewport.width - RIGHT_VISIBLE_EDGE_PX)
-  const minY = TOP_BAR_HEIGHT_PX
-  const maxY = Math.max(minY, viewport.height - DOCK_SAFE_MARGIN_PX)
+  const workRight = rectRight(work)
+  const workBottom = rectBottom(work)
+  const viewportBottom = viewport.height
+  const verticalBottom = mode === 'maximized' ? workBottom : viewportBottom
+
+  /*
+   * Stronger containment for resizable windows keeps the resize handle
+   * reachable by ensuring the bottom-right corner stays inside the work area.
+   * Maximized windows also use full containment regardless of resizability.
+   */
+  const enforceFullContainment = mode === 'maximized' || policy.behavior.resizable
+  if (enforceFullContainment) {
+    const minX = work.x
+    const maxX = Math.max(minX, workRight - size.w)
+    const minY = work.y
+    const maxY = Math.max(minY, verticalBottom - size.h)
+
+    return {
+      x : clamp(point.x, minX, maxX),
+      y : clamp(point.y, minY, maxY),
+    }
+  }
+
+  const titlebarVisibleWidth = Math.max(1, Math.min(TITLEBAR_REACHABLE_WIDTH_PX, size.w))
+  const minX = Math.floor(work.x - size.w + titlebarVisibleWidth)
+  const maxX = Math.floor(workRight - titlebarVisibleWidth)
+  const minY = work.y
+  const maxY = Math.max(minY, verticalBottom - size.h)
 
   return {
     x : clamp(point.x, minX, maxX),
@@ -209,9 +280,13 @@ function clampPositionToViewport(itemId: string, point: WindowPoint): WindowPoin
   }
 }
 
-function normalizeRectForWindow(itemId: string, rect: WindowRect): WindowRect {
+function normalizeRectForWindow(
+  itemId : string,
+  rect   : WindowRect,
+  mode   : WindowMode = 'normal',
+): WindowRect {
   const clampedSize = clampSizeToPolicy(itemId, { w : rect.w, h : rect.h })
-  const clampedPos = clampPositionToViewport(itemId, { x : rect.x, y : rect.y })
+  const clampedPos = clampPositionForReachability(itemId, { x : rect.x, y : rect.y }, clampedSize, mode)
   return {
     ...clampedPos,
     ...clampedSize,
@@ -227,7 +302,53 @@ function computeMaximizedRect(itemId: string): WindowRect {
   const x = work.x + Math.max(0, Math.floor((work.w - w) / 2))
   const y = work.y + Math.max(0, Math.floor((work.h - h) / 2))
 
-  return normalizeRectForWindow(itemId, { x, y, w, h })
+  return normalizeRectForWindow(itemId, { x, y, w, h }, 'maximized')
+}
+
+function isTitlebarReachable(win: WindowState): boolean {
+  const policy = resolveWindowPolicy(win.itemId)
+  if (!policy.placement.keepTitlebarVisible) return true
+
+  const work = getWorkAreaRect()
+  const viewport = currentViewport()
+  const workRight = rectRight(work)
+  const viewportBottom = viewport.height
+  const titlebarBottom = win.y + TITLEBAR_HEIGHT_PX
+  const visibleWidth = Math.max(
+    0,
+    Math.min(rectRight(win), workRight) - Math.max(win.x, work.x),
+  )
+  const requiredVisibleWidth = Math.max(1, Math.min(TITLEBAR_REACHABLE_WIDTH_PX, win.w))
+
+  return (
+    win.y >= work.y &&
+    titlebarBottom <= viewportBottom &&
+    visibleWidth >= requiredVisibleWidth
+  )
+}
+
+function isResizeHandleReachable(win: WindowState): boolean {
+  const policy = resolveWindowPolicy(win.itemId)
+  if (!policy.behavior.resizable || win.mode !== 'normal') return true
+
+  const work = getWorkAreaRect()
+  const viewport = currentViewport()
+  const workRight = rectRight(work)
+  const viewportBottom = viewport.height
+  const handleLeft = rectRight(win) - RESIZE_HANDLE_SIZE_PX
+  const handleTop = rectBottom(win) - RESIZE_HANDLE_SIZE_PX
+
+  return (
+    handleLeft >= work.x &&
+    handleTop >= work.y &&
+    rectRight(win) <= workRight &&
+    rectBottom(win) <= viewportBottom
+  )
+}
+
+function isWindowReachable(win: WindowState): boolean {
+  if (win.mode !== 'normal') return true
+  return isTitlebarReachable(win) && isResizeHandleReachable(win)
 }
 
 function pickTopVisibleWindow(): WindowState | null {
@@ -253,7 +374,7 @@ function applyRectToWindow(win: WindowState, nextRect: Partial<WindowRect>) {
     y : isFiniteNumber(nextRect.y) ? nextRect.y : win.y,
     w : isFiniteNumber(nextRect.w) ? nextRect.w : win.w,
     h : isFiniteNumber(nextRect.h) ? nextRect.h : win.h,
-  })
+  }, win.mode)
 
   win.x = rect.x
   win.y = rect.y
@@ -380,8 +501,8 @@ export function useWindowManager() {
     return {
       canMinimize : policy.behavior.minimizable,
       canMaximize : policy.behavior.maximizable,
-      canResize   : policy.behavior.resizable && win.mode === 'normal',
-      canMove     : policy.behavior.movable && win.mode === 'normal',
+      canResize   : policy.behavior.resizable && win.mode !== 'minimized',
+      canMove     : policy.behavior.movable && win.mode !== 'minimized',
     }
   }
 
@@ -535,11 +656,14 @@ export function useWindowManager() {
     if (!win) return
 
     const policy = resolveWindowPolicy(win.itemId)
-    if (!policy.behavior.movable || win.mode !== 'normal') return
+    if (!policy.behavior.movable || win.mode === 'minimized') return
 
-    const point = clampPositionToViewport(win.itemId, { x, y })
-    win.x = point.x
-    win.y = point.y
+    /* Dragging a maximized window exits maximize mode first. */
+    if (win.mode === 'maximized') {
+      ensureNormalGeometryState(win)
+    }
+
+    applyRectToWindow(win, { x, y })
   }
 
   function resizeWindowTo(id: string, w: number, h: number) {
@@ -547,11 +671,18 @@ export function useWindowManager() {
     if (!win) return
 
     const policy = resolveWindowPolicy(win.itemId)
-    if (!policy.behavior.resizable || win.mode !== 'normal') return
+    if (!policy.behavior.resizable || win.mode === 'minimized') return
 
-    const size = clampSizeToPolicy(win.itemId, { w, h })
-    win.w = size.w
-    win.h = size.h
+    /*
+     * Resizing a maximized window exits maximize mode and keeps the current
+     * maximized rect as the starting point, so subsequent resize follows
+     * normal viewport bounds (including touching the viewport bottom).
+     */
+    if (win.mode === 'maximized') {
+      ensureNormalGeometryState(win)
+    }
+
+    applyRectToWindow(win, { w, h })
   }
 
   function closeAll() {
@@ -568,6 +699,32 @@ export function useWindowManager() {
     for (const win of state.windows) {
       if (win.mode === 'minimized') restoreWindow(win.id)
     }
+  }
+
+  function autoFitInaccessibleWindowsForViewportChange(prevWorkArea: WindowRect, nextWorkArea: WindowRect) {
+    const shrank = nextWorkArea.w < prevWorkArea.w || nextWorkArea.h < prevWorkArea.h
+    if (!shrank) return 0
+
+    let adjusted = 0
+    for (const win of state.windows) {
+      if (win.mode === 'minimized') continue
+
+      if (win.mode === 'maximized') {
+        const maxRect = computeMaximizedRect(win.itemId)
+        win.x = maxRect.x
+        win.y = maxRect.y
+        win.w = maxRect.w
+        win.h = maxRect.h
+        adjusted += 1
+        continue
+      }
+
+      if (isWindowReachable(win)) continue
+      applyRectToWindow(win, {})
+      adjusted += 1
+    }
+
+    return adjusted
   }
 
   function tileWindows() {
@@ -656,6 +813,7 @@ export function useWindowManager() {
     state,
     visibleWindows,
     focusedWindowTitle,
+    getWorkAreaRect,
     getWindowPolicy,
     getWindowCapabilities,
     openWindow,
@@ -669,6 +827,7 @@ export function useWindowManager() {
     closeAll,
     minimizeAll,
     restoreAll,
+    autoFitInaccessibleWindowsForViewportChange,
     tileWindows,
     cascadeWindows,
     setWindows,
