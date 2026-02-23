@@ -29,6 +29,7 @@ export interface DesktopItem {
 }
 
 export type WindowMode = 'normal' | 'minimized' | 'maximized'
+export type WindowResizeHandle = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw'
 
 export interface WindowSize {
   w : number

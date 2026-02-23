@@ -4,23 +4,32 @@
    Tracks pointer deltas only; window manager owns size constraints.
    ============================================================ */
 
-import type { WindowState } from '../types/desktop'
+import type { WindowRect, WindowResizeHandle, WindowState } from '../types/desktop'
+
+interface ResizeWindowFromHandleFn {
+  (id: string, options: {
+    handle    : WindowResizeHandle
+    startRect : WindowRect
+    dx        : number
+    dy        : number
+  }): void
+}
 
 interface ResizeContext {
-  windowId : string
-  startX   : number
-  startY   : number
-  startW   : number
-  startH   : number
+  windowId   : string
+  handle     : WindowResizeHandle
+  startX     : number
+  startY     : number
+  startRect  : WindowRect
 }
 
 let resizeCtx: ResizeContext | null = null
 let boundResizeMove: (e: PointerEvent) => void = () => {}
 
 function onResizeMove(
-  e            : PointerEvent,
-  findWindow   : (id: string) => WindowState | undefined,
-  resizeWindowTo: (id: string, w: number, h: number) => void,
+  e                    : PointerEvent,
+  findWindow           : (id: string) => WindowState | undefined,
+  resizeWindowFromHandle: ResizeWindowFromHandleFn,
 ) {
   if (!resizeCtx) return
   const win = findWindow(resizeCtx.windowId)
@@ -29,11 +38,12 @@ function onResizeMove(
   const dx = e.clientX - resizeCtx.startX
   const dy = e.clientY - resizeCtx.startY
 
-  resizeWindowTo(
-    resizeCtx.windowId,
-    resizeCtx.startW + dx,
-    resizeCtx.startH + dy,
-  )
+  resizeWindowFromHandle(resizeCtx.windowId, {
+    handle    : resizeCtx.handle,
+    startRect : resizeCtx.startRect,
+    dx,
+    dy,
+  })
 }
 
 function onResizeEnd() {
@@ -43,22 +53,32 @@ function onResizeEnd() {
 }
 
 export function useResizable(
-  findWindow   : (id: string) => WindowState | undefined,
-  resizeWindowTo: (id: string, w: number, h: number) => void,
+  findWindow           : (id: string) => WindowState | undefined,
+  resizeWindowFromHandle: ResizeWindowFromHandleFn,
 ) {
-  function startResize(event: PointerEvent, windowId: string) {
+  function startResize(
+    event    : PointerEvent,
+    windowId : string,
+    handle   : WindowResizeHandle = 'se',
+  ) {
     const win = findWindow(windowId)
     if (!win) return
+    event.preventDefault()
 
     resizeCtx = {
       windowId,
+      handle,
       startX : event.clientX,
       startY : event.clientY,
-      startW : win.w,
-      startH : win.h,
+      startRect : {
+        x : win.x,
+        y : win.y,
+        w : win.w,
+        h : win.h,
+      },
     }
 
-    boundResizeMove = (e: PointerEvent) => onResizeMove(e, findWindow, resizeWindowTo)
+    boundResizeMove = (e: PointerEvent) => onResizeMove(e, findWindow, resizeWindowFromHandle)
     document.addEventListener('pointermove', boundResizeMove)
     document.addEventListener('pointerup', onResizeEnd)
   }

@@ -14,6 +14,7 @@ import type {
   WindowPoint,
   WindowPolicyConfig,
   WindowRect,
+  WindowResizeHandle,
   WindowSize,
   WindowState,
 } from '../types/desktop'
@@ -45,6 +46,13 @@ interface WindowCapabilities {
   canMaximize : boolean
   canResize   : boolean
   canMove     : boolean
+}
+
+interface ResizeFromHandleOptions {
+  handle    : WindowResizeHandle
+  startRect : WindowRect
+  dx        : number
+  dy        : number
 }
 
 const DEFAULT_WINDOW_POLICY: ResolvedWindowPolicy = {
@@ -382,6 +390,55 @@ function applyRectToWindow(win: WindowState, nextRect: Partial<WindowRect>) {
   win.h = rect.h
 }
 
+function computeResizeRectFromHandle(
+  itemId    : string,
+  handle    : WindowResizeHandle,
+  startRect : WindowRect,
+  dx        : number,
+  dy        : number,
+): WindowRect {
+  const moveWest = handle.includes('w')
+  const moveEast = handle.includes('e')
+  const moveNorth = handle.includes('n')
+  const moveSouth = handle.includes('s')
+
+  let left = startRect.x
+  let top = startRect.y
+  let right = startRect.x + startRect.w
+  let bottom = startRect.y + startRect.h
+
+  if (moveWest) left += dx
+  if (moveEast) right += dx
+  if (moveNorth) top += dy
+  if (moveSouth) bottom += dy
+
+  const requestedWidth = Math.max(1, right - left)
+  const requestedHeight = Math.max(1, bottom - top)
+  const clampedSize = clampSizeToPolicy(itemId, {
+    w : requestedWidth,
+    h : requestedHeight,
+  })
+
+  if (moveWest && !moveEast) {
+    left = right - clampedSize.w
+  } else {
+    right = left + clampedSize.w
+  }
+
+  if (moveNorth && !moveSouth) {
+    top = bottom - clampedSize.h
+  } else {
+    bottom = top + clampedSize.h
+  }
+
+  return {
+    x : left,
+    y : top,
+    w : right - left,
+    h : bottom - top,
+  }
+}
+
 function resolveOpenRect(itemId: string, index: number): WindowRect {
   const policy = resolveWindowPolicy(itemId)
   const size = clampSizeToPolicy(itemId, policy.size.default)
@@ -685,6 +742,27 @@ export function useWindowManager() {
     applyRectToWindow(win, { w, h })
   }
 
+  function resizeWindowFromHandle(id: string, options: ResizeFromHandleOptions) {
+    const win = state.windows.find(winState => winState.id === id)
+    if (!win) return
+
+    const policy = resolveWindowPolicy(win.itemId)
+    if (!policy.behavior.resizable || win.mode === 'minimized') return
+
+    if (win.mode === 'maximized') {
+      ensureNormalGeometryState(win)
+    }
+
+    const nextRect = computeResizeRectFromHandle(
+      win.itemId,
+      options.handle,
+      options.startRect,
+      options.dx,
+      options.dy,
+    )
+    applyRectToWindow(win, nextRect)
+  }
+
   function closeAll() {
     state.windows.length = 0
     state.focusedWindowId = null
@@ -824,6 +902,7 @@ export function useWindowManager() {
     focusWindow,
     moveWindowTo,
     resizeWindowTo,
+    resizeWindowFromHandle,
     closeAll,
     minimizeAll,
     restoreAll,

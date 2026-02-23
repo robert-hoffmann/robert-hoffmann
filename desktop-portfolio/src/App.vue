@@ -6,6 +6,7 @@ import AppWindow from './components/AppWindow.vue'
 import DesktopIcon from './components/DesktopIcon.vue'
 import NotificationToast from './components/NotificationToast.vue'
 import AboutSiteModal from './components/AboutSiteModal.vue'
+import type { WindowResizeHandle } from './types/desktop'
 import { useWindowManager } from './composables/useWindowManager'
 import { useDesktopIcons } from './composables/useDesktopIcons'
 import { useTheme } from './composables/useTheme'
@@ -36,7 +37,7 @@ const windowSfx = useWindowSfx()
 
 const findWindow = (id: string) => wm.state.windows.find(w => w.id === id)
 const { startDrag }   = useDraggable(findWindow, wm.moveWindowTo)
-const { startResize } = useResizable(findWindow, wm.resizeWindowTo)
+const { startResize } = useResizable(findWindow, wm.resizeWindowFromHandle)
 const session         = useSessionPersistence(icons.items)
 
 /* ---- constants ---- */
@@ -280,8 +281,8 @@ function onDragStart(event: PointerEvent, windowId: string) {
   startDrag(event, windowId)
 }
 
-function onResizeStart(event: PointerEvent, windowId: string) {
-  startResize(event, windowId)
+function onResizeStart(event: PointerEvent, windowId: string, handle: WindowResizeHandle) {
+  startResize(event, windowId, handle)
 }
 
 /* ---- dock ---- */

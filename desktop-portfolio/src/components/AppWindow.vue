@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, provide, shallowRef, toRef } from 'vue'
-import type { WindowState } from '../types/desktop'
+import type { WindowResizeHandle, WindowState } from '../types/desktop'
 import { windowRegistry } from '../data/registry'
 import { useLocale } from '../composables/useLocale'
 
@@ -21,7 +21,7 @@ const emit = defineEmits<{
   toggleMaximize : [id: string]
   focus          : [id: string]
   dragStart      : [event: PointerEvent, id: string]
-  resizeStart    : [event: PointerEvent, id: string]
+  resizeStart    : [event: PointerEvent, id: string, handle: WindowResizeHandle]
 }>()
 
 /** Expose window context to dynamically loaded content components */
@@ -57,6 +57,10 @@ const greenButtonLabel = computed(() =>
     : t('window.maximize'),
 )
 
+const RESIZE_HANDLES = [
+  'n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw',
+] as const satisfies readonly WindowResizeHandle[]
+
 function onHeaderPointerDown(event: PointerEvent) {
   const target = event.target
   if (target instanceof Element && target.closest('.traffic-lights')) return
@@ -67,6 +71,12 @@ function onHeaderPointerDown(event: PointerEvent) {
 function onGreenButtonClick() {
   if (!props.canMaximize) return
   emit('toggleMaximize', props.windowState.id)
+}
+
+function onResizeZonePointerDown(event: PointerEvent, handle: WindowResizeHandle) {
+  if (!props.canResize) return
+  emit('focus', props.windowState.id)
+  emit('resizeStart', event, props.windowState.id, handle)
 }
 </script>
 
@@ -118,13 +128,17 @@ function onGreenButtonClick() {
         <component :is="contentComponent" v-if="contentComponent" v-bind="contentProps" />
       </div>
 
-      <!-- Resize handle -->
-      <div
-        v-if="canResize"
-        class="app-window-resize"
-        aria-hidden="true"
-        @pointerdown.stop="emit('resizeStart', $event, windowState.id)"
-      />
+      <!-- Resize zones (invisible hit targets) + visible SE corner grip -->
+      <template v-if="canResize">
+        <div
+          v-for="handle in RESIZE_HANDLES"
+          :key="`resize-${windowState.id}-${handle}`"
+          class="app-window-resize-zone"
+          :class="`app-window-resize-zone--${handle}`"
+          aria-hidden="true"
+          @pointerdown.stop="onResizeZonePointerDown($event, handle)"
+        />
+      </template>
     </section>
   </div>
 </template>

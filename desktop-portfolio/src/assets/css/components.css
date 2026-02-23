@@ -593,27 +593,85 @@
   animation       : window-open var(--dur-normal) var(--ease-spring) both;
 }
 
-.app-window-resize {
-  position         : absolute;
+.app-window-resize-zone {
+  position     : absolute;
+  z-index      : 10;
+  background   : transparent;
+  touch-action : none;
+}
+
+.app-window-resize-zone--n {
+  inset-block-start : 0;
+  inset-inline      : 0;
+  block-size        : 0.5rem;
+  cursor            : ns-resize;
+}
+
+.app-window-resize-zone--s {
+  inset-block-end : 0;
+  inset-inline    : 0;
+  block-size      : 0.5rem;
+  cursor          : ns-resize;
+}
+
+.app-window-resize-zone--e {
+  inset-block      : 0;
+  inset-inline-end : 0;
+  inline-size      : 0.5rem;
+  cursor           : ew-resize;
+}
+
+.app-window-resize-zone--w {
+  inset-block        : 0;
+  inset-inline-start : 0;
+  inline-size        : 0.5rem;
+  cursor             : ew-resize;
+}
+
+.app-window-resize-zone--ne,
+.app-window-resize-zone--nw,
+.app-window-resize-zone--se,
+.app-window-resize-zone--sw {
+  inline-size : 0.875rem;
+  block-size  : 0.875rem;
+  z-index     : 11;
+}
+
+.app-window-resize-zone--ne {
+  inset-block-start : 0;
+  inset-inline-end  : 0;
+  cursor            : nesw-resize;
+}
+
+.app-window-resize-zone--nw {
+  inset-block-start   : 0;
+  inset-inline-start  : 0;
+  cursor              : nwse-resize;
+}
+
+.app-window-resize-zone--sw {
+  inset-block-end    : 0;
+  inset-inline-start : 0;
+  cursor             : nesw-resize;
+}
+
+.app-window-resize-zone--se {
   inset-block-end  : 0;
   inset-inline-end : 0;
-  inline-size      : 1rem;
-  block-size       : 1rem;
   cursor           : nwse-resize;
-  z-index          : 10;
-  background       : transparent;
 
   &::after {
-    content          : '';
-    position         : absolute;
-    inset-block-end  : 4px;
-    inset-inline-end : 4px;
-    inline-size      : 8px;
-    block-size       : 8px;
-    border-inline-end : 2px solid var(--text-muted);
+    content            : '';
+    position           : absolute;
+    inset-block-end    : 4px;
+    inset-inline-end   : 4px;
+    inline-size        : 8px;
+    block-size         : 8px;
+    border-inline-end  : 2px solid var(--text-muted);
     border-block-end   : 2px solid var(--text-muted);
-    opacity          : 0.4;
-    transition       : opacity var(--dur-fast) var(--ease-out);
+    opacity            : 0.4;
+    transition         : opacity var(--dur-fast) var(--ease-out);
+    pointer-events     : none;
   }
 
   &:hover::after {
