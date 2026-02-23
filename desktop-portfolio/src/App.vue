@@ -19,6 +19,7 @@ import { useViewMode } from './composables/useViewMode'
 import { useWindowSfx } from './composables/useWindowSfx'
 import { aboutWallpaperParallaxKey } from './composables/useAboutWallpaperParallax'
 import { windowRegistry } from './data/registry'
+import { getStartupIconLayoutsForWorkArea } from './data/iconLayouts'
 import { getStartupWindowLayoutsForWorkArea } from './data/windowLayouts'
 
 /* Keep mobile-only graph out of initial desktop bundle. */
@@ -108,6 +109,12 @@ function applyWindowLayout(def: ReturnType<typeof getStartupWindowLayoutsForWork
   })
 }
 
+function resetDesktopIconsForCurrentWorkArea() {
+  const workArea = wm.getWorkAreaRect()
+  const iconLayouts = getStartupIconLayoutsForWorkArea({ w : workArea.w, h : workArea.h })
+  icons.resetToDefaults(locale.value, iconLayouts)
+}
+
 function openDefaultWindowsStaggered() {
   clearStartupSchedule()
   const workArea = wm.getWorkAreaRect()
@@ -185,7 +192,7 @@ provide(aboutWallpaperParallaxKey, {
 function resetDesktop() {
   clearStartupSchedule()
   session.reset()
-  icons.resetToDefaults(locale.value)
+  resetDesktopIconsForCurrentWorkArea()
   wm.closeAll()
   openDefaultWindowsStaggered()
   theme.setTheme('dark')
@@ -327,6 +334,7 @@ onMounted(() => {
     preloadDesktopWallpaper()
 
     if (!restored) {
+      resetDesktopIconsForCurrentWorkArea()
       /* First visit — open default windows in staggered batches */
       openDefaultWindowsStaggered()
     }

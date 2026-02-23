@@ -5,6 +5,7 @@
 import { ref, reactive } from 'vue'
 import type { DesktopItem, Locale } from '../types/desktop'
 import { getDefaultDesktopItems, getRegistryTitle } from '../data/registry'
+import { applyStartupIconLayout, type StartupIconLayout } from '../data/iconLayouts'
 
 const selectedIconId = ref<string | null>(null)
 const items          = reactive<DesktopItem[]>(getDefaultDesktopItems())
@@ -53,10 +54,11 @@ export function useDesktopIcons() {
     }
   }
 
-  function resetToDefaults(locale: Locale) {
+  function resetToDefaults(locale: Locale, layout?: StartupIconLayout[]) {
     const defaults = getDefaultDesktopItems(locale)
+    const nextItems = layout ? applyStartupIconLayout(defaults, layout) : defaults
     items.length = 0
-    items.push(...defaults)
+    items.push(...nextItems)
     selectedIconId.value = null
   }
 

@@ -10,7 +10,7 @@ import type { WindowSize } from '../types/desktop'
 
 export type WorkAreaWidthBand = 'narrow' | 'medium' | 'wide'
 export type WorkAreaHeightBand = 'short' | 'medium' | 'tall'
-export type CanonicalStartupProfileId = 'compact' | 'standard' | 'wide'
+export type CanonicalStartupProfileId = 'small' | 'medium' | 'large'
 
 export interface StartupLayoutBands {
   widthBand  : WorkAreaWidthBand
@@ -45,28 +45,36 @@ const STARTUP_PROFILE_MATRIX: Record<
   Record<WorkAreaWidthBand, CanonicalStartupProfileId>
 > = {
   short : {
-    narrow : 'compact',
-    medium : 'compact',
-    wide   : 'compact',
+    narrow : 'small',
+    medium : 'small',
+    wide   : 'small',
   },
   medium : {
-    narrow : 'compact',
-    medium : 'standard',
-    wide   : 'standard',
+    narrow : 'small',
+    medium : 'medium',
+    wide   : 'medium',
   },
   tall : {
-    narrow : 'standard',
-    medium : 'wide',
-    wide   : 'wide',
+    narrow : 'medium',
+    medium : 'large',
+    wide   : 'large',
   },
 }
 
 const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> = {
   /*
-   * Compact is tuned for short-height desktop work areas (768/864/900 class).
+   * `small` targets short-height desktop classes and tighter work areas.
+   * Typical desktop classes this bucket is tuned for:
+   * - 1366x768
+   * - 1440x900
+   * - 1536x864
+   * - 1600x900
+   *
+   * Selection is based on WORK AREA (viewport minus top bar + dock space),
+   * so exact browser sizes may map slightly differently than raw monitor size.
    * We override sizes only where needed; other windows inherit registry defaults.
    */
-  compact : [
+  small : [
     {
       itemId : 'projects',
       x      : 40,
@@ -102,14 +110,29 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
       size   : { w : 480, h : 612 },
     },
   ],
-  standard : [
+  /*
+   * `medium` targets 1080p-class desktop work areas.
+   * Typical desktop class this bucket is tuned for:
+   * - 1920x1080
+   *
+   * This is the main "standard desktop" tuning set for most users.
+   */
+  medium : [
     { itemId : 'projects', x : 110,  y : 82,  zIndex : 100 },
     { itemId : 'about',    x : 540,  y : 40,  zIndex : 101 },
     { itemId : 'video',    x : 890,  y : 410, zIndex : 102 },
     { itemId : 'music',    x : 710,  y : 650, zIndex : 103 },
     { itemId : 'resume',   x : 1260, y : 64,  zIndex : 104 },
   ],
-  wide : [
+  /*
+   * `large` targets 1440p+ and ultrawide/tall desktop work areas.
+   * Typical desktop classes this bucket is tuned for:
+   * - 2560x1440
+   * - larger ultrawide desktops (depending on browser window size)
+   *
+   * This bucket is for roomier compositions with wider spacing.
+   */
+  large : [
     { itemId : 'projects', x : 150,  y : 90,  zIndex : 100 },
     { itemId : 'about',    x : 558,  y : 37,  zIndex : 101 },
     { itemId : 'video',    x : 886,  y : 403, zIndex : 102 },
@@ -149,4 +172,3 @@ export function getStartupWindowLayoutsForWorkArea(workArea: WorkAreaSize): Star
     ...(layout.size ? { size : { ...layout.size } } : {}),
   }))
 }
-
