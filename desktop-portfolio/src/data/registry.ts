@@ -131,8 +131,8 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     defaultRow    : 5,
     window        : {
       size : {
-        default : { w : 553, h : 440 },
-        min     : { w : 420, h : 320 },
+        default : { w : 720, h : 550 },
+        min     : { w : 550, h : 440 },
         max     : { w : 1200, h : 900 },
       },
     },
@@ -191,8 +191,8 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     defaultRow    : 4,
     window        : {
       size : {
-        default : { w : 680, h : 420 },
-        min     : { w : 520, h : 260 },
+        default : { w : 615, h : 380 },
+        min     : { w : 615, h : 380 },
         max     : { w : 1600, h : 1000 },
       },
       behavior : {

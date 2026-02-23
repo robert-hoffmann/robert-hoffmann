@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, provide, shallowRef, toRef } from 'vue'
+import { computed, defineAsyncComponent, provide, ref, shallowRef, toRef } from 'vue'
 import type { WindowResizeHandle, WindowState } from '../types/desktop'
 import { windowRegistry } from '../data/registry'
 import { useLocale } from '../composables/useLocale'
@@ -57,6 +57,17 @@ const greenButtonLabel = computed(() =>
     : t('window.maximize'),
 )
 
+const isMusicNopeAction = computed(() =>
+  props.windowState.itemId === 'music' && !props.canMaximize,
+)
+
+const greenButtonDisabled = computed(() =>
+  !props.canMaximize && !isMusicNopeAction.value,
+)
+
+const showNopePenguin = ref(false)
+const nopeAnimationKey = ref(0)
+
 const RESIZE_HANDLES = [
   'n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw',
 ] as const satisfies readonly WindowResizeHandle[]
@@ -69,8 +80,17 @@ function onHeaderPointerDown(event: PointerEvent) {
 }
 
 function onGreenButtonClick() {
+  if (isMusicNopeAction.value) {
+    nopeAnimationKey.value += 1
+    showNopePenguin.value = true
+    return
+  }
   if (!props.canMaximize) return
   emit('toggleMaximize', props.windowState.id)
+}
+
+function onNopeAnimationEnd() {
+  showNopePenguin.value = false
 }
 
 function onResizeZonePointerDown(event: PointerEvent, handle: WindowResizeHandle) {
@@ -111,7 +131,7 @@ function onResizeZonePointerDown(event: PointerEvent, handle: WindowResizeHandle
             class="traffic-light traffic-light--focus"
             type="button"
             :aria-label="greenButtonLabel"
-            :disabled="!canMaximize"
+            :disabled="greenButtonDisabled"
             @click.stop="onGreenButtonClick"
           />
         </div>
@@ -140,5 +160,15 @@ function onResizeZonePointerDown(event: PointerEvent, handle: WindowResizeHandle
         />
       </template>
     </section>
+
+    <img
+      v-if="showNopePenguin"
+      :key="nopeAnimationKey"
+      class="app-window-nope"
+      src="/nope-penguin.gif"
+      alt=""
+      aria-hidden="true"
+      @animationend="onNopeAnimationEnd"
+    >
   </div>
 </template>
