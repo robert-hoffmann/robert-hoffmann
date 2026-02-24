@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.6.7](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.6...desktop-portfolio-v1.6.7) (2026-02-24)
+
+
+### Features
+
+* enhance touch interaction handling and update icon layout for improved responsiveness ([f32d270](https://github.com/robert-hoffmann/robert-hoffmann/commit/f32d270b05faabd04ca6698c24153f7dcefb6335))
+* enhance window management and resizing capabilities ([89555c5](https://github.com/robert-hoffmann/robert-hoffmann/commit/89555c5a24c075d620401aef21781491a87d4257))
+* enhance window management with improved work area handling and layout classification ([8ec9aeb](https://github.com/robert-hoffmann/robert-hoffmann/commit/8ec9aeb1fc1aca086442a5a5fe1188f636059c9a))
+* enhance window size settings and add animation for music window action ([797d50d](https://github.com/robert-hoffmann/robert-hoffmann/commit/797d50d10c12c9d64dd77f564986407458fce7b5))
+* implement enhanced window resizing functionality with new resize zones and handle types ([d5b097b](https://github.com/robert-hoffmann/robert-hoffmann/commit/d5b097bedc0005d00ea79c09025ac24bd1e21a14))
+* implement startup icon layout management for improved desktop organization ([a81d8b8](https://github.com/robert-hoffmann/robert-hoffmann/commit/a81d8b88591d0b560c67d2c02c8a041a9b325fee))
+* implement touch desktop mode support with pointer capabilities and gesture handling ([e1e3451](https://github.com/robert-hoffmann/robert-hoffmann/commit/e1e3451d0a571891b105e64f68e5fad2f3b35b15))
+* refactor window and icon layout functions to use viewport size for improved responsiveness ([95dad41](https://github.com/robert-hoffmann/robert-hoffmann/commit/95dad41dd0c6fc298f07f2d5a0e6023625ff22ae))
+* update window size constraints for improved layout management ([b6f85bd](https://github.com/robert-hoffmann/robert-hoffmann/commit/b6f85bdc6838e082b445445a326b47e3981cd79d))
+
 ## [1.6.6](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.5...desktop-portfolio-v1.6.6) (2026-02-18)
 
 
