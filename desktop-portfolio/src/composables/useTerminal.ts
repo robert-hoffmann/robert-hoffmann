@@ -14,7 +14,7 @@ import type { Locale } from '../types/desktop'
 
 export interface TerminalLine {
   id      : number
-  type    : 'input' | 'output'
+  type    : 'input' | 'output' | 'welcome-banner'
   text    : string
   tKey?   : string
   tParams?: Record<string, string | number>
@@ -27,8 +27,11 @@ interface TerminalOptions {
   t           : (key: string, params?: Record<string, string | number>) => string
 }
 
-/** A single output line — either raw text or a translation reference. */
-type OutputEntry = string | { tKey: string; tParams?: Record<string, string | number> }
+/** A single output line — either raw text, a translation reference, or a structured banner. */
+type OutputEntry =
+  | string
+  | { tKey: string; tParams?: Record<string, string | number> }
+  | { kind: 'welcome-banner' }
 
 interface TerminalCommand {
   description : string
@@ -60,13 +63,16 @@ export function useTerminal(options: TerminalOptions) {
     for (const entry of arr) {
       if (typeof entry === 'string') {
         lines.push({ id : ++lineCounter, type : 'output', text : entry })
-      } else {
+      } else if ('kind' in entry && entry.kind === 'welcome-banner') {
+        lines.push({ id : ++lineCounter, type : 'welcome-banner', text : '' })
+      } else if ('tKey' in entry) {
+        const { tKey, tParams } = entry
         lines.push({
           id      : ++lineCounter,
           type    : 'output',
-          text    : t(entry.tKey, entry.tParams),
-          tKey    : entry.tKey,
-          tParams : entry.tParams,
+          text    : t(tKey, tParams),
+          tKey,
+          tParams,
         })
       }
     }
@@ -143,8 +149,10 @@ export function useTerminal(options: TerminalOptions) {
         const maxKey = Math.max(...apps.map(a => a.key.length))
         const out = ['']
         for (const app of apps) {
-          const typeLabel = app.type === 'link' ? '🔗' : app.type === 'app' ? '⚙️' : '📄'
-          out.push(`  ${typeLabel}  ${app.key.padEnd(maxKey + 2)} ${app.title}`)
+          const icon = app.icon
+            || (app.type === 'link' ? '🔗' : app.type === 'app' ? '⚙️' : '📄')
+            || '?'
+          out.push(`  ${icon}  ${app.key.padEnd(maxKey + 2)} ${app.title}`)
         }
         out.push('')
         return out
@@ -268,15 +276,15 @@ export function useTerminal(options: TerminalOptions) {
         return [
           '                    ╭──────────────────────────╮',
           '   ██████████████   │  guest@portfolio         │',
-          '   ██            ██ │  ────────────────         │',
-          '   ██   ▓▓▓▓▓   ██ │  OS:     macOS Portfolio  │',
-          '   ██   ▓▓▓▓▓   ██ │  Host:   Vue 3.5         │',
-          '   ██            ██ │  Kernel: Vite 6           │',
+          '   ██            ██ │  ────────────────        │',
+          '   ██   ▓▓▓▓▓   ██  │  OS:     macOS Portfolio │',
+          '   ██   ▓▓▓▓▓   ██  │  Host:   Vue 3.5         │',
+          '   ██            ██ │  Kernel: Vite 7          │',
           '   ██████████████   │  Shell:  zsh 5.9         │',
           '   ██            ██ │  Term:   tmux 3.4        │',
-          '   ██   ▒▒▒▒▒   ██ │  Theme:  Tokyo Night     │',
-          '   ██   ▒▒▒▒▒   ██ │  Font:   JetBrains Mono  │',
-          `   ██            ██ │  Uptime: ${upStr.padEnd(16)} │`,
+          '   ██   ▒▒▒▒▒   ██  │  Theme:  Tokyo Night     │',
+          '   ██   ▒▒▒▒▒   ██  │  Font:   JetBrains Mono  │',
+          `   ██            ██ │  Uptime: ${upStr.padEnd(16)}│`,
           '   ██████████████   │  Lang:   TypeScript 5.9  │',
           '                    ╰──────────────────────────╯',
         ]
@@ -388,10 +396,7 @@ export function useTerminal(options: TerminalOptions) {
     pushOutput([
       tr('term.welcome.lastLogin', { date : isoLocal(new Date()) }),
       '',
-      '  ╔══════════════════════════════════════════════╗',
-      tr('term.welcome.title'),
-      tr('term.welcome.hint'),
-      '  ╚══════════════════════════════════════════════╝',
+      { kind : 'welcome-banner' },
       '',
     ])
   }

@@ -107,7 +107,16 @@ onUnmounted(() => {
         class="terminal-line"
         :class="{ 'terminal-line--input': line.type === 'input' }"
       >
-        <pre class="terminal-text">{{ resolveLine(line) }}</pre>
+        <div
+          v-if="line.type === 'welcome-banner'"
+          class="terminal-welcome-banner"
+          role="note"
+          aria-label="Welcome banner"
+        >
+          <p class="terminal-welcome-title">{{ t('term.welcome.title') }}</p>
+          <p class="terminal-welcome-hint">{{ t('term.welcome.hint') }}</p>
+        </div>
+        <pre v-else class="terminal-text">{{ resolveLine(line) }}</pre>
       </div>
 
       <!-- Active input line -->
@@ -198,6 +207,24 @@ onUnmounted(() => {
   line-height : inherit;
   white-space : pre-wrap;
   word-break  : break-all;
+}
+
+.terminal-welcome-banner {
+  border         : 1px solid color-mix(in oklch, var(--term-fg) 55%, transparent);
+  border-radius  : var(--radius-sm, 4px);
+  padding-inline : var(--space-4, 12px);
+  padding-block  : var(--space-2, 8px);
+  background     : color-mix(in oklch, var(--term-bg) 85%, var(--term-fg) 15%);
+}
+
+.terminal-welcome-title {
+  color       : var(--term-fg);
+  font-weight : 600;
+}
+
+.terminal-welcome-hint {
+  color            : var(--term-fg);
+  margin-block-start : var(--space-1, 4px);
 }
 
 /* ---- Active input row ---- */
