@@ -1,7 +1,7 @@
 /* ============================================================
    Startup Icon Layout Profiles — Separate Desktop Icon Defaults
    ============================================================
-   Uses the same work-area band classification as window layouts,
+   Uses the same viewport band classification as window layouts,
    but keeps icon-grid defaults in a dedicated module for clean
    separation of responsibilities.
    ============================================================ */
@@ -19,7 +19,7 @@ export interface StartupIconLayout {
   row    : number
 }
 
-interface WorkAreaSize {
+interface ViewportSize {
   w : number
   h : number
 }
@@ -30,10 +30,10 @@ interface WorkAreaSize {
  * can evolve independently without changing canonical metadata.
  *
  * These use the SAME profile mapping as `windowLayouts.ts`:
- * - `small`  : short-height/tighter desktop work areas (1366x768, 1440x900,
+ * - `small`  : short-height/tighter desktop viewports (1366x768, 1440x900,
  *              1536x864, 1600x900 classes)
- * - `medium` : 1080p-class desktop work areas (1920x1080 class)
- * - `large`  : 1440p+ / ultrawide desktop work areas (2560x1440+ classes)
+ * - `medium` : 1080p-class desktop viewports (1920x1080 class)
+ * - `large`  : 1440p+ / ultrawide desktop viewports (2560x1440+ classes)
  */
 const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[]> = {
   /* `small` icon grid tuning bucket (short-height / tighter desktop classes) */
@@ -77,8 +77,8 @@ const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[
   ],
 }
 
-export function getStartupIconLayoutsForWorkArea(workArea: WorkAreaSize): StartupIconLayout[] {
-  const bands = classifyStartupBands(workArea)
+export function getStartupIconLayoutsForViewport(viewport: ViewportSize): StartupIconLayout[] {
+  const bands = classifyStartupBands(viewport)
   const profile = resolveStartupProfileId(bands)
 
   return STARTUP_ICON_LAYOUTS[profile].map(layout => ({ ...layout }))

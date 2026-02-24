@@ -1,20 +1,20 @@
 /* ============================================================
-   Startup Window Layout Profiles — 2D work-area band selection
+   Startup Window Layout Profiles — 2D viewport band selection
    ============================================================
-   Uses usable desktop work area (w + h) to classify a viewport
-   into width/height bands, then maps those bands into one of
-   three canonical startup layout profiles.
+   Uses raw viewport size (w + h) to classify the screen into
+   width/height bands, then maps those bands into one of three
+   canonical startup layout profiles.
    ============================================================ */
 
 import type { WindowSize } from '../types/desktop'
 
-export type WorkAreaWidthBand = 'narrow' | 'medium' | 'wide'
-export type WorkAreaHeightBand = 'short' | 'medium' | 'tall'
+export type ViewportWidthBand = 'narrow' | 'medium' | 'wide'
+export type ViewportHeightBand = 'short' | 'medium' | 'tall'
 export type CanonicalStartupProfileId = 'small' | 'medium' | 'large'
 
 export interface StartupLayoutBands {
-  widthBand  : WorkAreaWidthBand
-  heightBand : WorkAreaHeightBand
+  widthBand  : ViewportWidthBand
+  heightBand : ViewportHeightBand
 }
 
 export interface StartupWindowLayout {
@@ -25,15 +25,18 @@ export interface StartupWindowLayout {
   size?   : Partial<WindowSize>
 }
 
-interface WorkAreaSize {
+interface ViewportSize {
   w : number
   h : number
 }
 
 /*
- * Work-area thresholds (not raw viewport):
+ * Viewport thresholds (raw viewport, not work area):
  * - Width bands are tuned to keep 1920x1080-class desktops in `medium`
  * - Height bands are tuned around 768/900/1080/1440 desktop classes
+ *
+ * The window manager still clamps final geometry to the WORK AREA
+ * (below the top bar and above the dock for maximize).
  */
 const WIDTH_NARROW_MAX_EXCLUSIVE = 1450
 const WIDTH_WIDE_MIN_INCLUSIVE   = 2100
@@ -41,8 +44,8 @@ const HEIGHT_SHORT_MAX_EXCLUSIVE = 860
 const HEIGHT_TALL_MIN_INCLUSIVE  = 1200
 
 const STARTUP_PROFILE_MATRIX: Record<
-  WorkAreaHeightBand,
-  Record<WorkAreaWidthBand, CanonicalStartupProfileId>
+  ViewportHeightBand,
+  Record<ViewportWidthBand, CanonicalStartupProfileId>
 > = {
   short : {
     narrow : 'small',
@@ -63,15 +66,16 @@ const STARTUP_PROFILE_MATRIX: Record<
 
 const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> = {
   /*
-   * `small` targets short-height desktop classes and tighter work areas.
+   * `small` targets short-height desktop viewport classes.
    * Typical desktop classes this bucket is tuned for:
    * - 1366x768
    * - 1440x900
    * - 1536x864
    * - 1600x900
    *
-   * Selection is based on WORK AREA (viewport minus top bar + dock space),
-   * so exact browser sizes may map slightly differently than raw monitor size.
+   * Selection is based on RAW VIEWPORT size.
+   * Final geometry still goes through window-manager clamping, so windows
+   * remain constrained to the actual desktop work area as needed.
    * We override sizes only where needed; other windows inherit registry defaults.
    */
   small : [
@@ -111,7 +115,7 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
     },
   ],
   /*
-   * `medium` targets 1080p-class desktop work areas.
+   * `medium` targets 1080p-class desktop viewports.
    * Typical desktop class this bucket is tuned for:
    * - 1920x1080
    *
@@ -125,7 +129,7 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
     { itemId : 'resume',   x : 1260, y : 64,  zIndex : 104 },
   ],
   /*
-   * `large` targets 1440p+ and ultrawide/tall desktop work areas.
+   * `large` targets 1440p+ and ultrawide/tall desktop viewports.
    * Typical desktop classes this bucket is tuned for:
    * - 2560x1440
    * - larger ultrawide desktops (depending on browser window size)
@@ -141,18 +145,18 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
   ],
 }
 
-export function classifyStartupBands(workArea: WorkAreaSize): StartupLayoutBands {
-  const widthBand: WorkAreaWidthBand =
-    workArea.w >= WIDTH_WIDE_MIN_INCLUSIVE
+export function classifyStartupBands(viewport: ViewportSize): StartupLayoutBands {
+  const widthBand: ViewportWidthBand =
+    viewport.w >= WIDTH_WIDE_MIN_INCLUSIVE
       ? 'wide'
-      : workArea.w >= WIDTH_NARROW_MAX_EXCLUSIVE
+      : viewport.w >= WIDTH_NARROW_MAX_EXCLUSIVE
         ? 'medium'
         : 'narrow'
 
-  const heightBand: WorkAreaHeightBand =
-    workArea.h >= HEIGHT_TALL_MIN_INCLUSIVE
+  const heightBand: ViewportHeightBand =
+    viewport.h >= HEIGHT_TALL_MIN_INCLUSIVE
       ? 'tall'
-      : workArea.h >= HEIGHT_SHORT_MAX_EXCLUSIVE
+      : viewport.h >= HEIGHT_SHORT_MAX_EXCLUSIVE
         ? 'medium'
         : 'short'
 
@@ -163,8 +167,8 @@ export function resolveStartupProfileId(bands: StartupLayoutBands): CanonicalSta
   return STARTUP_PROFILE_MATRIX[bands.heightBand][bands.widthBand]
 }
 
-export function getStartupWindowLayoutsForWorkArea(workArea: WorkAreaSize): StartupWindowLayout[] {
-  const bands = classifyStartupBands(workArea)
+export function getStartupWindowLayoutsForViewport(viewport: ViewportSize): StartupWindowLayout[] {
+  const bands = classifyStartupBands(viewport)
   const profile = resolveStartupProfileId(bands)
 
   return STARTUP_LAYOUTS[profile].map(layout => ({

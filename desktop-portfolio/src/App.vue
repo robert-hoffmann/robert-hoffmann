@@ -19,8 +19,8 @@ import { useViewMode } from './composables/useViewMode'
 import { useWindowSfx } from './composables/useWindowSfx'
 import { aboutWallpaperParallaxKey } from './composables/useAboutWallpaperParallax'
 import { windowRegistry } from './data/registry'
-import { getStartupIconLayoutsForWorkArea } from './data/iconLayouts'
-import { getStartupWindowLayoutsForWorkArea } from './data/windowLayouts'
+import { getStartupIconLayoutsForViewport } from './data/iconLayouts'
+import { getStartupWindowLayoutsForViewport } from './data/windowLayouts'
 
 /* Keep mobile-only graph out of initial desktop bundle. */
 const MobileApp = defineAsyncComponent(() => import('./components/MobileApp.vue'))
@@ -98,7 +98,14 @@ function clearStartupSchedule() {
 }
 
 /* Keep default desktop layout deterministic while deferring heavy mounts. */
-function applyWindowLayout(def: ReturnType<typeof getStartupWindowLayoutsForWorkArea>[number]) {
+function currentViewportSize() {
+  return {
+    w : Math.max(window.innerWidth, 1),
+    h : Math.max(window.innerHeight, 1),
+  }
+}
+
+function applyWindowLayout(def: ReturnType<typeof getStartupWindowLayoutsForViewport>[number]) {
   wm.openWindow(def.itemId, locale.value, {
     rect   : {
       x : def.x,
@@ -109,16 +116,16 @@ function applyWindowLayout(def: ReturnType<typeof getStartupWindowLayoutsForWork
   })
 }
 
-function resetDesktopIconsForCurrentWorkArea() {
-  const workArea = wm.getWorkAreaRect()
-  const iconLayouts = getStartupIconLayoutsForWorkArea({ w : workArea.w, h : workArea.h })
+function resetDesktopIconsForCurrentViewport() {
+  const viewport = currentViewportSize()
+  const iconLayouts = getStartupIconLayoutsForViewport(viewport)
   icons.resetToDefaults(locale.value, iconLayouts)
 }
 
 function openDefaultWindowsStaggered() {
   clearStartupSchedule()
-  const workArea = wm.getWorkAreaRect()
-  const layouts = getStartupWindowLayoutsForWorkArea({ w : workArea.w, h : workArea.h })
+  const viewport = currentViewportSize()
+  const layouts = getStartupWindowLayoutsForViewport(viewport)
 
   /* Delay first app mounts until the shell has had a chance to paint once. */
   startupRafId = window.requestAnimationFrame(() => {
@@ -192,7 +199,7 @@ provide(aboutWallpaperParallaxKey, {
 function resetDesktop() {
   clearStartupSchedule()
   session.reset()
-  resetDesktopIconsForCurrentWorkArea()
+  resetDesktopIconsForCurrentViewport()
   wm.closeAll()
   openDefaultWindowsStaggered()
   theme.setTheme('dark')
@@ -334,7 +341,7 @@ onMounted(() => {
     preloadDesktopWallpaper()
 
     if (!restored) {
-      resetDesktopIconsForCurrentWorkArea()
+      resetDesktopIconsForCurrentViewport()
       /* First visit — open default windows in staggered batches */
       openDefaultWindowsStaggered()
     }
