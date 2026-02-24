@@ -392,12 +392,21 @@
   z-index        : var(--z-icons);
   cursor         : default;
   user-select    : none;
+  touch-action   : manipulation;
   transition     : background var(--dur-fast) var(--ease-out),
                    box-shadow var(--dur-fast) var(--ease-out);
 
   &:hover {
     background : var(--icon-hover-bg);
   }
+}
+
+.desktop-icon--touch-desktop {
+  /*
+   * Stronger touch-action for reliable long-press drag on tablets.
+   * Taps still work; browser panning/zoom gestures should not steal the drag.
+   */
+  touch-action : none;
 }
 
 .desktop-icon--selected {
@@ -690,6 +699,7 @@
   background       : transparent;
   cursor           : grab;
   user-select      : none;
+  touch-action     : none;
   flex-shrink      : 0;
 
   &::before {

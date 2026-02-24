@@ -7,9 +7,11 @@
 import type { WindowState } from '../types/desktop'
 
 interface DragContext {
-  windowId : string
-  offsetX  : number
-  offsetY  : number
+  windowId     : string
+  offsetX      : number
+  offsetY      : number
+  pointerId    : number
+  captureTarget: Element | null
 }
 
 let dragCtx: DragContext | null = null
@@ -31,10 +33,30 @@ function onDragMove(
   )
 }
 
-function onDragEnd() {
+function cleanupDrag() {
+  const ctx = dragCtx
   dragCtx = null
+
+  if (ctx?.captureTarget instanceof Element && 'releasePointerCapture' in ctx.captureTarget) {
+    try {
+      ;(ctx.captureTarget as Element & { releasePointerCapture(pointerId: number): void })
+        .releasePointerCapture(ctx.pointerId)
+    } catch {
+      /* Pointer capture may already be released/canceled. */
+    }
+  }
+
   document.removeEventListener('pointermove', boundMove)
-  document.removeEventListener('pointerup', onDragEnd)
+  document.removeEventListener('pointerup', onPointerUp)
+  document.removeEventListener('pointercancel', onPointerCancel)
+}
+
+function onPointerUp() {
+  cleanupDrag()
+}
+
+function onPointerCancel() {
+  cleanupDrag()
 }
 
 /* We need a closure to pass findWindow through — set during startDrag */
@@ -47,16 +69,31 @@ export function useDraggable(
   function startDrag(event: PointerEvent, windowId: string) {
     const win = findWindow(windowId)
     if (!win) return
+    event.preventDefault()
+
+    let captureTarget: Element | null = null
+    if (event.currentTarget instanceof Element && 'setPointerCapture' in event.currentTarget) {
+      try {
+        ;(event.currentTarget as Element & { setPointerCapture(pointerId: number): void })
+          .setPointerCapture(event.pointerId)
+        captureTarget = event.currentTarget
+      } catch {
+        /* Ignore capture failures; document listeners remain as fallback. */
+      }
+    }
 
     dragCtx = {
       windowId,
       offsetX : event.clientX - win.x,
       offsetY : event.clientY - win.y,
+      pointerId : event.pointerId,
+      captureTarget,
     }
 
     boundMove = (e: PointerEvent) => onDragMove(e, findWindow, moveWindowTo)
     document.addEventListener('pointermove', boundMove)
-    document.addEventListener('pointerup', onDragEnd)
+    document.addEventListener('pointerup', onPointerUp)
+    document.addEventListener('pointercancel', onPointerCancel)
   }
 
   return { startDrag }

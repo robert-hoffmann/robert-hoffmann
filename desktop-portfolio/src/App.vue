@@ -17,6 +17,7 @@ import { useResizable } from './composables/useResizable'
 import { useSessionPersistence } from './composables/useSessionPersistence'
 import { useViewMode } from './composables/useViewMode'
 import { useWindowSfx } from './composables/useWindowSfx'
+import { usePointerCapabilities } from './composables/usePointerCapabilities'
 import { aboutWallpaperParallaxKey } from './composables/useAboutWallpaperParallax'
 import { windowRegistry } from './data/registry'
 import { getStartupIconLayoutsForViewport } from './data/iconLayouts'
@@ -30,6 +31,7 @@ const theme = useTheme()
 const toast = useToast()
 const { t, locale } = useLocale()
 const { isMobile }  = useViewMode()
+const { hasCoarsePointer } = usePointerCapabilities()
 
 /* ---- desktop-only composables ---- */
 const wm    = useWindowManager()
@@ -64,6 +66,10 @@ const isAboutVisible = computed(() =>
   wm.state.windows.some(windowState =>
     windowState.itemId === 'about' && windowState.mode !== 'minimized',
   ),
+)
+
+const isTouchDesktopMode = computed(() =>
+  !isMobile.value && hasCoarsePointer.value,
 )
 
 function clamp(value: number, min: number, max: number) {
@@ -408,6 +414,7 @@ watch(isMobile, (mobile) => {
         :key="item.id"
         :item="item"
         :is-selected="icons.selectedIconId.value === item.id"
+        :touch-desktop-mode="isTouchDesktopMode"
         :style="icons.iconStyle(item)"
         @select="icons.selectIcon"
         @open="openItem"
@@ -423,7 +430,7 @@ watch(isMobile, (mobile) => {
       :is-focused="wm.state.focusedWindowId === ws.id"
       :can-minimize="wm.getWindowCapabilities(ws.id).canMinimize"
       :can-maximize="wm.getWindowCapabilities(ws.id).canMaximize"
-      :can-resize="wm.getWindowCapabilities(ws.id).canResize"
+      :can-resize="wm.getWindowCapabilities(ws.id).canResize && !isTouchDesktopMode"
       :can-move="wm.getWindowCapabilities(ws.id).canMove"
       @close="wm.closeWindow"
       @minimize="onWindowMinimize"
