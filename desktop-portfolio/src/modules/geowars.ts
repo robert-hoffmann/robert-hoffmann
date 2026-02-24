@@ -24,6 +24,16 @@ const PLAYER_DRAG     = 0.92
 const THRUST_DEADZONE = 0.8
 const THRUST_MAX_DIST = 12
 const BULLET_SPEED    = 9
+const FIXED_STEP_S    = 0.016
+/**
+ * Sustained player top speed in bullet-speed units (~0.7728 world units/frame).
+ * Kept explicit to avoid re-deriving the thrust+drag recurrence in this file.
+ */
+const PLAYER_MAX_SUSTAINED_SPEED = 48.3
+const EFFECTIVE_BULLET_SPEED = Math.max(
+  BULLET_SPEED,
+  PLAYER_MAX_SUSTAINED_SPEED,
+)
 const BULLET_LIFE     = 80
 const FIRE_COOLDOWN   = 6
 const PARTICLE_LIFE   = 40
@@ -599,8 +609,8 @@ function spawnBullet(x: number, y: number, angle: number) {
   b.alive   = true
   b.x       = x
   b.y       = y
-  b.vx      = Math.cos(angle) * BULLET_SPEED
-  b.vy      = Math.sin(angle) * BULLET_SPEED
+  b.vx      = Math.cos(angle) * EFFECTIVE_BULLET_SPEED
+  b.vy      = Math.sin(angle) * EFFECTIVE_BULLET_SPEED
   b.life    = BULLET_LIFE
   b.mesh.visible = true
   b.mesh.position.set(x, y, 0)
@@ -610,8 +620,8 @@ function spawnBullet(x: number, y: number, angle: number) {
 function updateBullets() {
   for (const b of bullets) {
     if (!b.alive) continue
-    b.x += b.vx * 0.016
-    b.y += b.vy * 0.016
+    b.x += b.vx * FIXED_STEP_S
+    b.y += b.vy * FIXED_STEP_S
     b.life--
     if (b.life <= 0 || Math.abs(b.x) > GRID_HALF_X || Math.abs(b.y) > GRID_HALF_Y) {
       b.alive = false; b.mesh.visible = false; continue
@@ -676,8 +686,8 @@ function updateEnemies() {
     const spd  = ENEMY_BASE_SPD * e.type.speed * (0.85 + state.wave * 0.05)
     e.vx = (dx / dist) * spd
     e.vy = (dy / dist) * spd
-    e.x += e.vx * 0.016
-    e.y += e.vy * 0.016
+    e.x += e.vx * FIXED_STEP_S
+    e.y += e.vy * FIXED_STEP_S
     e.x = clamp(e.x, -GRID_HALF_X + 0.5, GRID_HALF_X - 0.5)
     e.y = clamp(e.y, -GRID_HALF_Y + 0.5, GRID_HALF_Y - 0.5)
     e.mesh.position.set(e.x, e.y, 0)
@@ -726,7 +736,7 @@ function burstParticles(x: number, y: number, color: number, count: number) {
 function updateParticles() {
   for (const p of particles) {
     if (!p.alive) continue
-    p.x += p.vx * 0.016; p.y += p.vy * 0.016
+    p.x += p.vx * FIXED_STEP_S; p.y += p.vy * FIXED_STEP_S
     p.vx *= 0.96; p.vy *= 0.96
     p.life--
     if (p.life <= 0) { p.alive = false; p.mesh.visible = false; continue }
@@ -879,7 +889,7 @@ function updatePlayer() {
 
   if (dist > THRUST_DEADZONE) {
     const t      = clamp((dist - THRUST_DEADZONE) / (THRUST_MAX_DIST - THRUST_DEADZONE), 0, 1)
-    const thrust = t * PLAYER_SPEED * 0.016
+    const thrust = t * PLAYER_SPEED * FIXED_STEP_S
     playerVX += Math.cos(aimAngle) * thrust
     playerVY += Math.sin(aimAngle) * thrust
   }
