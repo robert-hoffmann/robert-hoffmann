@@ -575,6 +575,7 @@ export function useWindowManager() {
   function focusWindow(id: string) {
     const win = state.windows.find(w => w.id === id)
     if (!win || win.mode === 'minimized') return
+    if (state.focusedWindowId === id) return
     win.zIndex = state.nextZIndex++
     state.focusedWindowId = id
   }
