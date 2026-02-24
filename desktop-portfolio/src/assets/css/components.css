@@ -406,7 +406,8 @@
    * Stronger touch-action for reliable long-press drag on tablets.
    * Taps still work; browser panning/zoom gestures should not steal the drag.
    */
-  touch-action : none;
+  touch-action         : none;
+  -webkit-touch-callout: none;
 }
 
 .desktop-icon--selected {

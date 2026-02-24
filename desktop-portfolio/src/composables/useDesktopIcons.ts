@@ -11,6 +11,12 @@ const selectedIconId = ref<string | null>(null)
 const items          = reactive<DesktopItem[]>(getDefaultDesktopItems())
 
 export function useDesktopIcons() {
+  function isPrimaryPointerActivation(ev: PointerEvent) {
+    if (!ev.isPrimary) return false
+    if (ev.pointerType === 'touch') return ev.button === 0 || ev.button === -1
+    return ev.button === 0
+  }
+
   function selectIcon(id: string) {
     selectedIconId.value = id
   }
@@ -63,7 +69,7 @@ export function useDesktopIcons() {
   }
 
   function onIconPointerDown(ev: PointerEvent, iconId: string) {
-    if (ev.button !== 0) return
+    if (!isPrimaryPointerActivation(ev)) return
 
     const item = items.find(i => i.id === iconId)
     if (!item) return

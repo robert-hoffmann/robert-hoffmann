@@ -36,6 +36,12 @@ let longPressTimer: ReturnType<typeof setTimeout> | null = null
 let lastTapAt = 0
 let suppressClickUntil = 0
 
+function isPrimaryPointerActivation(event: PointerEvent) {
+  if (!event.isPrimary) return false
+  if (event.pointerType === 'touch') return event.button === 0 || event.button === -1
+  return event.button === 0
+}
+
 function clearLongPressTimer() {
   if (!longPressTimer) return
   clearTimeout(longPressTimer)
@@ -84,7 +90,7 @@ function onIconPointerDown(event: PointerEvent) {
     return
   }
 
-  if (event.button !== 0) return
+  if (!isPrimaryPointerActivation(event)) return
 
   cleanupTouchGesture()
   touchGesture = {
@@ -99,6 +105,12 @@ function onIconPointerDown(event: PointerEvent) {
   document.addEventListener('pointermove', onTouchGestureMove)
   document.addEventListener('pointerup', onTouchGestureEnd)
   document.addEventListener('pointercancel', onTouchGestureEnd)
+}
+
+function onIconContextMenu(event: MouseEvent) {
+  if (!props.touchDesktopMode) return
+  event.preventDefault()
+  event.stopPropagation()
 }
 
 function onIconClick(event: MouseEvent) {
@@ -153,6 +165,7 @@ onUnmounted(() => {
     @click.stop="onIconClick"
     @dblclick.stop="onIconDblClick"
     @pointerdown="onIconPointerDown"
+    @contextmenu="onIconContextMenu"
   >
     <span
       v-if="item.iconSprite"

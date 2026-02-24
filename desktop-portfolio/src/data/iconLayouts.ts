@@ -40,10 +40,10 @@ const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[
   small : [
     { itemId : 'about',    col : 1,  row : 1 },
     { itemId : 'projects', col : 1,  row : 2 },
-    { itemId : 'resume',   col : 14, row : 2 },
+    { itemId : 'resume',   col : 11, row : 2 },
     { itemId : 'twitter',  col : 14, row : 4 },
-    { itemId : 'linkedin', col : 14, row : 5 },
-    { itemId : 'github',   col : 14, row : 6 },
+    { itemId : 'linkedin', col : 11, row : 5 },
+    { itemId : 'github',   col : 11, row : 6 },
     { itemId : 'extras',   col : 1,  row : 5 },
     { itemId : 'music',    col : 1,  row : 8 },
     { itemId : 'video',    col : 1,  row : 7 },
