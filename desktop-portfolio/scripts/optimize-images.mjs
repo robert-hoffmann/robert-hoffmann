@@ -14,9 +14,10 @@
 
 import { readdir, stat, access } from 'node:fs/promises'
 import { join, extname, basename } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 
-const PUBLIC   = new URL('../public/', import.meta.url).pathname
+const PUBLIC   = fileURLToPath(new URL('../public/', import.meta.url))
 const QUALITY  = { webp: 80, avif: 55 }
 const EXTS     = new Set(['.jpg', '.jpeg', '.png'])
 const SKIP     = new Set(['favicon-16.png', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'])
