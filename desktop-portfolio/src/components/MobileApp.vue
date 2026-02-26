@@ -14,11 +14,11 @@ import { getRegistryTitle, windowRegistry } from '../data/registry'
 
 const OWNER_NAME = 'Robert Hoffmann'
 const MOBILE_SOCIAL_TOAST_DURATION_MS = 5_000
+const BRIDGED_TOAST_DURATION_MS = 2_000
 const WELCOME_TOAST_DELAY_MS = 100
 const MOBILE_SOCIAL_X_DELAY_MS = 60_000
 const MOBILE_SOCIAL_LINKEDIN_DELAY_MS = 120_000
-const TOAST_STACK_OVERLAP_MS = 900
-const WELCOME_TOAST_DURATION_MS = MOBILE_SOCIAL_TOAST_DURATION_MS + TOAST_STACK_OVERLAP_MS
+const WELCOME_TOAST_DURATION_MS = 4_000
 
 const rootStyle = {
   '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons-runtime.webp")',
@@ -187,6 +187,7 @@ watch(
     showMobileToast({
       title   : 'Portfolio',
       message,
+      duration: BRIDGED_TOAST_DURATION_MS,
     })
   },
 )

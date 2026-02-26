@@ -39,6 +39,7 @@ const showArtwork = computed(() => layoutConfig.value.visualSurface === 'artwork
 const showVideoSurface = computed(() => layoutConfig.value.visualSurface === 'video' && videoTransport !== null)
 const showMetadata = computed(() => layoutConfig.value.showMetadata)
 const showEq = computed(() => layoutConfig.value.showEq && audioTransport !== null)
+const showMetaFullscreenAction = computed(() => showVideoSurface.value && videoTransport !== null)
 const titleDiscActive = computed(() =>
   transport.state.playing && !transport.state.paused,
 )
@@ -139,12 +140,56 @@ const muteLabel = computed(() => {
   return t('video.toggleMute')
 })
 const volumeLabel = computed(() => t(`${props.preset}.volume`))
+const fullscreenLabel = computed(() => t('video.fullscreen'))
 
 const displayTitle = computed(() => presetConfig.value.metadata.title)
 const displaySubtitle = computed(() => presetConfig.value.metadata.subtitle)
 const displayArtworkSrc = computed(() => presetConfig.value.metadata.artworkSrc ?? '')
 const displayArtworkAlt = computed(() => presetConfig.value.metadata.artworkAlt)
 const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig.value.metadata.videoPoster ?? {})
+
+type FullscreenHost = HTMLElement & {
+  webkitRequestFullscreen?: () => Promise<void> | void
+}
+
+async function requestFullscreenForHost(host: FullscreenHost) {
+  if (typeof host.requestFullscreen === 'function') {
+    await host.requestFullscreen()
+    return
+  }
+
+  host.webkitRequestFullscreen?.()
+}
+
+async function onMetaFullscreen() {
+  if (!videoTransport) return
+
+  const wrapper = videoTransport.wrapperRef.value as FullscreenHost | null
+  if (!wrapper) return
+
+  try {
+    const activeFullscreen = document.fullscreenElement
+    const wrapperOwnsFullscreen = Boolean(
+      activeFullscreen &&
+      (activeFullscreen === wrapper || wrapper.contains(activeFullscreen)),
+    )
+
+    if (wrapperOwnsFullscreen) {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen()
+      }
+      return
+    }
+
+    await requestFullscreenForHost(wrapper)
+  } catch {
+    // Browsers may reject fullscreen if the user agent blocks it in the current context.
+  }
+
+  if (videoTransport.showFacade.value) {
+    void videoTransport.bootstrapPlayer(true)
+  }
+}
 </script>
 
 <template>
@@ -231,7 +276,11 @@ const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig
     <div class="unified-media-player__body">
       <div
         v-if="showMetadata"
-        class="unified-media-player__meta unified-media-player__meta--with-disc"
+        :class="[
+          'unified-media-player__meta',
+          'unified-media-player__meta--with-disc',
+          { 'unified-media-player__meta--with-action': showMetaFullscreenAction },
+        ]"
       >
         <span
           class="unified-media-player__title-disc"
@@ -246,6 +295,21 @@ const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig
         </span>
         <h3 class="unified-media-player__title">{{ displayTitle }}</h3>
         <p class="unified-media-player__subtitle">{{ displaySubtitle }}</p>
+        <button
+          v-if="showMetaFullscreenAction"
+          type="button"
+          class="unified-media-player__btn unified-media-player__btn--sm unified-media-player__meta-action"
+          :aria-label="fullscreenLabel"
+          data-mobile-swipe-lock
+          @click="onMetaFullscreen"
+        >
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 3h7v7" />
+            <path d="M21 3l-8 8" />
+            <path d="M10 21H3v-7" />
+            <path d="M3 21l8-8" />
+          </svg>
+        </button>
       </div>
 
       <div class="unified-media-player__progress">

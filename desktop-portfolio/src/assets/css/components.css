@@ -2272,6 +2272,10 @@
   align-items           : center;
 }
 
+.unified-media-player__meta--with-action {
+  grid-template-columns : auto minmax(0, 1fr) auto;
+}
+
 .unified-media-player__title-disc {
   position        : relative;
   inline-size     : 56px;
@@ -2303,6 +2307,20 @@
 .unified-media-player__meta--with-disc .unified-media-player__subtitle {
   grid-column : 2;
   grid-row    : 2;
+}
+
+.unified-media-player__meta-action {
+  grid-column     : 3;
+  grid-row        : 1 / span 2;
+  justify-self    : end;
+  align-self      : center;
+  inline-size     : 2.35rem;
+  block-size      : 2.35rem;
+  flex-shrink     : 0;
+
+  svg {
+    display : block;
+  }
 }
 
 .unified-media-player__title-disc-icon {

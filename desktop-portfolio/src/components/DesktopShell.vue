@@ -42,6 +42,7 @@ const session         = useSessionPersistence(icons.items)
 
 /* ---- constants ---- */
 const OWNER_NAME = 'Robert Hoffmann'
+const BRIDGED_TOAST_DURATION_MS = 2_000
 const desktopRootStyle = {
   '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons-runtime.webp")',
 }
@@ -461,6 +462,7 @@ watch(
     showDesktopNotification({
       title   : 'Portfolio',
       message,
+      duration: BRIDGED_TOAST_DURATION_MS,
     })
   },
 )
