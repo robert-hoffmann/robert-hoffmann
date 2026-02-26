@@ -2247,6 +2247,7 @@
 .unified-media-player__body {
   display        : flex;
   flex-direction : column;
+  flex           : 1 1 auto;
   gap            : var(--space-3);
   min-block-size : 0;
   min-inline-size: 0;
@@ -2410,6 +2411,7 @@
   display         : flex;
   align-items     : center;
   justify-content : center;
+  margin-block-start: auto;
   gap             : var(--space-2);
 }
 
@@ -2533,7 +2535,6 @@
   align-items       : flex-end;
   justify-content   : center;
   gap               : 3px;
-  margin-block-start: auto;
   min-block-size    : 40px;
   block-size        : 40px;
   padding-inline    : var(--space-2);

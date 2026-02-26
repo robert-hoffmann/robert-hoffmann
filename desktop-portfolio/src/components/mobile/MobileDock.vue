@@ -123,18 +123,22 @@ function iconSpriteForItem(itemId: string): DesktopSpriteKey | undefined {
             stroke-linecap="round"
             stroke-linejoin="round"
             aria-hidden="true"
-          >
+            >
             <g class="dock-control-icon-graphic dock-control-icon-graphic--expand">
-              <polyline points="1 5.5 1 1 5.5 1" />
-              <polyline points="10.5 1 15 1 15 5.5" />
-              <polyline points="15 10.5 15 15 10.5 15" />
-              <polyline points="5.5 15 1 15 1 10.5" />
+              <polyline points="6 2 2 2 2 6" />
+              <polyline points="10 14 14 14 14 10" />
+              <polyline points="10 2 14 2 14 6" />
+              <polyline points="6 14 2 14 2 10" />
+              <path d="M5.5 10.5 10.5 5.5" />
+              <polyline points="7.5 5.5 10.5 5.5 10.5 8.5" />
             </g>
             <g class="dock-control-icon-graphic dock-control-icon-graphic--collapse">
-              <polyline points="5.5 1 5.5 5.5 1 5.5" />
-              <polyline points="15 5.5 10.5 5.5 10.5 1" />
-              <polyline points="10.5 15 10.5 10.5 15 10.5" />
-              <polyline points="1 10.5 5.5 10.5 5.5 15" />
+              <polyline points="6 2 2 2 2 6" />
+              <polyline points="10 14 14 14 14 10" />
+              <polyline points="10 2 14 2 14 6" />
+              <polyline points="6 14 2 14 2 10" />
+              <path d="M10.5 5.5 5.5 10.5" />
+              <polyline points="8.5 10.5 5.5 10.5 5.5 7.5" />
             </g>
           </svg>
           <span class="dock-tooltip" data-mobile-toggle-tooltip>{{ toggleTooltipLabel }}</span>

@@ -82,6 +82,15 @@
   }
 }
 
+/*
+  Perf (expanded app state):
+  reduce backdrop-blur compositing cost while a mobile app is foregrounded.
+*/
+.mobile-root--shell[data-mobile-app-state="expanded"] .topbar.mobile {
+  backdrop-filter         : none;
+  -webkit-backdrop-filter : none;
+}
+
 .mobile-root--shell .mobile-home-main {
   position        : relative;
   min-block-size  : 0;
@@ -230,6 +239,11 @@
   & > :is(.icon-sprite, .desktop-icon-img, .desktop-icon-glyph) {
     margin-inline : auto;
   }
+}
+
+.mobile-root--shell[data-mobile-app-state="expanded"] .desktop-icon--mobile-grid {
+  backdrop-filter         : none;
+  -webkit-backdrop-filter : none;
 }
 
 .mobile-root--shell .app-window-content.mobile {
@@ -432,14 +446,10 @@
 }
 
 .mobile-root--shell .dock-control-icon {
-  inline-size : 1.65rem;
-  block-size  : 1.65rem;
+  inline-size : 1.9rem;
+  block-size  : 1.9rem;
   color       : var(--text-secondary);
   transition  : color var(--dur-fast) var(--ease-out);
-}
-
-.mobile-root--shell .dock-launch--control:hover .dock-control-icon {
-  color : var(--text-primary);
 }
 
 .mobile-root--shell .dock-control-icon-graphic--expand,
@@ -461,13 +471,21 @@
 }
 
 .mobile-root--shell .unified-media-player {
-  overflow-y              : auto;
-  overscroll-behavior     : contain;
-  -webkit-overflow-scrolling: touch;
+  /*
+    Mobile media players are fixed-fit views (music + video) with no internal scrolling.
+    This avoids unnecessary scroll/momentum layers and keeps interactions snappy.
+  */
+  overflow             : hidden;
+  overscroll-behavior  : contain;
 }
 
-.mobile-root--shell .unified-media-player::-webkit-scrollbar {
-  display : none;
+.mobile-root--shell .unified-media-player__visual {
+  /*
+    Let the visual region give up vertical space first on short screens while the
+    controls/body remain stable. Width is controlled by the shared visual sizing rule below.
+  */
+  flex-shrink     : 1;
+  min-block-size  : 0;
 }
 
 .mobile-root--shell .unified-media-player__visual--art,
@@ -483,7 +501,8 @@
 }
 
 .mobile-root--shell .unified-media-player__body {
-  gap : var(--space-3);
+  flex        : 1 0 auto;
+  gap         : var(--space-3);
 }
 
 .mobile-root--shell .unified-media-player__transport {
@@ -511,6 +530,11 @@
 .mobile-root--shell .unified-media-player__eq {
   min-block-size : 52px;
   block-size     : 52px;
+}
+
+/* Snappier mobile EQ: apply FFT bar heights directly without height interpolation lag. */
+.mobile-root--shell .unified-media-player__eq .eq-bar {
+  transition : background 0.2s ease;
 }
 
 @media (max-width: 430px) {

@@ -384,23 +384,22 @@ const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig
             {{ Math.round(volumeSliderValue * 100) }}%
           </span>
         </div>
-
       </div>
-    </div>
 
-    <div
-      v-if="showEq"
-      class="unified-media-player__eq"
-      :class="{ 'unified-media-player__eq--active': eqActive }"
-      aria-hidden="true"
-      data-mobile-swipe-lock
-    >
-      <span
-        v-for="(height, index) in eqBars"
-        :key="index"
-        class="eq-bar"
-        :style="{ blockSize: `${height}%` }"
-      />
+      <div
+        v-if="showEq"
+        class="unified-media-player__eq"
+        :class="{ 'unified-media-player__eq--active': eqActive }"
+        aria-hidden="true"
+        data-mobile-swipe-lock
+      >
+        <span
+          v-for="(height, index) in eqBars"
+          :key="index"
+          class="eq-bar"
+          :style="{ blockSize: `${height}%` }"
+        />
+      </div>
     </div>
   </div>
 </template>
