@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.8](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.7...desktop-portfolio-v1.6.8) (2026-02-26)
+
+
+### Features
+
+* add mobile app components and functionality ([d5e3780](https://github.com/robert-hoffmann/robert-hoffmann/commit/d5e3780e2a7ad7a82f6a0d86f27a49997646f061))
+* enhance mobile layout responsiveness and styling ([a6532a1](https://github.com/robert-hoffmann/robert-hoffmann/commit/a6532a19cde7691b160451e4a94b4e861685567d))
+
 ## [1.6.7](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.6...desktop-portfolio-v1.6.7) (2026-02-24)
 
 
