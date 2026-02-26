@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.6.8](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.7...desktop-portfolio-v1.6.8) (2026-02-26)
+
+
+### Features
+
+* add mobile app components and functionality ([d5e3780](https://github.com/robert-hoffmann/robert-hoffmann/commit/d5e3780e2a7ad7a82f6a0d86f27a49997646f061))
+* enhance mobile layout responsiveness and styling ([a6532a1](https://github.com/robert-hoffmann/robert-hoffmann/commit/a6532a19cde7691b160451e4a94b4e861685567d))
+* enhance swipe functionality by adding document listeners for mobile app surface ([881ded7](https://github.com/robert-hoffmann/robert-hoffmann/commit/881ded7496e94640aaa5e2af47ce6d67b55f6054))
+* implement fullscreen toggle functionality and sync theme color in mobile components ([3b4bc71](https://github.com/robert-hoffmann/robert-hoffmann/commit/3b4bc71aa238196ceb1ddac0bca6b129d0efe13e))
+* update mobile toast notification timings for improved user experience ([1f30053](https://github.com/robert-hoffmann/robert-hoffmann/commit/1f30053c2dd0b75bb09e9dc27a6b42df30f6d036))
+
 ## [1.6.7](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.6...desktop-portfolio-v1.6.7) (2026-02-24)
 
 
