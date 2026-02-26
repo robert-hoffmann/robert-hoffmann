@@ -18,9 +18,9 @@ const { l } = useLocale()
 
         <div class="resume-role-row">
           <span class="resume-role">{{ l(entry.role) }}</span>
-          <span v-if="'type' in entry" class="resume-type">{{ l(entry.type) }}</span>
         </div>
 
+        <span v-if="'type' in entry" class="resume-type">{{ l(entry.type) }}</span>
         <span v-if="'location' in entry" class="resume-location">{{ l(entry.location) }}</span>
 
         <p v-if="'highlight' in entry" class="project-highlight">

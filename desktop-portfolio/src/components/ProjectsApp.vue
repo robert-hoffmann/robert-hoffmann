@@ -10,14 +10,16 @@ const { l } = useLocale()
     <article v-for="project in projects" :key="project.id" class="project-card">
       <div class="project-header">
         <h3 class="project-title">{{ l(project.name) }}</h3>
-        <span class="project-period">{{ project.period }}</span>
       </div>
 
+      <div class="project-period">{{ project.period }}</div>
       <span class="project-org">{{ l(project.org) }}</span>
 
-      <p v-if="'highlight' in project" class="project-highlight">
-        {{ l(project.highlight) }}
-      </p>
+      <div v-if="'highlight' in project">
+        <p class="project-highlight">
+          {{ l(project.highlight) }}
+        </p>
+      </div>
 
       <p class="panel-paragraph">{{ l(project.summary) }}</p>
 
