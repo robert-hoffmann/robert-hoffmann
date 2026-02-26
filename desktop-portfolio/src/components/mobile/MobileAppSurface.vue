@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onUnmounted, ref, watch } from 'vue'
+import { computed, onUnmounted, ref, watch } from 'vue'
 import type { WindowState } from '../../types/desktop'
 import AppWindow from '../AppWindow.vue'
 
@@ -20,6 +20,17 @@ const emit = defineEmits<{
 
 const surfaceRef = ref<HTMLElement | null>(null)
 const surfaceShellRef = ref<HTMLElement | null>(null)
+/*
+ * Avoid loading the current app component while the mobile surface is still
+ * minimized on first paint. Once a window is expanded, keep it mounted while
+ * that same window remains selected (including when minimized/restored).
+ */
+const mountedWindowId = ref<string | null>(
+  props.windowState && props.isExpanded ? props.windowState.id : null,
+)
+const shouldRenderWindow = computed(() =>
+  Boolean(props.windowState && mountedWindowId.value === props.windowState.id),
+)
 
 const SWIPE_AXIS_LOCK_SLOP_PX = 10
 const SWIPE_AXIS_LOCK_RATIO = 1.15
@@ -215,6 +226,27 @@ function finishSurfaceSwipe(event: PointerEvent) {
 }
 
 watch(
+  () => [props.windowState?.id ?? null, props.isExpanded] as const,
+  ([windowId, isExpanded], previous) => {
+    const previousWindowId = previous?.[0] ?? null
+
+    if (!windowId) {
+      mountedWindowId.value = null
+      return
+    }
+
+    if (isExpanded) {
+      mountedWindowId.value = windowId
+      return
+    }
+
+    if (windowId !== previousWindowId) {
+      mountedWindowId.value = null
+    }
+  },
+)
+
+watch(
   () => [props.windowState?.id ?? null, props.isExpanded],
   () => {
     swipeState.isClosing = false
@@ -242,7 +274,7 @@ onUnmounted(() => {
     :inert="windowState && !isExpanded ? true : undefined"
     @pointerdown.capture="onSurfacePointerDown"
   >
-    <div v-if="windowState" ref="surfaceShellRef" class="mobile-app-surface-shell">
+    <div v-if="windowState && shouldRenderWindow" ref="surfaceShellRef" class="mobile-app-surface-shell">
       <AppWindow
         :key="windowState.id"
         :window-state="windowState"
@@ -258,7 +290,7 @@ onUnmounted(() => {
       />
     </div>
 
-    <div v-else class="mobile-app-surface-empty" aria-live="polite">
+    <div v-else-if="!windowState" class="mobile-app-surface-empty" aria-live="polite">
       <p class="mobile-app-surface-empty-kicker">Mobile</p>
       <p class="mobile-app-surface-empty-title">Select an app</p>
       <p class="mobile-app-surface-empty-copy">

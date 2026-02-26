@@ -21,7 +21,7 @@ const TOAST_STACK_OVERLAP_MS = 900
 const WELCOME_TOAST_DURATION_MS = MOBILE_SOCIAL_TOAST_DURATION_MS + TOAST_STACK_OVERLAP_MS
 
 const rootStyle = {
-  '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons.webp")',
+  '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons-runtime.webp")',
 }
 
 interface MobileToastStackApi {

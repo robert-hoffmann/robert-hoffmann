@@ -13,7 +13,12 @@ export const about = {
     en : 'Full-Stack Engineer · Consultant · 25+ years in tech',
     fr : 'Ingénieur Full-Stack · Consultant · 25+ ans dans la tech',
   } satisfies Localized,
-  photo    : `${import.meta.env.BASE_URL}profile.avif`,
+  photo    : `${import.meta.env.BASE_URL}profile-avatar-80.avif`,
+  photoSrcSet : [
+    `${import.meta.env.BASE_URL}profile-avatar-80.avif 1x`,
+    `${import.meta.env.BASE_URL}profile-avatar-160.avif 2x`,
+    `${import.meta.env.BASE_URL}profile-avatar-240.avif 3x`,
+  ].join(', '),
 
   aiCallout : {
     en :

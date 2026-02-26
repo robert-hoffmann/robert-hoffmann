@@ -201,6 +201,7 @@ onUnmounted(() => {
       >
         <img
           :src="about.photo"
+          :srcset="about.photoSrcSet"
           :alt="about.name"
           class="about-photo-img"
           width="80"

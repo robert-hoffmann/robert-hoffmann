@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, onMounted, onUnmounted, provide, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, provide, ref, watch } from 'vue'
 import TopBar from './components/TopBar.vue'
 import Dock from './components/Dock.vue'
 import AppWindow from './components/AppWindow.vue'
 import DesktopIcon from './components/DesktopIcon.vue'
 import NotificationStack from './components/NotificationStack.vue'
 import AboutSiteModal from './components/AboutSiteModal.vue'
+import MobileApp from './components/MobileApp.vue'
 import type { WindowResizeHandle } from './types/desktop'
 import { useWindowManager } from './composables/useWindowManager'
 import { useDesktopIcons } from './composables/useDesktopIcons'
@@ -22,9 +23,6 @@ import { aboutWallpaperParallaxKey } from './composables/useAboutWallpaperParall
 import { getRegistryTitle, windowRegistry } from './data/registry'
 import { getStartupIconLayoutsForViewport } from './data/iconLayouts'
 import { getStartupWindowLayoutsForViewport } from './data/windowLayouts'
-
-/* Keep mobile-only graph out of initial desktop bundle. */
-const MobileApp = defineAsyncComponent(() => import('./components/MobileApp.vue'))
 
 /* ---- shared composables (used in both views) ---- */
 const theme = useTheme()
@@ -46,7 +44,7 @@ const session         = useSessionPersistence(icons.items)
 /* ---- constants ---- */
 const OWNER_NAME = 'Robert Hoffmann'
 const desktopRootStyle = {
-  '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons.webp")',
+  '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons-runtime.webp")',
 }
 
 const showAboutSite = ref(false)

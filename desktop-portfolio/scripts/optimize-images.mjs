@@ -12,7 +12,7 @@
  * Usage:  node scripts/optimize-images.mjs
  */
 
-import { readdir, stat, access } from 'node:fs/promises'
+import { readdir, stat, access, readFile } from 'node:fs/promises'
 import { join, extname, basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
@@ -79,7 +79,32 @@ try {
 
   console.log('✓ Favicons generated (16, 32, 180, 192, 512)')
 
-  /* ---- 3. Desktop icon thumbnail (64px circle via circular mask) ---- */
+  /* ---- 3. About header avatars (responsive 80px UI image) ---- */
+  const aboutAvatarVariants = [
+    { size : 80,  quality : 42 },
+    { size : 160, quality : 45 },
+    { size : 240, quality : 50 },
+  ]
+
+  await Promise.all(
+    aboutAvatarVariants.map(({ size, quality }) =>
+      img
+        .clone()
+        .resize(size, size, { fit : 'cover' })
+        .avif({ quality })
+        .toFile(join(PUBLIC, `profile-avatar-${size}.avif`)),
+    ),
+  )
+
+  const avatarSummaries = await Promise.all(
+    aboutAvatarVariants.map(async ({ size }) => {
+      const avatarBytes = (await stat(join(PUBLIC, `profile-avatar-${size}.avif`))).size
+      return `profile-avatar-${size}.avif (${(avatarBytes / 1024).toFixed(1)}KB)`
+    }),
+  )
+  console.log(`✓ About avatars: ${avatarSummaries.join(' · ')}`)
+
+  /* ---- 4. Desktop icon thumbnail (64px circle via circular mask) ---- */
   const iconSize = 64
   const circleBuffer = Buffer.from(
     `<svg width="${iconSize}" height="${iconSize}">
@@ -97,10 +122,10 @@ try {
   const iconSize2 = (await stat(join(PUBLIC, 'profile-icon.webp'))).size
   console.log(`✓ Desktop icon: profile-icon.webp (${(iconSize2 / 1024).toFixed(1)}KB)`)
 } catch {
-  console.log('⚠ No profile.jpg found — skipping favicon + icon generation')
+  console.log('⚠ No profile.jpg found — skipping favicon + avatar + icon generation')
 }
 
-/* ---- 4. Local video poster (for Video app facade) ---- */
+/* ---- 5. Local video poster (for Video app facade) ---- */
 const videoPosterCandidates = [
   /* Preferred source requested for video facade poster. */
   join(PUBLIC, 'drib.jpg'),
@@ -134,7 +159,7 @@ if (videoPosterSrc) {
   console.log('⚠ No source found for video poster generation')
 }
 
-/* ---- 5. Responsive wallpaper variants ---- */
+/* ---- 6. Responsive wallpaper variants ---- */
 const wallpaperSrc = join(PUBLIC, 'wallpaper.webp')
 if (await exists(wallpaperSrc)) {
   /* Match common viewport bands to avoid shipping 4K wallpaper to smaller screens. */
@@ -205,6 +230,35 @@ if (await exists(wallpaperSrc)) {
     )
 } else {
   console.log('⚠ No wallpaper.webp found — skipping responsive wallpaper generation')
+}
+
+/* ---- 7. Desktop icon sprite runtime optimization ---- */
+const desktopSpriteSource = join(PUBLIC, 'icons', 'desktop-profile-icons.webp')
+const desktopSpriteRuntime = join(PUBLIC, 'icons', 'desktop-profile-icons-runtime.webp')
+
+if (await exists(desktopSpriteSource)) {
+  /*
+   * Read the design export once, then encode a runtime variant to avoid
+   * cumulative loss from repeatedly re-encoding the same output file.
+   */
+  const desktopSpriteSourceBuffer = await readFile(desktopSpriteSource)
+  const desktopSpriteSourceBytes  = desktopSpriteSourceBuffer.byteLength
+
+  await sharp(desktopSpriteSourceBuffer)
+    .webp({
+      quality : 80,
+      effort  : 6,
+    })
+    .toFile(desktopSpriteRuntime)
+
+  const desktopSpriteRuntimeBytes = (await stat(desktopSpriteRuntime)).size
+  console.log(
+    '✓ Desktop sprite runtime → ' +
+    `desktop-profile-icons-runtime.webp (${(desktopSpriteRuntimeBytes / 1024).toFixed(1)}KB, ` +
+    `from ${(desktopSpriteSourceBytes / 1024).toFixed(1)}KB source)`,
+  )
+} else {
+  console.log('⚠ No desktop-profile-icons.webp found — skipping runtime sprite optimization')
 }
 
 console.log('Done.')
