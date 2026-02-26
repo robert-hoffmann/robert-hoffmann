@@ -165,6 +165,44 @@ if (await exists(wallpaperSrc)) {
 
   const lqipSize = (await stat(lqipOutput)).size
   console.log(`✓ Wallpaper LQIP → wallpaper-lqip.webp (${(lqipSize / 1024).toFixed(1)}KB)`)
+
+    /* Mobile mockup wallpaper crop (left-origin with fixed 200px x-offset). */
+    const mobileTargetW = 768
+    const mobileTargetH = 1365
+    const mobileLeftOffsetPx = 200
+    const mobileSource = sharp(wallpaperSrc)
+    const mobileMeta = await mobileSource.metadata()
+    const mobileSourceW = mobileMeta.width ?? mobileTargetW
+    const mobileSourceH = mobileMeta.height ?? mobileTargetH
+    const mobileScale = Math.max(mobileTargetW / mobileSourceW, mobileTargetH / mobileSourceH)
+    const mobileScaledW = Math.max(mobileTargetW, Math.round(mobileSourceW * mobileScale))
+    const mobileScaledH = Math.max(mobileTargetH, Math.round(mobileSourceH * mobileScale))
+    const mobileCropLeft = Math.min(Math.max(mobileLeftOffsetPx, 0), Math.max(0, mobileScaledW - mobileTargetW))
+    const mobileCropTop = Math.max(0, Math.floor((mobileScaledH - mobileTargetH) / 2))
+
+    const mobileWallpaperBase = mobileSource
+      .resize(mobileScaledW, mobileScaledH, { fit : 'fill' })
+      .extract({
+        left   : mobileCropLeft,
+        top    : mobileCropTop,
+        width  : mobileTargetW,
+        height : mobileTargetH,
+      })
+    const mobileWallpaperWebp = join(PUBLIC, 'wallpaper-mobile-left.webp')
+    const mobileWallpaperAvif = join(PUBLIC, 'wallpaper-mobile-left.avif')
+
+    await Promise.all([
+      mobileWallpaperBase.clone().webp({ quality : 76 }).toFile(mobileWallpaperWebp),
+      mobileWallpaperBase.clone().avif({ quality : 50 }).toFile(mobileWallpaperAvif),
+    ])
+
+    const mobileWebpSize = (await stat(mobileWallpaperWebp)).size
+    const mobileAvifSize = (await stat(mobileWallpaperAvif)).size
+    console.log(
+      '✓ Mobile wallpaper crop → ' +
+      `wallpaper-mobile-left.webp (${(mobileWebpSize / 1024).toFixed(1)}KB) + ` +
+      `wallpaper-mobile-left.avif (${(mobileAvifSize / 1024).toFixed(1)}KB)`,
+    )
 } else {
   console.log('⚠ No wallpaper.webp found — skipping responsive wallpaper generation')
 }
