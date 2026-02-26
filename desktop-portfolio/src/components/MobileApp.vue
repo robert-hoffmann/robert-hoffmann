@@ -14,8 +14,9 @@ import { getRegistryTitle, windowRegistry } from '../data/registry'
 
 const OWNER_NAME = 'Robert Hoffmann'
 const MOBILE_SOCIAL_TOAST_DURATION_MS = 5_000
-const WELCOME_TOAST_DELAY_MS = 550
-const FOLLOWUP_TOAST_DELAY_MS = 5_000
+const WELCOME_TOAST_DELAY_MS = 100
+const MOBILE_SOCIAL_X_DELAY_MS = 60_000
+const MOBILE_SOCIAL_LINKEDIN_DELAY_MS = 120_000
 const TOAST_STACK_OVERLAP_MS = 900
 const WELCOME_TOAST_DURATION_MS = MOBILE_SOCIAL_TOAST_DURATION_MS + TOAST_STACK_OVERLAP_MS
 
@@ -143,18 +144,15 @@ function showSocialToast(kind: 'twitter' | 'linkedin') {
 
 function scheduleMobileNotifications() {
   enqueueNotificationTimer(WELCOME_TOAST_DELAY_MS, () => {
-    /*
-      Keep a slight overlap so the welcome card remains visible while the
-      first social card enters, preserving a smooth stack transition.
-    */
-    enqueueNotificationTimer(FOLLOWUP_TOAST_DELAY_MS, () => {
-      showSocialToast('twitter')
-    })
-    enqueueNotificationTimer(FOLLOWUP_TOAST_DELAY_MS * 2, () => {
-      showSocialToast('linkedin')
-    })
-
     showWelcomeToast()
+  })
+
+  enqueueNotificationTimer(MOBILE_SOCIAL_X_DELAY_MS, () => {
+    showSocialToast('twitter')
+  })
+
+  enqueueNotificationTimer(MOBILE_SOCIAL_LINKEDIN_DELAY_MS, () => {
+    showSocialToast('linkedin')
   })
 }
 
