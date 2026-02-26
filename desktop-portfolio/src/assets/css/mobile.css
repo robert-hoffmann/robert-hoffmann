@@ -224,17 +224,6 @@
     transform  : scale(0.98);
   }
 
-  & .desktop-icon-label {
-    color       : var(--text-secondary);
-    text-shadow : none;
-    line-height : 1.15;
-  }
-
-  &:hover .desktop-icon-label,
-  &:focus-visible .desktop-icon-label {
-    color : var(--text-primary);
-  }
-
   /* Normalize visual centering for mixed sprite/img/glyph icon sources. */
   & > :is(.icon-sprite, .desktop-icon-img, .desktop-icon-glyph) {
     margin-inline : auto;
