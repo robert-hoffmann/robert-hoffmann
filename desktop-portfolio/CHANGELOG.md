@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.10](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.9...desktop-portfolio-v1.6.10) (2026-02-26)
+
+
+### Features
+
+* create MobileWindowFrame component for improved mobile window handling ([a0c9301](https://github.com/robert-hoffmann/robert-hoffmann/commit/a0c930146c861efbf16b82b64cb46302ea9f64c4))
+
 ## [1.6.9](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.8...desktop-portfolio-v1.6.9) (2026-02-26)
 
 
