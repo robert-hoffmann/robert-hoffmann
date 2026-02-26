@@ -135,8 +135,7 @@
   scrollbar-width           : none;
   -ms-overflow-style        : none;
   -webkit-overflow-scrolling: touch;
-  transition                : opacity var(--dur-fast) var(--ease-out),
-                              filter var(--dur-fast) var(--ease-out);
+  transition                : opacity var(--dur-fast) var(--ease-out);
 }
 
 .mobile-root--shell .mobile-home-scroll::-webkit-scrollbar {
@@ -147,7 +146,6 @@
   pointer-events : none;
   user-select    : none;
   opacity        : 0.65;
-  filter         : blur(2px);
 }
 
 .mobile-root--shell .mobile-home-hero {
@@ -254,6 +252,7 @@
   transition                : opacity var(--dur-normal) var(--ease-out),
                               translate var(--dur-normal) var(--ease-out);
   touch-action              : pan-y;
+  transform-origin          : 50% 45%;
 }
 
 .mobile-root--shell[data-mobile-app-state="expanded"] .app-window-content.mobile {
@@ -268,7 +267,6 @@
   min-inline-size : 0;
   block-size      : 100%;
   min-block-size  : 0;
-  transform-origin: 50% 45%;
 }
 
 .mobile-root--shell .mobile-app-surface-shell > .app-window-shell {

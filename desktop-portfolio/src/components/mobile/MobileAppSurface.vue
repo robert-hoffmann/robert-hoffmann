@@ -19,7 +19,6 @@ const emit = defineEmits<{
 }>()
 
 const surfaceRef = ref<HTMLElement | null>(null)
-const surfaceShellRef = ref<HTMLElement | null>(null)
 /*
  * Avoid loading the current app component while the mobile surface is still
  * minimized on first paint. Once a window is expanded, keep it mounted while
@@ -69,12 +68,12 @@ function resetSwipePointerState() {
 }
 
 function resetSwipeStyles() {
-  const shell = surfaceShellRef.value
-  if (!shell) return
+  const surface = surfaceRef.value
+  if (!surface) return
   clearSwipeTimer()
-  shell.style.transition = ''
-  shell.style.transform = ''
-  shell.style.opacity = ''
+  surface.style.transition = ''
+  surface.style.transform = ''
+  surface.style.opacity = ''
 }
 
 function releasePointerCapture(pointerId: number | null) {
@@ -140,8 +139,8 @@ function onSurfacePointerMove(event: PointerEvent) {
   if (swipeState.isClosing) return
   if (!props.windowState || !props.isExpanded) return
 
-  const shell = surfaceShellRef.value
-  if (!shell) return
+  const surface = surfaceRef.value
+  if (!surface) return
 
   const dx = event.clientX - swipeState.startX
   const dy = event.clientY - swipeState.startY
@@ -162,9 +161,9 @@ function onSurfacePointerMove(event: PointerEvent) {
   const rotateDeg = Math.max(-7, dragX / 28)
   const fade = Math.max(0.62, 1 - Math.abs(dragX) / 360)
 
-  shell.style.transition = 'none'
-  shell.style.transform = `translate3d(${dragX}px, 0, 0) rotate(${rotateDeg}deg)`
-  shell.style.opacity = String(fade)
+  surface.style.transition = 'none'
+  surface.style.transform = `translate3d(${dragX}px, 0, 0) rotate(${rotateDeg}deg)`
+  surface.style.opacity = String(fade)
 
   event.preventDefault()
 }
@@ -178,7 +177,7 @@ function finishSurfaceSwipe(event: PointerEvent) {
     return
   }
 
-  const shell = surfaceShellRef.value
+  const surface = surfaceRef.value
   const windowId = props.windowState.id
   const shouldHandleSwipe = swipeState.axis === 'x' && swipeState.isDragging
   const dragX = swipeState.deltaX
@@ -187,19 +186,19 @@ function finishSurfaceSwipe(event: PointerEvent) {
   releasePointerCapture(event.pointerId)
   resetSwipePointerState()
 
-  if (!shouldHandleSwipe || !shell) return
+  if (!shouldHandleSwipe || !surface) return
 
   const closeThreshold = Math.max(
     SWIPE_CLOSE_THRESHOLD_MIN_PX,
-    shell.clientWidth * SWIPE_CLOSE_THRESHOLD_RATIO,
+    surface.clientWidth * SWIPE_CLOSE_THRESHOLD_RATIO,
   )
 
   if (Math.abs(dragX) >= closeThreshold) {
     swipeState.isClosing = true
-    const travel = -Math.max(shell.clientWidth + 64, window.innerWidth || 0)
-    shell.style.transition = 'transform 220ms var(--ease-out), opacity 220ms var(--ease-out)'
-    shell.style.transform = `translate3d(${travel}px, 0, 0) rotate(-8deg)`
-    shell.style.opacity = '0.24'
+    const travel = -Math.max(surface.clientWidth + 64, window.innerWidth || 0)
+    surface.style.transition = 'transform 220ms var(--ease-out), opacity 220ms var(--ease-out)'
+    surface.style.transform = `translate3d(${travel}px, 0, 0) rotate(-8deg)`
+    surface.style.opacity = '0.24'
 
     clearSwipeTimer()
     swipeState.settleTimeoutId = window.setTimeout(() => {
@@ -214,9 +213,9 @@ function finishSurfaceSwipe(event: PointerEvent) {
     return
   }
 
-  shell.style.transition = 'transform 180ms var(--ease-out), opacity 180ms var(--ease-out)'
-  shell.style.transform = 'translate3d(0, 0, 0) rotate(0deg)'
-  shell.style.opacity = '1'
+  surface.style.transition = 'transform 180ms var(--ease-out), opacity 180ms var(--ease-out)'
+  surface.style.transform = 'translate3d(0, 0, 0) rotate(0deg)'
+  surface.style.opacity = '1'
 
   clearSwipeTimer()
   swipeState.settleTimeoutId = window.setTimeout(() => {
@@ -274,7 +273,7 @@ onUnmounted(() => {
     :inert="windowState && !isExpanded ? true : undefined"
     @pointerdown.capture="onSurfacePointerDown"
   >
-    <div v-if="windowState && shouldRenderWindow" ref="surfaceShellRef" class="mobile-app-surface-shell">
+    <div v-if="windowState && shouldRenderWindow" class="mobile-app-surface-shell">
       <MobileWindowFrame
         :key="windowState.id"
         :window-state="windowState"
