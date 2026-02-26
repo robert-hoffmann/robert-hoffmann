@@ -7,6 +7,7 @@
 
 @import "tailwindcss";
 @import "./components.css";
+@import "./mobile.css";
 
 /* ----------------------------------------------------------
    Self-Hosted Fonts (variable, Latin subset)
@@ -235,6 +236,12 @@
     overflow        : auto;
     block-size      : auto;
     scroll-behavior : smooth;
+  }
+
+  html:has(.mobile-root) #app {
+    min-block-size : 100vh;
+    min-block-size : 100svh;
+    min-block-size : 100dvh;
   }
 
   body {

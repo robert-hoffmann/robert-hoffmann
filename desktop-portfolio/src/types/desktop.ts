@@ -153,6 +153,7 @@ export type Locale = 'en' | 'fr'
 
 /** View mode for desktop vs mobile layout */
 export type ViewMode = 'desktop' | 'mobile'
+export type MobileAppState = 'expanded' | 'minimized'
 
 /** Bilingual text field — keyed by locale */
 export type Localized = Record<Locale, string>

@@ -129,8 +129,10 @@ let clockInterval: ReturnType<typeof setInterval> | null = null
 
 function updateClock() {
   timeLabel.value = new Date().toLocaleTimeString(locale.value === 'fr' ? 'fr-FR' : undefined, {
-    hour   : '2-digit',
-    minute : '2-digit',
+    hour      : '2-digit',
+    minute    : '2-digit',
+    hour12    : false,
+    hourCycle : 'h23',
   })
 }
 

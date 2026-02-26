@@ -1,0 +1,471 @@
+/* ============================================================
+   Mobile Shell Styles (default mobile shell)
+   ============================================================
+   Ports the mockup shell layout into the app while reusing the
+   existing token system and shared component class contracts.
+   ============================================================ */
+
+.mobile-root--shell {
+  display        : flex;
+  flex-direction : column;
+  block-size     : 100vh;
+  block-size     : 100svh;
+  block-size     : 100dvh;
+  min-block-size : 100vh;
+  min-block-size : 100svh;
+  min-block-size : 100dvh;
+  background     : var(--surface-base);
+  color          : var(--text-primary);
+}
+
+.mobile-root--shell.mobile-root--preview {
+  inline-size     : min(100%, 430px);
+  block-size      : 100vh;
+  block-size      : 100svh;
+  block-size      : 100dvh;
+  max-inline-size : 430px;
+  margin-inline   : auto;
+  box-shadow      : 0 18px 52px oklch(0% 0 0 / 0.45);
+}
+
+.mobile-root--shell .mobile-home-shell {
+  position           : relative;
+  isolation          : isolate;
+  display            : grid;
+  grid-template-rows : auto 1fr auto;
+  inline-size        : 100%;
+  block-size         : 100%;
+  overflow           : hidden;
+  background-image   : linear-gradient(135deg, #1a0a35, #9964ac);
+  background-color   : #1a0a35;
+}
+
+.mobile-root--shell .mobile-home-shell::before,
+.mobile-root--shell .mobile-home-shell::after {
+  content        : '';
+  position       : absolute;
+  inset          : 0;
+  z-index        : 0;
+  pointer-events : none;
+}
+
+.mobile-root--shell .mobile-home-shell::before {
+  background-image : image-set(
+    url('/wallpaper-mobile-left.avif') type('image/avif'),
+    url('/wallpaper-mobile-left.webp') type('image/webp')
+  );
+  background-size     : cover;
+  background-position : center center;
+  background-repeat   : no-repeat;
+  transform           : scale(1.02);
+  filter              : saturate(1.04);
+  opacity             : 1;
+}
+
+.mobile-root--shell .mobile-home-shell > * {
+  position         : relative;
+  z-index          : 1;
+  min-inline-size  : 0;
+}
+
+.mobile-root--shell .topbar.mobile {
+  block-size                 : auto;
+  padding-inline             : var(--space-4);
+  padding-block              : var(--space-3);
+  border-block-end           : 1px solid oklch(100% 0 0 / 0.08);
+  backdrop-filter            : blur(16px) saturate(1.3);
+  -webkit-backdrop-filter    : blur(16px) saturate(1.3);
+
+  & .topbar-brand {
+    color       : var(--text-primary);
+    white-space : nowrap;
+  }
+}
+
+.mobile-root--shell .mobile-home-main {
+  position        : relative;
+  min-block-size  : 0;
+  min-inline-size : 0;
+  isolation       : isolate;
+}
+
+.mobile-root--shell .notification-toast-stack--mobile {
+  position          : absolute;
+  inset-block-start : calc(env(safe-area-inset-top, 0px) + var(--space-2));
+  inset-inline      : var(--space-3);
+  inset-block-end   : auto;
+  z-index           : calc(var(--z-toast) + 1);
+  display           : grid;
+  align-content     : start;
+  gap               : var(--space-2);
+  pointer-events    : none;
+}
+
+.mobile-root--shell .notification-toast-card--mobile {
+  max-inline-size : none;
+  transform       : translate3d(0, calc(-100% - var(--space-3)), 0);
+}
+
+.mobile-root--shell .notification-toast-card--mobile[data-visible="false"][data-entry-origin="stack"] {
+  transform : translate3d(0, -0.4rem, 0);
+}
+
+/*
+  Mobile variant base transform is declared in this later-imported file,
+  so reassert the visible state transform here to avoid overriding the
+  shared `.notification-toast-card[data-visible="true"]` rule from components.css.
+*/
+.mobile-root--shell .notification-toast-card--mobile[data-visible="true"] {
+  transform : translate3d(0, 0, 0);
+}
+
+.mobile-root--shell .mobile-home-scroll {
+  position                  : relative;
+  z-index                   : var(--z-desktop);
+  display                   : flex;
+  flex-direction            : column;
+  gap                       : var(--space-6);
+  block-size                : 100%;
+  min-inline-size           : 0;
+  overflow-y                : auto;
+  overflow-x                : hidden;
+  padding-inline            : var(--space-4);
+  padding-block-start       : var(--space-8);
+  padding-block-end         : var(--space-8);
+  scrollbar-width           : none;
+  -ms-overflow-style        : none;
+  -webkit-overflow-scrolling: touch;
+  transition                : opacity var(--dur-fast) var(--ease-out),
+                              filter var(--dur-fast) var(--ease-out);
+}
+
+.mobile-root--shell .mobile-home-scroll::-webkit-scrollbar {
+  display : none;
+}
+
+.mobile-root--shell[data-mobile-app-state="expanded"] .mobile-home-scroll {
+  pointer-events : none;
+  user-select    : none;
+  opacity        : 0.65;
+  filter         : blur(2px);
+}
+
+.mobile-root--shell .mobile-home-hero {
+  display       : grid;
+  justify-items : center;
+  gap           : var(--space-2);
+  padding-block : var(--space-2);
+  text-align    : center;
+}
+
+.mobile-root--shell .mobile-home-clock {
+  font-size      : clamp(3rem, 14vw, 4.5rem);
+  font-weight    : 300;
+  line-height    : 0.92;
+  letter-spacing : -0.03em;
+  color          : var(--c-white);
+  text-shadow    : 0 6px 16px oklch(0% 0 0 / 0.35);
+}
+
+.mobile-root--shell .mobile-home-date {
+  font-size      : var(--text-base);
+  font-weight    : 500;
+  text-transform : uppercase;
+  letter-spacing : 0.16em;
+  color          : var(--c-accent);
+  opacity        : 0.9;
+}
+
+.mobile-root--shell .mobile-home-icons {
+  position : relative;
+}
+
+.mobile-root--shell .mobile-home-icon-grid {
+  display               : grid;
+  grid-template-columns : repeat(4, minmax(0, 1fr));
+  gap                   : var(--space-3) var(--space-2);
+  align-content         : start;
+}
+
+.mobile-root--shell .desktop-icon--mobile-grid {
+  position       : static;
+  z-index        : auto;
+  inline-size    : auto;
+  min-inline-size: 0;
+  min-block-size : 5.75rem;
+  padding        : var(--space-2) var(--space-1);
+  border         : 1px solid oklch(100% 0 0 / 0.08);
+  background     : oklch(100% 0 0 / 0.035);
+  box-shadow     : var(--shadow-sm);
+  backdrop-filter: blur(4px);
+  cursor         : pointer;
+
+  &:hover {
+    background   : oklch(100% 0 0 / 0.075);
+    border-color : oklch(100% 0 0 / 0.14);
+    box-shadow   : 0 4px 14px oklch(0% 0 0 / 0.2);
+  }
+
+  &:active {
+    background : oklch(100% 0 0 / 0.10);
+    transform  : scale(0.98);
+  }
+
+  & .desktop-icon-label {
+    color       : var(--text-secondary);
+    text-shadow : none;
+    line-height : 1.15;
+  }
+
+  &:hover .desktop-icon-label,
+  &:focus-visible .desktop-icon-label {
+    color : var(--text-primary);
+  }
+}
+
+.mobile-root--shell .app-window-content.mobile {
+  position                  : absolute;
+  inset                     : 0;
+  z-index                   : var(--z-windows);
+  display                   : flex;
+  min-inline-size           : 0;
+  overflow                  : hidden;
+  padding                   : var(--space-4);
+  background                : linear-gradient(
+    180deg,
+    oklch(15% 0.008 250 / 0.78) 0%,
+    oklch(17% 0.008 250 / 0.86) 100%
+  );
+  border-block-start        : 1px solid oklch(100% 0 0 / 0.03);
+  opacity                   : 0;
+  translate                 : 0 0.75rem;
+  pointer-events            : none;
+  transition                : opacity var(--dur-normal) var(--ease-out),
+                              translate var(--dur-normal) var(--ease-out);
+  touch-action              : pan-y;
+}
+
+.mobile-root--shell[data-mobile-app-state="expanded"] .app-window-content.mobile {
+  opacity        : 1;
+  translate      : 0 0;
+  pointer-events : auto;
+}
+
+.mobile-root--shell .mobile-app-surface-shell {
+  position        : relative;
+  inline-size     : 100%;
+  min-inline-size : 0;
+  block-size      : 100%;
+  min-block-size  : 0;
+  transform-origin: 50% 45%;
+}
+
+.mobile-root--shell .mobile-app-surface-shell > .app-window-shell {
+  position        : relative;
+  inset           : auto;
+  inline-size     : 100% !important;
+  block-size      : 100% !important;
+  left            : 0 !important;
+  top             : 0 !important;
+  width           : 100% !important;
+  height          : 100% !important;
+}
+
+.mobile-root--shell .mobile-app-surface-shell > .app-window-shell > .app-window {
+  inline-size    : 100%;
+  block-size     : 100%;
+  min-block-size : 0;
+  animation      : none;
+}
+
+.mobile-root--shell .mobile-app-surface-shell .app-window-content {
+  min-block-size : 0;
+}
+
+.mobile-root--shell .mobile-app-surface-empty {
+  display         : grid;
+  align-content   : center;
+  justify-items   : center;
+  gap             : var(--space-2);
+  inline-size     : 100%;
+  min-block-size  : 100%;
+  padding         : var(--space-6);
+  border-radius   : var(--radius-xl);
+  border          : 1px solid var(--border-subtle);
+  background      : oklch(100% 0 0 / 0.03);
+  text-align      : center;
+}
+
+.mobile-root--shell .mobile-app-surface-empty-kicker {
+  font-family    : var(--font-mono);
+  font-size      : var(--text-xs);
+  letter-spacing : 0.08em;
+  text-transform : uppercase;
+  color          : var(--text-muted);
+}
+
+.mobile-root--shell .mobile-app-surface-empty-title {
+  font-size   : var(--text-xl);
+  font-weight : 700;
+  color       : var(--text-primary);
+}
+
+.mobile-root--shell .mobile-app-surface-empty-copy {
+  max-inline-size : 24rem;
+  font-size       : var(--text-sm);
+  line-height     : var(--leading-relaxed);
+  color           : var(--text-secondary);
+}
+
+.mobile-root--shell .dock.mobile {
+  inline-size     : 100%;
+  min-inline-size : 0;
+  justify-content : stretch;
+  padding-inline  : var(--space-3);
+  padding-block   : var(--space-2);
+}
+
+.mobile-root--shell .dock.mobile::before {
+  content           : '';
+  position          : absolute;
+  inset-inline      : 0;
+  inset-block-start : 0;
+  block-size        : 1px;
+  pointer-events    : none;
+  background        : linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(92% 0.03 255 / 0.18) 10%,
+    oklch(92% 0.03 255 / 0.34) 50%,
+    oklch(92% 0.03 255 / 0.18) 90%,
+    transparent 100%
+  );
+}
+
+.mobile-root--shell .dock-tray.mobile {
+  inline-size    : 100%;
+  min-inline-size: 0;
+  gap            : var(--space-1);
+  overflow       : hidden;
+}
+
+.mobile-root--shell .dock-tray-scroll.mobile {
+  display                   : flex;
+  align-items               : center;
+  gap                       : var(--space-2);
+  flex                      : 1 1 auto;
+  min-inline-size           : 0;
+  overflow-x                : auto;
+  overflow-y                : hidden;
+  scrollbar-width           : none;
+  -ms-overflow-style        : none;
+  touch-action              : pan-x;
+  overscroll-behavior-x     : contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-root--shell .dock-tray-scroll.mobile::-webkit-scrollbar {
+  display : none;
+}
+
+.mobile-root--shell .dock-tray-fixed.mobile {
+  display         : flex;
+  align-items     : center;
+  gap             : var(--space-2);
+  flex-shrink     : 0;
+  min-inline-size : 0;
+}
+
+.mobile-root--shell .dock-tray.mobile > .dock-separator {
+  margin-inline : var(--space-1);
+  flex-shrink   : 0;
+}
+
+.mobile-root--shell .dock.mobile .dock-launch {
+  flex-shrink : 0;
+  cursor      : pointer;
+}
+
+.mobile-root--shell .dock.mobile .dock-launch--window:not([data-mobile-current-window]) {
+  opacity : 0.5;
+}
+
+.mobile-root--shell .dock.mobile .dock-launch--window:not([data-mobile-current-window]) .dock-window-dot {
+  opacity : 0.45;
+}
+
+.mobile-root--shell .dock.mobile .dock-launch--window[data-mobile-current-window] {
+  opacity : 1;
+}
+
+.mobile-root--shell .dock.mobile .dock-launch--window[data-mobile-current-window].dock-launch--minimized {
+  opacity : 0.72;
+}
+
+.mobile-root--shell .dock.mobile .dock-launch--window:not([data-mobile-current-window]):hover,
+.mobile-root--shell .dock.mobile .dock-launch--window:not([data-mobile-current-window]):focus-visible {
+  opacity : 0.8;
+}
+
+.mobile-root--shell .dock-launch--control {
+  font-size : 0;
+}
+
+.mobile-root--shell .dock-launch--control:disabled {
+  opacity : 0.55;
+}
+
+.mobile-root--shell .dock-launch--control:disabled:hover,
+.mobile-root--shell .dock-launch--control:disabled:active {
+  background : transparent;
+  transform  : none;
+}
+
+.mobile-root--shell .dock-control-icon {
+  inline-size : 1.65rem;
+  block-size  : 1.65rem;
+  color       : var(--text-secondary);
+  transition  : color var(--dur-fast) var(--ease-out);
+}
+
+.mobile-root--shell .dock-launch--control:hover .dock-control-icon {
+  color : var(--text-primary);
+}
+
+.mobile-root--shell .dock-control-icon-graphic--expand,
+.mobile-root--shell .dock-control-icon-graphic--collapse {
+  display : none;
+}
+
+.mobile-root--shell[data-mobile-app-state="expanded"] .dock-control-icon-graphic--collapse,
+.mobile-root--shell[data-mobile-app-state="minimized"] .dock-control-icon-graphic--expand {
+  display : block;
+}
+
+.mobile-root--shell[data-mobile-app-state="expanded"] [data-mobile-current-window] {
+  opacity : 1;
+}
+
+.mobile-root--shell[data-mobile-app-state="minimized"] [data-mobile-current-window] {
+  opacity : 0.55;
+}
+
+@media (max-width: 430px) {
+  .mobile-root--shell.mobile-root--preview {
+    box-shadow : none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-root--shell .mobile-home-shell::before,
+  .mobile-root--shell .mobile-home-scroll,
+  .mobile-root--shell .desktop-icon--mobile-grid,
+  .mobile-root--shell .dock-launch,
+  .mobile-root--shell .dock-tooltip,
+  .mobile-root--shell .app-window-content.mobile,
+  .mobile-root--shell .notification-toast-stack--mobile,
+  .mobile-root--shell .notification-toast-card--mobile {
+    transition : none !important;
+    transform  : none;
+  }
+}

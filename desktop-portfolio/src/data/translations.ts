@@ -130,15 +130,6 @@ const ui: Record<string, Localized> = {
   'theme.dark'               : { en : 'dark',               fr : 'sombre' },
   'theme.light'              : { en : 'light',              fr : 'clair' },
 
-  /* ---- Mobile layout ---- */
-  'mobile.about'             : { en : 'About',              fr : 'À propos' },
-  'mobile.resume'            : { en : 'Resume',             fr : 'CV' },
-  'mobile.projects'          : { en : 'Projects',           fr : 'Projets' },
-  'mobile.nav'               : { en : 'Section navigation', fr : 'Navigation de section' },
-  'mobile.footer'            : { en : 'Social links and site info', fr : 'Liens sociaux et informations du site' },
-  'mobile.desktopTeaser'     : { en : 'Visit this site on a desktop for an interactive macOS-style experience ✨',
-                                 fr : 'Visitez ce site sur un ordinateur pour une expérience interactive style macOS ✨' },
-
   /* ---- About Site modal ---- */
   'aboutModal.title'       : { en : 'About Desktop Portfolio',
                                fr : 'À propos de Desktop Portfolio' },
@@ -150,12 +141,17 @@ const ui: Record<string, Localized> = {
   'aboutModal.close'       : { en : 'Close',                  fr : 'Fermer' },
 
   /* ---- Notification toast ---- */
-  'notification.followMessage'    : { en : 'Enjoying the portfolio? Follow me on X for updates!',
-                                     fr : 'Vous aimez le portfolio ? Suivez-moi sur X pour les nouveaut\u00e9s !' },
+  'notification.followMessage'    : { en : 'Enjoying the portfolio? Follow me on X',
+                                     fr : 'Vous aimez le portfolio ? Suivez-moi sur X' },
   'notification.followCta'        : { en : 'Follow @itechnologynet',    fr : 'Suivre @itechnologynet' },
-  'notification.connectMessage'   : { en : 'Let\u2019s connect! Reach out to me on LinkedIn.',
-                                     fr : 'Restons en contact ! Retrouvez-moi sur LinkedIn.' },
+  'notification.connectMessage'   : { en : 'Let\u2019s connect! Reach out to me on LinkedIn',
+                                     fr : 'Restons en contact ! Retrouvez-moi sur LinkedIn' },
   'notification.connectCta'       : { en : 'Connect on LinkedIn',       fr : 'Se connecter sur LinkedIn' },
+  'notification.mobileWelcomeTitle'   : { en : 'Welcome', fr : 'Bienvenue' },
+  'notification.mobileWelcomeMessage' : {
+    en : 'Click an icon to open an app. Click the dock bar to open or minimize an app. Swipe left to close an app.',
+    fr : 'Touchez une icône pour ouvrir une app. Touchez le dock pour ouvrir ou réduire une app. Glissez vers la gauche pour fermer une app.',
+  },
   'notification.dismiss'          : { en : 'Dismiss notification',      fr : 'Fermer la notification' },
 
   /* ---- View-mode toggle (desktop only) ---- */

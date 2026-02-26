@@ -1,222 +1,245 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
-import MobileHeader from './MobileHeader.vue'
-import { about } from '../data/content'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import MobileHeader from './mobile/MobileHeader.vue'
+import MobileHomeGrid from './mobile/MobileHomeGrid.vue'
+import MobileDock from './mobile/MobileDock.vue'
+import MobileAppSurface from './mobile/MobileAppSurface.vue'
+import MobileToastStack from './mobile/MobileToastStack.vue'
 import { useLocale } from '../composables/useLocale'
 import { useTheme } from '../composables/useTheme'
 import { useToast } from '../composables/useToast'
 import { useViewMode } from '../composables/useViewMode'
+import { useMobileShell } from '../composables/useMobileShell'
+import { getRegistryTitle, windowRegistry } from '../data/registry'
 
-/* Preserve chunk isolation between mobile and desktop startup paths. */
-const AboutApp    = defineAsyncComponent(() => import('./AboutApp.vue'))
-const ResumeApp   = defineAsyncComponent(() => import('./ResumeApp.vue'))
-const ProjectsApp = defineAsyncComponent(() => import('./ProjectsApp.vue'))
+const OWNER_NAME = 'Robert Hoffmann'
+const MOBILE_SOCIAL_TOAST_DURATION_MS = 5_000
+const WELCOME_TOAST_DELAY_MS = 550
+const FOLLOWUP_TOAST_DELAY_MS = 5_000
+const TOAST_STACK_OVERLAP_MS = 900
+const WELCOME_TOAST_DURATION_MS = MOBILE_SOCIAL_TOAST_DURATION_MS + TOAST_STACK_OVERLAP_MS
 
-const OWNER_NAME  = 'Robert Hoffmann'
-const TEASER_IMG  = `${import.meta.env.BASE_URL}screenshot-teaser.avif`
+const rootStyle = {
+  '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons.webp")',
+}
 
-const { t }    = useLocale()
-const theme    = useTheme()
-const toast    = useToast()
+interface MobileToastStackApi {
+  showToast : (options?: {
+    title? : string
+    message? : string
+    duration? : number
+    url? : string
+    ctaLabel? : string
+    ctaVariants? : string[]
+  }) => Promise<void> | void
+}
+
+const { t, locale } = useLocale()
+const theme = useTheme()
+const toast = useToast()
 const { isPreview } = useViewMode()
+const mobileShell = useMobileShell()
+
+const clockLabel = ref('')
+const dateLabel = ref('')
+const mobileToastStackRef = ref<MobileToastStackApi | null>(null)
+
+let clockTimer: ReturnType<typeof setInterval> | null = null
+const notificationTimers: Array<ReturnType<typeof setTimeout>> = []
+
+const currentAppItemId = computed(() =>
+  mobileShell.currentMobileWindow.value?.itemId ?? '',
+)
+
+const currentWindowCapabilities = computed(() => {
+  const currentWindow = mobileShell.currentMobileWindow.value
+  if (!currentWindow) {
+    return {
+      canMinimize : false,
+      canMaximize : false,
+    }
+  }
+
+  const capabilities = mobileShell.getWindowCapabilities(currentWindow.id)
+  return {
+    canMinimize : capabilities.canMinimize,
+    canMaximize : capabilities.canMaximize,
+  }
+})
+
+function localeCode() {
+  return locale.value === 'fr' ? 'fr-FR' : 'en-US'
+}
+
+function updateClockLabels() {
+  const now = new Date()
+  const intlLocale = localeCode()
+
+  try {
+    clockLabel.value = now.toLocaleTimeString(intlLocale, {
+      hour      : '2-digit',
+      minute    : '2-digit',
+      hour12    : false,
+      hourCycle : 'h23',
+    })
+    dateLabel.value = now.toLocaleDateString(intlLocale, {
+      weekday : 'long',
+      month   : 'short',
+      day     : 'numeric',
+    })
+  } catch {
+    clockLabel.value = now.toLocaleTimeString([], {
+      hour      : '2-digit',
+      minute    : '2-digit',
+      hour12    : false,
+      hourCycle : 'h23',
+    })
+    dateLabel.value = now.toDateString()
+  }
+}
+
+function enqueueNotificationTimer(delayMs: number, callback: () => void) {
+  const timerId = setTimeout(() => {
+    const timerIndex = notificationTimers.indexOf(timerId)
+    if (timerIndex >= 0) notificationTimers.splice(timerIndex, 1)
+    callback()
+  }, delayMs)
+
+  notificationTimers.push(timerId)
+  return timerId
+}
+
+function clearNotificationTimers() {
+  for (const timerId of notificationTimers) clearTimeout(timerId)
+  notificationTimers.length = 0
+}
+
+function showMobileToast(options: Parameters<NonNullable<MobileToastStackApi['showToast']>>[0]) {
+  return mobileToastStackRef.value?.showToast(options)
+}
+
+function showWelcomeToast() {
+  showMobileToast({
+    title    : t('notification.mobileWelcomeTitle'),
+    message  : t('notification.mobileWelcomeMessage'),
+    duration : WELCOME_TOAST_DURATION_MS,
+  })
+}
+
+function showSocialToast(kind: 'twitter' | 'linkedin') {
+  const entry = windowRegistry[kind]
+  if (!entry || entry.type !== 'link' || !entry.url) return
+
+  const isTwitter = kind === 'twitter'
+  showMobileToast({
+    title      : getRegistryTitle(kind, locale.value),
+    message    : t(isTwitter ? 'notification.followMessage' : 'notification.connectMessage'),
+    url        : entry.url,
+    ctaLabel   : t(isTwitter ? 'notification.followCta' : 'notification.connectCta'),
+    ctaVariants: ['soft'],
+    duration   : MOBILE_SOCIAL_TOAST_DURATION_MS,
+  })
+}
+
+function scheduleMobileNotifications() {
+  enqueueNotificationTimer(WELCOME_TOAST_DELAY_MS, () => {
+    /*
+      Keep a slight overlap so the welcome card remains visible while the
+      first social card enters, preserving a smooth stack transition.
+    */
+    enqueueNotificationTimer(FOLLOWUP_TOAST_DELAY_MS, () => {
+      showSocialToast('twitter')
+    })
+    enqueueNotificationTimer(FOLLOWUP_TOAST_DELAY_MS * 2, () => {
+      showSocialToast('linkedin')
+    })
+
+    showWelcomeToast()
+  })
+}
+
+onMounted(() => {
+  updateClockLabels()
+  clockTimer = setInterval(updateClockLabels, 15_000)
+  scheduleMobileNotifications()
+})
+
+onUnmounted(() => {
+  if (clockTimer) clearInterval(clockTimer)
+  clearNotificationTimers()
+})
+
+watch(locale, () => {
+  updateClockLabels()
+})
+
+let lastBridgedToastMessage = ''
+
+watch(
+  () => toast.message.value,
+  (message) => {
+    if (!message) {
+      lastBridgedToastMessage = ''
+      return
+    }
+
+    if (message === lastBridgedToastMessage) return
+
+    lastBridgedToastMessage = message
+    showMobileToast({
+      title   : 'Portfolio',
+      message,
+    })
+  },
+)
 </script>
 
 <template>
   <div
-    class="mobile-root"
+    class="mobile-root mobile-root--shell"
     :class="{ 'mobile-root--preview': isPreview }"
     :data-theme="theme.theme.value"
+    :data-mobile-app-state="mobileShell.mobileAppState.value"
+    :data-mobile-current-app="currentAppItemId || undefined"
   >
-    <MobileHeader :owner-name="OWNER_NAME" />
+    <div class="mobile-home-shell" :style="rootStyle">
+      <MobileHeader :owner-name="OWNER_NAME" />
 
-    <!-- Section navigation -->
-    <nav class="mobile-nav" :aria-label="t('mobile.nav')">
-      <a href="#about" class="mobile-nav-link">{{ t('mobile.about') }}</a>
-      <a href="#resume" class="mobile-nav-link">{{ t('mobile.resume') }}</a>
-      <a href="#projects" class="mobile-nav-link">{{ t('mobile.projects') }}</a>
-    </nav>
+      <main class="desktop-area mobile-home-main" :aria-label="t('desktop.area')">
+        <h1 class="sr-only">{{ t('desktop.srTitle') }}</h1>
+        <div class="desktop-vignette" aria-hidden="true" />
+        <MobileToastStack ref="mobileToastStackRef" />
 
-    <main class="mobile-main">
-      <h1 class="sr-only">{{ t('desktop.srTitle') }}</h1>
+        <div class="mobile-home-scroll">
+          <section class="mobile-home-hero" aria-label="Time and date">
+            <p class="mobile-home-clock">{{ clockLabel }}</p>
+            <p class="mobile-home-date">{{ dateLabel }}</p>
+          </section>
 
-      <!-- About section -->
-      <section id="about" class="mobile-section">
-        <h2 class="mobile-section-title">{{ t('mobile.about') }}</h2>
-        <AboutApp />
-      </section>
+          <MobileHomeGrid @launch="mobileShell.launchFromIcon" />
+        </div>
 
-      <!-- Resume section -->
-      <section id="resume" class="mobile-section">
-        <h2 class="mobile-section-title">{{ t('mobile.resume') }}</h2>
-        <ResumeApp />
-      </section>
-
-      <!-- Projects section -->
-      <section id="projects" class="mobile-section">
-        <h2 class="mobile-section-title">{{ t('mobile.projects') }}</h2>
-        <ProjectsApp />
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="mobile-footer" :aria-label="t('mobile.footer')">
-      <div class="mobile-footer-links">
-        <a
-          v-for="link in about.links"
-          :key="link.href"
-          :href="link.href"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="panel-link"
-        >{{ link.label }}</a>
-      </div>
-
-      <!-- Desktop teaser -->
-      <div class="mobile-teaser">
-        <img
-          :src="TEASER_IMG"
-          alt="Desktop portfolio preview"
-          class="mobile-teaser-img"
-          width="800"
-          height="369"
-          loading="lazy"
+        <MobileAppSurface
+          :window-state="mobileShell.currentMobileWindow.value"
+          :is-expanded="mobileShell.mobileAppState.value === 'expanded'"
+          :title="mobileShell.currentAppTitle.value"
+          :can-minimize="currentWindowCapabilities.canMinimize"
+          :can-maximize="currentWindowCapabilities.canMaximize"
+          @close="mobileShell.closeWindowById"
+          @minimize="mobileShell.minimizeWindowById"
+          @toggle-maximize="mobileShell.toggleMaximizeWindowById"
+          @focus="mobileShell.focusWindowById"
         />
-        <p class="mobile-teaser-text">{{ t('mobile.desktopTeaser') }}</p>
-      </div>
+      </main>
 
-      <p class="mobile-footer-copy">
-        © {{ new Date().getFullYear() }} {{ OWNER_NAME }}
-      </p>
-    </footer>
-
-    <!-- Toast -->
-    <aside v-if="toast.message.value" class="toast" aria-live="polite">
-      {{ toast.message.value }}
-    </aside>
+      <MobileDock
+        :windows="mobileShell.openMobileWindows.value"
+        :current-window-id="mobileShell.currentMobileWindowId.value"
+        :mobile-app-state="mobileShell.mobileAppState.value"
+        :current-app-title="mobileShell.currentAppTitle.value"
+        @select-window="mobileShell.selectDockWindow"
+        @toggle-current-app="mobileShell.toggleCurrentAppVisibility"
+      />
+    </div>
   </div>
 </template>
-
-<style scoped>
-.mobile-root {
-  display        : flex;
-  flex-direction : column;
-  min-block-size : 100dvh;
-  background     : var(--surface-base);
-  color          : var(--text-primary);
-}
-
-.mobile-root--preview {
-  max-inline-size : 430px;
-  margin-inline   : auto;
-}
-
-/* ---- Section nav bar ---- */
-.mobile-nav {
-  position         : sticky;
-  inset-block-start: 0;
-  z-index          : calc(var(--z-topbar) - 1);
-  display          : flex;
-  justify-content  : center;
-  gap              : var(--space-1);
-  padding-inline   : var(--space-4);
-  padding-block    : var(--space-2);
-  background       : var(--surface-glass);
-  backdrop-filter   : blur(12px) saturate(1.3);
-  -webkit-backdrop-filter : blur(12px) saturate(1.3);
-  border-block-end : 1px solid var(--border-subtle);
-  /* Sits just below the header — the header's sticky too,
-     so overlap is handled by z-index layering */
-  inset-block-start: 0;
-}
-
-.mobile-nav-link {
-  padding-inline   : var(--space-3);
-  padding-block    : var(--space-1);
-  border-radius    : var(--radius-full);
-  font-size        : var(--text-sm);
-  font-weight      : 500;
-  color            : var(--text-secondary);
-  transition       : background var(--dur-fast) var(--ease-out),
-                     color var(--dur-fast) var(--ease-out);
-
-  &:hover {
-    background : var(--icon-hover-bg);
-    color      : var(--text-primary);
-  }
-}
-
-/* ---- Main content ---- */
-.mobile-main {
-  flex         : 1;
-  padding-inline : var(--space-4);
-  scroll-behavior : smooth;
-}
-
-/* ---- Sections ---- */
-.mobile-section {
-  padding-block    : var(--space-8);
-  border-block-end : 1px solid var(--border-subtle);
-
-  /* Offset for sticky header + nav when jumping via anchors */
-  scroll-margin-block-start : 6rem;
-
-  &:last-child {
-    border-block-end : none;
-  }
-}
-
-.mobile-section-title {
-  font-size        : var(--text-2xl);
-  font-weight      : 700;
-  color            : var(--text-primary);
-  margin-block-end : var(--space-6);
-}
-
-/* ---- Footer ---- */
-.mobile-footer {
-  display        : flex;
-  flex-direction : column;
-  align-items    : center;
-  gap            : var(--space-4);
-  padding-inline : var(--space-4);
-  padding-block  : var(--space-8);
-  border-block-start : 1px solid var(--border-subtle);
-  background     : var(--surface-raised);
-}
-
-.mobile-footer-links {
-  display   : flex;
-  flex-wrap : wrap;
-  gap       : var(--space-3);
-  justify-content : center;
-}
-
-.mobile-teaser {
-  display        : flex;
-  flex-direction : column;
-  align-items    : center;
-  gap            : var(--space-3);
-  max-inline-size: 28rem;
-}
-
-.mobile-teaser-img {
-  inline-size   : 100%;
-  block-size    : auto;
-  border-radius : var(--radius-lg);
-  border        : 1px solid var(--border-subtle);
-  box-shadow    : var(--shadow-md);
-  object-fit    : cover;
-}
-
-.mobile-teaser-text {
-  font-size   : var(--text-sm);
-  color       : var(--text-secondary);
-  text-align  : center;
-  line-height : var(--leading-relaxed);
-}
-
-.mobile-footer-copy {
-  font-size  : var(--text-xs);
-  color      : var(--text-muted);
-}
-</style>

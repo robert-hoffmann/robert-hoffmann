@@ -3,7 +3,7 @@
    ============================================================
    Detects viewport width via matchMedia and exposes a reactive
    `isMobile` computed. A session-only `viewOverride` ref allows
-   users to toggle between views for fun — it is never persisted
+   users to toggle between views for previewing — it is never persisted
    so nobody accidentally gets stuck on the wrong layout.
    ============================================================ */
 
@@ -55,7 +55,7 @@ export function useViewMode() {
 
   /** True when a desktop viewport is previewing the mobile layout */
   const isPreview = computed(() =>
-    !viewportIsMobile.value && viewOverride.value === 'mobile',
+    !viewportIsMobile.value && viewMode.value === 'mobile',
   )
 
   /** Toggle between desktop and mobile views (session-only, not persisted) */
@@ -63,10 +63,17 @@ export function useViewMode() {
     viewOverride.value = isMobile.value ? 'desktop' : 'mobile'
   }
 
-  /** Set a specific view override (e.g. from a deep-link ?view=mobile) */
+  /** Set a specific view override (used by the desktop preview toggle) */
   function setViewOverride(mode: ViewMode | null) {
     viewOverride.value = mode
   }
 
-  return { isMobile, isPreview, viewMode, viewOverride, toggleViewMode, setViewOverride }
+  return {
+    isMobile,
+    isPreview,
+    viewMode,
+    viewOverride,
+    toggleViewMode,
+    setViewOverride,
+  }
 }

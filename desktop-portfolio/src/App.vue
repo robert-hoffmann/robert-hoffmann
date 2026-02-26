@@ -4,7 +4,7 @@ import TopBar from './components/TopBar.vue'
 import Dock from './components/Dock.vue'
 import AppWindow from './components/AppWindow.vue'
 import DesktopIcon from './components/DesktopIcon.vue'
-import NotificationToast from './components/NotificationToast.vue'
+import NotificationStack from './components/NotificationStack.vue'
 import AboutSiteModal from './components/AboutSiteModal.vue'
 import type { WindowResizeHandle } from './types/desktop'
 import { useWindowManager } from './composables/useWindowManager'
@@ -19,7 +19,7 @@ import { useViewMode } from './composables/useViewMode'
 import { useWindowSfx } from './composables/useWindowSfx'
 import { usePointerCapabilities } from './composables/usePointerCapabilities'
 import { aboutWallpaperParallaxKey } from './composables/useAboutWallpaperParallax'
-import { windowRegistry } from './data/registry'
+import { getRegistryTitle, windowRegistry } from './data/registry'
 import { getStartupIconLayoutsForViewport } from './data/iconLayouts'
 import { getStartupWindowLayoutsForViewport } from './data/windowLayouts'
 
@@ -30,7 +30,7 @@ const MobileApp = defineAsyncComponent(() => import('./components/MobileApp.vue'
 const theme = useTheme()
 const toast = useToast()
 const { t, locale } = useLocale()
-const { isMobile }  = useViewMode()
+const { isMobile } = useViewMode()
 const { hasCoarsePointer } = usePointerCapabilities()
 
 /* ---- desktop-only composables ---- */
@@ -52,15 +52,29 @@ const desktopRootStyle = {
 const showAboutSite = ref(false)
 const wallpaperReady = ref(false)
 const desktopRootRef = ref<HTMLElement | null>(null)
+const desktopNotificationStackRef = ref<{
+  showToast : (options?: {
+    title? : string
+    message? : string
+    duration? : number
+    url? : string
+    ctaLabel? : string
+    ctaVariants? : string[]
+  }) => Promise<void> | void
+} | null>(null)
 
 const STARTUP_INITIAL_BATCH = 2
 const STARTUP_STAGGER_MS    = 120
 const WALLPAPER_PARALLAX_LIMIT_PX = 2
+const DESKTOP_SOCIAL_X_DELAY_MS = 60_000
+const DESKTOP_SOCIAL_LINKEDIN_DELAY_MS = 120_000
 
 let startupRafId: number | null = null
 const startupTimerIds: number[] = []
+const desktopNotificationTimerIds: number[] = []
 let wallpaperLoader: HTMLImageElement | null = null
 let previousWorkAreaRect: ReturnType<typeof wm.getWorkAreaRect> | null = null
+let lastDesktopBridgedToastMessage = ''
 
 const isAboutVisible = computed(() =>
   wm.state.windows.some(windowState =>
@@ -101,6 +115,53 @@ function clearStartupSchedule() {
   }
   for (const id of startupTimerIds) window.clearTimeout(id)
   startupTimerIds.length = 0
+}
+
+function clearDesktopNotificationSchedule() {
+  for (const timerId of desktopNotificationTimerIds) window.clearTimeout(timerId)
+  desktopNotificationTimerIds.length = 0
+}
+
+function enqueueDesktopNotificationTimer(delayMs: number, callback: () => void) {
+  const timerId = window.setTimeout(() => {
+    const timerIndex = desktopNotificationTimerIds.indexOf(timerId)
+    if (timerIndex >= 0) desktopNotificationTimerIds.splice(timerIndex, 1)
+    callback()
+  }, delayMs)
+
+  desktopNotificationTimerIds.push(timerId)
+  return timerId
+}
+
+function showDesktopNotification(options: Parameters<NonNullable<typeof desktopNotificationStackRef.value>['showToast']>[0]) {
+  return desktopNotificationStackRef.value?.showToast(options)
+}
+
+function showDesktopSocialNotification(kind: 'twitter' | 'linkedin') {
+  const entry = windowRegistry[kind]
+  if (!entry || entry.type !== 'link' || !entry.url) return
+
+  const isTwitter = kind === 'twitter'
+  showDesktopNotification({
+    title      : getRegistryTitle(kind, locale.value),
+    message    : t(isTwitter ? 'notification.followMessage' : 'notification.connectMessage'),
+    url        : entry.url,
+    ctaLabel   : t(isTwitter ? 'notification.followCta' : 'notification.connectCta'),
+    ctaVariants: ['soft'],
+  })
+}
+
+function scheduleDesktopNotifications() {
+  clearDesktopNotificationSchedule()
+  if (isMobile.value) return
+
+  enqueueDesktopNotificationTimer(DESKTOP_SOCIAL_X_DELAY_MS, () => {
+    showDesktopSocialNotification('twitter')
+  })
+
+  enqueueDesktopNotificationTimer(DESKTOP_SOCIAL_LINKEDIN_DELAY_MS, () => {
+    showDesktopSocialNotification('linkedin')
+  })
 }
 
 /* Keep default desktop layout deterministic while deferring heavy mounts. */
@@ -353,11 +414,13 @@ onMounted(() => {
     }
   }
 
+  scheduleDesktopNotifications()
   session.startAutoSave()
 })
 
 onUnmounted(() => {
   clearStartupSchedule()
+  clearDesktopNotificationSchedule()
   window.removeEventListener('resize', onViewportResize)
   if (wallpaperLoader) wallpaperLoader.src = ''
   wallpaperLoader = null
@@ -375,8 +438,36 @@ watch(isAboutVisible, (visible) => {
 }, { immediate : true })
 
 watch(isMobile, (mobile) => {
+  if (mobile) {
+    clearDesktopNotificationSchedule()
+    lastDesktopBridgedToastMessage = ''
+  } else {
+    scheduleDesktopNotifications()
+  }
+
   previousWorkAreaRect = mobile ? null : wm.getWorkAreaRect()
 })
+
+watch(
+  () => toast.message.value,
+  (message) => {
+    if (isMobile.value) return
+
+    if (!message) {
+      lastDesktopBridgedToastMessage = ''
+      return
+    }
+
+    if (message === lastDesktopBridgedToastMessage) return
+
+    lastDesktopBridgedToastMessage = message
+    showDesktopNotification({
+      title   : 'Portfolio',
+      message,
+    })
+  },
+)
+
 </script>
 
 <template>
@@ -448,25 +539,8 @@ watch(isMobile, (mobile) => {
       @toggle-dock="onDockToggle"
     />
 
-    <aside v-if="toast.message.value" class="toast" aria-live="polite">
-      {{ toast.message.value }}
-    </aside>
-
     <AboutSiteModal v-if="showAboutSite" @close="showAboutSite = false" />
 
-    <div class="notification-stack">
-      <NotificationToast
-        message-key="notification.followMessage"
-        cta-key="notification.followCta"
-        url="https://x.com/itechnologynet"
-        :delay="60000"
-      />
-      <NotificationToast
-        message-key="notification.connectMessage"
-        cta-key="notification.connectCta"
-        url="https://www.linkedin.com/in/hoffmannrobert"
-        :delay="120000"
-      />
-    </div>
+    <NotificationStack ref="desktopNotificationStackRef" variant="desktop" />
   </div>
 </template>
