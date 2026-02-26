@@ -161,7 +161,12 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
         defaultPosition : { x : 672, y : 580 },
       },
     },
-    component     : () => import('../components/MusicApp.vue'),
+    component       : () => import('../components/MusicApp.vue'),
+    /* Mobile uses the unified media-player wrapper; desktop keeps the original app UI. */
+    mobileComponent : () => import('../components/mobile/MobileUnifiedMediaApp.vue'),
+    mobileComponentProps : {
+      preset : 'music',
+    },
   },
   video : {
     id            : 'video',
@@ -178,7 +183,12 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
         max     : { w : 1280, h : 900 },
       },
     },
-    component     : () => import('../components/VideoApp.vue'),
+    component       : () => import('../components/VideoApp.vue'),
+    /* Mobile uses the unified media-player wrapper; desktop keeps the original app UI. */
+    mobileComponent : () => import('../components/mobile/MobileUnifiedMediaApp.vue'),
+    mobileComponentProps : {
+      preset : 'video',
+    },
   },
   terminal : {
     id            : 'terminal',

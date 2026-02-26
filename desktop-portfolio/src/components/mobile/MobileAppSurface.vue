@@ -106,6 +106,7 @@ function canStartSwipeFromTarget(target: EventTarget | null) {
     Keep titlebar controls and common interactive widgets click-first.
     Allow the titlebar background itself as a swipe handle on mobile.
   */
+  if (target.closest('[data-mobile-swipe-lock]')) return false
   if (target.closest('.traffic-lights')) return false
   if (target.closest('button, a, input, textarea, select, [contenteditable="true"]')) return false
 

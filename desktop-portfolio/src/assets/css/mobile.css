@@ -460,6 +460,59 @@
   opacity : 0.55;
 }
 
+.mobile-root--shell .unified-media-player {
+  overflow-y              : auto;
+  overscroll-behavior     : contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-root--shell .unified-media-player::-webkit-scrollbar {
+  display : none;
+}
+
+.mobile-root--shell .unified-media-player__visual--art,
+.mobile-root--shell .unified-media-player--video.unified-media-player--mobile .unified-media-player__visual--video {
+  inline-size : 100%;
+  max-inline-size : min(26rem, 100%);
+  align-self : center;
+}
+
+.mobile-root--shell .unified-media-player--video.unified-media-player--mobile .unified-media-player__visual--video {
+  aspect-ratio : 1;
+  box-shadow   : inset 0 0 0 1px oklch(100% 0 0 / 0.03);
+}
+
+.mobile-root--shell .unified-media-player__body {
+  gap : var(--space-3);
+}
+
+.mobile-root--shell .unified-media-player__transport {
+  gap : var(--space-3);
+}
+
+.mobile-root--shell .unified-media-player__btn--main {
+  inline-size : 4rem;
+  block-size  : 4rem;
+}
+
+.mobile-root--shell .unified-media-player__btn--sm {
+  inline-size : 2.4rem;
+  block-size  : 2.4rem;
+}
+
+.mobile-root--shell .unified-media-player__aux {
+  align-items : center;
+}
+
+.mobile-root--shell .unified-media-player__times {
+  font-size : 0.9rem;
+}
+
+.mobile-root--shell .unified-media-player__eq {
+  min-block-size : 52px;
+  block-size     : 52px;
+}
+
 @media (max-width: 430px) {
   .mobile-root--shell.mobile-root--preview {
     box-shadow : none;

@@ -25,6 +25,8 @@ const HOME_ITEM_IDS = [
   'twitter',
   'linkedin',
   'github',
+  'music',
+  'video'
 ] as const
 
 const items = computed(() => {

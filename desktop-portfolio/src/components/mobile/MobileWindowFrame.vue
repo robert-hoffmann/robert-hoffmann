@@ -34,13 +34,15 @@ const shellStyle = computed(() => ({
 
 /*
  * Resolve the async component exactly once for the selected item.
+ * Mobile may override a registry entry's desktop component with `mobileComponent`.
  * Keeping it in a shallowRef avoids remounts from non-item window-state changes.
  */
 const def = windowRegistry[props.windowState.itemId]
+const contentLoader = def?.mobileComponent ?? def?.component
 const contentComponent = shallowRef(
-  def?.component ? defineAsyncComponent(def.component) : null,
+  contentLoader ? defineAsyncComponent(contentLoader) : null,
 )
-const contentProps = def?.componentProps ?? {}
+const contentProps = def?.mobileComponentProps ?? def?.componentProps ?? {}
 
 const greenButtonLabel = computed(() =>
   props.windowState.mode === 'maximized'

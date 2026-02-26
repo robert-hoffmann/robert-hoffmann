@@ -49,6 +49,7 @@ declare namespace YT {
     stopVideo()                       : void
     nextVideo()                       : void
     previousVideo()                   : void
+    setLoop(loopPlaylists: boolean)   : void
     seekTo(seconds: number, allowSeekAhead: boolean) : void
     mute()                            : void
     unMute()                          : void

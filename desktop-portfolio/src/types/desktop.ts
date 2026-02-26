@@ -124,6 +124,13 @@ export interface WindowAppDefinition {
   component?     : () => Promise<{ default: import('vue').Component }>
   /** Optional props forwarded to the content component */
   componentProps?: Record<string, unknown>
+  /**
+   * Optional mobile-only component override used by the mobile shell.
+   * Desktop `AppWindow` continues to render `component`.
+   */
+  mobileComponent?     : () => Promise<{ default: import('vue').Component }>
+  /** Optional props forwarded only to the mobile override component */
+  mobileComponentProps?: Record<string, unknown>
   /** External URL opened in a new tab (type === 'link') */
   url?           : string
 }
