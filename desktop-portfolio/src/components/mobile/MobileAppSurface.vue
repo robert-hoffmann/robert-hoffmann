@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref, watch } from 'vue'
 import type { WindowState } from '../../types/desktop'
-import AppWindow from '../AppWindow.vue'
+import MobileWindowFrame from './MobileWindowFrame.vue'
 
 const props = defineProps<{
   windowState : WindowState | null
@@ -275,14 +275,12 @@ onUnmounted(() => {
     @pointerdown.capture="onSurfacePointerDown"
   >
     <div v-if="windowState && shouldRenderWindow" ref="surfaceShellRef" class="mobile-app-surface-shell">
-      <AppWindow
+      <MobileWindowFrame
         :key="windowState.id"
         :window-state="windowState"
         :is-focused="isExpanded"
         :can-minimize="canMinimize"
         :can-maximize="canMaximize"
-        :can-resize="false"
-        :can-move="false"
         @close="emit('close', $event)"
         @minimize="emit('minimize', $event)"
         @toggle-maximize="emit('toggleMaximize', $event)"
