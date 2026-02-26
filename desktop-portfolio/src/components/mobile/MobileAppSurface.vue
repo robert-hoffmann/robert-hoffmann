@@ -40,6 +40,7 @@ const swipeState = {
   isClosing       : false,
   settleTimeoutId : null as number | null,
 }
+let swipeDocumentListenersAttached = false
 
 function clearSwipeTimer() {
   if (swipeState.settleTimeoutId === null) return
@@ -72,12 +73,30 @@ function releasePointerCapture(pointerId: number | null) {
   surface.releasePointerCapture(pointerId)
 }
 
+function addSwipeDocumentListeners() {
+  if (swipeDocumentListenersAttached) return
+  swipeDocumentListenersAttached = true
+  document.addEventListener('pointermove', onSurfacePointerMove, { passive : false })
+  document.addEventListener('pointerup', finishSurfaceSwipe)
+  document.addEventListener('pointercancel', finishSurfaceSwipe)
+}
+
+function removeSwipeDocumentListeners() {
+  if (!swipeDocumentListenersAttached) return
+  swipeDocumentListenersAttached = false
+  document.removeEventListener('pointermove', onSurfacePointerMove)
+  document.removeEventListener('pointerup', finishSurfaceSwipe)
+  document.removeEventListener('pointercancel', finishSurfaceSwipe)
+}
+
 function canStartSwipeFromTarget(target: EventTarget | null) {
   if (!(target instanceof Element)) return true
 
-  /* Keep titlebar controls and common interactive widgets click-first. */
+  /*
+    Keep titlebar controls and common interactive widgets click-first.
+    Allow the titlebar background itself as a swipe handle on mobile.
+  */
   if (target.closest('.traffic-lights')) return false
-  if (target.closest('.app-window-header')) return false
   if (target.closest('button, a, input, textarea, select, [contenteditable="true"]')) return false
 
   return true
@@ -102,6 +121,7 @@ function onSurfacePointerDown(event: PointerEvent) {
   if (surface) {
     surface.setPointerCapture(event.pointerId)
   }
+  addSwipeDocumentListeners()
 }
 
 function onSurfacePointerMove(event: PointerEvent) {
@@ -141,6 +161,7 @@ function onSurfacePointerMove(event: PointerEvent) {
 function finishSurfaceSwipe(event: PointerEvent) {
   if (swipeState.pointerId !== event.pointerId) return
   if (!props.windowState) {
+    removeSwipeDocumentListeners()
     releasePointerCapture(event.pointerId)
     resetSwipePointerState()
     return
@@ -151,6 +172,7 @@ function finishSurfaceSwipe(event: PointerEvent) {
   const shouldHandleSwipe = swipeState.axis === 'x' && swipeState.isDragging
   const dragX = swipeState.deltaX
 
+  removeSwipeDocumentListeners()
   releasePointerCapture(event.pointerId)
   resetSwipePointerState()
 
@@ -196,6 +218,7 @@ watch(
   () => [props.windowState?.id ?? null, props.isExpanded],
   () => {
     swipeState.isClosing = false
+    removeSwipeDocumentListeners()
     releasePointerCapture(swipeState.pointerId)
     resetSwipePointerState()
     resetSwipeStyles()
@@ -203,6 +226,7 @@ watch(
 )
 
 onUnmounted(() => {
+  removeSwipeDocumentListeners()
   releasePointerCapture(swipeState.pointerId)
   clearSwipeTimer()
 })
@@ -216,10 +240,7 @@ onUnmounted(() => {
     :aria-label="windowState ? title || windowState.title : 'Current mobile app'"
     :aria-hidden="windowState && isExpanded ? 'false' : 'true'"
     :inert="windowState && !isExpanded ? true : undefined"
-    @pointerdown="onSurfacePointerDown"
-    @pointermove="onSurfacePointerMove"
-    @pointerup="finishSurfaceSwipe"
-    @pointercancel="finishSurfaceSwipe"
+    @pointerdown.capture="onSurfacePointerDown"
   >
     <div v-if="windowState" ref="surfaceShellRef" class="mobile-app-surface-shell">
       <AppWindow

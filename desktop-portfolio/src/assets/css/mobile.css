@@ -291,6 +291,7 @@
 
 .mobile-root--shell .mobile-app-surface-shell .app-window-content {
   min-block-size : 0;
+  touch-action   : pan-y;
 }
 
 .mobile-root--shell .mobile-app-surface-empty {
