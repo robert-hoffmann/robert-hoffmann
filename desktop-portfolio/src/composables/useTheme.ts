@@ -9,6 +9,11 @@ import { useLocale } from './useLocale'
 
 const THEME_TRANSITION_ATTR        = 'data-theme-transition'
 const THEME_TRANSITION_DURATION_VAR = '--dur-theme'
+const THEME_COLOR_META_ID          = 'app-theme-color-meta'
+const THEME_BROWSER_CHROME_COLORS  : Record<Theme, string> = {
+  dark  : '#1a1a2e',
+  light : '#f5f1fa',
+}
 
 let themeTransitionTimer: number | null = null
 
@@ -47,6 +52,21 @@ function resolveThemeTransitionDurationMs(root: HTMLElement) {
   return parseDurationToMs(raw)
 }
 
+function syncBrowserThemeColor(nextTheme: Theme) {
+  if (typeof document === 'undefined') return
+
+  const metaById = document.getElementById(THEME_COLOR_META_ID)
+  if (metaById instanceof HTMLMetaElement) {
+    metaById.content = THEME_BROWSER_CHROME_COLORS[nextTheme]
+    return
+  }
+
+  const fallbackMeta = document.querySelector('meta[name="theme-color"]')
+  if (fallbackMeta instanceof HTMLMetaElement) {
+    fallbackMeta.content = THEME_BROWSER_CHROME_COLORS[nextTheme]
+  }
+}
+
 function applyThemeTransition(root: HTMLElement) {
   if (themeTransitionTimer !== null) {
     window.clearTimeout(themeTransitionTimer)
@@ -72,6 +92,7 @@ function applyThemeTransition(root: HTMLElement) {
 }
 
 const theme = ref<Theme>(resolveInitialTheme())
+syncBrowserThemeColor(theme.value)
 
 export function useTheme() {
   const { show } = useToast()
@@ -84,11 +105,13 @@ export function useTheme() {
     theme.value = t_
     if (currentTheme === t_) {
       root.setAttribute('data-theme', t_)
+      syncBrowserThemeColor(t_)
       return
     }
 
     applyThemeTransition(root)
     root.setAttribute('data-theme', t_)
+    syncBrowserThemeColor(t_)
   }
 
   function toggle() {

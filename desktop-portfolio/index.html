@@ -10,7 +10,7 @@
     <meta name="author" content="Robert Hoffmann" />
     <meta name="keywords" content="Robert Hoffmann, full-stack engineer, consultant, portfolio, Vue, TypeScript, .NET, Python, aerospace, IoT, data pipelines, Skywise, Foundry, software engineer, web developer" />
     <link rel="canonical" href="https://i-technology.net/" />
-    <meta name="theme-color" content="#1a1a2e" />
+    <meta id="app-theme-color-meta" name="theme-color" content="#1a1a2e" />
     <meta name="color-scheme" content="dark light" />
 
     <!-- ── Open Graph ── -->
@@ -94,11 +94,18 @@
     <script>
       (function () {
         try {
+          var themeColorMeta = document.getElementById('app-theme-color-meta');
+          function syncThemeColor(theme) {
+            if (!themeColorMeta) return;
+            themeColorMeta.setAttribute('content', theme === 'light' ? '#f5f1fa' : '#1a1a2e');
+          }
+
           var raw = localStorage.getItem('desktop-portfolio-state');
           if (!raw) return;
           var data = JSON.parse(raw);
           if (data && (data.theme === 'dark' || data.theme === 'light')) {
             document.documentElement.setAttribute('data-theme', data.theme);
+            syncThemeColor(data.theme);
           }
         } catch (_) { /* noop */ }
       })();
