@@ -1,16 +1,29 @@
 /* ============================================================
    useViewMode — Responsive desktop/mobile layout composable
    ============================================================
-   Detects viewport width via matchMedia and exposes a reactive
-   `isMobile` computed. A session-only `viewOverride` ref allows
-   users to toggle between views for previewing — it is never persisted
-   so nobody accidentally gets stuck on the wrong layout.
+   Detects viewport size/orientation via matchMedia and exposes a
+   reactive `isMobile` computed. A session-only `viewOverride` ref
+   allows users to toggle between views for previewing — it is never
+   persisted so nobody accidentally gets stuck on the wrong layout.
    ============================================================ */
 
 import { ref, computed } from 'vue'
 import type { ViewMode } from '../types/desktop'
 
-const MOBILE_QUERY = '(max-width: 767px)'
+/*
+  Auto mobile rules:
+  1) Compact widths stay mobile (existing phone behavior).
+  2) Touch tablets up to iPad-width switch to mobile in portrait.
+     In landscape they fall back to desktop mode.
+*/
+const MOBILE_PHONE_QUERY = '(max-width: 767px)'
+const MOBILE_TABLET_PORTRAIT_TOUCH_QUERY = [
+  '(any-pointer: coarse)',
+  '(min-width: 768px)',
+  '(max-width: 1024px)',
+  '(orientation: portrait)',
+].join(' and ')
+const MOBILE_QUERY = `${MOBILE_PHONE_QUERY}, ${MOBILE_TABLET_PORTRAIT_TOUCH_QUERY}`
 
 /* Module-level singleton — shared across all consumers */
 const viewportIsMobile = ref(false)
@@ -23,17 +36,17 @@ function ensureListener() {
   if (listenerAttached) return
   listenerAttached = true
 
-  const mql = window.matchMedia(MOBILE_QUERY)
-  viewportIsMobile.value = mql.matches
+  const mobileMql = window.matchMedia(MOBILE_QUERY)
+  viewportIsMobile.value = mobileMql.matches
 
   const handler = (e: MediaQueryListEvent) => {
     viewportIsMobile.value = e.matches
     /* Reset override when viewport changes — prevents being stuck
-       in desktop mode on a phone after rotation, for example */
+       in desktop mode on a phone/tablet after rotation, for example */
     viewOverride.value = null
   }
 
-  mql.addEventListener('change', handler)
+  mobileMql.addEventListener('change', handler)
 
   /* Cleanup is intentionally omitted — singleton lives for the
      duration of the SPA. If this composable is ever used in

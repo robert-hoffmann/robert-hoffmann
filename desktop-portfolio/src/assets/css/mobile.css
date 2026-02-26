@@ -184,15 +184,21 @@
   display               : grid;
   grid-template-columns : repeat(4, minmax(0, 1fr));
   gap                   : var(--space-3) var(--space-2);
+  justify-items         : center;
   align-content         : start;
 }
 
 .mobile-root--shell .desktop-icon--mobile-grid {
   position       : static;
   z-index        : auto;
-  inline-size    : auto;
+  inline-size    : 100%;
+  max-inline-size: 5.75rem;
+  aspect-ratio   : 1 / 1;
   min-inline-size: 0;
-  min-block-size : 5.75rem;
+  min-block-size : 0;
+  justify-self   : center;
+  align-self     : start;
+  justify-content: center;
   padding        : var(--space-2) var(--space-1);
   border         : 1px solid oklch(100% 0 0 / 0.08);
   background     : oklch(100% 0 0 / 0.035);
@@ -220,6 +226,11 @@
   &:hover .desktop-icon-label,
   &:focus-visible .desktop-icon-label {
     color : var(--text-primary);
+  }
+
+  /* Normalize visual centering for mixed sprite/img/glyph icon sources. */
+  & > :is(.icon-sprite, .desktop-icon-img, .desktop-icon-glyph) {
+    margin-inline : auto;
   }
 }
 
