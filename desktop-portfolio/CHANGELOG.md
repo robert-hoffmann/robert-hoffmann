@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.11](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.10...desktop-portfolio-v1.6.11) (2026-02-26)
+
+
+### Features
+
+* add unified media player component with audio and video transport support ([197983d](https://github.com/robert-hoffmann/robert-hoffmann/commit/197983d00c5211f0bff08c1183cd72dbc2e4eb04))
+
 ## [1.6.10](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.9...desktop-portfolio-v1.6.10) (2026-02-26)
 
 
