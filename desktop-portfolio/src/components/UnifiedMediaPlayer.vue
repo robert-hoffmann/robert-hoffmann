@@ -166,7 +166,7 @@ const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig
       @timeupdate="audioTransport.onAudioTimeUpdate"
     />
 
-    <div v-if="showVideoSurface && videoTransport" class="unified-media-player__visual unified-media-player__visual--video" data-mobile-swipe-lock>
+    <div v-if="showVideoSurface && videoTransport" class="unified-media-player__visual unified-media-player__visual--video">
       <div :ref="videoTransport.wrapperRef" class="unified-media-player__video-wrapper">
         <div class="unified-media-player__video-frame">
           <template v-if="videoTransport.showFacade.value">
@@ -191,33 +191,34 @@ const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig
               >
             </picture>
 
-            <button
-              class="unified-media-player__video-facade-play"
-              type="button"
-              :aria-label="playPauseLabel"
-              data-mobile-swipe-lock
-              @click="videoTransport.onOverlayPointerDown"
-            >
-              <svg width="64" height="64" viewBox="0 0 68 48" aria-hidden="true">
-                <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#212121" fill-opacity="0.8" />
-                <path d="M45 24 27 14v20" fill="#fff" />
-              </svg>
-            </button>
+            <div class="unified-media-player__video-facade-play">
+              <button
+                type="button"
+                class="unified-media-player__video-facade-play-button"
+                :aria-label="playPauseLabel"
+                data-mobile-swipe-lock
+                @click="videoTransport.onOverlayPointerDown"
+              >
+                <svg width="64" height="64" viewBox="0 0 68 48" aria-hidden="true">
+                  <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#212121" fill-opacity="0.8" />
+                  <path d="M45 24 27 14v20" fill="#fff" />
+                </svg>
+              </button>
+            </div>
           </template>
 
           <template v-else>
             <div :ref="videoTransport.containerRef" class="unified-media-player__yt-target" />
             <div
               class="unified-media-player__video-overlay"
-              data-mobile-swipe-lock
-              @pointerdown="videoTransport.onOverlayPointerDown"
+              @click="videoTransport.onOverlayPointerDown"
             />
           </template>
         </div>
       </div>
     </div>
 
-    <div v-else-if="showArtwork && displayArtworkSrc" class="unified-media-player__visual unified-media-player__visual--art" aria-hidden="true" data-mobile-swipe-lock>
+    <div v-else-if="showArtwork && displayArtworkSrc" class="unified-media-player__visual unified-media-player__visual--art" aria-hidden="true">
       <img
         class="unified-media-player__art-image"
         :src="displayArtworkSrc"
@@ -231,7 +232,6 @@ const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig
       <div
         v-if="showMetadata"
         class="unified-media-player__meta unified-media-player__meta--with-disc"
-        data-mobile-swipe-lock
       >
         <span
           class="unified-media-player__title-disc"
@@ -248,11 +248,12 @@ const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig
         <p class="unified-media-player__subtitle">{{ displaySubtitle }}</p>
       </div>
 
-      <div class="unified-media-player__progress" data-mobile-swipe-lock>
+      <div class="unified-media-player__progress">
         <div
           class="unified-media-player__seek-track"
           role="slider"
           tabindex="0"
+          data-mobile-swipe-lock
           :aria-label="musicLikeSeekLabel"
           :aria-valuemin="0"
           :aria-valuemax="Math.round(transport.state.duration)"
@@ -279,7 +280,7 @@ const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig
         </div>
       </div>
 
-      <div class="unified-media-player__transport" data-mobile-swipe-lock>
+      <div class="unified-media-player__transport">
         <button
           v-if="transport.capabilities.canToggleLoop"
           class="unified-media-player__btn unified-media-player__btn--sm"
@@ -337,7 +338,7 @@ const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig
         </button>
       </div>
 
-      <div class="unified-media-player__aux" data-mobile-swipe-lock>
+      <div class="unified-media-player__aux">
         <div
           v-if="transport.capabilities.canToggleMute || transport.capabilities.canAdjustVolume"
           class="unified-media-player__volume"
@@ -391,7 +392,6 @@ const displayVideoPoster = computed(() => videoTransport?.poster ?? presetConfig
         class="unified-media-player__eq"
         :class="{ 'unified-media-player__eq--active': eqActive }"
         aria-hidden="true"
-        data-mobile-swipe-lock
       >
         <span
           v-for="(height, index) in eqBars"
