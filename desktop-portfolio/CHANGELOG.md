@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.12](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.11...desktop-portfolio-v1.6.12) (2026-02-26)
+
+
+### Features
+
+* enhance mobile and unified media player styles for improved performance and layout ([d922be8](https://github.com/robert-hoffmann/robert-hoffmann/commit/d922be8533e13ae2f28611000f40dc0b88a05ecc))
+* enhance unified media player with fullscreen action and update mobile dock icon stroke width ([327a182](https://github.com/robert-hoffmann/robert-hoffmann/commit/327a182fec6ecb9f2773de83c6f93599c6d2f1dc))
+* remove desktop icon label styles for improved consistency ([ebb02fa](https://github.com/robert-hoffmann/robert-hoffmann/commit/ebb02faff964a7279afcc0df24fe2b245bb20108))
+* update unified media player button styles and interactions for improved usability ([e29b4c9](https://github.com/robert-hoffmann/robert-hoffmann/commit/e29b4c99633cef7b445a76534afff895fbc8195f))
+
 ## [1.6.11](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.10...desktop-portfolio-v1.6.11) (2026-02-26)
 
 
