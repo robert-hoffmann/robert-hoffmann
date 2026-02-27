@@ -92,16 +92,16 @@ function onRestartFromGameOver() {
       <div ref="geowarsCanvasHost" class="geowars-canvas" />
 
       <div class="geowars-hud">
-        <div class="geowars-hud-group" role="status" aria-live="polite">
-          <span class="geowars-chip">
+        <div class="geowars-hud-group geowars-hud-group--stats" role="status" aria-live="polite">
+          <span class="geowars-chip geowars-chip--score">
             <span class="geowars-label">{{ t('geowars.score') }}</span>
             <span class="geowars-value">{{ gameState.score }}</span>
           </span>
-          <span class="geowars-chip">
+          <span class="geowars-chip geowars-chip--wave">
             <span class="geowars-label">{{ t('geowars.wave') }}</span>
             <span class="geowars-value">{{ gameState.wave }}</span>
           </span>
-          <span class="geowars-chip">
+          <span class="geowars-chip geowars-chip--lives">
             <span class="geowars-label">{{ t('geowars.lives') }}</span>
             <span class="geowars-value">{{ gameState.lives }}</span>
           </span>
@@ -229,6 +229,10 @@ function onRestartFromGameOver() {
   gap         : var(--space-2);
 }
 
+.geowars-hud-group--stats {
+  gap : 0;
+}
+
 .geowars-hud-group--controls {
   justify-content : flex-end;
 }
@@ -236,11 +240,20 @@ function onRestartFromGameOver() {
 .geowars-chip {
   display         : inline-flex;
   align-items     : baseline;
-  gap             : 0.35rem;
+  gap             : 0.1rem;
   padding         : 0;
   background      : transparent;
   border          : none;
   box-shadow      : none;
+  white-space     : nowrap;
+}
+
+.geowars-chip--score {
+  margin-inline-end : 0.72rem;
+}
+
+.geowars-chip--wave {
+  margin-inline-end : 0.52rem;
 }
 
 .geowars-label {
@@ -251,15 +264,31 @@ function onRestartFromGameOver() {
   text-transform : uppercase;
   letter-spacing : 0.07em;
   text-shadow    : 0 0 6px oklch(68% 0.16 220 / 0.2);
+  white-space    : nowrap;
 }
 
 .geowars-value {
+  margin-inline-start   : 0;
+  text-align            : start;
   font-family  : var(--font-mono);
   font-size    : 0.82rem;
   font-weight  : 600;
+  font-variant-numeric : tabular-nums;
   line-height  : 1;
   color        : oklch(86% 0.16 205 / 0.94);
   text-shadow  : 0 0 8px oklch(70% 0.18 210 / 0.3);
+}
+
+.geowars-chip--score .geowars-value {
+  min-inline-size : 4ch;
+}
+
+.geowars-chip--wave .geowars-value {
+  min-inline-size : 2ch;
+}
+
+.geowars-chip--lives .geowars-value {
+  min-inline-size : 1ch;
 }
 
 .geowars-btn {
@@ -353,6 +382,14 @@ function onRestartFromGameOver() {
 @container geowars-stage (max-width: 540px) {
   .geowars-hud {
     inset-inline : var(--space-2);
+  }
+
+  .geowars-chip--score {
+    margin-inline-end : 0.56rem;
+  }
+
+  .geowars-chip--wave {
+    margin-inline-end : 0.42rem;
   }
 
   .geowars-btn {
