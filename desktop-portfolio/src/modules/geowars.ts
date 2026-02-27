@@ -2,7 +2,7 @@
    Geometry Wars — Three.js Neon Twin-Stick Mini-Game
    ============================================================
    Proper ES module — no window globals.
-   Import and call init/destroy/restart/togglePause directly.
+   Import and call init/destroy/start/restart/setManualPause directly.
    ============================================================ */
 
 import * as THREE from 'three'
@@ -113,14 +113,20 @@ interface Player {
   alive  : boolean
 }
 
+export interface GeoWarsInitOptions {
+  canvasHost      : HTMLElement
+  interactionHost?: HTMLElement
+}
+
 /* ----------------------------------------------------------
    STATE
    ---------------------------------------------------------- */
 export const state: GameState = {
+  started  : false,
   score    : 0,
   wave     : 1,
   lives    : 3,
-  paused   : false,
+  paused   : true,
   gameOver : false,
 }
 
@@ -132,7 +138,8 @@ let scene: THREE.Scene | null            = null
 let camera: THREE.OrthographicCamera | null = null
 let composer: EffectComposer | null      = null
 let bloomPass: UnrealBloomPass | null    = null
-let container: HTMLElement | null        = null
+let canvasHost: HTMLElement | null       = null
+let interactionHost: HTMLElement | null  = null
 let raf: number | null                   = null
 let running                              = false
 let frameCount                           = 0
@@ -144,6 +151,7 @@ const keys: Record<string, boolean> = {}
 let mouseX    = 0
 let mouseY    = 0
 let mouseDown = false
+let introPauseRequested  = true
 let manualPauseRequested = false
 let autoPauseRequested   = false
 
@@ -164,6 +172,9 @@ const _v3 = new THREE.Vector3()
 
 /* Observers */
 let resizeObs: ResizeObserver | null = null
+
+/* Timers */
+const waveSpawnTimers: number[] = []
 
 /* ----------------------------------------------------------
    THRUST AUDIO — Rocket thruster roar
@@ -500,12 +511,28 @@ function resumeMusic() {
   musicScheduler = setInterval(musicTick, MUSIC_SCHEDULE_INTERVAL)
 }
 
+function clearWaveSchedule() {
+  for (const timerId of waveSpawnTimers) window.clearTimeout(timerId)
+  waveSpawnTimers.length = 0
+}
+
+function resolveAutoPauseFromPointer(): boolean {
+  if (!interactionHost) return false
+  return !interactionHost.matches(':hover')
+}
+
 function syncPauseState() {
-  const nextPaused = manualPauseRequested || autoPauseRequested
+  const nextPaused = introPauseRequested || manualPauseRequested || autoPauseRequested
   if (state.paused === nextPaused) return
   state.paused = nextPaused
   if (state.paused) { pauseMusic(); updateThrustAudio(0) }
   else resumeMusic()
+}
+
+function setAutoPause(paused: boolean) {
+  if (autoPauseRequested === paused) return
+  autoPauseRequested = paused
+  syncPauseState()
 }
 
 /* ----------------------------------------------------------
@@ -541,7 +568,7 @@ function buildScene(w: number, h: number) {
   renderer.setSize(w, h)
   renderer.setClearColor(0x040412)
   renderer.outputColorSpace = THREE.SRGBColorSpace
-  container!.appendChild(renderer.domElement)
+  canvasHost!.appendChild(renderer.domElement)
 
   scene  = new THREE.Scene()
   camera = new THREE.OrthographicCamera(
@@ -749,14 +776,19 @@ function updateParticles() {
    WAVE SYSTEM
    ---------------------------------------------------------- */
 function startWave() {
+  if (!state.started || state.gameOver) return
+  clearWaveSchedule()
   const count = 4 + state.wave * 3
   enemiesLeft = count
   sfxWave()
   for (let i = 0; i < count; i++) {
-    setTimeout(() => {
+    const timerId = window.setTimeout(() => {
+      const timerIdx = waveSpawnTimers.indexOf(timerId)
+      if (timerIdx >= 0) waveSpawnTimers.splice(timerIdx, 1)
       if (!running || state.paused || state.gameOver) return
       spawnEnemy()
     }, i * 350)
+    waveSpawnTimers.push(timerId)
   }
 }
 
@@ -802,7 +834,9 @@ function onPlayerHit() {
     state.gameOver = true
     player.alive = false
     playerGroup.visible = false
+    clearWaveSchedule()
     pauseMusic()
+    updateThrustAudio(0)
     sfxGameOver()
     return
   }
@@ -821,7 +855,12 @@ function onKeyDown(e: KeyboardEvent) {
   keys[e.key] = true
   if (e.key === 'p' || e.key === 'P' || e.key === ' ') {
     e.preventDefault()
-    if (!state.gameOver) togglePause()
+    if (state.gameOver) return
+    if (!state.started) {
+      start()
+      return
+    }
+    setManualPause(!state.paused)
   }
 }
 
@@ -834,20 +873,23 @@ function onPointerMove(e: PointerEvent) {
   mouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1
 }
 
-function onPointerDown(e: PointerEvent) { if (e.button === 0) mouseDown = true }
-function onPointerUp()                  { mouseDown = false }
-
-function onMouseEnterCanvas() {
-  if (state.gameOver) return
-  autoPauseRequested = false
-  syncPauseState()
+function onPointerDown(e: PointerEvent) {
+  if (e.button !== 0) return
+  if (!state.gameOver && !state.started) start()
+  mouseDown = true
 }
 
-function onMouseLeaveCanvas() {
+function onPointerUp() { mouseDown = false }
+
+function onPointerEnterInteraction() {
   if (state.gameOver) return
-  autoPauseRequested = true
+  setAutoPause(false)
+}
+
+function onPointerLeaveInteraction() {
+  if (state.gameOver) return
   mouseDown = false
-  syncPauseState()
+  setAutoPause(true)
 }
 
 function bindInput() {
@@ -856,8 +898,9 @@ function bindInput() {
   renderer?.domElement.addEventListener('pointermove', onPointerMove)
   renderer?.domElement.addEventListener('pointerdown', onPointerDown)
   renderer?.domElement.addEventListener('pointerup', onPointerUp)
-  renderer?.domElement.addEventListener('mouseenter', onMouseEnterCanvas)
-  renderer?.domElement.addEventListener('mouseleave', onMouseLeaveCanvas)
+  renderer?.domElement.addEventListener('pointercancel', onPointerUp)
+  interactionHost?.addEventListener('pointerenter', onPointerEnterInteraction)
+  interactionHost?.addEventListener('pointerleave', onPointerLeaveInteraction)
 }
 
 function unbindInput() {
@@ -866,8 +909,9 @@ function unbindInput() {
   renderer?.domElement.removeEventListener('pointermove', onPointerMove)
   renderer?.domElement.removeEventListener('pointerdown', onPointerDown)
   renderer?.domElement.removeEventListener('pointerup', onPointerUp)
-  renderer?.domElement.removeEventListener('mouseenter', onMouseEnterCanvas)
-  renderer?.domElement.removeEventListener('mouseleave', onMouseLeaveCanvas)
+  renderer?.domElement.removeEventListener('pointercancel', onPointerUp)
+  interactionHost?.removeEventListener('pointerenter', onPointerEnterInteraction)
+  interactionHost?.removeEventListener('pointerleave', onPointerLeaveInteraction)
 }
 
 /* ----------------------------------------------------------
@@ -919,9 +963,9 @@ function updatePlayer() {
    RESIZE
    ---------------------------------------------------------- */
 function handleResize() {
-  if (!container || !renderer || !camera) return
-  const w = container.clientWidth
-  const h = container.clientHeight
+  if (!canvasHost || !renderer || !camera) return
+  const w = canvasHost.clientWidth
+  const h = canvasHost.clientHeight
   if (w === 0 || h === 0) return
   renderer.setSize(w, h)
   camera.left   = -GRID_HALF_X
@@ -961,11 +1005,16 @@ function render() {
    RESET
    ---------------------------------------------------------- */
 function resetGameState() {
+  clearWaveSchedule()
+  state.started = false
   state.score = 0; state.wave = 1; state.lives = 3
-  state.paused = false; state.gameOver = false
+  state.paused = true; state.gameOver = false
   frameCount = 0; fireCooldown = 0; playerVX = 0; playerVY = 0
+  introPauseRequested = true
   manualPauseRequested = false
-  autoPauseRequested = false
+  autoPauseRequested = resolveAutoPauseFromPointer()
+  syncPauseState()
+  enemiesLeft = 0
 
   if (player && playerGroup) {
     player.x = 0; player.y = 0; player.alive = true
@@ -978,34 +1027,50 @@ function resetGameState() {
   for (const p of particles) { p.alive = false; p.mesh.visible = false }
   Object.keys(keys).forEach(k => { keys[k] = false })
   mouseDown = false
+  mouseX = 0
+  mouseY = 0
 }
 
 /* ----------------------------------------------------------
    PUBLIC API
    ---------------------------------------------------------- */
 
-export function init(containerEl: HTMLElement) {
+export function init(options: GeoWarsInitOptions) {
   if (running) return
-  container = containerEl
-  if (!container) return
-  const w = container.clientWidth  || 400
-  const h = container.clientHeight || 300
+  canvasHost = options.canvasHost
+  interactionHost = options.interactionHost ?? options.canvasHost
+  if (!canvasHost) return
+
+  const w = canvasHost.clientWidth  || 400
+  const h = canvasHost.clientHeight || 300
   buildScene(w, h)
   bindInput()
   resizeObs = new ResizeObserver(() => handleResize())
-  resizeObs.observe(container)
+  resizeObs.observe(canvasHost)
   running = true
   resetGameState()
+  tick()
+}
+
+export function start() {
+  if (!running || state.gameOver || state.started) return
+  state.started = true
+  introPauseRequested = false
+  manualPauseRequested = false
+  autoPauseRequested = false
+  syncPauseState()
   startMusic()
   startThrust()
   startWave()
-  tick()
 }
 
 export function destroy() {
   running = false
+  clearWaveSchedule()
   stopMusic()
   stopThrust()
+  state.started = false
+  introPauseRequested = true
   manualPauseRequested = false
   autoPauseRequested = false
   unbindInput()
@@ -1047,21 +1112,19 @@ export function destroy() {
   }
 
   if (renderer) { renderer.dispose(); renderer.domElement?.remove(); renderer = null }
-  scene = null; camera = null; bloomPass = null; container = null
+  scene = null; camera = null; bloomPass = null; canvasHost = null; interactionHost = null
 }
 
 export function restart() {
   if (!running) return
+  clearWaveSchedule()
   stopMusic()
   stopThrust()
   resetGameState()
-  startMusic()
-  startThrust()
-  startWave()
 }
 
-export function togglePause() {
-  if (state.gameOver) return
-  manualPauseRequested = !manualPauseRequested
+export function setManualPause(paused: boolean) {
+  if (!running || state.gameOver || !state.started) return
+  manualPauseRequested = paused
   syncPauseState()
 }

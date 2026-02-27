@@ -103,6 +103,13 @@ const ui: Record<string, Localized> = {
   'geowars.resume'           : { en : '▶ Resume',           fr : '▶ Reprendre' },
   'geowars.pause'            : { en : '⏸ Pause',            fr : '⏸ Pause' },
   'geowars.restart'          : { en : '↻ Restart',          fr : '↻ Recommencer' },
+  'geowars.startCta'         : { en : 'Click to fire / start', fr : 'Cliquer pour tirer / démarrer' },
+  'geowars.introTitle'       : { en : 'Ready, Pilot?',      fr : 'Prêt, pilote ?' },
+  'geowars.controlsHint'     : { en : 'Mouse to steer (distance = thrust) · Click to fire · Space to pause.',
+                                 fr : 'Souris pour diriger (distance = poussée) · Clic pour tirer · Espace pour pause.' },
+  'geowars.gameOver'         : { en : 'Game Over',          fr : 'Partie terminée' },
+  'geowars.finalScore'       : { en : 'Final score:',       fr : 'Score final :' },
+  'geowars.pausedLabel'      : { en : 'Paused',             fr : 'En pause' },
 
   /* ---- Music player ---- */
   'music.seek'               : { en : 'Seek',               fr : 'Rechercher' },

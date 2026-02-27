@@ -178,6 +178,7 @@ export interface SessionState {
 
 /** GeoWars game state (read from game engine) */
 export interface GameState {
+  started  : boolean
   score    : number
   wave     : number
   lives    : number
