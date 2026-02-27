@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.14](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.13...desktop-portfolio-v1.6.14) (2026-02-27)
+
+
+### Features
+
+* enhance HUD layout and styling for improved game state display ([3cd5b80](https://github.com/robert-hoffmann/robert-hoffmann/commit/3cd5b80bb57eba688c7d63a7af51f6b6f296083c))
+
 ## [1.6.13](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.12...desktop-portfolio-v1.6.13) (2026-02-27)
 
 
