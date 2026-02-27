@@ -304,7 +304,7 @@ onUnmounted(() => {
       <div class="video-player-controls-row">
         <!-- Previous -->
         <button
-          class="vp-btn"
+          class="unified-media-player__btn unified-media-player__btn--sm"
           type="button"
           :disabled="showFacade || !state.ready"
           :aria-label="t('video.previous')"
@@ -317,7 +317,7 @@ onUnmounted(() => {
 
         <!-- Play / Pause -->
         <button
-          class="vp-btn vp-btn--main"
+          class="unified-media-player__btn unified-media-player__btn--main"
           type="button"
           :disabled="!showFacade && !state.ready"
           :aria-label="t('video.playPause')"
@@ -335,7 +335,7 @@ onUnmounted(() => {
 
         <!-- Next -->
         <button
-          class="vp-btn"
+          class="unified-media-player__btn unified-media-player__btn--sm"
           type="button"
           :disabled="showFacade || !state.ready"
           :aria-label="t('video.next')"
@@ -348,7 +348,7 @@ onUnmounted(() => {
 
         <!-- Stop -->
         <button
-          class="vp-btn"
+          class="unified-media-player__btn unified-media-player__btn--sm"
           type="button"
           :disabled="!state.playing"
           :aria-label="t('video.stop')"
@@ -369,7 +369,7 @@ onUnmounted(() => {
 
         <!-- Volume -->
         <button
-          class="vp-btn"
+          class="unified-media-player__btn unified-media-player__btn--sm"
           type="button"
           :aria-label="t('video.toggleMute')"
           @click="toggleMute"
@@ -395,13 +395,16 @@ onUnmounted(() => {
 
         <!-- Fullscreen -->
         <button
-          class="vp-btn"
+          class="unified-media-player__btn unified-media-player__btn--sm"
           type="button"
           :aria-label="t('video.fullscreen')"
           @click="toggleFullscreen"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M8 3H5a2 2 0 0 0-2 2v3" /><path d="M21 8V5a2 2 0 0 0-2-2h-3" /><path d="M3 16v3a2 2 0 0 0 2 2h3" /><path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 3h7v7" />
+            <path d="M21 3l-8 8" />
+            <path d="M10 21H3v-7" />
+            <path d="M3 21l8-8" />
           </svg>
         </button>
       </div>
