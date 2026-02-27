@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.13](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.12...desktop-portfolio-v1.6.13) (2026-02-27)
+
+
+### Features
+
+* enhance GeoWars game functionality with improved state management and UI translations ([0ad8b71](https://github.com/robert-hoffmann/robert-hoffmann/commit/0ad8b7147fb7e17d9937be76d4c641f345683922))
+
 ## [1.6.12](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.11...desktop-portfolio-v1.6.12) (2026-02-26)
 
 
