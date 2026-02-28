@@ -338,6 +338,20 @@ function onDockToggle(windowId: string) {
   }
 }
 
+function onDockToggleAllWindows() {
+  if (wm.state.windows.length === 0) return
+
+  const allWindowsMinimized = wm.state.windows.every(windowState => windowState.mode === 'minimized')
+  if (allWindowsMinimized) {
+    wm.restoreAll()
+    toast.show(t('toast.restoredAll'))
+    return
+  }
+
+  wm.minimizeAll()
+  toast.show(t('toast.minimizedAll'))
+}
+
 function onViewportResize() {
   if (isMobile.value) {
     previousWorkAreaRect = null
@@ -480,6 +494,7 @@ watch(
       :focused-window-id="wm.state.focusedWindowId"
       @launch="onDockLaunch"
       @toggle-dock="onDockToggle"
+      @toggle-all-windows="onDockToggleAllWindows"
     />
 
     <AboutSiteModal v-if="showAboutSite" @close="showAboutSite = false" />

@@ -1258,6 +1258,41 @@
   opacity : 0.55;
 }
 
+.dock-launch--control {
+  font-size : 0;
+}
+
+.dock-launch--control:disabled {
+  opacity : 0.55;
+}
+
+.dock-launch--control:disabled:hover,
+.dock-launch--control:disabled:active {
+  background : transparent;
+  transform  : none;
+}
+
+.dock-control-icon {
+  inline-size : 45px;
+  block-size  : 45px;
+  color       : var(--text-secondary);
+  transition  : color var(--dur-fast) var(--ease-out);
+}
+
+.dock-control-icon-graphic--expand,
+.dock-control-icon-graphic--collapse {
+  display : none;
+}
+
+.dock-launch--control[aria-pressed="true"] .dock-control-icon-graphic--collapse,
+.dock-launch--control[aria-pressed="false"] .dock-control-icon-graphic--expand {
+  display : block;
+}
+
+.dock-launch--control:not(:disabled):is(:hover, :focus-visible) .dock-control-icon {
+  color : var(--text-primary);
+}
+
 /* ========== TOAST ========== */
 .toast {
   position        : fixed;

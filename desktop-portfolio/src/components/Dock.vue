@@ -15,12 +15,35 @@ const props = defineProps<{
 const emit = defineEmits<{
   launch     : [itemId: string]
   toggleDock : [windowId: string]
+  toggleAllWindows : []
 }>()
 
 /** Dock launchers follow registry key order (canonical) */
 const orderedItems = computed(() => {
   const ids = Object.keys(windowRegistry)
   return [...props.desktopItems].sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id))
+})
+
+const hasWindows = computed(() =>
+  props.windows.length > 0,
+)
+
+const allWindowsMinimized = computed(() =>
+  hasWindows.value && props.windows.every(windowState => windowState.mode === 'minimized'),
+)
+
+const isDockControlActive = computed(() =>
+  hasWindows.value && !allWindowsMinimized.value,
+)
+
+const currentToggleLabel = computed(() => {
+  if (!hasWindows.value) return t('dock.label')
+  return allWindowsMinimized.value ? t('topbar.restoreAll') : t('topbar.minimizeAll')
+})
+
+const currentToggleTooltip = computed(() => {
+  if (!hasWindows.value) return t('dock.label')
+  return allWindowsMinimized.value ? t('topbar.restoreAll') : t('topbar.minimizeAll')
 })
 
 function iconForItem(itemId: string): string {
@@ -33,6 +56,11 @@ function iconUrlForItem(itemId: string): string | undefined {
 
 function iconSpriteForItem(itemId: string): DesktopSpriteKey | undefined {
   return windowRegistry[itemId]?.iconSprite
+}
+
+function toggleCurrentWindow() {
+  if (!hasWindows.value) return
+  emit('toggleAllWindows')
 }
 </script>
 
@@ -88,10 +116,43 @@ function iconSpriteForItem(itemId: string): DesktopSpriteKey | undefined {
 
       <span class="dock-separator" aria-hidden="true" />
 
-      <!-- Trash -->
-      <button class="dock-launch dock-launch--trash" type="button" :aria-label="t('dock.trash')">
-        <span class="icon-sprite dock-icon-sprite icon-sprite--trashcan" aria-hidden="true" />
-        <span class="dock-tooltip">{{ t('dock.trash') }}</span>
+      <button
+        class="dock-launch dock-launch--control"
+        :class="{ 'dock-launch--active': isDockControlActive }"
+        type="button"
+        :aria-pressed="isDockControlActive"
+        :aria-label="currentToggleLabel"
+        :disabled="!hasWindows"
+        @click="toggleCurrentWindow"
+      >
+        <svg
+          class="dock-control-icon"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="0.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <g class="dock-control-icon-graphic dock-control-icon-graphic--expand">
+            <polyline points="6 2 2 2 2 6" />
+            <polyline points="10 14 14 14 14 10" />
+            <polyline points="10 2 14 2 14 6" />
+            <polyline points="6 14 2 14 2 10" />
+            <path d="M5.5 10.5 10.5 5.5" />
+            <polyline points="7.5 5.5 10.5 5.5 10.5 8.5" />
+          </g>
+          <g class="dock-control-icon-graphic dock-control-icon-graphic--collapse">
+            <polyline points="6 2 2 2 2 6" />
+            <polyline points="10 14 14 14 14 10" />
+            <polyline points="10 2 14 2 14 6" />
+            <polyline points="6 14 2 14 2 10" />
+            <path d="M10.5 5.5 5.5 10.5" />
+            <polyline points="8.5 10.5 5.5 10.5 5.5 7.5" />
+          </g>
+        </svg>
+        <span class="dock-tooltip">{{ currentToggleTooltip }}</span>
       </button>
     </div>
   </footer>
