@@ -7,8 +7,9 @@
 
 /* ========== LAYOUT ========== */
 .desktop-root {
-  --wallpaper-parallax-x : 0px;
-  --wallpaper-parallax-y : 0px;
+  --z-bg-lqip     : 0;
+  --z-bg-sharp    : 1;
+  --z-bg-parallax : 2;
 
   display               : grid;
   grid-template-rows    : auto 1fr auto;
@@ -22,76 +23,85 @@
   background-color      : #1a0a35;
 }
 
-.desktop-root > * {
-  position : relative;
-  z-index  : 1;
+.desktop-background-stack {
+  position       : absolute;
+  inset          : 0;
+  z-index        : var(--z-bg-lqip);
+  pointer-events : none;
 }
 
-.desktop-root::before,
-.desktop-root::after {
-  content           : '';
-  position          : absolute;
-  inset             : 0;
-  z-index           : 0;
-  pointer-events    : none;
-  background-size   : cover;
-  background-position: center;
-  background-repeat : no-repeat;
-  transition        : opacity var(--dur-slow) var(--ease-out),
-                      transform var(--dur-fast) var(--ease-out);
-  transform         : translate3d(var(--wallpaper-parallax-x), var(--wallpaper-parallax-y), 0)
-                      scale(1.03);
+.desktop-bg-layer {
+  position            : absolute;
+  inset               : 0;
+  pointer-events      : none;
+  background-size     : cover;
+  background-position : center;
+  background-repeat   : no-repeat;
+  transition          : opacity var(--dur-slow) var(--ease-out),
+                        transform var(--dur-fast) var(--ease-out);
 }
 
-.desktop-root::before {
-  /* Blurred LQIP placeholder shown immediately under throttle. */
-  background-image : url('/wallpaper-lqip.webp'),
-  linear-gradient(135deg, #1a0a35, #9964ac);
-  filter           : blur(16px) saturate(1.1);
+.desktop-bg-layer--lqip {
+  z-index          : var(--z-bg-lqip);
   opacity          : 1;
+  transform        : scale(1.03);
+  background-image : url('/wallpaper-lqip.webp'),
+                     linear-gradient(135deg, #1a0a35, #9964ac);
+  filter           : blur(16px) saturate(1.1);
 }
 
-.desktop-root::after {
-  /* Sharp layer fades in only after JS preloader confirms decode. */
-  background-image : url('/wallpaper-1280.webp');
-  background-image : image-set(
-    url('/wallpaper-1280.avif') type('image/avif'),
-    url('/wallpaper-1280.webp') type('image/webp')
-  );
+.desktop-bg-layer--sharp {
+  --desktop-sharp-image : none;
+
+  z-index          : var(--z-bg-sharp);
   opacity          : 0;
+  transform        : scale(1.03);
+  background-image : var(--desktop-sharp-image),
+                     linear-gradient(135deg, #1a0a35, #9964ac);
 }
 
-.desktop-root--wallpaper-ready::after {
+.desktop-bg-layer--parallax {
+  z-index  : var(--z-bg-parallax);
+  opacity  : 0;
+  overflow : hidden;
+}
+
+.desktop-bg-layer--visible {
   opacity : 1;
 }
 
-.desktop-root--wallpaper-ready::before {
+.desktop-bg-layer--hidden {
   opacity : 0;
 }
 
-@media (min-width: 1281px) {
-  .desktop-root::after {
-    background-image : url('/wallpaper-1920.webp');
-    background-image : image-set(
-      url('/wallpaper-1920.avif') type('image/avif'),
-      url('/wallpaper-1920.webp') type('image/webp')
-    );
-  }
+.desktop-bg-layer--parallax .desktop-parallax-scene {
+  position       : absolute;
+  inset          : 0;
+  pointer-events : none;
+  opacity : 1;
 }
 
-@media (min-width: 1921px) {
-  .desktop-root::after {
-    background-image : url('/wallpaper-2560.webp');
-    background-image : image-set(
-      url('/wallpaper-2560.avif') type('image/avif'),
-      url('/wallpaper-2560.webp') type('image/webp')
-    );
-  }
+.desktop-parallax-container {
+  position        : absolute;
+  inset           : 0;
+  transform-style : preserve-3d;
+  will-change     : transform;
+}
+
+.desktop-parallax-layer {
+  --parallax-layer-image : none;
+
+  position            : absolute;
+  pointer-events      : none;
+  backface-visibility : hidden;
+  will-change         : transform;
+
+  background-image    : var(--parallax-layer-image);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .desktop-root::before,
-  .desktop-root::after {
+  .desktop-bg-layer,
+  .desktop-parallax-scene {
     transition : none;
   }
 }

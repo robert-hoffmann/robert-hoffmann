@@ -6,6 +6,7 @@ import AppWindow from './AppWindow.vue'
 import DesktopIcon from './DesktopIcon.vue'
 import NotificationStack from './NotificationStack.vue'
 import AboutSiteModal from './AboutSiteModal.vue'
+import DesktopBackgroundStack from './DesktopBackgroundStack.vue'
 import type { WindowResizeHandle } from '../types/desktop'
 import { useWindowManager } from '../composables/useWindowManager'
 import { useDesktopIcons } from '../composables/useDesktopIcons'
@@ -18,7 +19,6 @@ import { useSessionPersistence } from '../composables/useSessionPersistence'
 import { useViewMode } from '../composables/useViewMode'
 import { useWindowSfx } from '../composables/useWindowSfx'
 import { usePointerCapabilities } from '../composables/usePointerCapabilities'
-import { aboutWallpaperParallaxKey } from '../composables/useAboutWallpaperParallax'
 import { getRegistryTitle, windowRegistry } from '../data/registry'
 import { getStartupIconLayoutsForViewport } from '../data/iconLayouts'
 import { getStartupWindowLayoutsForViewport } from '../data/windowLayouts'
@@ -48,8 +48,6 @@ const desktopRootStyle = {
 }
 
 const showAboutSite = ref(false)
-const wallpaperReady = ref(false)
-const desktopRootRef = ref<HTMLElement | null>(null)
 const desktopNotificationStackRef = ref<{
   showToast : (options?: {
     title? : string
@@ -62,54 +60,32 @@ const desktopNotificationStackRef = ref<{
 } | null>(null)
 
 const STARTUP_INITIAL_BATCH = 2
-const STARTUP_STAGGER_MS    = 120
-const WALLPAPER_PARALLAX_LIMIT_PX = 2
+const STARTUP_DEFERRED_STAGGER_MS = 380
+const STARTUP_DEFERRED_IDLE_TIMEOUT_MS = 1_800
+const STARTUP_DEFERRED_FALLBACK_DELAY_MS = 420
 const DESKTOP_SOCIAL_X_DELAY_MS = 60_000
 const DESKTOP_SOCIAL_LINKEDIN_DELAY_MS = 120_000
 
 let startupRafId: number | null = null
+let startupIdleId: number | null = null
 const startupTimerIds: number[] = []
 const desktopNotificationTimerIds: number[] = []
-let wallpaperLoader: HTMLImageElement | null = null
 let previousWorkAreaRect: ReturnType<typeof wm.getWorkAreaRect> | null = null
 let lastDesktopBridgedToastMessage = ''
-
-const isAboutVisible = computed(() =>
-  wm.state.windows.some(windowState =>
-    windowState.itemId === 'about' && windowState.mode !== 'minimized',
-  ),
-)
 
 const isTouchDesktopMode = computed(() =>
   !isMobile.value && hasCoarsePointer.value,
 )
-
-function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max)
-}
-
-function setWallpaperParallax(normX: number, normY: number) {
-  const desktopRoot = desktopRootRef.value
-  if (!desktopRoot) return
-
-  const parallaxX = clamp(-normX, -1, 1) * WALLPAPER_PARALLAX_LIMIT_PX
-  const parallaxY = clamp(-normY, -1, 1) * WALLPAPER_PARALLAX_LIMIT_PX
-  desktopRoot.style.setProperty('--wallpaper-parallax-x', `${parallaxX}px`)
-  desktopRoot.style.setProperty('--wallpaper-parallax-y', `${parallaxY}px`)
-}
-
-function resetWallpaperParallax() {
-  const desktopRoot = desktopRootRef.value
-  if (!desktopRoot) return
-  desktopRoot.style.setProperty('--wallpaper-parallax-x', '0px')
-  desktopRoot.style.setProperty('--wallpaper-parallax-y', '0px')
-}
 
 /* ---- helpers ---- */
 function clearStartupSchedule() {
   if (startupRafId !== null) {
     window.cancelAnimationFrame(startupRafId)
     startupRafId = null
+  }
+  if (startupIdleId !== null) {
+    window.cancelIdleCallback?.(startupIdleId)
+    startupIdleId = null
   }
   for (const id of startupTimerIds) window.clearTimeout(id)
   startupTimerIds.length = 0
@@ -191,6 +167,16 @@ function openDefaultWindowsStaggered() {
   clearStartupSchedule()
   const viewport = currentViewportSize()
   const layouts = getStartupWindowLayoutsForViewport(viewport)
+  const deferredLayouts = layouts.slice(STARTUP_INITIAL_BATCH)
+
+  function openDeferredWindows() {
+    deferredLayouts.forEach((def, idx) => {
+      const timerId = window.setTimeout(() => {
+        applyWindowLayout(def)
+      }, STARTUP_DEFERRED_STAGGER_MS * idx)
+      startupTimerIds.push(timerId)
+    })
+  }
 
   /* Delay first app mounts until the shell has had a chance to paint once. */
   startupRafId = window.requestAnimationFrame(() => {
@@ -200,40 +186,23 @@ function openDefaultWindowsStaggered() {
       applyWindowLayout(def)
     }
 
-    layouts.slice(STARTUP_INITIAL_BATCH).forEach((def, idx) => {
-      const timerId = window.setTimeout(() => {
-        applyWindowLayout(def)
-      }, STARTUP_STAGGER_MS * (idx + 1))
-      startupTimerIds.push(timerId)
-    })
+    if (deferredLayouts.length === 0) return
+
+    const queueDeferredOpen = () => {
+      startupIdleId = null
+      openDeferredWindows()
+    }
+
+    if (typeof window.requestIdleCallback === 'function') {
+      startupIdleId = window.requestIdleCallback(queueDeferredOpen, {
+        timeout : STARTUP_DEFERRED_IDLE_TIMEOUT_MS,
+      })
+      return
+    }
+
+    const timerId = window.setTimeout(queueDeferredOpen, STARTUP_DEFERRED_FALLBACK_DELAY_MS)
+    startupTimerIds.push(timerId)
   })
-}
-
-function resolveWallpaperWidth(): 1280 | 1920 | 2560 {
-  const viewportWidth = window.innerWidth
-  if (viewportWidth >= 1921) return 2560
-  if (viewportWidth >= 1281) return 1920
-  return 1280
-}
-
-/* Blur-up: keep LQIP visible until the selected sharp wallpaper is decoded. */
-function preloadDesktopWallpaper() {
-  wallpaperReady.value = false
-
-  const width = resolveWallpaperWidth()
-  const loader = new Image()
-  wallpaperLoader = loader
-  loader.decoding = 'async'
-
-  const finish = () => {
-    if (wallpaperLoader !== loader) return
-    wallpaperReady.value = true
-    wallpaperLoader = null
-  }
-
-  loader.addEventListener('load', finish, { once : true })
-  loader.addEventListener('error', finish, { once : true })
-  loader.src = `${import.meta.env.BASE_URL}wallpaper-${width}.webp`
 }
 
 function openItem(itemId: string) {
@@ -247,19 +216,6 @@ function openItem(itemId: string) {
 
 /* Expose openItem to child components (used by TerminalApp) */
 provide('openApp', openItem)
-provide(aboutWallpaperParallaxKey, {
-  publish(normX, normY) {
-    if (isMobile.value || !isAboutVisible.value) {
-      resetWallpaperParallax()
-      return
-    }
-    setWallpaperParallax(normX, normY)
-  },
-  reset() {
-    resetWallpaperParallax()
-  },
-})
-
 
 function resetDesktop() {
   clearStartupSchedule()
@@ -403,7 +359,6 @@ onMounted(() => {
 
   if (!isMobile.value) {
     previousWorkAreaRect = wm.getWorkAreaRect()
-    preloadDesktopWallpaper()
 
     if (!restored) {
       resetDesktopIconsForCurrentViewport()
@@ -420,8 +375,6 @@ onUnmounted(() => {
   clearStartupSchedule()
   clearDesktopNotificationSchedule()
   window.removeEventListener('resize', onViewportResize)
-  if (wallpaperLoader) wallpaperLoader.src = ''
-  wallpaperLoader = null
 })
 
 /* ---- locale watcher — re-derive titles when locale changes ---- */
@@ -430,10 +383,6 @@ watch(locale, (loc) => {
   wm.updateTitlesForLocale(loc)
   icons.updateTitlesForLocale(loc)
 })
-
-watch(isAboutVisible, (visible) => {
-  if (!visible) resetWallpaperParallax()
-}, { immediate : true })
 
 watch(isMobile, (mobile) => {
   if (mobile) {
@@ -471,12 +420,12 @@ watch(
 
 <template>
   <div
-    ref="desktopRootRef"
     class="desktop-root"
-    :class="{ 'desktop-root--wallpaper-ready': wallpaperReady }"
     :data-theme="theme.theme.value"
     :style="desktopRootStyle"
   >
+    <DesktopBackgroundStack />
+
     <TopBar
       :owner-name="OWNER_NAME"
       :focused-window-title="wm.focusedWindowTitle.value"

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import { formatTime } from '../utils'
 import { useLocale } from '../composables/useLocale'
 import { useSeekBar } from '../composables/useSeekBar'
 import { useAudioMediaTransport } from '../composables/useAudioMediaTransport'
+import { useElementImageSizes } from '../composables/useElementImageSizes'
 import { useYouTubePlaylistTransport } from '../composables/useYouTubePlaylistTransport'
 import { MEDIA_PLAYER_PRESETS } from '../data/mediaPlayerPresets'
 import type {
@@ -28,6 +29,8 @@ const videoTransport = transport.kind === 'video' ? transport : null
 
 const presetConfig = computed<MediaPresetConfig>(() => MEDIA_PLAYER_PRESETS[props.preset])
 const layoutConfig = computed(() => presetConfig.value.layout)
+const videoFrameRef = useTemplateRef<HTMLDivElement>('videoFrame')
+const posterSizes = useElementImageSizes(videoFrameRef, 960)
 
 const rootClasses = computed(() => [
   'unified-media-player',
@@ -213,22 +216,28 @@ async function onMetaFullscreen() {
 
     <div v-if="showVideoSurface && videoTransport" class="unified-media-player__visual unified-media-player__visual--video">
       <div :ref="videoTransport.wrapperRef" class="unified-media-player__video-wrapper">
-        <div class="unified-media-player__video-frame">
+        <div ref="videoFrame" class="unified-media-player__video-frame">
           <template v-if="videoTransport.showFacade.value">
             <picture>
               <source
                 v-if="displayVideoPoster.avif"
-                :srcset="displayVideoPoster.avif"
+                :srcset="displayVideoPoster.avifSrcset || displayVideoPoster.avif"
+                :sizes="posterSizes"
                 type="image/avif"
               />
               <source
                 v-if="displayVideoPoster.webp"
-                :srcset="displayVideoPoster.webp"
+                :srcset="displayVideoPoster.webpSrcset || displayVideoPoster.webp"
+                :sizes="posterSizes"
                 type="image/webp"
               />
               <img
                 class="unified-media-player__video-poster"
                 :src="displayVideoPoster.webp || displayVideoPoster.avif || ''"
+                :srcset="displayVideoPoster.webpSrcset || undefined"
+                :sizes="posterSizes"
+                width="1280"
+                height="720"
                 alt=""
                 loading="eager"
                 fetchpriority="high"

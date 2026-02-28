@@ -3,6 +3,12 @@ import { computed, reactive, ref, inject, onUnmounted, useTemplateRef } from 'vu
 import { formatTime } from '../utils'
 import { useLocale } from '../composables/useLocale'
 import { useSeekBar } from '../composables/useSeekBar'
+import { useElementImageSizes } from '../composables/useElementImageSizes'
+import {
+  VIDEO_POSTER_AVIF_SRCSET,
+  VIDEO_POSTER_SOURCES,
+  VIDEO_POSTER_WEBP_SRCSET,
+} from '../data/videoPosterSources'
 
 const { t } = useLocale()
 
@@ -11,14 +17,18 @@ const windowFocused = inject<Readonly<import('vue').Ref<boolean>>>('windowFocuse
 
 const PLAYLIST_ID = 'PLLBhCscredzYvSwHG3PJm4w-LIC4xwYaJ'
 /* Local poster avoids third-party handshake cost on initial desktop load. */
-const VIDEO_POSTER_AVIF = `${import.meta.env.BASE_URL}video-poster.avif`
-const VIDEO_POSTER_WEBP = `${import.meta.env.BASE_URL}video-poster.webp`
+const VIDEO_POSTER_FALLBACK =
+  VIDEO_POSTER_SOURCES.webp ??
+  VIDEO_POSTER_SOURCES.avif ??
+  `${import.meta.env.BASE_URL}video-poster.webp`
 
 /** Privacy-enhanced embed host — avoids most YouTube tracking cookies */
 const YT_NOCOOKIE_HOST = 'https://www.youtube-nocookie.com'
 
 const containerRef = useTemplateRef<HTMLDivElement>('playerContainer')
 const wrapperRef   = useTemplateRef<HTMLDivElement>('videoWrapper')
+const posterFrameRef = useTemplateRef<HTMLDivElement>('posterFrame')
+const posterSizes = useElementImageSizes(posterFrameRef, 960)
 
 /** True while showing the static thumbnail facade (before first play) */
 const showFacade = ref(true)
@@ -249,16 +259,20 @@ onUnmounted(() => {
 <template>
   <div ref="videoWrapper" class="video-player">
     <!-- YouTube player target (YT API replaces inner div with iframe) -->
-    <div class="video-player-frame">
+    <div ref="posterFrame" class="video-player-frame">
       <!-- Lite facade — static thumbnail shown until the user clicks play.
            Avoids loading the YouTube IFrame API (and its cookies) on page load. -->
       <template v-if="showFacade">
         <picture>
-          <source :srcset="VIDEO_POSTER_AVIF" type="image/avif" />
-          <source :srcset="VIDEO_POSTER_WEBP" type="image/webp" />
+          <source :srcset="VIDEO_POSTER_AVIF_SRCSET" :sizes="posterSizes" type="image/avif" />
+          <source :srcset="VIDEO_POSTER_WEBP_SRCSET" :sizes="posterSizes" type="image/webp" />
           <img
             class="video-player-poster"
-            :src="VIDEO_POSTER_WEBP"
+            :src="VIDEO_POSTER_FALLBACK"
+            :srcset="VIDEO_POSTER_WEBP_SRCSET"
+            :sizes="posterSizes"
+            width="1280"
+            height="720"
             alt=""
             loading="eager"
             fetchpriority="high"

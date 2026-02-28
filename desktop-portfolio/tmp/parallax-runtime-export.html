@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parallax Runtime Export</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; }
+    .parallax-viewport { position: fixed; inset: 0; overflow: hidden; }
+    .parallax-container { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
+    .parallax-layer {
+      position: absolute;
+      will-change: transform;
+      backface-visibility: hidden;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <!--
+  ================================================================
+  PARALLAX RUNTIME EXPORT HANDBOOK
+  ================================================================
+
+  QUICK START
+  1) Edit IMAGE_OVERRIDES in the script block below.
+  2) Keys can be layer IDs or layer names.
+  3) Values can be relative paths, HTTP(S) URLs, or data URLs.
+  4) Keep config values intact unless you know the runtime implications.
+
+  IMAGE SOURCE STRATEGIES
+  - Relative path: "./images/hero-foreground.webp"
+    Use when deployed with your static assets.
+  - HTTP(S): "https://cdn.example.com/parallax/hero-foreground.webp"
+    Use when assets are hosted remotely.
+  - Data URL: "data:image/webp;base64,..."
+    Use for fully self-contained delivery.
+
+  IMAGE OPTIMIZATION CHECKLIST
+  - Prefer WebP or AVIF when possible.
+  - Resize source images close to real display size.
+  - Avoid inlining huge images unless portability is required.
+  - Keep layered assets visually sparse where possible.
+  - Configure cache headers when using HTTP(S) URLs.
+
+  LOW / MEDIUM / HIGH FALLBACK TEMPLATE
+  // Example: viewport-aware swap before animation starts.
+  // const vw = Math.max(window.innerWidth, document.documentElement.clientWidth || 0);
+  // const quality = vw < 768 ? "low" : vw < 1440 ? "medium" : "high";
+  // const sourceByQuality = {
+  //   low: "./images/layer-low.webp",
+  //   medium: "./images/layer-medium.webp",
+  //   high: "./images/layer-high.webp",
+  // };
+  // IMAGE_OVERRIDES["layer-id"] = sourceByQuality[quality];
+
+  DEPLOYMENT CAVEATS
+  - Relative paths require matching files to exist at deployment paths.
+  - HTTP(S) assets depend on network reachability and server headers.
+  - Data URLs increase file size but maximize portability.
+  ================================================================
+  -->
+  <div class="parallax-viewport">
+    <div class="parallax-container" id="parallax-container"></div>
+  </div>
+  <script>
+    const config = {
+  "scene": {
+    "maxRot": 2,
+    "containerLerp": 0.05,
+    "perspective": 800,
+    "documentBackgroundColor": "#000000"
+  },
+  "harmonics": {
+    "freqA": 1,
+    "freqB": 0.7,
+    "ampB": 0.3,
+    "freqC": 0.8,
+    "freqD": 0.5,
+    "ampD": 0.4
+  },
+  "layers": [
+    {
+      "id": "layer-bg",
+      "presetKey": "layer-bg",
+      "name": "Background",
+      "imageSrc": "background.png",
+      "visible": true,
+      "geometry": {
+        "topPct": -5,
+        "leftPct": -5,
+        "widthPct": 110,
+        "heightPct": 110,
+        "zIndex": 1,
+        "baseZ": -100,
+        "baseScale": 1.125
+      },
+      "background": {
+        "position": {
+          "anchorX": "center",
+          "anchorY": "center",
+          "offsetXPct": 0,
+          "offsetYPct": 0
+        },
+        "size": {
+          "mode": "cover",
+          "widthPct": 100,
+          "heightPct": 100
+        },
+        "repeat": {
+          "x": "no-repeat",
+          "y": "no-repeat"
+        },
+        "color": "#00000000",
+        "blendMode": "normal",
+        "origin": "padding-box",
+        "clip": "border-box"
+      },
+      "motion": {
+        "lerp": 0.025,
+        "scaleBoost": 0.005,
+        "moveX": 12,
+        "moveY": 8,
+        "floatX": 3,
+        "floatY": 1.5,
+        "floatSpeed": 0.00008
+      }
+    },
+    {
+      "id": "layer-mid",
+      "presetKey": "layer-mid",
+      "name": "Middle",
+      "imageSrc": "middle.png",
+      "visible": true,
+      "geometry": {
+        "topPct": -6,
+        "leftPct": -6,
+        "widthPct": 112,
+        "heightPct": 112,
+        "zIndex": 2,
+        "baseZ": -40,
+        "baseScale": 1.05
+      },
+      "background": {
+        "position": {
+          "anchorX": "center",
+          "anchorY": "center",
+          "offsetXPct": 0,
+          "offsetYPct": 0
+        },
+        "size": {
+          "mode": "cover",
+          "widthPct": 100,
+          "heightPct": 100
+        },
+        "repeat": {
+          "x": "no-repeat",
+          "y": "no-repeat"
+        },
+        "color": "#00000000",
+        "blendMode": "normal",
+        "origin": "padding-box",
+        "clip": "border-box"
+      },
+      "motion": {
+        "lerp": 0.005,
+        "scaleBoost": 0.1,
+        "moveX": 14,
+        "moveY": 10,
+        "floatX": 20,
+        "floatY": 20,
+        "floatSpeed": 0.0004
+      }
+    },
+    {
+      "id": "layer-fg",
+      "presetKey": "layer-fg",
+      "name": "Foreground",
+      "imageSrc": "foreground.png",
+      "visible": true,
+      "geometry": {
+        "topPct": -12,
+        "leftPct": -12,
+        "widthPct": 124,
+        "heightPct": 124,
+        "zIndex": 4,
+        "baseZ": 10,
+        "baseScale": 0.9875
+      },
+      "background": {
+        "position": {
+          "anchorX": "center",
+          "anchorY": "center",
+          "offsetXPct": 0,
+          "offsetYPct": 0
+        },
+        "size": {
+          "mode": "cover",
+          "widthPct": 100,
+          "heightPct": 100
+        },
+        "repeat": {
+          "x": "no-repeat",
+          "y": "no-repeat"
+        },
+        "color": "#00000000",
+        "blendMode": "normal",
+        "origin": "padding-box",
+        "clip": "border-box"
+      },
+      "motion": {
+        "lerp": 0.03,
+        "scaleBoost": 0.004,
+        "moveX": 30,
+        "moveY": 18,
+        "floatX": 0,
+        "floatY": 0,
+        "floatSpeed": 0
+      }
+    }
+  ]
+};
+
+    const IMAGE_OVERRIDES = {
+    // "layer-bg": "media/layer-bg.webp", // Background
+    // "layer-mid": "media/layer-mid.webp", // Middle
+    // "layer-fg": "media/layer-fg.webp", // Foreground
+      // "Layer Name": "https://cdn.example.com/layer.webp"
+    };
+
+    const ANCHOR_X_TO_PCT = { left: 0, center: 50, right: 100 };
+    const ANCHOR_Y_TO_PCT = { top: 0, center: 50, bottom: 100 };
+
+    function composeBackgroundPosition(position) {
+      const xPct = ANCHOR_X_TO_PCT[position.anchorX] + position.offsetXPct;
+      const yPct = ANCHOR_Y_TO_PCT[position.anchorY] + position.offsetYPct;
+      return xPct + "%" + " " + yPct + "%";
+    }
+
+    function composeBackgroundSize(size) {
+      if (size.mode === "custom") {
+        return size.widthPct + "%" + " " + size.heightPct + "%";
+      }
+      return size.mode;
+    }
+
+    function composeBackgroundRepeat(repeat) {
+      return repeat.x + " " + repeat.y;
+    }
+
+    function applyBackgroundStyle(element, background) {
+      element.style.backgroundPosition = composeBackgroundPosition(background.position);
+      element.style.backgroundSize = composeBackgroundSize(background.size);
+      element.style.backgroundRepeat = composeBackgroundRepeat(background.repeat);
+      element.style.backgroundColor = background.color;
+      element.style.backgroundBlendMode = background.blendMode;
+      element.style.backgroundOrigin = background.origin;
+      element.style.backgroundClip = background.clip;
+    }
+
+    function resolveLayerImageSource(layer) {
+      const byId = IMAGE_OVERRIDES[layer.id];
+      if (typeof byId === "string" && byId.trim().length > 0) return byId.trim();
+
+      const byName = IMAGE_OVERRIDES[layer.name];
+      if (typeof byName === "string" && byName.trim().length > 0) return byName.trim();
+
+      return layer.imageSrc;
+    }
+
+    function escapeCssUrlValue(value) {
+      return value.replace(/\\/g, "\\\\").replace(/"/g, '\"').replace(/\n|\r/g, "");
+    }
+
+    function composeBackgroundImageValue(rawSource) {
+      const source = typeof rawSource === "string" ? rawSource.trim() : "";
+      if (!source) return "none";
+
+      if (
+        source.startsWith("url(") ||
+        source.startsWith("image-set(") ||
+        source.startsWith("var(") ||
+        source.startsWith("linear-gradient(") ||
+        source.startsWith("radial-gradient(")
+      ) {
+        return source;
+      }
+
+      return 'url("' + escapeCssUrlValue(source) + '")';
+    }
+
+    const container = document.getElementById("parallax-container");
+    if (!container) throw new Error("Missing #parallax-container element.");
+
+    const viewport = container.parentElement;
+    const documentBackgroundColor = config.scene.documentBackgroundColor || "#000";
+    if (viewport) viewport.style.backgroundColor = documentBackgroundColor;
+    document.documentElement.style.backgroundColor = documentBackgroundColor;
+    document.body.style.backgroundColor = documentBackgroundColor;
+
+    const layerElements = new Map();
+    for (const layer of config.layers) {
+      const div = document.createElement("div");
+      div.className = "parallax-layer";
+      div.style.top = layer.geometry.topPct + "%";
+      div.style.left = layer.geometry.leftPct + "%";
+      div.style.width = layer.geometry.widthPct + "%";
+      div.style.height = layer.geometry.heightPct + "%";
+      div.style.zIndex = String(layer.geometry.zIndex);
+      div.style.backgroundImage = composeBackgroundImageValue(resolveLayerImageSource(layer));
+      applyBackgroundStyle(div, layer.background);
+      if (!layer.visible) div.style.display = "none";
+      container.appendChild(div);
+      layerElements.set(layer.id, div);
+    }
+
+    let vw = window.innerWidth;
+    let vh = window.innerHeight;
+    let targetX = 0;
+    let targetY = 0;
+    let currentRotX = 0;
+    let currentRotY = 0;
+    let startTime = 0;
+    const state = new Map();
+
+    window.addEventListener(
+      "resize",
+      () => {
+        vw = window.innerWidth;
+        vh = window.innerHeight;
+      },
+      { passive: true },
+    );
+
+    document.addEventListener(
+      "mousemove",
+      (e) => {
+        targetX = (e.clientX / vw - 0.5) * 2;
+        targetY = (e.clientY / vh - 0.5) * 2;
+      },
+      { passive: true },
+    );
+
+    function animate(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      container.style.perspective = config.scene.perspective + "px";
+
+      const rotX = -targetY * config.scene.maxRot;
+      const rotY = targetX * config.scene.maxRot;
+      currentRotX += (rotX - currentRotX) * config.scene.containerLerp;
+      currentRotY += (rotY - currentRotY) * config.scene.containerLerp;
+      container.style.transform = "rotateX(" + currentRotX + "deg) rotateY(" + currentRotY + "deg)";
+
+      const dist = Math.sqrt(targetX * targetX + targetY * targetY) / Math.SQRT2;
+
+      for (const layer of config.layers) {
+        if (!layer.visible) continue;
+        const el = layerElements.get(layer.id);
+        if (!el) continue;
+
+        const s = state.get(layer.id) || {
+          currentX: 0,
+          currentY: 0,
+          currentScale: layer.geometry.baseScale,
+        };
+
+        let floatOffX = 0;
+        let floatOffY = 0;
+        if (layer.motion.floatSpeed > 0) {
+          const t = elapsed * layer.motion.floatSpeed;
+          floatOffX =
+            Math.sin(t * config.harmonics.freqA) * layer.motion.floatX +
+            Math.sin(t * config.harmonics.freqB) * layer.motion.floatX * config.harmonics.ampB;
+          floatOffY =
+            Math.sin(t * config.harmonics.freqC) * layer.motion.floatY +
+            Math.cos(t * config.harmonics.freqD) * layer.motion.floatY * config.harmonics.ampD;
+        }
+
+        const tx = -targetX * layer.motion.moveX + floatOffX;
+        const ty = -targetY * layer.motion.moveY + floatOffY;
+        s.currentX += (tx - s.currentX) * layer.motion.lerp;
+        s.currentY += (ty - s.currentY) * layer.motion.lerp;
+
+        const targetScale = layer.geometry.baseScale + dist * layer.motion.scaleBoost;
+        s.currentScale += (targetScale - s.currentScale) * layer.motion.lerp;
+        el.style.transform =
+          "translate3d(" +
+          s.currentX +
+          "px," +
+          s.currentY +
+          "px," +
+          layer.geometry.baseZ +
+          "px) scale(" +
+          s.currentScale +
+          ")";
+        state.set(layer.id, s);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

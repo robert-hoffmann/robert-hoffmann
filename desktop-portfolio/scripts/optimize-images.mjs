@@ -12,15 +12,37 @@
  * Usage:  node scripts/optimize-images.mjs
  */
 
-import { readdir, stat, access, readFile } from 'node:fs/promises'
+import { readdir, stat, access, readFile, mkdir } from 'node:fs/promises'
 import { join, extname, basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 
 const PUBLIC   = fileURLToPath(new URL('../public/', import.meta.url))
+const TMP      = fileURLToPath(new URL('../tmp/', import.meta.url))
 const QUALITY  = { webp: 80, avif: 55 }
 const EXTS     = new Set(['.jpg', '.jpeg', '.png'])
 const SKIP     = new Set(['favicon-16.png', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'])
+const PARALLAX_WIDTHS = [1280, 1920, 2560]
+const PARALLAX_LAYERS = [
+  {
+    id           : 'layer-bg',
+    sourceFile   : 'background.png',
+    webpQuality  : 68,
+    alphaQuality : 100,
+  },
+  {
+    id           : 'layer-mid',
+    sourceFile   : 'middle.png',
+    webpQuality  : 72,
+    alphaQuality : 90,
+  },
+  {
+    id           : 'layer-fg',
+    sourceFile   : 'foreground.png',
+    webpQuality  : 78,
+    alphaQuality : 95,
+  },
+]
 
 async function exists(pathname) {
   try {
@@ -125,14 +147,12 @@ try {
   console.log('⚠ No profile.jpg found — skipping favicon + avatar + icon generation')
 }
 
-/* ---- 5. Local video poster (for Video app facade) ---- */
+/* ---- 5. Local video poster variants (for Video app facade) ---- */
 const videoPosterCandidates = [
   /* Preferred source requested for video facade poster. */
   join(PUBLIC, 'drib.jpg'),
   join(PUBLIC, 'video-poster.jpg'),
   join(PUBLIC, 'video-poster.png'),
-  /* Keeps build deterministic even if no dedicated poster asset exists yet. */
-  join(PUBLIC, 'screenshot-teaser.avif'),
 ]
 const videoPosterSrc = await (async () => {
   for (const candidate of videoPosterCandidates) {
@@ -142,19 +162,39 @@ const videoPosterSrc = await (async () => {
 })()
 
 if (videoPosterSrc) {
-  const base = sharp(videoPosterSrc).resize(1280, 720, { fit : 'cover', position : 'centre' })
-  await Promise.all([
-    base.clone().webp({ quality : 78 }).toFile(join(PUBLIC, 'video-poster.webp')),
-    base.clone().avif({ quality : 52 }).toFile(join(PUBLIC, 'video-poster.avif')),
-  ])
+  const videoPosterVariants = [
+    { width : 640,  webpQuality : 70, avifQuality : 46, suffix : '-640' },
+    { width : 960,  webpQuality : 74, avifQuality : 50, suffix : '-960' },
+    { width : 1280, webpQuality : 78, avifQuality : 52, suffix : '' },
+  ]
 
-  const webpSize = (await stat(join(PUBLIC, 'video-poster.webp'))).size
-  const avifSize = (await stat(join(PUBLIC, 'video-poster.avif'))).size
-  console.log(
-    `✓ Video poster from ${basename(videoPosterSrc)} → ` +
-    `video-poster.webp (${(webpSize / 1024).toFixed(1)}KB) + ` +
-    `video-poster.avif (${(avifSize / 1024).toFixed(1)}KB)`,
-  )
+  const outputs = []
+
+  for (const variant of videoPosterVariants) {
+    const height = Math.round((variant.width * 9) / 16)
+    const base = sharp(videoPosterSrc).resize(variant.width, height, {
+      fit      : 'cover',
+      position : 'centre',
+    })
+
+    const webpName = `video-poster${variant.suffix}.webp`
+    const avifName = `video-poster${variant.suffix}.avif`
+    const webpPath = join(PUBLIC, webpName)
+    const avifPath = join(PUBLIC, avifName)
+
+    await Promise.all([
+      base.clone().webp({ quality : variant.webpQuality }).toFile(webpPath),
+      base.clone().avif({ quality : variant.avifQuality }).toFile(avifPath),
+    ])
+
+    const webpSize = (await stat(webpPath)).size
+    const avifSize = (await stat(avifPath)).size
+    outputs.push(
+      `${webpName} (${(webpSize / 1024).toFixed(1)}KB) + ${avifName} (${(avifSize / 1024).toFixed(1)}KB)`,
+    )
+  }
+
+  console.log(`✓ Video poster variants from ${basename(videoPosterSrc)} → ${outputs.join(' · ')}`)
 } else {
   console.log('⚠ No source found for video poster generation')
 }
@@ -166,18 +206,12 @@ if (await exists(wallpaperSrc)) {
   const widths = [1280, 1920, 2560]
   for (const width of widths) {
     const outputWebp = join(PUBLIC, `wallpaper-${width}.webp`)
-    const outputAvif = join(PUBLIC, `wallpaper-${width}.avif`)
     const base = sharp(wallpaperSrc).resize({ width, withoutEnlargement : true })
-    await Promise.all([
-      base.clone().webp({ quality : 78 }).toFile(outputWebp),
-      base.clone().avif({ quality : 52 }).toFile(outputAvif),
-    ])
+    await base.clone().webp({ quality : 78 }).toFile(outputWebp)
     const webpSize = (await stat(outputWebp)).size
-    const avifSize = (await stat(outputAvif)).size
     console.log(
       `✓ Wallpaper ${width}px → ` +
-      `wallpaper-${width}.webp (${(webpSize / 1024).toFixed(1)}KB) + ` +
-      `wallpaper-${width}.avif (${(avifSize / 1024).toFixed(1)}KB)`,
+      `wallpaper-${width}.webp (${(webpSize / 1024).toFixed(1)}KB)`,
     )
   }
 
@@ -259,6 +293,39 @@ if (await exists(desktopSpriteSource)) {
   )
 } else {
   console.log('⚠ No desktop-profile-icons.webp found — skipping runtime sprite optimization')
+}
+
+/* ---- 8. Desktop parallax layer optimization (tmp -> public/parallax) ---- */
+const parallaxOutputDir = join(PUBLIC, 'parallax', 'desktop')
+const hasParallaxSources = await Promise.all(
+  PARALLAX_LAYERS.map(async ({ sourceFile }) => exists(join(TMP, sourceFile))),
+)
+
+if (hasParallaxSources.every(Boolean)) {
+  await mkdir(parallaxOutputDir, { recursive : true })
+
+  for (const layer of PARALLAX_LAYERS) {
+    const source = join(TMP, layer.sourceFile)
+
+    for (const width of PARALLAX_WIDTHS) {
+      const webpOutput = join(parallaxOutputDir, `${layer.id}-${width}.webp`)
+      const resized = sharp(source).resize({ width, withoutEnlargement : true })
+
+      await resized.clone().webp({
+        quality      : layer.webpQuality,
+        alphaQuality : layer.alphaQuality,
+        effort       : 6,
+      }).toFile(webpOutput)
+
+      const webpBytes = (await stat(webpOutput)).size
+      console.log(
+        `✓ Parallax ${layer.id} ${width}px → ` +
+        `${basename(webpOutput)} (${(webpBytes / 1024).toFixed(1)}KB)`,
+      )
+    }
+  }
+} else {
+  console.log('⚠ Missing tmp parallax source PNG files — skipping parallax layer optimization')
 }
 
 console.log('Done.')

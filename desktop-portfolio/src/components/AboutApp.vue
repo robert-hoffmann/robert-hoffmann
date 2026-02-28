@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { inject, onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { about } from '../data/content'
 import { useLocale } from '../composables/useLocale'
-import { aboutWallpaperParallaxKey } from '../composables/useAboutWallpaperParallax'
 
 const { l, t } = useLocale()
 
@@ -20,7 +19,6 @@ const RING_ALIGNMENT_OFFSET      = 32.5
 const photoWrapRef  = ref<HTMLElement | null>(null)
 const isPhotoActive = ref(false)
 const effectEnabled = ref(false)
-const wallpaperParallax = inject(aboutWallpaperParallaxKey, null)
 
 let interactionMedia: MediaQueryList | null = null
 let reducedMotionMedia: MediaQueryList | null = null
@@ -77,7 +75,6 @@ function resetPhotoState() {
 
   setPhotoVars(0, 0)
   setRingRotation(0)
-  wallpaperParallax?.reset()
 }
 
 function refreshPhotoRect() {
@@ -106,7 +103,6 @@ function animate() {
   currentX += (targetX - currentX) * LERP_FACTOR
   currentY += (targetY - currentY) * LERP_FACTOR
   setPhotoVars(currentX, currentY)
-  wallpaperParallax?.publish(currentX, currentY)
 
   const hasPendingDelta = Math.abs(targetX - currentX) > EPSILON || Math.abs(targetY - currentY) > EPSILON
   const nearRest = Math.abs(currentX) <= EPSILON && Math.abs(currentY) <= EPSILON
@@ -119,7 +115,6 @@ function animate() {
   currentX = 0
   currentY = 0
   setPhotoVars(0, 0)
-  wallpaperParallax?.publish(0, 0)
   isPhotoActive.value = false
   rafId = null
 }

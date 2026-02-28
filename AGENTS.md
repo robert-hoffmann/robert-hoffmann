@@ -54,3 +54,9 @@ Common non-release prefixes that are still valid Conventional Commits:
 - `test:`
 - `style:`
 - `revert:`
+
+## Important (mandatory)
+
+- Actual project is in `<project root>/desktop-portfolio/`
+- Whenever considering implementing compatibility layers and fallbacks, always ask the user first, give mutiple paths, and pros/cons
+- When asking the user questions, always use easy to understand language, and provide detailed explanations and pros/cons

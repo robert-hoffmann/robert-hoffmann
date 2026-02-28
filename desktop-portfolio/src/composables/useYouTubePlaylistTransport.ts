@@ -1,14 +1,12 @@
 import { inject, onUnmounted, reactive, ref } from 'vue'
 import type { Ref } from 'vue'
-import type { MediaPosterSources, MediaTransportCapabilities, VideoMediaTransport } from '../types/media'
+import type { MediaTransportCapabilities, VideoMediaTransport } from '../types/media'
+import { VIDEO_POSTER_SOURCES } from '../data/videoPosterSources'
 
 const PLAYLIST_ID = 'PLLBhCscredzYvSwHG3PJm4w-LIC4xwYaJ'
 const YT_NOCOOKIE_HOST = 'https://www.youtube-nocookie.com'
 
-const poster: MediaPosterSources = {
-  avif : `${import.meta.env.BASE_URL}video-poster.avif`,
-  webp : `${import.meta.env.BASE_URL}video-poster.webp`,
-}
+const poster = VIDEO_POSTER_SOURCES
 
 function clamp01(value: number) {
   return Math.max(0, Math.min(1, value))

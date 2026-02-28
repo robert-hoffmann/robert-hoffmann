@@ -36,8 +36,11 @@ export interface MediaTransportActions {
 }
 
 export interface MediaPosterSources {
-  avif? : string
-  webp? : string
+  avif?      : string
+  webp?      : string
+  avifSrcset?: string
+  webpSrcset?: string
+  sizes?     : string
 }
 
 export interface MediaPresetMetadata {

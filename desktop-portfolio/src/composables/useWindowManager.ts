@@ -22,6 +22,8 @@ import { windowRegistry, getRegistryTitle } from '../data/registry'
 import { clamp, uid } from '../utils'
 
 const CASCADE = 30
+const WINDOW_Z_BASE = 100
+const WINDOW_Z_GAP = 1
 const DEFAULT_WINDOW_POINT = { x : 120, y : 60 } as const
 const TOP_BAR_HEIGHT_FALLBACK_PX = 32
 const DOCK_SAFE_MARGIN_FALLBACK_PX = 60
@@ -79,7 +81,7 @@ const DEFAULT_WINDOW_POLICY: ResolvedWindowPolicy = {
 const state = reactive<WindowManagerState>({
   windows         : [],
   focusedWindowId : null,
-  nextZIndex      : 103,
+  nextZIndex      : WINDOW_Z_BASE + WINDOW_Z_GAP,
 })
 
 function isFiniteNumber(value: unknown): value is number {
@@ -377,6 +379,33 @@ function pickTopVisibleWindow(): WindowState | null {
   return top
 }
 
+function rebaseWindowZOrder(focusedId?: string) {
+  if (!state.windows.length) {
+    state.nextZIndex = WINDOW_Z_BASE + WINDOW_Z_GAP
+    return
+  }
+
+  const originalIndexById = new Map(state.windows.map((win, index) => [win.id, index]))
+  const orderedWindows = [...state.windows].sort((a, b) => {
+    if (a.zIndex !== b.zIndex) return a.zIndex - b.zIndex
+    return (originalIndexById.get(a.id) ?? 0) - (originalIndexById.get(b.id) ?? 0)
+  })
+
+  if (focusedId) {
+    const focusedIndex = orderedWindows.findIndex(win => win.id === focusedId)
+    if (focusedIndex >= 0) {
+      const [focusedWindow] = orderedWindows.splice(focusedIndex, 1)
+      if (focusedWindow) orderedWindows.push(focusedWindow)
+    }
+  }
+
+  orderedWindows.forEach((win, index) => {
+    win.zIndex = WINDOW_Z_BASE + (index * WINDOW_Z_GAP)
+  })
+
+  state.nextZIndex = WINDOW_Z_BASE + (orderedWindows.length * WINDOW_Z_GAP) + WINDOW_Z_GAP
+}
+
 function ensureNormalGeometryState(win: WindowState) {
   if (win.mode === 'maximized') {
     win.mode = 'normal'
@@ -576,8 +605,8 @@ export function useWindowManager() {
     const win = state.windows.find(w => w.id === id)
     if (!win || win.mode === 'minimized') return
     if (state.focusedWindowId === id) return
-    win.zIndex = state.nextZIndex++
     state.focusedWindowId = id
+    rebaseWindowZOrder(id)
   }
 
   function openWindow(
@@ -607,7 +636,7 @@ export function useWindowManager() {
       y            : openRect.y,
       w            : openRect.w,
       h            : openRect.h,
-      zIndex       : isFiniteNumber(options.zIndex) ? options.zIndex : state.nextZIndex++,
+      zIndex       : isFiniteNumber(options.zIndex) ? options.zIndex : state.nextZIndex,
       mode         : 'normal',
       restoreBounds: null,
       restoreMode  : null,
@@ -617,15 +646,13 @@ export function useWindowManager() {
       applyRectToWindow(newWindow, options.rect)
     }
 
-    if (isFiniteNumber(options.zIndex)) {
-      state.nextZIndex = Math.max(state.nextZIndex, options.zIndex + 1)
-    }
-
     state.windows.push(newWindow)
 
     if (options.focus !== false) {
       state.focusedWindowId = newWindow.id
     }
+
+    rebaseWindowZOrder(options.focus !== false ? newWindow.id : undefined)
 
     return newWindow
   }
@@ -869,8 +896,7 @@ export function useWindowManager() {
       if (!normalized) continue
       state.windows.push(normalized)
     }
-    const maxZ = state.windows.reduce((top, win) => Math.max(top, win.zIndex), 102)
-    state.nextZIndex = Math.max(state.nextZIndex, maxZ + 1)
+    rebaseWindowZOrder()
     if (state.focusedWindowId) {
       const stillExists = state.windows.some(w => w.id === state.focusedWindowId)
       if (!stillExists) state.focusedWindowId = null
@@ -884,11 +910,14 @@ export function useWindowManager() {
     }
     const win = state.windows.find(w => w.id === id)
     state.focusedWindowId = win && win.mode !== 'minimized' ? win.id : null
+    if (state.focusedWindowId) {
+      rebaseWindowZOrder(state.focusedWindowId)
+    }
   }
 
   function setNextZIndex(z: number) {
     if (!isFiniteNumber(z)) return
-    state.nextZIndex = Math.max(103, Math.floor(z))
+    rebaseWindowZOrder(state.focusedWindowId ?? undefined)
   }
 
   function updateTitlesForLocale(locale: Locale) {

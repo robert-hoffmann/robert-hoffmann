@@ -1,0 +1,163 @@
+{
+  "version": 3,
+  "scene": {
+    "maxRot": 2,
+    "containerLerp": 0.05,
+    "perspective": 800,
+    "documentBackgroundColor": "#000000"
+  },
+  "harmonics": {
+    "freqA": 1,
+    "freqB": 0.7,
+    "ampB": 0.3,
+    "freqC": 0.8,
+    "freqD": 0.5,
+    "ampD": 0.4
+  },
+  "layers": [
+    {
+      "id": "layer-bg",
+      "presetKey": "layer-bg",
+      "name": "Background",
+      "imageSrc": "media/background.png",
+      "visible": true,
+      "geometry": {
+        "topPct": -5,
+        "leftPct": -5,
+        "widthPct": 110,
+        "heightPct": 110,
+        "zIndex": 1,
+        "baseZ": -100,
+        "baseScale": 1.125
+      },
+      "background": {
+        "position": {
+          "anchorX": "center",
+          "anchorY": "center",
+          "offsetXPct": 0,
+          "offsetYPct": 0
+        },
+        "size": {
+          "mode": "cover",
+          "widthPct": 100,
+          "heightPct": 100
+        },
+        "repeat": {
+          "x": "no-repeat",
+          "y": "no-repeat"
+        },
+        "color": "#00000000",
+        "blendMode": "normal",
+        "origin": "padding-box",
+        "clip": "border-box"
+      },
+      "motion": {
+        "lerp": 0.025,
+        "scaleBoost": 0.005,
+        "moveX": 12,
+        "moveY": 8,
+        "floatX": 3,
+        "floatY": 1.5,
+        "floatSpeed": 0.00008
+      }
+    },
+    {
+      "id": "layer-mid",
+      "presetKey": "layer-mid",
+      "name": "Middle",
+      "imageSrc": "media/middle.png",
+      "visible": true,
+      "geometry": {
+        "topPct": -6,
+        "leftPct": -6,
+        "widthPct": 112,
+        "heightPct": 112,
+        "zIndex": 2,
+        "baseZ": -40,
+        "baseScale": 1.05
+      },
+      "background": {
+        "position": {
+          "anchorX": "center",
+          "anchorY": "center",
+          "offsetXPct": 0,
+          "offsetYPct": 0
+        },
+        "size": {
+          "mode": "cover",
+          "widthPct": 100,
+          "heightPct": 100
+        },
+        "repeat": {
+          "x": "no-repeat",
+          "y": "no-repeat"
+        },
+        "color": "#00000000",
+        "blendMode": "normal",
+        "origin": "padding-box",
+        "clip": "border-box"
+      },
+      "motion": {
+        "lerp": 0.04,
+        "scaleBoost": 0.01,
+        "moveX": 14,
+        "moveY": 10,
+        "floatX": 4,
+        "floatY": 6,
+        "floatSpeed": 0.0004
+      }
+    },
+    {
+      "id": "layer-fg",
+      "presetKey": "layer-fg",
+      "name": "Foreground",
+      "imageSrc": "media/foreground.png",
+      "visible": true,
+      "geometry": {
+        "topPct": -12,
+        "leftPct": -12,
+        "widthPct": 124,
+        "heightPct": 124,
+        "zIndex": 4,
+        "baseZ": 10,
+        "baseScale": 0.9875
+      },
+      "background": {
+        "position": {
+          "anchorX": "center",
+          "anchorY": "center",
+          "offsetXPct": 0,
+          "offsetYPct": 0
+        },
+        "size": {
+          "mode": "cover",
+          "widthPct": 100,
+          "heightPct": 100
+        },
+        "repeat": {
+          "x": "no-repeat",
+          "y": "no-repeat"
+        },
+        "color": "#00000000",
+        "blendMode": "normal",
+        "origin": "padding-box",
+        "clip": "border-box"
+      },
+      "motion": {
+        "lerp": 0.08,
+        "scaleBoost": 0.015,
+        "moveX": 30,
+        "moveY": 18,
+        "floatX": 0,
+        "floatY": 0,
+        "floatSpeed": 0
+      }
+    }
+  ],
+  "ui": {
+    "panelVisible": true,
+    "fpsVisible": true,
+    "mode": "tune",
+    "selectedLayerId": "layer-bg"
+  }
+}

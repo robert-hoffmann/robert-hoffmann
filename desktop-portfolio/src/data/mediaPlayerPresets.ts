@@ -1,4 +1,5 @@
 import type { MediaPresetConfig } from '../types/media'
+import { VIDEO_POSTER_SOURCES } from './videoPosterSources'
 
 const baseUrl = import.meta.env.BASE_URL
 
@@ -34,10 +35,7 @@ export const MEDIA_PLAYER_PRESETS = {
       title       : 'Playlist',
       subtitle    : 'YouTube playlist',
       artworkAlt  : '',
-      videoPoster : {
-        avif : `${baseUrl}video-poster.avif`,
-        webp : `${baseUrl}video-poster.webp`,
-      },
+      videoPoster : VIDEO_POSTER_SOURCES,
     },
     layout : VIDEO_LAYOUT,
   },
