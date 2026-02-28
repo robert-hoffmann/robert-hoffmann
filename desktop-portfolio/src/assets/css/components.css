@@ -1019,7 +1019,7 @@
 }
 
 .project-period {
-  font-size   : var(--text-sm);
+  font-size   : var(--text-xs);
   font-family : var(--font-mono);
   color       : var(--text-meta);
   white-space : nowrap;

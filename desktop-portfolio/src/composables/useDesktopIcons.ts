@@ -10,6 +10,50 @@ import { applyStartupIconLayout, type StartupIconLayout } from '../data/iconLayo
 const selectedIconId = ref<string | null>(null)
 const items          = reactive<DesktopItem[]>(getDefaultDesktopItems())
 
+const ICON_GRID_COL_STEP_PX = 100
+const ICON_GRID_COL_OFFSET_PX = 24
+const ICON_GRID_ROW_COUNT = 9
+const ICON_GRID_ROW_TOP_OFFSET_PX = 24
+const ICON_GRID_ROW_BOTTOM_OFFSET_PX = 28
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max)
+}
+
+function getDesktopAreaHeight() {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return 900
+
+  const area = document.querySelector<HTMLElement>('.desktop-area')
+  if (area) return Math.max(area.clientHeight, 1)
+
+  return Math.max(window.innerHeight, 1)
+}
+
+function getIconRowStepPx() {
+  const usableHeight = Math.max(
+    1,
+    getDesktopAreaHeight() - ICON_GRID_ROW_TOP_OFFSET_PX - ICON_GRID_ROW_BOTTOM_OFFSET_PX,
+  )
+  return ICON_GRID_ROW_COUNT > 1
+    ? usableHeight / (ICON_GRID_ROW_COUNT - 1)
+    : 0
+}
+
+function resolveIconTopPx(row: number, rowStepPx: number) {
+  const normalizedRow = clamp(row, 1, ICON_GRID_ROW_COUNT)
+  return ICON_GRID_ROW_TOP_OFFSET_PX + (normalizedRow - 1) * rowStepPx
+}
+
+function resolveRowFromTopPx(topPx: number, rowStepPx: number) {
+  if (rowStepPx <= 0) return 1
+  const rawRow = Math.round((topPx - ICON_GRID_ROW_TOP_OFFSET_PX) / rowStepPx) + 1
+  return clamp(rawRow, 1, ICON_GRID_ROW_COUNT)
+}
+
+function resolveColFromLeftPx(leftPx: number) {
+  return Math.max(1, Math.round((leftPx - ICON_GRID_COL_OFFSET_PX) / ICON_GRID_COL_STEP_PX) + 1)
+}
+
 export function useDesktopIcons() {
   function isPrimaryPointerActivation(ev: PointerEvent) {
     if (!ev.isPrimary) return false
@@ -26,9 +70,10 @@ export function useDesktopIcons() {
   }
 
   function iconStyle(item: DesktopItem) {
+    const rowStepPx = getIconRowStepPx()
     return {
-      top  : `${(item.row - 1) * 100 + 24}px`,
-      left : `${(item.col - 1) * 100 + 24}px`,
+      top  : `${Math.round(resolveIconTopPx(item.row, rowStepPx))}px`,
+      left : `${Math.round((item.col - 1) * ICON_GRID_COL_STEP_PX + ICON_GRID_COL_OFFSET_PX)}px`,
     }
   }
 
@@ -78,8 +123,9 @@ export function useDesktopIcons() {
 
     const startX   = ev.clientX
     const startY   = ev.clientY
-    const origLeft = (item.col - 1) * 100 + 24
-    const origTop  = (item.row - 1) * 100 + 24
+    const rowStepPx = getIconRowStepPx()
+    const origLeft = (item.col - 1) * ICON_GRID_COL_STEP_PX + ICON_GRID_COL_OFFSET_PX
+    const origTop  = resolveIconTopPx(item.row, rowStepPx)
     let moved      = false
 
     const onMove = (e: PointerEvent) => {
@@ -87,8 +133,8 @@ export function useDesktopIcons() {
       const dy = e.clientY - startY
       if (!moved && Math.abs(dx) < 5 && Math.abs(dy) < 5) return
       moved = true
-      item.col = Math.max(1, Math.round((origLeft + dx) / 100) + 1)
-      item.row = Math.max(1, Math.round((origTop + dy) / 100) + 1)
+      item.col = resolveColFromLeftPx(origLeft + dx)
+      item.row = resolveRowFromTopPx(origTop + dy, rowStepPx)
     }
 
     const onUp = () => {
