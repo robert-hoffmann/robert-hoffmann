@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.15](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.14...desktop-portfolio-v1.6.15) (2026-02-28)
+
+
+### Features
+
+* add parallax engine with mobile gyroscope support ([b005be1](https://github.com/robert-hoffmann/robert-hoffmann/commit/b005be101872287011463a92f12a5fa2bdd597aa))
+* adjust icon grid layout for improved positioning and responsiveness ([f029623](https://github.com/robert-hoffmann/robert-hoffmann/commit/f02962379726fe05b9304363faac6a48b4d998d2))
+* implement dock control toggle for minimizing and restoring all windows ([ac66df5](https://github.com/robert-hoffmann/robert-hoffmann/commit/ac66df58221e0775277679019414e1ce5c79bb88))
+* refactor viewport classification to use width-only profiles for startup layouts ([e13183c](https://github.com/robert-hoffmann/robert-hoffmann/commit/e13183c264d4d0eea79cc3f85cc99cae8d3285ca))
+* unify notification timing constants for desktop and mobile ([3bb6898](https://github.com/robert-hoffmann/robert-hoffmann/commit/3bb6898d33089008870be30cfafa7b27829bde46))
+* update color scheme to use new text-meta variable for improved readability ([bf6b612](https://github.com/robert-hoffmann/robert-hoffmann/commit/bf6b612b335d0473180839bebe440c86ed85cc3c))
+
 ## [1.6.14](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.13...desktop-portfolio-v1.6.14) (2026-02-27)
 
 
