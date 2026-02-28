@@ -111,21 +111,14 @@
 }
 
 .mobile-root--shell .notification-toast-card--mobile {
+  --notification-toast-enter-y      : calc(-100% - var(--space-3));
+  --notification-toast-stack-exit-y : -0.4rem;
+
   max-inline-size : none;
-  transform       : translate3d(0, calc(-100% - var(--space-3)), 0);
 }
 
 .mobile-root--shell .notification-toast-card--mobile[data-visible="false"][data-entry-origin="stack"] {
-  transform : translate3d(0, -0.4rem, 0);
-}
-
-/*
-  Mobile variant base transform is declared in this later-imported file,
-  so reassert the visible state transform here to avoid overriding the
-  shared `.notification-toast-card[data-visible="true"]` rule from components.css.
-*/
-.mobile-root--shell .notification-toast-card--mobile[data-visible="true"] {
-  transform : translate3d(0, 0, 0);
+  transform : translate3d(0, var(--notification-toast-stack-exit-y), 0);
 }
 
 .mobile-root--shell .mobile-home-scroll {

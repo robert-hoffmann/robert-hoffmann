@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import { nextTick, onUnmounted, ref } from 'vue'
+import {
+  SOCIAL_TOAST_DURATION_MS,
+  TOAST_ENTRY_EXIT_MS,
+  TOAST_STACK_REFLOW_MS,
+  TOAST_SWIPE_DISMISS_MS,
+  TOAST_SWIPE_SETTLE_MS,
+} from '../constants/notificationTimings'
 
 type NotificationStackVariant = 'mobile' | 'desktop'
 type MobileToastCtaVariant = 'soft' | 'outline' | 'accent'
@@ -56,12 +63,9 @@ const props = withDefaults(defineProps<{
 
 const DEFAULT_TOAST_TITLE = 'Portfolio'
 const DEFAULT_TOAST_MESSAGE = 'Test mobile notification'
-const DEFAULT_TOAST_DURATION_MS = 5_000
+const DEFAULT_TOAST_DURATION_MS = SOCIAL_TOAST_DURATION_MS
 const DEFAULT_TOAST_CTA_LABEL = 'Click to open'
 
-const ENTRY_EXIT_MS = 220
-const SWIPE_DISMISS_MS = 200
-const SWIPE_SETTLE_MS = 170
 const SWIPE_AXIS_LOCK_SLOP_PX = 8
 const SWIPE_AXIS_LOCK_RATIO = 1.1
 const SWIPE_CLOSE_THRESHOLD_MIN_PX = 72
@@ -234,7 +238,7 @@ function animateToastStackReflow(previousTopByToastId: Map<number, number>) {
     window.requestAnimationFrame(() => {
       if (!element.isConnected) return
 
-      element.style.transition = 'transform 220ms var(--ease-spring)'
+      element.style.transition = `transform ${TOAST_STACK_REFLOW_MS}ms var(--ease-spring)`
       element.style.transform = 'translate3d(0, 0, 0)'
 
       const record = toastRuntimeById.get(id)
@@ -251,7 +255,7 @@ function animateToastStackReflow(previousTopByToastId: Map<number, number>) {
         element.style.transition = ''
         element.style.transform = ''
         record.settleTimerId = null
-      }, 220)
+      }, TOAST_STACK_REFLOW_MS)
     })
   }
 }
@@ -301,7 +305,7 @@ function hideToast(
 
   record.removeTimerId = window.setTimeout(() => {
     void finalizeToastRemoval(toastId, previousTopByToastId)
-  }, ENTRY_EXIT_MS)
+  }, TOAST_ENTRY_EXIT_MS)
 }
 
 function scheduleAutoHide(toastId: number, durationMs: number) {
@@ -326,7 +330,7 @@ function dismissToastBySwipe(toastId: number) {
   clearToastTimers(toastId)
 
   const travel = -Math.max(toastElement.clientWidth + 28, 260)
-  toastElement.style.transition = 'transform 200ms var(--ease-out), opacity 200ms var(--ease-out)'
+  toastElement.style.transition = `transform ${TOAST_SWIPE_DISMISS_MS}ms var(--ease-out), opacity ${TOAST_SWIPE_DISMISS_MS}ms var(--ease-out)`
   toastElement.style.transform = `translate3d(${travel}px, 0, 0) rotate(-4deg)`
   toastElement.style.opacity = '0.2'
 
@@ -338,7 +342,7 @@ function dismissToastBySwipe(toastId: number) {
     window.requestAnimationFrame(() => {
       resetMobileToastGestureStyles(toastId)
     })
-  }, SWIPE_DISMISS_MS)
+  }, TOAST_SWIPE_DISMISS_MS)
 }
 
 function releasePointerCapture(toastId: number, pointerId: number | null) {
@@ -434,7 +438,7 @@ function finishToastSwipe(event: PointerEvent, toastId: number) {
     return
   }
 
-  toastElement.style.transition = 'transform 170ms var(--ease-out), opacity 170ms var(--ease-out)'
+  toastElement.style.transition = `transform ${TOAST_SWIPE_SETTLE_MS}ms var(--ease-out), opacity ${TOAST_SWIPE_SETTLE_MS}ms var(--ease-out)`
   toastElement.style.transform = 'translate3d(0, 0, 0)'
   toastElement.style.opacity = '1'
 
@@ -445,7 +449,7 @@ function finishToastSwipe(event: PointerEvent, toastId: number) {
   record.settleTimerId = window.setTimeout(() => {
     resetMobileToastGestureStyles(toastId)
     record.settleTimerId = null
-  }, SWIPE_SETTLE_MS)
+  }, TOAST_SWIPE_SETTLE_MS)
 
   scheduleAutoHide(toastId, toastItem.duration)
 }

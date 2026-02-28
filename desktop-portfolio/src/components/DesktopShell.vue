@@ -22,6 +22,12 @@ import { usePointerCapabilities } from '../composables/usePointerCapabilities'
 import { getRegistryTitle, windowRegistry } from '../data/registry'
 import { getStartupIconLayoutsForViewport } from '../data/iconLayouts'
 import { getStartupWindowLayoutsForViewport } from '../data/windowLayouts'
+import {
+  BRIDGED_TOAST_DURATION_MS,
+  SOCIAL_TOAST_DELAY_LINKEDIN_MS,
+  SOCIAL_TOAST_DELAY_X_MS,
+  SOCIAL_TOAST_DURATION_MS,
+} from '../constants/notificationTimings'
 
 /* ---- shared composables (used in both views) ---- */
 const theme = useTheme()
@@ -42,7 +48,6 @@ const session         = useSessionPersistence(icons.items)
 
 /* ---- constants ---- */
 const OWNER_NAME = 'Robert Hoffmann'
-const BRIDGED_TOAST_DURATION_MS = 2_000
 const desktopRootStyle = {
   '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons-runtime.webp")',
 }
@@ -63,8 +68,6 @@ const STARTUP_INITIAL_BATCH = 2
 const STARTUP_DEFERRED_STAGGER_MS = 380
 const STARTUP_DEFERRED_IDLE_TIMEOUT_MS = 1_800
 const STARTUP_DEFERRED_FALLBACK_DELAY_MS = 420
-const DESKTOP_SOCIAL_X_DELAY_MS = 60_000
-const DESKTOP_SOCIAL_LINKEDIN_DELAY_MS = 120_000
 
 let startupRafId: number | null = null
 let startupIdleId: number | null = null
@@ -122,6 +125,7 @@ function showDesktopSocialNotification(kind: 'twitter' | 'linkedin') {
     url        : entry.url,
     ctaLabel   : t(isTwitter ? 'notification.followCta' : 'notification.connectCta'),
     ctaVariants: ['soft'],
+    duration   : SOCIAL_TOAST_DURATION_MS,
   })
 }
 
@@ -129,11 +133,11 @@ function scheduleDesktopNotifications() {
   clearDesktopNotificationSchedule()
   if (isMobile.value) return
 
-  enqueueDesktopNotificationTimer(DESKTOP_SOCIAL_X_DELAY_MS, () => {
+  enqueueDesktopNotificationTimer(SOCIAL_TOAST_DELAY_X_MS, () => {
     showDesktopSocialNotification('twitter')
   })
 
-  enqueueDesktopNotificationTimer(DESKTOP_SOCIAL_LINKEDIN_DELAY_MS, () => {
+  enqueueDesktopNotificationTimer(SOCIAL_TOAST_DELAY_LINKEDIN_MS, () => {
     showDesktopSocialNotification('linkedin')
   })
 }

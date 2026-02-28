@@ -11,14 +11,16 @@ import { useToast } from '../composables/useToast'
 import { useViewMode } from '../composables/useViewMode'
 import { useMobileShell } from '../composables/useMobileShell'
 import { getRegistryTitle, windowRegistry } from '../data/registry'
+import {
+  BRIDGED_TOAST_DURATION_MS,
+  MOBILE_WELCOME_TOAST_DELAY_MS,
+  MOBILE_WELCOME_TOAST_DURATION_MS,
+  SOCIAL_TOAST_DELAY_LINKEDIN_MS,
+  SOCIAL_TOAST_DELAY_X_MS,
+  SOCIAL_TOAST_DURATION_MS,
+} from '../constants/notificationTimings'
 
 const OWNER_NAME = 'Robert Hoffmann'
-const MOBILE_SOCIAL_TOAST_DURATION_MS = 5_000
-const BRIDGED_TOAST_DURATION_MS = 2_000
-const WELCOME_TOAST_DELAY_MS = 100
-const MOBILE_SOCIAL_X_DELAY_MS = 60_000
-const MOBILE_SOCIAL_LINKEDIN_DELAY_MS = 120_000
-const WELCOME_TOAST_DURATION_MS = 4_000
 
 const rootStyle = {
   '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons-runtime.webp")',
@@ -123,7 +125,7 @@ function showWelcomeToast() {
   showMobileToast({
     title    : t('notification.mobileWelcomeTitle'),
     message  : t('notification.mobileWelcomeMessage'),
-    duration : WELCOME_TOAST_DURATION_MS,
+    duration : MOBILE_WELCOME_TOAST_DURATION_MS,
   })
 }
 
@@ -138,20 +140,20 @@ function showSocialToast(kind: 'twitter' | 'linkedin') {
     url        : entry.url,
     ctaLabel   : t(isTwitter ? 'notification.followCta' : 'notification.connectCta'),
     ctaVariants: ['soft'],
-    duration   : MOBILE_SOCIAL_TOAST_DURATION_MS,
+    duration   : SOCIAL_TOAST_DURATION_MS,
   })
 }
 
 function scheduleMobileNotifications() {
-  enqueueNotificationTimer(WELCOME_TOAST_DELAY_MS, () => {
+  enqueueNotificationTimer(MOBILE_WELCOME_TOAST_DELAY_MS, () => {
     showWelcomeToast()
   })
 
-  enqueueNotificationTimer(MOBILE_SOCIAL_X_DELAY_MS, () => {
+  enqueueNotificationTimer(SOCIAL_TOAST_DELAY_X_MS, () => {
     showSocialToast('twitter')
   })
 
-  enqueueNotificationTimer(MOBILE_SOCIAL_LINKEDIN_DELAY_MS, () => {
+  enqueueNotificationTimer(SOCIAL_TOAST_DELAY_LINKEDIN_MS, () => {
     showSocialToast('linkedin')
   })
 }

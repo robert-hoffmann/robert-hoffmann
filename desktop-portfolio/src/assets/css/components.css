@@ -1827,16 +1827,20 @@
 
 .notification-toast-stack--desktop {
   position         : fixed;
-  inset-block-end  : var(--space-8);
+  inset-block-start: calc(env(safe-area-inset-top, 0px) + 2.5rem + var(--space-2));
+  inset-block-end  : auto;
   inset-inline-end : var(--space-6);
   z-index          : calc(var(--z-toast) + 1);
-  display          : flex;
-  flex-direction   : column-reverse;
-  align-items      : flex-end;
+  display          : grid;
+  align-content    : start;
+  justify-items    : end;
   gap              : var(--space-3);
 }
 
 .notification-toast-card {
+  --notification-toast-enter-y      : calc(100% + var(--space-3));
+  --notification-toast-stack-exit-y : 0.4rem;
+
   position                 : relative;
   display                  : grid;
   gap                      : 0.125rem;
@@ -1851,18 +1855,21 @@
   cursor                   : grab;
   touch-action             : pan-y;
   opacity                  : 0;
+  transform                : translate3d(0, var(--notification-toast-enter-y), 0);
   transition               : opacity var(--dur-normal) var(--ease-out),
                              transform var(--dur-normal) var(--ease-spring);
 }
 
 .notification-toast-card--desktop {
+  --notification-toast-enter-y      : calc(-100% - var(--space-3));
+  --notification-toast-stack-exit-y : -0.4rem;
+
   inline-size : min(21rem, calc(100vw - (var(--space-6) * 2)));
   max-inline-size : 21rem;
-  transform   : translate3d(0, calc(100% + var(--space-3)), 0);
 }
 
 .notification-toast-card--desktop[data-visible="false"][data-entry-origin="stack"] {
-  transform : translate3d(0, 0.4rem, 0);
+  transform : translate3d(0, var(--notification-toast-stack-exit-y), 0);
 }
 
 .notification-toast-card[data-visible="true"] {
