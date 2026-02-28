@@ -1,15 +1,14 @@
 /* ============================================================
    Startup Icon Layout Profiles — Separate Desktop Icon Defaults
    ============================================================
-   Uses the same viewport band classification as window layouts,
-   but keeps icon-grid defaults in a dedicated module for clean
-   separation of responsibilities.
+   Uses the same width-only startup profile selection as window
+   layouts, while keeping icon-grid defaults in a dedicated module
+   for clean separation of responsibilities.
    ============================================================ */
 
 import type { DesktopItem } from '../types/desktop'
 import {
-  classifyStartupBands,
-  resolveStartupProfileId,
+  resolveStartupProfileIdForWidth,
   type CanonicalStartupProfileId,
 } from './windowLayouts'
 
@@ -21,7 +20,6 @@ export interface StartupIconLayout {
 
 interface ViewportSize {
   w : number
-  h : number
 }
 
 /*
@@ -29,14 +27,13 @@ interface ViewportSize {
  * Keep these separate from the registry so each desktop profile
  * can evolve independently without changing canonical metadata.
  *
- * These use the SAME profile mapping as `windowLayouts.ts`:
- * - `small`  : short-height/tighter desktop viewports (1366x768, 1440x900,
- *              1536x864, 1600x900 classes)
- * - `medium` : 1080p-class desktop viewports (1920x1080 class)
- * - `large`  : 1440p+ / ultrawide desktop viewports (2560x1440+ classes)
+ * These use the SAME width-only profile mapping as `windowLayouts.ts`:
+ * - `small`  : widths below 1440
+ * - `medium` : widths from 1440 through 1920
+ * - `large`  : widths above 1920
  */
 const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[]> = {
-  /* `small` icon grid tuning bucket (short-height / tighter desktop classes) */
+  /* `small` icon grid tuning bucket (< 1440 viewport width) */
   small : [
     { itemId : 'about',    col : 1,  row : 1 },
     { itemId : 'projects', col : 1,  row : 2 },
@@ -49,7 +46,7 @@ const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[
     { itemId : 'video',    col : 1,  row : 7 },
     { itemId : 'terminal', col : 1,  row : 4 },
   ],
-  /* `medium` icon grid tuning bucket (1920x1080-class desktops) */
+  /* `medium` icon grid tuning bucket (1440..1920 viewport width) */
   medium : [
     { itemId : 'about',    col : 1,  row : 1 },
     { itemId : 'projects', col : 1,  row : 2 },
@@ -62,7 +59,7 @@ const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[
     { itemId : 'video',    col : 1,  row : 7 },
     { itemId : 'terminal', col : 1,  row : 4 },
   ],
-  /* `large` icon grid tuning bucket (1440p+ / ultrawide desktop classes) */
+  /* `large` icon grid tuning bucket (> 1920 viewport width) */
   large : [
     { itemId : 'about',    col : 1,  row : 1 },
     { itemId : 'projects', col : 1,  row : 2 },
@@ -78,8 +75,7 @@ const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[
 }
 
 export function getStartupIconLayoutsForViewport(viewport: ViewportSize): StartupIconLayout[] {
-  const bands = classifyStartupBands(viewport)
-  const profile = resolveStartupProfileId(bands)
+  const profile = resolveStartupProfileIdForWidth(viewport.w)
 
   return STARTUP_ICON_LAYOUTS[profile].map(layout => ({ ...layout }))
 }
