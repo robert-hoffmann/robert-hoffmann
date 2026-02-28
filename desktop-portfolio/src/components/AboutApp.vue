@@ -371,7 +371,7 @@ onUnmounted(() => {
 
 .about-tagline {
   font-size      : var(--text-sm);
-  color          : var(--text-muted);
+  color          : var(--text-meta);
   letter-spacing : 0.04em;
   margin-block-start : var(--space-1);
 }
@@ -442,11 +442,11 @@ onUnmounted(() => {
 
 /* ---- Section title ---- */
 .about-section-title {
-  font-size      : var(--text-xs);
+  font-size      : var(--text-sm);
   font-weight    : 600;
   text-transform : uppercase;
   letter-spacing : 0.05em;
-  color          : var(--text-muted);
+  color          : var(--text-meta);
   margin-block-end : var(--space-2);
 }
 

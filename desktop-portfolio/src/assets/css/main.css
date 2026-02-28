@@ -156,6 +156,7 @@
     --text-primary     : var(--c-gray-50);
     --text-secondary   : var(--c-gray-300);
     --text-muted       : var(--c-gray-400);
+    --text-meta        : color-mix(in oklch, var(--c-gray-300) 64%, var(--c-gray-400));
 
     --border-subtle    : oklch(30% 0.01 250 / 0.5);
     --border-default   : oklch(35% 0.012 250 / 0.6);
@@ -189,6 +190,7 @@
     --text-primary     : var(--c-gray-900);
     --text-secondary   : var(--c-gray-600);
     --text-muted       : var(--c-gray-500);
+    --text-meta        : color-mix(in oklch, var(--c-gray-600) 60%, var(--c-gray-500));
 
     --border-subtle    : oklch(82% 0.008 250 / 0.5);
     --border-default   : oklch(75% 0.01 250 / 0.5);
