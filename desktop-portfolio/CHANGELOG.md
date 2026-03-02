@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.16](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.15...desktop-portfolio-v1.6.16) (2026-03-02)
+
+
+### Features
+
+* enhance LQIP handling with timer for layer visibility ([c24c923](https://github.com/robert-hoffmann/robert-hoffmann/commit/c24c923a881722b5a0cdcd8546b8ede0949d4a63))
+* enhance window header interactions with title bar control checks ([c379710](https://github.com/robert-hoffmann/robert-hoffmann/commit/c3797103289335846c830a297fdfaf7960c82e30))
+* refactor wallpaper handling to use parallax layers and optimize image generation ([1014ad0](https://github.com/robert-hoffmann/robert-hoffmann/commit/1014ad07b6ea9c0f0015dbd3a7106d404c08565b))
+* update wallpaper URL structure for parallax layers ([2103e9d](https://github.com/robert-hoffmann/robert-hoffmann/commit/2103e9d5ad35295f8dc86253598d5d923b3c679d))
+
 ## [1.6.15](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.14...desktop-portfolio-v1.6.15) (2026-02-28)
 
 
