@@ -67,7 +67,7 @@ function layerImageUrl(layerId: string, width: ParallaxWidthBucket) {
 }
 
 function wallpaperUrlForBucket(width: ParallaxWidthBucket) {
-  return `${import.meta.env.BASE_URL}wallpaper-${width}.webp`
+  return `${import.meta.env.BASE_URL}parallax/desktop/layer-bg-${width}.webp`
 }
 
 function resolveSceneLayers(scene: ParallaxSceneConfig, bucket: ParallaxWidthBucket): ResolvedParallaxLayer[] {
