@@ -179,21 +179,21 @@ Gyro normalization:
 5. **Phase 5**: Cleanup and docs finalization.
 
 ## 14. Public Folder Cleanup Notes (Completed in this pass)
-Conservative cleanup was applied:
+Single-source cleanup was applied:
 1. Removed unused AVIF wallpaper variants:
   - `public/wallpaper-1280.avif`
   - `public/wallpaper-1920.avif`
   - `public/wallpaper-2560.avif`
 2. Removed unused AVIF desktop parallax variants:
   - `public/parallax/desktop/layer-*.avif`
-3. Updated `scripts/optimize-images.mjs` so these AVIF files are no longer regenerated.
+3. Updated `scripts/optimize-images.mjs` so desktop uses parallax `layer-bg-*` lineage:
+  - desktop LQIP output is `public/parallax/desktop/layer-bg-lqip.webp`
+  - mobile crop output remains `public/wallpaper-mobile-left.*`
+  - source is `tmp/background.*` (no dependency on `public/wallpaper.webp`)
 
-Deferred cleanup:
-1. `public/wallpaper.webp` kept as build source for:
-  - responsive wallpaper webp outputs
-  - `wallpaper-lqip.webp`
-  - `wallpaper-mobile-left.*`
-2. Any move to `layer-bg-*` as the sharp fallback source is deferred until we validate visual parity against current static wallpaper fallback quality.
+Result:
+1. Desktop `wallpaper-*.webp` and `wallpaper-lqip.webp` are no longer part of the runtime pipeline.
+2. Mobile wallpaper asset names remain stable for existing CSS consumers.
 
 ## 15. Open Decisions For Execution Phase
 1. Permission UX surface:

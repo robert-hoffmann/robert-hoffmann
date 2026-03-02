@@ -66,8 +66,12 @@ function layerImageUrl(layerId: string, width: ParallaxWidthBucket) {
   return `${import.meta.env.BASE_URL}parallax/desktop/${layerId}-${width}.webp`
 }
 
-function wallpaperUrlForBucket(width: ParallaxWidthBucket) {
+function sharpImageUrlForBucket(width: ParallaxWidthBucket) {
   return `${import.meta.env.BASE_URL}parallax/desktop/layer-bg-${width}.webp`
+}
+
+function uniqueImageUrls(urls: string[]) {
+  return Array.from(new Set(urls))
 }
 
 function resolveSceneLayers(scene: ParallaxSceneConfig, bucket: ParallaxWidthBucket): ResolvedParallaxLayer[] {
@@ -264,7 +268,7 @@ function onReducedMotionChange() {
 async function refreshAssets() {
   const ticket = ++pendingTicket
   const nextBucket = widthBucket.value
-  const nextSharpUrl = wallpaperUrlForBucket(nextBucket)
+  const nextSharpUrl = sharpImageUrlForBucket(nextBucket)
   const nextLayers = resolveSceneLayers(sceneConfig.value, nextBucket)
   const shouldEnableParallax = parallaxEnabled.value
   const previousBucket = activeBucket.value
@@ -274,22 +278,39 @@ async function refreshAssets() {
 
   if (!sharpLoaded) {
     console.warn(
-      `[DesktopBackgroundStack] Failed to preload wallpaper for ${nextBucket}px (previous: ${previousBucket ?? 'none'}). Keeping current background.`,
+      `[DesktopBackgroundStack] Failed to preload sharp background layer for ${nextBucket}px (previous: ${previousBucket ?? 'none'}). Keeping current background.`,
     )
     return
   }
 
-  if (shouldEnableParallax) {
-    const visibleLayerUrls = nextLayers
+  /*
+   * Stage A: reveal static sharp background as soon as layer-bg is ready.
+   * Stage B: preload remaining parallax layers, then fade parallax in.
+   */
+  activeBucket.value = nextBucket
+  activeSharpUrl.value = nextSharpUrl
+  sharpReady.value = true
+  parallaxReady.value = false
+
+  if (!shouldEnableParallax) {
+    activeLayers.value = nextLayers
+    return
+  }
+
+  const visibleLayerUrls = uniqueImageUrls(
+    nextLayers
       .filter(layer => layer.visible)
       .map(layer => layer.imageUrl)
+      .filter(url => url !== nextSharpUrl),
+  )
 
+  if (visibleLayerUrls.length > 0) {
     const layerResults = await Promise.all(visibleLayerUrls.map(url => preloadImage(url)))
     if (ticket !== pendingTicket) return
 
     if (!layerResults.every(Boolean)) {
       console.warn(
-        `[DesktopBackgroundStack] Failed to preload parallax layers for ${nextBucket}px (previous: ${previousBucket ?? 'none'}). Keeping current background.`,
+        `[DesktopBackgroundStack] Failed to preload parallax layers for ${nextBucket}px (previous: ${previousBucket ?? 'none'}). Keeping sharp background only.`,
       )
       return
     }
@@ -297,11 +318,8 @@ async function refreshAssets() {
 
   if (ticket !== pendingTicket) return
 
-  activeBucket.value = nextBucket
-  activeSharpUrl.value = nextSharpUrl
   activeLayers.value = nextLayers
-  sharpReady.value = true
-  parallaxReady.value = shouldEnableParallax
+  parallaxReady.value = true
 }
 
 async function initializeSceneAndAssets() {

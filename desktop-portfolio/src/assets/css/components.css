@@ -45,7 +45,7 @@
   z-index          : var(--z-bg-lqip);
   opacity          : 1;
   transform        : scale(1.03);
-  background-image : url('/wallpaper-lqip.webp'),
+  background-image : url('/parallax/desktop/layer-bg-lqip.webp'),
                      linear-gradient(135deg, #1a0a35, #9964ac);
   filter           : blur(16px) saturate(1.1);
 }

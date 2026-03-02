@@ -74,7 +74,7 @@ Instead of a traditional scrolling portfolio landing page, visitors can interact
 
 - Mobile app shell is lazy-loaded to keep the desktop initial bundle smaller.
 - Window apps are async-loaded from a typed registry.
-- Desktop wallpaper uses responsive sources with blur-up loading.
+- Desktop background uses a single-source parallax blur-up flow (`gradient -> LQIP -> layer-bg sharp -> parallax`).
 - Video player uses a lightweight poster facade before loading the YouTube IFrame API.
 
 ## Included Apps / Windows

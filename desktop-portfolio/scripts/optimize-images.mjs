@@ -7,7 +7,7 @@
  *    favicon-32.png, favicon-16.png) from public/profile.jpg.
  * 3. Generates a 64×64 circular desktop-icon thumbnail (profile-icon.webp).
  * 4. Generates local video poster assets (video-poster.webp / .avif).
- * 5. Generates responsive wallpaper variants for startup performance.
+ * 5. Generates desktop LQIP and mobile wallpaper crop from tmp/background.
  *
  * Usage:  node scripts/optimize-images.mjs
  */
@@ -199,71 +199,77 @@ if (videoPosterSrc) {
   console.log('⚠ No source found for video poster generation')
 }
 
-/* ---- 6. Responsive wallpaper variants ---- */
-const wallpaperSrc = join(PUBLIC, 'wallpaper.webp')
-if (await exists(wallpaperSrc)) {
-  /* Match common viewport bands to avoid shipping 4K wallpaper to smaller screens. */
-  const widths = [1280, 1920, 2560]
-  for (const width of widths) {
-    const outputWebp = join(PUBLIC, `wallpaper-${width}.webp`)
-    const base = sharp(wallpaperSrc).resize({ width, withoutEnlargement : true })
-    await base.clone().webp({ quality : 78 }).toFile(outputWebp)
-    const webpSize = (await stat(outputWebp)).size
-    console.log(
-      `✓ Wallpaper ${width}px → ` +
-      `wallpaper-${width}.webp (${(webpSize / 1024).toFixed(1)}KB)`,
-    )
+/* ---- 6. Desktop LQIP + mobile wallpaper outputs (single source) ---- */
+const backgroundSourceCandidates = [
+  join(TMP, 'background.png'),
+  join(TMP, 'background.jpg'),
+  join(TMP, 'background.webp'),
+]
+const backgroundSource = await (async () => {
+  for (const candidate of backgroundSourceCandidates) {
+    if (await exists(candidate)) return candidate
   }
+  return null
+})()
 
-  const lqipOutput = join(PUBLIC, 'wallpaper-lqip.webp')
-  await sharp(wallpaperSrc)
+if (backgroundSource) {
+  const parallaxAssetDir = join(PUBLIC, 'parallax', 'desktop')
+  await mkdir(parallaxAssetDir, { recursive : true })
+
+  const desktopLqipOutput = join(parallaxAssetDir, 'layer-bg-lqip.webp')
+  await sharp(backgroundSource)
     .resize({ width : 96, withoutEnlargement : true })
     .blur(3)
     .webp({ quality : 42 })
-    .toFile(lqipOutput)
+    .toFile(desktopLqipOutput)
 
-  const lqipSize = (await stat(lqipOutput)).size
-  console.log(`✓ Wallpaper LQIP → wallpaper-lqip.webp (${(lqipSize / 1024).toFixed(1)}KB)`)
+  const desktopLqipSize = (await stat(desktopLqipOutput)).size
+  console.log(
+    '✓ Desktop LQIP → ' +
+    `parallax/desktop/layer-bg-lqip.webp (${(desktopLqipSize / 1024).toFixed(1)}KB)`,
+  )
 
-    /* Mobile mockup wallpaper crop (left-origin with fixed 200px x-offset). */
-    const mobileTargetW = 768
-    const mobileTargetH = 1365
-    const mobileLeftOffsetPx = 200
-    const mobileSource = sharp(wallpaperSrc)
-    const mobileMeta = await mobileSource.metadata()
-    const mobileSourceW = mobileMeta.width ?? mobileTargetW
-    const mobileSourceH = mobileMeta.height ?? mobileTargetH
-    const mobileScale = Math.max(mobileTargetW / mobileSourceW, mobileTargetH / mobileSourceH)
-    const mobileScaledW = Math.max(mobileTargetW, Math.round(mobileSourceW * mobileScale))
-    const mobileScaledH = Math.max(mobileTargetH, Math.round(mobileSourceH * mobileScale))
-    const mobileCropLeft = Math.min(Math.max(mobileLeftOffsetPx, 0), Math.max(0, mobileScaledW - mobileTargetW))
-    const mobileCropTop = Math.max(0, Math.floor((mobileScaledH - mobileTargetH) / 2))
+  /* Mobile mockup wallpaper crop (left-origin with fixed 200px x-offset). */
+  const mobileTargetW = 768
+  const mobileTargetH = 1365
+  const mobileLeftOffsetPx = 200
+  const mobileSource = sharp(backgroundSource)
+  const mobileMeta = await mobileSource.metadata()
+  const mobileSourceW = mobileMeta.width ?? mobileTargetW
+  const mobileSourceH = mobileMeta.height ?? mobileTargetH
+  const mobileScale = Math.max(mobileTargetW / mobileSourceW, mobileTargetH / mobileSourceH)
+  const mobileScaledW = Math.max(mobileTargetW, Math.round(mobileSourceW * mobileScale))
+  const mobileScaledH = Math.max(mobileTargetH, Math.round(mobileSourceH * mobileScale))
+  const mobileCropLeft = Math.min(Math.max(mobileLeftOffsetPx, 0), Math.max(0, mobileScaledW - mobileTargetW))
+  const mobileCropTop = Math.max(0, Math.floor((mobileScaledH - mobileTargetH) / 2))
 
-    const mobileWallpaperBase = mobileSource
-      .resize(mobileScaledW, mobileScaledH, { fit : 'fill' })
-      .extract({
-        left   : mobileCropLeft,
-        top    : mobileCropTop,
-        width  : mobileTargetW,
-        height : mobileTargetH,
-      })
-    const mobileWallpaperWebp = join(PUBLIC, 'wallpaper-mobile-left.webp')
-    const mobileWallpaperAvif = join(PUBLIC, 'wallpaper-mobile-left.avif')
+  const mobileWallpaperBase = mobileSource
+    .resize(mobileScaledW, mobileScaledH, { fit : 'fill' })
+    .extract({
+      left   : mobileCropLeft,
+      top    : mobileCropTop,
+      width  : mobileTargetW,
+      height : mobileTargetH,
+    })
+  const mobileWallpaperWebp = join(PUBLIC, 'wallpaper-mobile-left.webp')
+  const mobileWallpaperAvif = join(PUBLIC, 'wallpaper-mobile-left.avif')
 
-    await Promise.all([
-      mobileWallpaperBase.clone().webp({ quality : 76 }).toFile(mobileWallpaperWebp),
-      mobileWallpaperBase.clone().avif({ quality : 50 }).toFile(mobileWallpaperAvif),
-    ])
+  await Promise.all([
+    mobileWallpaperBase.clone().webp({ quality : 76 }).toFile(mobileWallpaperWebp),
+    mobileWallpaperBase.clone().avif({ quality : 50 }).toFile(mobileWallpaperAvif),
+  ])
 
-    const mobileWebpSize = (await stat(mobileWallpaperWebp)).size
-    const mobileAvifSize = (await stat(mobileWallpaperAvif)).size
-    console.log(
-      '✓ Mobile wallpaper crop → ' +
-      `wallpaper-mobile-left.webp (${(mobileWebpSize / 1024).toFixed(1)}KB) + ` +
-      `wallpaper-mobile-left.avif (${(mobileAvifSize / 1024).toFixed(1)}KB)`,
-    )
+  const mobileWebpSize = (await stat(mobileWallpaperWebp)).size
+  const mobileAvifSize = (await stat(mobileWallpaperAvif)).size
+  console.log(
+    `✓ Mobile wallpaper crop from ${basename(backgroundSource)} → ` +
+    `wallpaper-mobile-left.webp (${(mobileWebpSize / 1024).toFixed(1)}KB) + ` +
+    `wallpaper-mobile-left.avif (${(mobileAvifSize / 1024).toFixed(1)}KB)`,
+  )
 } else {
-  console.log('⚠ No wallpaper.webp found — skipping responsive wallpaper generation')
+  console.log(
+    '⚠ No tmp/background source found (png/jpg/webp) — skipping desktop LQIP + mobile wallpaper generation',
+  )
 }
 
 /* ---- 7. Desktop icon sprite runtime optimization ---- */
@@ -296,19 +302,19 @@ if (await exists(desktopSpriteSource)) {
 }
 
 /* ---- 8. Desktop parallax layer optimization (tmp -> public/parallax) ---- */
-const parallaxOutputDir = join(PUBLIC, 'parallax', 'desktop')
+const parallaxLayerOutputDir = join(PUBLIC, 'parallax', 'desktop')
 const hasParallaxSources = await Promise.all(
   PARALLAX_LAYERS.map(async ({ sourceFile }) => exists(join(TMP, sourceFile))),
 )
 
 if (hasParallaxSources.every(Boolean)) {
-  await mkdir(parallaxOutputDir, { recursive : true })
+  await mkdir(parallaxLayerOutputDir, { recursive : true })
 
   for (const layer of PARALLAX_LAYERS) {
     const source = join(TMP, layer.sourceFile)
 
     for (const width of PARALLAX_WIDTHS) {
-      const webpOutput = join(parallaxOutputDir, `${layer.id}-${width}.webp`)
+      const webpOutput = join(parallaxLayerOutputDir, `${layer.id}-${width}.webp`)
       const resized = sharp(source).resize({ width, withoutEnlargement : true })
 
       await resized.clone().webp({
