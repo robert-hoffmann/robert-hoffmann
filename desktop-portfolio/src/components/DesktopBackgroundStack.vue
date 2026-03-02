@@ -24,6 +24,7 @@ const props = withDefaults(defineProps<{
 })
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
+const LQIP_HIDE_OVERLAP_MS = 180
 
 const sceneConfig = ref<ParallaxSceneConfig>(DEFAULT_PARALLAX_SCENE_CONFIG)
 const activeBucket = ref<ParallaxWidthBucket | null>(null)
@@ -32,6 +33,7 @@ const activeSharpUrl = ref<string | null>(null)
 const sharpReady = ref(false)
 const parallaxReady = ref(false)
 const isReducedMotion = ref(false)
+const lqipHidden = ref(false)
 
 const widthBucket = ref<ParallaxWidthBucket>(
   resolveParallaxWidthBucket(typeof window !== 'undefined' ? window.innerWidth : 1280),
@@ -39,6 +41,7 @@ const widthBucket = ref<ParallaxWidthBucket>(
 
 let reducedMotionMedia: MediaQueryList | null = null
 let pendingTicket = 0
+let lqipHideTimer: number | null = null
 
 const parallaxEnabled = computed(() =>
   Boolean(props.enabled && !isReducedMotion.value),
@@ -86,26 +89,62 @@ function preloadImage(url: string): Promise<boolean> {
   return new Promise((resolve) => {
     const loader = new Image()
     loader.decoding = 'async'
+    let isSettled = false
 
     const cleanup = () => {
       loader.removeEventListener('load', onLoad)
       loader.removeEventListener('error', onError)
     }
 
-    const onLoad = () => {
+    const settle = (result: boolean) => {
+      if (isSettled) return
+      isSettled = true
       cleanup()
-      resolve(true)
+      resolve(result)
+    }
+
+    /*
+     * Decode-gated preload:
+     * avoid revealing sharp/parallax layers until pixels are ready to paint.
+     */
+    const onLoad = () => {
+      if (typeof loader.decode !== 'function') {
+        settle(true)
+        return
+      }
+
+      void loader.decode()
+        .then(() => settle(true))
+        .catch(() => settle(loader.complete && loader.naturalWidth > 0))
     }
 
     const onError = () => {
-      cleanup()
-      resolve(false)
+      settle(false)
     }
 
     loader.addEventListener('load', onLoad)
     loader.addEventListener('error', onError)
     loader.src = url
+
+    if (loader.complete && loader.naturalWidth > 0) {
+      onLoad()
+    }
   })
+}
+
+function clearLqipHideTimer() {
+  if (lqipHideTimer === null) return
+  window.clearTimeout(lqipHideTimer)
+  lqipHideTimer = null
+}
+
+function scheduleLqipHide() {
+  if (lqipHidden.value) return
+  clearLqipHideTimer()
+  lqipHideTimer = window.setTimeout(() => {
+    lqipHideTimer = null
+    lqipHidden.value = true
+  }, LQIP_HIDE_OVERLAP_MS)
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -287,9 +326,13 @@ async function refreshAssets() {
    * Stage A: reveal static sharp background as soon as layer-bg is ready.
    * Stage B: preload remaining parallax layers, then fade parallax in.
    */
+  const isFirstSharpReveal = !sharpReady.value
   activeBucket.value = nextBucket
   activeSharpUrl.value = nextSharpUrl
   sharpReady.value = true
+  if (isFirstSharpReveal) {
+    scheduleLqipHide()
+  }
   parallaxReady.value = false
 
   if (!shouldEnableParallax) {
@@ -359,6 +402,7 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
+  clearLqipHideTimer()
   reducedMotionMedia?.removeEventListener('change', onReducedMotionChange)
   window.removeEventListener('resize', onResize)
 })
@@ -368,7 +412,7 @@ onUnmounted(() => {
   <div class="desktop-background-stack" aria-hidden="true">
     <div
       class="desktop-bg-layer desktop-bg-layer--lqip"
-      :class="{ 'desktop-bg-layer--hidden': sharpReady }"
+      :class="{ 'desktop-bg-layer--hidden': lqipHidden }"
     />
 
     <div

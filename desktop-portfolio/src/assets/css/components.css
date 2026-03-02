@@ -57,6 +57,7 @@
   opacity          : 0;
   transform        : scale(1.03);
   background-image : var(--desktop-sharp-image),
+                     url('/parallax/desktop/layer-bg-lqip.webp'),
                      linear-gradient(135deg, #1a0a35, #9964ac);
 }
 
