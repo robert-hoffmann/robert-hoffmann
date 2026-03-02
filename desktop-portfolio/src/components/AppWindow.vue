@@ -72,11 +72,20 @@ const RESIZE_HANDLES = [
   'n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw',
 ] as const satisfies readonly WindowResizeHandle[]
 
+function isTitleBarControlTarget(target: EventTarget | null) {
+  return target instanceof Element && target.closest('.traffic-lights') !== null
+}
+
 function onHeaderPointerDown(event: PointerEvent) {
-  const target = event.target
-  if (target instanceof Element && target.closest('.traffic-lights')) return
+  if (isTitleBarControlTarget(event.target)) return
   if (!props.canMove) return
   emit('dragStart', event, props.windowState.id)
+}
+
+function onHeaderDoubleClick(event: MouseEvent) {
+  if (isTitleBarControlTarget(event.target)) return
+  if (!props.canMaximize) return
+  emit('toggleMaximize', props.windowState.id)
 }
 
 function onGreenButtonClick() {
@@ -112,6 +121,7 @@ function onResizeZonePointerDown(event: PointerEvent, handle: WindowResizeHandle
       <header
         class="app-window-header"
         @pointerdown.stop="onHeaderPointerDown"
+        @dblclick.stop="onHeaderDoubleClick"
       >
         <div class="traffic-lights" role="group" :aria-label="t('window.controls')">
           <button
