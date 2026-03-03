@@ -63,6 +63,14 @@ const showIntroOverlay = computed(() => !gameState.started && !gameState.gameOve
 const showPauseOverlay = computed(() => gameState.started && gameState.paused && !gameState.gameOver)
 const showGameOverOverlay = computed(() => gameState.gameOver)
 const canPause = computed(() => gameState.started && !gameState.gameOver)
+const isPlaying = computed(() => gameState.started && !gameState.paused && !gameState.gameOver)
+const CURSOR_TEST_SIZE_PX = 18
+const CURSOR_TEST_HOTSPOT_PX = Math.floor(CURSOR_TEST_SIZE_PX / 2)
+const GEOWARS_CURSOR_SVG = `<svg xmlns='http://www.w3.org/2000/svg' width='${CURSOR_TEST_SIZE_PX}' height='${CURSOR_TEST_SIZE_PX}' viewBox='0 0 32 32'><g fill='none' stroke='#ff3b3b' stroke-width='1.5' stroke-linecap='round' stroke-opacity='0.8'><circle cx='16' cy='16' r='7'/><path d='M16 1v6M16 25v6M1 16h6M25 16h6'/></g><circle cx='16' cy='16' r='2' fill='#ff3b3b' fill-opacity='0.19'/></svg>`
+const geowarsPlayingCursor = `url("data:image/svg+xml,${encodeURIComponent(GEOWARS_CURSOR_SVG)}") ${CURSOR_TEST_HOTSPOT_PX} ${CURSOR_TEST_HOTSPOT_PX}, crosshair`
+const geowarsCanvasStyle = {
+  '--geowars-playing-cursor' : geowarsPlayingCursor,
+} as Record<string, string>
 
 function onStart() {
   start()
@@ -89,7 +97,11 @@ function onRestartFromGameOver() {
 <template>
   <div class="geowars-wrapper">
     <div ref="geowarsInteractionHost" class="geowars-stage">
-      <div ref="geowarsCanvasHost" class="geowars-canvas" />
+      <div
+        ref="geowarsCanvasHost"
+        :class="['geowars-canvas', { 'geowars-canvas--playing': isPlaying }]"
+        :style="geowarsCanvasStyle"
+      />
 
       <div class="geowars-hud">
         <div class="geowars-hud-group geowars-hud-group--stats" role="status" aria-live="polite">
@@ -210,6 +222,11 @@ function onRestartFromGameOver() {
   }
 }
 
+.geowars-canvas--playing,
+.geowars-canvas--playing canvas {
+  cursor : var(--geowars-playing-cursor, crosshair);
+}
+
 .geowars-hud {
   position           : absolute;
   inset-block-start  : var(--space-3);
@@ -293,6 +310,7 @@ function onRestartFromGameOver() {
 
 .geowars-btn {
   pointer-events : auto;
+  cursor         : pointer;
   padding-inline : var(--space-3);
   padding-block  : var(--space-1);
   border-radius  : var(--radius-full);
