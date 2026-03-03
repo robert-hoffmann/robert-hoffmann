@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.17](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.16...desktop-portfolio-v1.6.17) (2026-03-03)
+
+
+### Features
+
+* add custom cursor for playing state in GeoWarsApp ([b37e4b8](https://github.com/robert-hoffmann/robert-hoffmann/commit/b37e4b8d066d383ba73a897d998d3a1485aa3e66))
+
 ## [1.6.16](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.15...desktop-portfolio-v1.6.16) (2026-03-02)
 
 
