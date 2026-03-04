@@ -43,5 +43,6 @@ Enable only when explicitly needed:
 
 ## 5) Exception Handling
 
-Use `../governance-core/references/exception-contract.md`.
+Use `references/exception-contract.md`.
 No local exception schema definitions are allowed in this skill.
+

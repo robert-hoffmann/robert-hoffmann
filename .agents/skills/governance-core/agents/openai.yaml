@@ -1,4 +1,0 @@
-interface:
-  display_name: "Governance Core"
-  short_description: "Shared governance primitives and contracts"
-  default_prompt: "Use $governance-core to apply canonical profile, gate, exception, and report contracts without domain-specific policy leakage."

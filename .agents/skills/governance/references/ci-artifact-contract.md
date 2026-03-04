@@ -35,4 +35,5 @@ When profile/scope requires expanded gates:
 
 1. TG001-TG004 are blocking
 2. TG005 is warning-only
-3. overrides require active bounded exception metadata from governance-core contract
+3. overrides require active bounded exception metadata from governance contract
+

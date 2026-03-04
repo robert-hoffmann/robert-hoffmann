@@ -16,6 +16,7 @@ Canonical ADR source of truth: `docs/adr/`.
 
 ## Operational Notes
 
-1. Keep `docs/adr/registry.json` in sync using `.agents/skills/governance-evidence/scripts/build-adr-registry.sh`.
+1. Keep `docs/adr/registry.json` in sync using `python .agents/skills/governance/scripts/build_adr_registry.py`.
 2. Update `docs/adr/claim-register.json` when introducing policy-level claims.
 3. Store temporary waivers in `docs/adr/waivers.json`.
+

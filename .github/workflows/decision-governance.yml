@@ -29,7 +29,7 @@ jobs:
           git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" > artifacts/decision-governance/changed-files.txt
           cat artifacts/decision-governance/changed-files.txt
 
-          if grep -Eq '(^docs/adr/claim-register\.json$|^docs/adr/|^\.agents/skills/governance-evidence/references/|^\.agents/skills/governance-evidence/scripts/|^\.agents/skills/governance-core/references/|^\.agents/skills/governance-core/scripts/)' artifacts/decision-governance/changed-files.txt; then
+          if grep -Eq '(^docs/adr/claim-register\.json$|^docs/adr/|^\.agents/skills/governance/references/|^\.agents/skills/governance/scripts/)' artifacts/decision-governance/changed-files.txt; then
             echo "run_claim_check=true" >> "$GITHUB_OUTPUT"
           else
             echo "run_claim_check=false" >> "$GITHUB_OUTPUT"
@@ -40,7 +40,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          .agents/skills/governance-evidence/scripts/build-adr-registry.sh --strict --output docs/adr/registry.json > artifacts/decision-governance/registry-build.json
+          python3 .agents/skills/governance/scripts/build_adr_registry.py --strict --output docs/adr/registry.json > artifacts/decision-governance/registry-build.json
           exit_code=$?
           if [ "$exit_code" = "0" ]; then
             git diff --quiet -- docs/adr/registry.json
@@ -58,7 +58,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          .agents/skills/governance-evidence/scripts/check-adr-gate.sh \
+          python3 .agents/skills/governance/scripts/check_adr_gate.py \
             --gate merge \
             --changed-files-file artifacts/decision-governance/changed-files.txt \
             --adr-registry docs/adr/registry.json \
@@ -74,7 +74,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          .agents/skills/governance-evidence/scripts/check-claim-register.sh \
+          python3 .agents/skills/governance/scripts/check_claim_register.py \
             --claim-register docs/adr/claim-register.json \
             --output artifacts/decision-governance/claim-gate.json
           exit_code=$?
@@ -120,3 +120,5 @@ jobs:
           fi
 
           echo "Decision governance gates passed."
+
+

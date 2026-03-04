@@ -9,8 +9,7 @@ tags:
   - evidence
   - claims
 paths:
-  - .agents/skills/governance-core/**
-  - .agents/skills/governance-evidence/**
+  - .agents/skills/governance/**
   - docs/adr/**
 constraints_refs:
   - docs/architecture/constraints.md#governance
@@ -77,3 +76,5 @@ Cons:
 
 - OpenAI: https://openai.com/index/unlocking-the-codex-harness/
 - Claim caution (example summary): internal review marked as unverified until reproducible evidence exists.
+
+

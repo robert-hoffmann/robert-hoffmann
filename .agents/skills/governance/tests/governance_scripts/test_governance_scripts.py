@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+import sys
 import tempfile
 import textwrap
 import unittest
@@ -10,8 +11,8 @@ from pathlib import Path
 
 SKILL_ROOT = Path(__file__).resolve().parents[2]
 PROJECT_ROOT = Path(__file__).resolve().parents[5]
-EVIDENCE_WRAPPERS = PROJECT_ROOT / ".agents" / "skills" / "governance-evidence" / "scripts"
-TESTING_WRAPPERS = PROJECT_ROOT / ".agents" / "skills" / "governance-testing" / "scripts"
+SCRIPTS = PROJECT_ROOT / ".agents" / "skills" / "governance" / "scripts"
+PYTHON_BIN = sys.executable
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 
@@ -60,7 +61,8 @@ class GovernanceScriptRegressionTests(unittest.TestCase):
 
             result = run_cmd(
                 [
-                    str(EVIDENCE_WRAPPERS / "build-adr-registry.sh"),
+                    PYTHON_BIN,
+                    str(SCRIPTS / "build_adr_registry.py"),
                     "--repo-root",
                     str(tmp_path),
                     "--adr-dir",
@@ -109,7 +111,8 @@ class GovernanceScriptRegressionTests(unittest.TestCase):
 
             result = run_cmd(
                 [
-                    str(EVIDENCE_WRAPPERS / "build-adr-registry.sh"),
+                    PYTHON_BIN,
+                    str(SCRIPTS / "build_adr_registry.py"),
                     "--repo-root",
                     str(tmp_path),
                     "--adr-dir",
@@ -143,7 +146,8 @@ class GovernanceScriptRegressionTests(unittest.TestCase):
 
             result = run_cmd(
                 [
-                    str(EVIDENCE_WRAPPERS / "check-adr-gate.sh"),
+                    PYTHON_BIN,
+                    str(SCRIPTS / "check_adr_gate.py"),
                     "--gate",
                     "merge",
                     "--changed-files-file",
@@ -200,7 +204,8 @@ class GovernanceScriptRegressionTests(unittest.TestCase):
 
             result = run_cmd(
                 [
-                    str(EVIDENCE_WRAPPERS / "check-adr-gate.sh"),
+                    PYTHON_BIN,
+                    str(SCRIPTS / "check_adr_gate.py"),
                     "--gate",
                     "merge",
                     "--changed-files-file",
@@ -222,13 +227,13 @@ class GovernanceScriptRegressionTests(unittest.TestCase):
         fail_case = FIXTURES / "claims" / "fail_claim_register.json"
 
         pass_result = run_cmd(
-            [str(EVIDENCE_WRAPPERS / "check-claim-register.sh"), "--claim-register", str(pass_case)]
+            [PYTHON_BIN, str(SCRIPTS / "check_claim_register.py"), "--claim-register", str(pass_case)]
         )
         blocked_result = run_cmd(
-            [str(EVIDENCE_WRAPPERS / "check-claim-register.sh"), "--claim-register", str(blocked_case)]
+            [PYTHON_BIN, str(SCRIPTS / "check_claim_register.py"), "--claim-register", str(blocked_case)]
         )
         fail_result = run_cmd(
-            [str(EVIDENCE_WRAPPERS / "check-claim-register.sh"), "--claim-register", str(fail_case)]
+            [PYTHON_BIN, str(SCRIPTS / "check_claim_register.py"), "--claim-register", str(fail_case)]
         )
 
         self.assertEqual(pass_result.returncode, 0, msg=pass_result.stdout + pass_result.stderr)
@@ -241,7 +246,8 @@ class GovernanceScriptRegressionTests(unittest.TestCase):
 
         good_result = run_cmd(
             [
-                str(TESTING_WRAPPERS / "check-test-signal.sh"),
+                PYTHON_BIN,
+                str(SCRIPTS / "check_test_signal.py"),
                 "--path",
                 str(good_test),
                 "--language",
@@ -252,7 +258,8 @@ class GovernanceScriptRegressionTests(unittest.TestCase):
 
         bad_result = run_cmd(
             [
-                str(TESTING_WRAPPERS / "check-test-signal.sh"),
+                PYTHON_BIN,
+                str(SCRIPTS / "check_test_signal.py"),
                 "--path",
                 str(bad_test),
                 "--language",
@@ -267,3 +274,4 @@ class GovernanceScriptRegressionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+

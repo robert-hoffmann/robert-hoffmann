@@ -8,7 +8,7 @@ This file defines decision checks for ADR and claim governance.
 2. high-risk path matches
 3. ADR registry alignment state
 4. claim-register status for blocking rationale
-5. active exception validity from governance-core contract
+5. active exception validity from governance contract
 
 ## 2) Decision-Memory Rules
 
@@ -30,3 +30,4 @@ This file defines decision checks for ADR and claim governance.
 4. evaluate claim-confidence constraints
 5. evaluate exception validity
 6. declare `pass`, `fail`, or `blocked` with explicit reasons and artifact paths
+

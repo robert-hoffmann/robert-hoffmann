@@ -16,7 +16,7 @@ For behavior-changing work:
 2. implement minimal passing code
 3. refactor while tests stay green
 
-Use governance-core exception metadata if TDD-first is temporarily bypassed.
+Use governance exception metadata if TDD-first is temporarily bypassed.
 
 ## 3) Strict Test-Signal Rules
 
@@ -42,13 +42,13 @@ Use governance-core exception metadata if TDD-first is temporarily bypassed.
 Use:
 
 ```bash
-.agents/skills/governance-testing/scripts/check-test-signal.sh --path <test-file-or-dir> --language auto --strict
+python .agents/skills/governance/scripts/check_test_signal.py --path <test-file-or-dir> --language auto --strict
 ```
 
 For JSON output:
 
 ```bash
-.agents/skills/governance-testing/scripts/check-test-signal.sh --path <test-file-or-dir> --language auto --format json --strict
+python .agents/skills/governance/scripts/check_test_signal.py --path <test-file-or-dir> --language auto --format json --strict
 ```
 
 ## 6) Flake Policy
@@ -60,3 +60,4 @@ For JSON output:
 ## 7) Safety Notes
 
 Agent testing runs should use command/path/network allowlists and avoid production secrets.
+

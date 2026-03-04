@@ -19,7 +19,7 @@ jobs:
       - name: Run governance integrity checks
         shell: bash
         run: |
-          .agents/skills/governance-core/scripts/check-skill-integrity.sh
+          python3 .agents/skills/governance/scripts/check_skill_integrity.py
 
   script-regression:
     runs-on: ubuntu-latest
@@ -34,4 +34,5 @@ jobs:
       - name: Run governance script regression tests
         shell: bash
         run: |
-          python3 -m unittest discover -s .agents/skills/governance-core/tests/governance_scripts -p 'test_*.py' -v
+          python3 -m unittest discover -s .agents/skills/governance/tests/governance_scripts -p 'test_*.py' -v
+

@@ -10,8 +10,7 @@ tags:
   - agents
 paths:
   - .github/workflows/**
-  - .agents/skills/governance-core/**
-  - .agents/skills/governance-evidence/**
+  - .agents/skills/governance/**
 constraints_refs:
   - docs/architecture/constraints.md#governance
 source_claims:
@@ -77,3 +76,5 @@ Cons:
 
 - OpenAI: https://openai.com/index/unlocking-the-codex-harness/
 - Anthropic: https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents
+
+

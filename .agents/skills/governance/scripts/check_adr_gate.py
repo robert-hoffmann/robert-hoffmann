@@ -182,7 +182,7 @@ def main() -> int:
     parser.add_argument("--head-ref")
     parser.add_argument(
         "--high-risk-config",
-        default=".agents/skills/governance-evidence/references/high-risk-paths.yaml",
+        default=".agents/skills/governance/references/high-risk-paths.yaml",
     )
     parser.add_argument("--adr-registry", default="docs/adr/registry.json")
     parser.add_argument("--waivers", default="docs/adr/waivers.json")
@@ -297,3 +297,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

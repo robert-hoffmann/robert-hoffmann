@@ -35,7 +35,7 @@ Baseline:
 
 1. enable Dependabot updates for active ecosystems
 2. add dependency review in PR workflows
-3. document dependency exception process using governance-core contract
+3. document dependency exception process using governance contract
 
 Reference:
 
@@ -64,3 +64,4 @@ Conventions:
 
 Keep policy intent portable.
 Document provider-specific mechanics separately when needed.
+

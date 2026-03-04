@@ -1,4 +1,0 @@
-interface:
-  display_name: "Governance Evidence"
-  short_description: "Evidence lifecycle and decision-memory governance"
-  default_prompt: "Use $governance-evidence to audit artifact readiness, ADR alignment, and claim-verification status for deterministic gate decisions."

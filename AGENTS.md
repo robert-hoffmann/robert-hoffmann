@@ -15,10 +15,7 @@ Common mappings:
 - CSS                   : `.agents/skills/dev-css`
 - Tailwind              : `.agents/skills/dev-tailwind`
 - Python                : `.agents/skills/dev-python`
-- Governance Core       : `.agents/skills/governance-core`
-- Testing Governance    : `.agents/skills/governance-testing`
-- Repository Governance : `.agents/skills/governance-repository`
-- Evidence Governance   : `.agents/skills/governance-evidence`
+- Governance            : `.agents/skills/governance`
 
 Conflict handling:
 
