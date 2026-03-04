@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.18](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.17...desktop-portfolio-v1.6.18) (2026-03-04)
+
+
+### Features
+
+* add triggerNopePenguin function to handle nope animation on double click and green button click ([4ad3452](https://github.com/robert-hoffmann/robert-hoffmann/commit/4ad34524c06f19ef1169de1edb2cba12c5b25dd5))
+
 ## [1.6.17](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.16...desktop-portfolio-v1.6.17) (2026-03-03)
 
 
