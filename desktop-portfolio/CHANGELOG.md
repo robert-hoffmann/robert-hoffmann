@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.19](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.18...desktop-portfolio-v1.6.19) (2026-03-04)
+
+
+### Features
+
+* update experience summary and add bullet point for Perforce architecture ownership ([4798676](https://github.com/robert-hoffmann/robert-hoffmann/commit/4798676c33ce1a23daea17c7b44c021fd5741f9f))
+
 ## [1.6.18](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.17...desktop-portfolio-v1.6.18) (2026-03-04)
 
 
