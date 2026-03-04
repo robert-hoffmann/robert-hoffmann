@@ -629,10 +629,14 @@ export const experience = [
       fr : 'Contrat · 8 mois',
     } satisfies Localized,
     summary  : {
-      en : 'Owned and evolved the Perforce source-control architecture used by 200 developers.',
-      fr : 'Responsable de l\u2019architecture de gestion de sources Perforce utilisée par 200 développeurs.',
+      en : 'E.Leclerc\u2019s R&D IT Service (basically France\u2019s Walmart)',
+      fr : 'Service IT R&D chez E.Leclerc',
     } satisfies Localized,
     bullets  : [
+      {
+        en : 'Owned and evolved the Perforce source-control architecture used by 200 developers.',
+        fr : 'Responsable de l\u2019architecture de gestion de sources Perforce utilisée par 200 développeurs.',
+      },      
       {
         en : 'Audited and migrated the SCM architecture with operations and security teams',
         fr : 'Audit et migration de l\u2019architecture SCM avec les équipes opérations et sécurité',
