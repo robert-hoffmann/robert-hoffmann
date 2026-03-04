@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.20](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.19...desktop-portfolio-v1.6.20) (2026-03-04)
+
+
+### Features
+
+* update YouTube embed host for improved playback compatibility and optimize video loading ([158c786](https://github.com/robert-hoffmann/robert-hoffmann/commit/158c786218c0a1a22b112fb46d1d568cfb16ad3e))
+
 ## [1.6.19](https://github.com/robert-hoffmann/robert-hoffmann/compare/desktop-portfolio-v1.6.18...desktop-portfolio-v1.6.19) (2026-03-04)
 
 
