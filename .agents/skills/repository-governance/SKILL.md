@@ -58,6 +58,7 @@ Use this skill for:
 ### CI Gates
 
 - Define merge gates for lint, typecheck, tests, and build.
+- Define decision-memory merge gates for high-risk paths (ADR alignment or bounded waiver).
 - Keep workflow permissions minimal by default.
 - Keep local and CI command contracts aligned.
 - Retain debug artifacts for failed jobs when available and useful (coverage reports, test reports, E2E diagnostics).
@@ -74,7 +75,7 @@ Use this skill for:
 - README must cover setup, lint, typecheck, test, build, and release entrypoints.
 - CONTRIBUTING must define branch, commit, and PR validation rules.
 - SECURITY must define a private disclosure path.
-- Architecture and decision records should be discoverable in `docs/`.
+- Architecture and decision records must be discoverable in `docs/`, with machine-readable indexes where governance gates depend on them.
 
 ## Commit Message Governance
 
@@ -184,6 +185,7 @@ When generating governance guidance or audits, always include:
 - Required baseline artifacts are present or explicitly planned.
 - Deterministic tooling and lockfile policy are explicit.
 - CI merge gates are defined and enforceable.
+- ADR decision-memory gate is defined for high-risk changes.
 - Security and dependency governance controls are explicit.
 - Release strategy defaults to `release-please` with the proper config pattern.
 - Any deviations include bounded exception records.

@@ -8,8 +8,10 @@ Use these canonical references for default governance:
 
 1. `app-artifact-taxonomy.md`
 2. `agent-validation-record.schema.json`
-3. `tdd-outcomes.md`
-4. `gate-governance-and-exceptions.md`
+3. `adr-registry.schema.json`
+4. `claim-register.schema.json`
+5. `tdd-outcomes.md`
+6. `gate-governance-and-exceptions.md`
 
 ## Purpose
 
@@ -45,7 +47,7 @@ Example:
 
 ```json
 {
-  "runId": "2026-02-14T15:00:00Z-abc123",
+  "runId": "2026-03-04T15:00:00Z-abc123",
   "sourceManifestHash": "sha256:...",
   "targetManifestHash": "sha256:...",
   "added": 0,

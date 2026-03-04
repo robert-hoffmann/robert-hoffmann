@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1",
+  "generatedAt": "2026-03-04T04:35:30Z",
+  "entries": [
+    {
+      "id": "ADR-0001",
+      "title": "Adopt decision-memory governance for high-risk changes",
+      "status": "accepted",
+      "date": "2026-03-04",
+      "supersedes": [],
+      "tags": [
+        "governance",
+        "adr",
+        "agents"
+      ],
+      "paths": [
+        ".github/workflows/**",
+        ".agents/skills/evidence-governance/**"
+      ],
+      "constraintsRefs": [
+        "docs/architecture/constraints.md#governance"
+      ],
+      "sourceClaims": [
+        "CLM-20260001",
+        "CLM-20260002"
+      ],
+      "reviewBy": "2026-06-30",
+      "adrPath": "docs/adr/0001-decision-memory-governance.md"
+    },
+    {
+      "id": "ADR-0002",
+      "title": "Require claim-verification tiers for governance policy rationale",
+      "status": "accepted",
+      "date": "2026-03-04",
+      "supersedes": [],
+      "tags": [
+        "governance",
+        "evidence",
+        "claims"
+      ],
+      "paths": [
+        ".agents/skills/evidence-governance/**",
+        "docs/adr/**"
+      ],
+      "constraintsRefs": [
+        "docs/architecture/constraints.md#governance"
+      ],
+      "sourceClaims": [
+        "CLM-20260001",
+        "CLM-20260003"
+      ],
+      "reviewBy": "2026-06-30",
+      "adrPath": "docs/adr/0002-claim-verification-policy.md"
+    }
+  ]
+}

@@ -47,6 +47,7 @@ Required merge gates:
 2. Typecheck
 3. Unit tests
 4. Build verification for shippable artifacts
+5. Decision-memory gate for high-risk path changes (ADR alignment or bounded waiver)
 
 Required policy properties:
 

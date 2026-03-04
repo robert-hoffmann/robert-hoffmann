@@ -8,27 +8,31 @@ Use a two-tier gate model adapted for autonomous agent operations in web applica
 
 | Gate | Trigger | Scope | Blocking |
 |------|---------|-------|----------|
-| **Merge gate** | PR submission | lint, typecheck, test, build, required smoke checks | Yes (PR-blocking) |
-| **Confidence gate** | nightly / pre-release / release prep | expanded integration, contract, E2E, security, perf, rehearsal | Yes (release-blocking) |
+| **Merge gate** | PR submission | lint, typecheck, test, build, high-risk ADR checks | Yes (PR-blocking) |
+| **Confidence gate** | nightly / pre-release / release prep | expanded integration, contract, E2E, security, perf, rehearsal, decision-memory alignment | Yes (release-blocking) |
 
 ### Phase Exit Rules
 
 1. No phase exit is allowed if blocking checks are missing or replaced by Lane A-only validation.
 2. A phase cannot exit with failing blocking checks.
 3. Gate decisions must reference specific evidence artifacts by path.
-4. Required artifacts are selected by `evidenceLevel × changeType` from `app-artifact-taxonomy.md`.
+4. Required artifacts are selected by `evidenceLevel x changeType` from `app-artifact-taxonomy.md`.
 5. Release checklists are required for `L3` and release-scoped work.
+6. High-risk path changes require ADR alignment evidence or a valid ADR waiver.
 
 ### Gate Decision Process
 
-1. **Inventory**: list required artifacts for the phase/run using `evidenceLevel × changeType`.
-2. **Collect**: verify each artifact exists in the phase evidence folder with valid content.
-3. **Validate**: confirm artifacts are fresh (produced in the current phase iteration).
-4. **Classify**: confirm all blocking evidence is Lane B (deterministic), not Lane A (exploration).
-5. **TDD verify**: verify regression and acceptance coverage requirements from `tdd-outcomes.md`.
-6. **Convert**: verify any Lane A findings used for decisions have been converted to Lane B checks.
-7. **Exception check**: review active exceptions for validity and expiry status.
-8. **Decision**: declare pass, fail, or blocked with specific gap references.
+1. **Inventory**: list required artifacts for the phase/run using `evidenceLevel x changeType`.
+2. **Risk map**: evaluate touched files against `high-risk-paths.yaml`.
+3. **Collect**: verify each artifact exists in the phase evidence folder with valid content.
+4. **Validate**: confirm artifacts are fresh (produced in the current phase iteration).
+5. **Classify**: confirm all blocking evidence is Lane B (deterministic), not Lane A (exploration).
+6. **TDD verify**: verify regression and acceptance coverage requirements from `tdd-outcomes.md`.
+7. **Decision-memory verify**: verify ADR registry references and alignment status.
+8. **Claim verify**: verify no blocked policy rationale depends on `unverified` claims.
+9. **Convert**: verify any Lane A findings used for decisions have been converted to Lane B checks.
+10. **Exception check**: review active exceptions for validity and expiry status.
+11. **Decision**: declare pass, fail, or blocked with specific gap references.
 
 ### Must-Meet vs. Should-Meet Criteria
 
@@ -50,8 +54,8 @@ tdd_exception:
   scope: "service/module/component impacted"
   change_type: "bugfix"
   evidence_level: "L1"
-  created_at: "2026-02-14"
-  expires_at: "2026-02-21"
+  created_at: "2026-03-04"
+  expires_at: "2026-03-11"
   follow_up: "https://tracker.example.com/TST-123"
 ```
 
@@ -69,12 +73,50 @@ governance_exception:
   change_type: "api-feature"
   evidence_level: "L2"
   risk: "Operational or product risk introduced by this deviation"
-  created_at: "2026-02-14"
-  expires_at: "2026-03-01"
+  created_at: "2026-03-04"
+  expires_at: "2026-03-18"
   follow_up: "https://tracker.example.com/GOV-101"
 ```
 
 Default expiry: 14 calendar days from creation.
+
+### ADR Waiver Exception
+
+Use when a high-risk change cannot be aligned to an accepted ADR before merge.
+
+```yaml
+adr_waiver_exception:
+  id: "ADR-WVR-2026-03-04-01"
+  owner: "@team-or-person"
+  scope: "auth/session boundary"
+  rationale: "Why merge cannot wait for final ADR acceptance"
+  affected_paths:
+    - "src/auth/session.ts"
+  proposed_adr: "docs/adr/0003-auth-session-boundary.md"
+  risk: "Architecture drift if waiver exceeds expiry"
+  created_at: "2026-03-04"
+  expires_at: "2026-03-11"
+  follow_up: "https://tracker.example.com/ADR-310"
+```
+
+Default expiry: 7 calendar days from creation.
+
+### Partial Claim Exception
+
+Use when a `partial` claim is temporarily used in blocking governance rationale.
+
+```yaml
+partial_claim_exception:
+  claim_id: "CLM-2026-03-04-02"
+  owner: "@team-or-person"
+  rationale: "Why a partial claim is temporarily acceptable"
+  risk: "Potential policy drift if claim is disproven"
+  created_at: "2026-03-04"
+  expires_at: "2026-03-11"
+  follow_up: "https://tracker.example.com/CLM-420"
+```
+
+Default expiry: 7 calendar days from creation.
 
 ### E2E Exception
 
@@ -88,8 +130,8 @@ e2e_exception:
   evidence_level: "L1"
   rationale: "Preview environment instability blocks deterministic browser runs"
   risk: "UI path not fully covered by E2E in this run"
-  created_at: "2026-02-14"
-  expires_at: "2026-02-21"
+  created_at: "2026-03-04"
+  expires_at: "2026-03-11"
   follow_up: "https://tracker.example.com/E2E-201"
 ```
 
@@ -107,8 +149,8 @@ perf_budget_exception:
   evidence_level: "L2"
   rationale: "Known regression accepted temporarily to unblock security patch"
   risk: "Short-term p95 latency increase for checkout"
-  created_at: "2026-02-14"
-  expires_at: "2026-02-28"
+  created_at: "2026-03-04"
+  expires_at: "2026-03-18"
   follow_up: "https://tracker.example.com/PERF-332"
 ```
 
@@ -127,8 +169,8 @@ freshness_exception:
   evidence_level: "L2"
   rationale: "Why re-validation is not possible at this time"
   risk: "Risk of relying on stale evidence"
-  created_at: "2026-02-14"
-  expires_at: "2026-02-21"
+  created_at: "2026-03-04"
+  expires_at: "2026-03-11"
   follow_up: "https://tracker.example.com/FRS-301"
 ```
 
@@ -142,6 +184,8 @@ Default expiry: 7 calendar days from creation.
 |---------------|---------------|
 | TDD exception | 7 calendar days |
 | Governance exception | 14 calendar days |
+| ADR waiver exception | 7 calendar days |
+| Partial claim exception | 7 calendar days |
 | E2E exception | 7 calendar days |
 | Perf budget exception | 14 calendar days |
 | Freshness exception | 7 calendar days |
@@ -159,9 +203,9 @@ Default expiry: 7 calendar days from creation.
 ### Exception Lifecycle
 
 ```
-Created → Active → { Resolved | Expired }
-                        ↓
-                   { Renewed (max 3) | Escalated }
+Created -> Active -> { Resolved | Expired }
+                      |
+                      +-> { Renewed (max 3) | Escalated }
 ```
 
 ### Recording Location
@@ -169,9 +213,10 @@ Created → Active → { Resolved | Expired }
 All exception records are stored exclusively in `<evidence-root>/agent-ops/policy-exceptions.md`.
 
 Exception records are never stored in:
-- Phase evidence folders (those contain only evidence artifacts, not policy records).
-- Source code comments or TODO items.
-- PR descriptions or commit messages (these may reference exceptions but are not the record of truth).
+
+- phase evidence folders (those contain only evidence artifacts, not policy records)
+- source code comments or TODO items
+- PR descriptions or commit messages (these may reference exceptions but are not the record of truth)
 
 ## Drift Controls
 
@@ -179,19 +224,26 @@ Exception records are never stored in:
 
 Evidence drift occurs when code or environment state diverges from captured artifacts, making evidence unreliable for current gate decisions.
 
+Decision drift occurs when implemented architecture diverges from accepted ADR constraints.
+
+Claim drift occurs when claims used in policy rationale become stale, disproven, or unreviewed past `reviewBy`.
+
 ### Detection
 
 1. Compare evidence artifact timestamps against the most recent relevant commits.
 2. Re-run deterministic gate commands and compare outputs to stored evidence.
 3. Re-check classification-dependent must-meet artifacts for `changeType` and `evidenceLevel`.
 4. Check validation record `runId` and `commitSha` against the evaluated revision.
+5. Validate ADR registry freshness and status transitions.
+6. Validate claim register review windows and status constraints.
 
 ### Response
 
 1. Stale evidence that can be re-validated: re-run and update the artifact.
 2. Stale evidence that cannot be re-validated: create a freshness exception.
-3. Evidence contradicted by current state: flag as invalid, require new collection.
-4. Drift detected during gate decision: gate is blocked until evidence is refreshed.
+3. Decision drift: require ADR update or a bounded ADR waiver.
+4. Claim drift: downgrade policy status until re-verified.
+5. Drift detected during gate decision: gate is blocked until evidence is refreshed.
 
 ## Optional Migration Extension
 

@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://pulse-bi.local/schemas/agent-validation-record.schema.json",
-  "title": "Agent Validation Record",
-  "description": "Canonical run record for deterministic evidence governance decisions.",
+  "$id": "https://pulse-bi.local/schemas/agent-validation-record.schema.v2.json",
+  "title": "Agent Validation Record v2",
+  "description": "Canonical run record for deterministic evidence and decision-memory governance decisions.",
   "type": "object",
   "required": [
     "runId",
@@ -10,6 +10,7 @@
     "lane",
     "changeType",
     "evidenceLevel",
+    "highRiskChange",
     "commitSha",
     "tooling",
     "env",
@@ -57,6 +58,10 @@
         "L3"
       ]
     },
+    "highRiskChange": {
+      "type": "boolean",
+      "description": "True when touched files match high-risk governance paths."
+    },
     "commitSha": {
       "type": "string",
       "pattern": "^(git:)?[A-Fa-f0-9]{7,64}$"
@@ -85,7 +90,7 @@
         "runtime": {
           "type": "string",
           "minLength": 2,
-          "description": "Primary runtime and version, e.g. node@20.11.1 or python@3.12.2."
+          "description": "Primary runtime and version, for example node@20.11.1 or python@3.12.2."
         },
         "packageManager": {
           "type": "string",
@@ -127,6 +132,51 @@
       },
       "additionalProperties": false
     },
+    "decision": {
+      "type": "object",
+      "required": [
+        "impact",
+        "alignment",
+        "adrRefs",
+        "constraintsRef"
+      ],
+      "properties": {
+        "impact": {
+          "type": "string",
+          "enum": [
+            "none",
+            "local",
+            "structural",
+            "systemic"
+          ]
+        },
+        "alignment": {
+          "type": "string",
+          "enum": [
+            "aligned",
+            "requires-adr",
+            "conflict"
+          ]
+        },
+        "adrRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "waiverRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "constraintsRef": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
     "artifacts": {
       "type": "array",
       "minItems": 1,
@@ -143,14 +193,6 @@
         "fail",
         "blocked"
       ]
-    },
-    "decisionRefs": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "minLength": 1
-      },
-      "uniqueItems": true
     }
   },
   "allOf": [
@@ -176,22 +218,68 @@
     },
     {
       "if": {
-        "properties": {
-          "evidenceLevel": {
-            "enum": [
-              "L2",
-              "L3"
-            ]
+        "anyOf": [
+          {
+            "properties": {
+              "evidenceLevel": {
+                "enum": [
+                  "L2",
+                  "L3"
+                ]
+              }
+            }
+          },
+          {
+            "properties": {
+              "highRiskChange": {
+                "const": true
+              }
+            }
           }
-        }
+        ]
       },
       "then": {
         "required": [
-          "decisionRefs"
+          "decision"
         ],
         "properties": {
-          "decisionRefs": {
-            "minItems": 1
+          "decision": {
+            "properties": {
+              "adrRefs": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "alignment": {
+                "enum": [
+                  "requires-adr",
+                  "conflict"
+                ]
+              }
+            },
+            "required": [
+              "alignment"
+            ]
+          }
+        },
+        "required": [
+          "decision"
+        ]
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "required": [
+              "waiverRef"
+            ]
           }
         }
       }
@@ -200,24 +288,25 @@
   "additionalProperties": false,
   "examples": [
     {
-      "runId": "2026-02-15T10:00:00Z-abc123",
+      "runId": "2026-03-04T10:00:00Z-abc123",
       "phase": "phase-02",
       "lane": "gate",
-      "changeType": "bugfix",
-      "evidenceLevel": "L1",
+      "changeType": "security",
+      "evidenceLevel": "L2",
+      "highRiskChange": true,
       "commitSha": "git:abcdef1234567890",
       "prRef": "org/repo#123",
       "tooling": [
-        "eslint",
-        "tsc",
-        "vitest"
+        "ruff",
+        "pytest",
+        "check_adr_gate.py"
       ],
       "env": {
-        "runtime": "node@20.11.1",
-        "packageManager": "pnpm@9.1.0",
+        "runtime": "python@3.12.2",
+        "packageManager": "uv@0.5.0",
         "os": "ubuntu-22.04",
         "tools": {
-          "typescript": "5.9.3"
+          "jsonschema": "4.22.0"
         }
       },
       "tdd": {
@@ -227,15 +316,21 @@
           "AC-2"
         ]
       },
+      "decision": {
+        "impact": "structural",
+        "alignment": "aligned",
+        "adrRefs": [
+          "docs/adr/0001-decision-memory-governance.md"
+        ],
+        "constraintsRef": "docs/architecture/constraints.md"
+      },
       "artifacts": [
         "evidence/phase-02/unit-junit.xml",
         "evidence/phase-02/coverage/lcov.info",
-        "evidence/phase-02/command.log"
+        "evidence/phase-02/command.log",
+        "evidence/phase-02/adr-gate.json"
       ],
-      "status": "pass",
-      "decisionRefs": [
-        "evidence/phase-02/decision-log.md#entry-04"
-      ]
+      "status": "pass"
     }
   ]
 }

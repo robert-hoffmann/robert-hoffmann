@@ -31,8 +31,9 @@ Operating modes:
 3. For non-trivial decisions, propose at least two implementation paths with concise pros and cons, then select one.
 4. Keep tests boundary-first and behavior-first.
 5. Prefer deterministic test execution and deterministic artifact paths.
-6. Document every exception with owner, rationale, created_at, expires_at, and follow_up.
-7. Validate with available commands and report what was executed and what remains.
+6. Require ADR alignment evidence for structural refactors and high-risk path changes (via `evidence-governance` controls).
+7. Document every exception with owner, rationale, created_at, expires_at, and follow_up.
+8. Validate with available commands and report what was executed and what remains.
 
 ## Governance Mode
 
@@ -42,7 +43,8 @@ Use governance mode to design or audit:
 2. merge/confidence gates and override policy
 3. CI artifact contracts
 4. flake quarantine and remediation SLA
-5. agent safety controls
+5. decision-memory alignment requirements for structural/high-risk changes
+6. agent safety controls
 
 ## Execution Mode (Agentic TDD)
 
@@ -71,8 +73,9 @@ When producing guidance or execution updates, include:
 2. `decision note`: selected approach plus at least one alternative with pros and cons
 3. `execution note`: current increment or policy scope
 4. `quality gate note`: `TG001`-`TG005` violations/warnings from `check_test_signal.py` when applicable
-5. `exception note`: bounded policy exceptions (if any)
-6. `validation note`: commands run and outcomes
+5. `decision-memory note`: ADR alignment evidence for structural/high-risk changes
+6. `exception note`: bounded policy exceptions (if any)
+7. `validation note`: commands run and outcomes
 
 ## Completion Checklist
 
@@ -81,5 +84,6 @@ When producing guidance or execution updates, include:
 - Runner choice follows repo-truth-first detection.
 - TDD loop checkpoints follow semi-autonomous cadence.
 - `TG001`-`TG004` violations are resolved or formally excepted.
+- Structural refactors and high-risk path changes include ADR alignment evidence.
 - Gate artifacts are mapped to stable paths.
 - Exceptions include owner, rationale, and expiry.

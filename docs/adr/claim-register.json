@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "1",
+  "generatedAt": "2026-03-04T09:00:00Z",
+  "claims": [
+    {
+      "claimId": "CLM-20260001",
+      "claimText": "Durable execution context in agent harnesses reduces repeated architecture re-litigation across sessions.",
+      "status": "verified",
+      "sourceTier": "primary",
+      "sources": [
+        {
+          "title": "Unlocking the Codex harness",
+          "url": "https://openai.com/index/unlocking-the-codex-harness/",
+          "publishedAt": "2026-02-23"
+        }
+      ],
+      "verifiedAt": "2026-03-04",
+      "reviewBy": "2026-06-30",
+      "owner": "@platform-governance",
+      "blockingUse": true
+    },
+    {
+      "claimId": "CLM-20260002",
+      "claimText": "Long-running agent harnesses improve consistency when initialization context and progress records are externalized and reusable.",
+      "status": "verified",
+      "sourceTier": "primary",
+      "sources": [
+        {
+          "title": "Effective harnesses for long-running agents",
+          "url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+          "publishedAt": "2025-11-26"
+        }
+      ],
+      "verifiedAt": "2026-03-04",
+      "reviewBy": "2026-06-30",
+      "owner": "@platform-governance",
+      "blockingUse": true
+    },
+    {
+      "claimId": "CLM-20260003",
+      "claimText": "ADRs reduce repetitive agent queries by 70 percent in general usage.",
+      "status": "unverified",
+      "sourceTier": "social",
+      "sources": [
+        {
+          "title": "Social summary claim under review",
+          "url": "https://x.com/",
+          "publishedAt": "2026-03-04"
+        }
+      ],
+      "verifiedAt": "2026-03-04",
+      "reviewBy": "2026-04-01",
+      "owner": "@platform-governance",
+      "blockingUse": false,
+      "notes": "Do not use as blocking governance rationale until reproducible primary evidence exists."
+    },
+    {
+      "claimId": "CLM-20260004",
+      "claimText": "AGENTS.md contracts are broadly adopted as durable repository-level instruction surfaces.",
+      "status": "partial",
+      "sourceTier": "secondary",
+      "sources": [
+        {
+          "title": "AGENTS.md",
+          "url": "https://agents.md/",
+          "publishedAt": "2025-10-22"
+        },
+        {
+          "title": "Introducing upgrades to Codex",
+          "url": "https://openai.com/index/introducing-upgrades-to-codex/",
+          "publishedAt": "2025-12-16"
+        }
+      ],
+      "verifiedAt": "2026-03-04",
+      "reviewBy": "2026-05-15",
+      "owner": "@platform-governance",
+      "blockingUse": false
+    }
+  ]
+}

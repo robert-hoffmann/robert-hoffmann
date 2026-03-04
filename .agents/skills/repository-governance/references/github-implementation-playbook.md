@@ -47,6 +47,21 @@ Reference:
 
 - Dependabot docs: https://docs.github.com/en/code-security/dependabot
 
+## 3.1) Decision-Memory Gate Workflow (High-Risk Paths)
+
+Baseline:
+
+- add a dedicated workflow (for example `.github/workflows/decision-governance.yml`)
+- detect changed files for each PR and evaluate high-risk path matches
+- run deterministic ADR gate checks (for example `check_adr_gate.py`)
+- block PRs when high-risk paths change without ADR alignment or valid waiver
+- upload JSON gate artifacts for audit traceability
+
+Recommended artifact outputs:
+
+- `artifacts/decision-governance/adr-gate.json`
+- `artifacts/decision-governance/claim-gate.json`
+
 ## 4) Optional Provenance and Attestations
 
 For release-critical artifacts, add provenance posture explicitly.
