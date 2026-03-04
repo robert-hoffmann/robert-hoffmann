@@ -1,0 +1,4 @@
+interface:
+  display_name: "Governance Testing"
+  short_description: "Testing policy and TDD execution governance"
+  default_prompt: "Use $governance-testing to define testing policy or execute behavior-first TDD with strict TG001-TG004 gates and deterministic artifacts."

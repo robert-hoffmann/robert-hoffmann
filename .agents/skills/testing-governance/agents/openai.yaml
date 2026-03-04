@@ -1,4 +1,0 @@
-interface:
-  display_name: "Testing Governance"
-  short_description: "Governance + agentic TDD execution with strict TG001-TG004 gates"
-  default_prompt: "Use $testing-governance to define testing policy or execute semi-autonomous Red-Green-Refactor delivery with repo-truth runner detection, strict TG001-TG004 behavior-first test-signal gates, TG005 warning review, bounded TDD exceptions, and merge/confidence evidence governance."

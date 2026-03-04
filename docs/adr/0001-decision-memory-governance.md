@@ -10,7 +10,8 @@ tags:
   - agents
 paths:
   - .github/workflows/**
-  - .agents/skills/evidence-governance/**
+  - .agents/skills/governance-core/**
+  - .agents/skills/governance-evidence/**
 constraints_refs:
   - docs/architecture/constraints.md#governance
 source_claims:

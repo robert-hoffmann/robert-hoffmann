@@ -9,7 +9,8 @@ tags:
   - evidence
   - claims
 paths:
-  - .agents/skills/evidence-governance/**
+  - .agents/skills/governance-core/**
+  - .agents/skills/governance-evidence/**
   - docs/adr/**
 constraints_refs:
   - docs/architecture/constraints.md#governance

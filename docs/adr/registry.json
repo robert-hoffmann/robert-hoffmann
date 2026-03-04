@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "generatedAt": "2026-03-04T04:35:30Z",
+  "generatedAt": "2026-03-04T05:20:03Z",
   "entries": [
     {
       "id": "ADR-0001",
@@ -15,7 +15,8 @@
       ],
       "paths": [
         ".github/workflows/**",
-        ".agents/skills/evidence-governance/**"
+        ".agents/skills/governance-core/**",
+        ".agents/skills/governance-evidence/**"
       ],
       "constraintsRefs": [
         "docs/architecture/constraints.md#governance"
@@ -39,7 +40,8 @@
         "claims"
       ],
       "paths": [
-        ".agents/skills/evidence-governance/**",
+        ".agents/skills/governance-core/**",
+        ".agents/skills/governance-evidence/**",
         "docs/adr/**"
       ],
       "constraintsRefs": [

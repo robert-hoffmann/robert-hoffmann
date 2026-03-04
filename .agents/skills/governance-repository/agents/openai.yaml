@@ -1,0 +1,4 @@
+interface:
+  display_name: "Governance Repository"
+  short_description: "Repository and release governance"
+  default_prompt: "Use $governance-repository to define or audit repository-level governance, CI controls, and release-please policy using lean defaults."
