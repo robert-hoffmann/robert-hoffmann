@@ -9,12 +9,12 @@ For coding tasks (create, edit, review, refactor, or debug), agents should:
 
 Common mappings:
 
-- TypeScript            : `.agents/skills/ts-modern`
-- Vue                   : `.agents/skills/vuejs-modern`
-- Nuxt                  : `.agents/skills/nuxt-modern`
-- CSS                   : `.agents/skills/css-modern`
-- Tailwind              : `.agents/skills/tailwind-modern`
-- Python                : `.agents/skills/python-modern`
+- TypeScript            : `.agents/skills/dev-ts`
+- Vue                   : `.agents/skills/dev-vuejs`
+- Nuxt                  : `.agents/skills/dev-nuxt`
+- CSS                   : `.agents/skills/dev-css`
+- Tailwind              : `.agents/skills/dev-tailwind`
+- Python                : `.agents/skills/dev-python`
 - Governance Core       : `.agents/skills/governance-core`
 - Testing Governance    : `.agents/skills/governance-testing`
 - Repository Governance : `.agents/skills/governance-repository`

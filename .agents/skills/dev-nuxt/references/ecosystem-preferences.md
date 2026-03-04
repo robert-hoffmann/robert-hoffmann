@@ -35,9 +35,9 @@ Prefer VueUse for:
 ## Tailwind Handling
 
 For Tailwind v4 setup and migration details, defer to:
-- `.agents/skills/tailwind-modern/SKILL.md`
-- `.agents/skills/tailwind-modern/references/tailwind-v4-guardrails.md`
-- `.agents/skills/tailwind-modern/references/framework-recipes.md`
+- `.agents/skills/dev-tailwind/SKILL.md`
+- `.agents/skills/dev-tailwind/references/tailwind-v4-guardrails.md`
+- `.agents/skills/dev-tailwind/references/framework-recipes.md`
 
 Keep Nuxt skill guidance focused on integration decisions, not Tailwind implementation internals.
 

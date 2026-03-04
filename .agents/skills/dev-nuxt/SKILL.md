@@ -1,9 +1,9 @@
 ---
-name: nuxt-modern
-description: Build, review, migrate, and debug Nuxt 4 applications using current Vue and modern TypeScript patterns only. Use when working in Nuxt/Vue codebases that require composition-first architecture, typed composables, SSR/SSG/hybrid rendering decisions, VueUse-first utility choices, and modern ecosystem package selection while avoiding legacy Nuxt/Vue patterns.
+name: dev-nuxt
+description: Build, review, migrate, and debug Nuxt 4 applications with typed composables, SSR/SSG/hybrid rendering, runtime config, Nitro/server routes, and app-directory semantics. Use when tasks mention nuxt.config.*, Nuxt modules, middleware/plugins, server APIs, deployment/runtime mode, or Nuxt 3 to 4 migration, especially when framework/runtime behavior is the primary concern.
 ---
 
-# Nuxt Modern
+# Dev Nuxt
 
 ## Overview
 
@@ -61,7 +61,7 @@ Use this skill to keep Nuxt work current-version aligned, type-safe, and framewo
 - Prefer VueUse before introducing utility packages for reactivity, browser APIs, sensors, lifecycle wrappers, and async helpers.
 - Choose Nuxt ecosystem modules and actively maintained libraries with strong TypeScript support.
 - Keep dependencies minimal; remove redundant packages when Nuxt/VueUse/standard platform APIs already solve the need.
-- Defer deep Tailwind guidance to `.agents/skills/tailwind-modern/SKILL.md`; keep only integration-level Tailwind notes in Nuxt tasks.
+- Defer deep Tailwind guidance to `.agents/skills/dev-tailwind/SKILL.md`; keep only integration-level Tailwind notes in Nuxt tasks.
 
 ## Legacy-Avoidance Guardrails
 
@@ -90,5 +90,5 @@ When generating or reviewing code, always include:
 - TypeScript boundary types are explicit and `any` is avoided.
 - VueUse-first preference is applied for utility/reactive helpers.
 - Added dependencies are modern, maintained, and justified.
-- Tailwind details are delegated to `tailwind-modern` when needed.
+- Tailwind details are delegated to `dev-tailwind` when needed.
 - Legacy patterns are replaced, not carried forward.

@@ -1,9 +1,9 @@
 ---
-name: vuejs-modern
-description: Build, review, migrate, and debug Vue 3 applications using modern Vue 3.5.x core patterns with strict TypeScript and no legacy output. Use when working with Vue SFCs, composables, reactivity, watchers, SSR and hydration primitives, component v-model contracts, and modernization of existing legacy Vue code.
+name: dev-vuejs
+description: Build, review, migrate, and debug Vue 3.5.x application code with strict TypeScript, focusing on SFCs, composables, reactivity, watchers, SSR/hydration primitives, and component contracts. Use when tasks are Vue core/component architecture in Vite or framework-agnostic Vue apps, especially when Nuxt runtime or app-directory policy is not the main concern.
 ---
 
-# VueJS Modern
+# Dev VueJS
 
 ## Overview
 
@@ -17,7 +17,7 @@ Use this skill to enforce Vue 3.5.x core best practices with strict TypeScript a
 ## Core Workflow
 
 1. Detect Vue version family and tooling from `package.json`, lockfiles, `vite.config.*`, `vue.config.*`, and TypeScript config.
-2. Confirm the task is Vue core scope (SFCs, reactivity, watchers, SSR and hydration, component contracts). If the task is Nuxt-specific, defer framework rules to `.agents/skills/nuxt-modern/SKILL.md`.
+2. Confirm the task is Vue core scope (SFCs, reactivity, watchers, SSR and hydration, component contracts). If the task is Nuxt-specific, defer framework rules to `.agents/skills/dev-nuxt/SKILL.md`.
 3. Implement with strict TypeScript and SFC default `script setup` plus `lang="ts"`.
 4. Apply Vue 3.5 patterns from `references/vue-3-5-modern-patterns.md`.
 5. Reject legacy output and apply migration mapping from `references/vue-3-legacy-replacements.md` when updating existing code.
@@ -73,8 +73,8 @@ Migration-aware exception policy:
 - Document each retained legacy pattern, why it is retained, and the exact follow-up modernization path.
 
 Non-goals:
-- Do not encode Nuxt-specific directory/runtime policy in this skill; defer to `nuxt-modern`.
-- Do not provide deep Tailwind implementation guidance in this skill; defer to `tailwind-modern`.
+- Do not encode Nuxt-specific directory/runtime policy in this skill; defer to `dev-nuxt`.
+- Do not provide deep Tailwind implementation guidance in this skill; defer to `dev-tailwind`.
 
 ## Output Requirements
 

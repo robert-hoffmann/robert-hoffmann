@@ -1,9 +1,9 @@
 ---
-name: ts-modern
-description: Build, review, migrate, and debug TypeScript codebases using modern TypeScript 5.9.3 syntax and compiler guidance only. Use when creating new TypeScript code, refactoring legacy patterns, reviewing pull requests, updating tsconfig options, selecting module and moduleResolution strategies for Node or bundler apps and npm libraries, and enforcing strict no-legacy output with documented migration exceptions.
+name: dev-ts
+description: Design, review, migrate, and debug TypeScript 5.9.3 codebases and tsconfig strategy for Node, bundlers, and libraries. Use when tasks center on typing, module/moduleResolution, compiler flags, type errors, project-wide TS modernization, or tsconfig architecture, especially when framework-specific behavior is secondary.
 ---
 
-# TS Modern
+# Dev TS
 
 ## Overview
 

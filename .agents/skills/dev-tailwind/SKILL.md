@@ -1,9 +1,9 @@
 ---
-name: tailwind-modern
-description: Enforce modern Tailwind CSS v4 setup, authoring, migration, and debugging across standalone HTML/CDN, Vue + Vite, and Nuxt environments using only current patterns. Use when creating or updating Tailwind integrations, reviewing generated Tailwind code for deprecated syntax, or fixing environment-specific setup differences.
+name: dev-tailwind
+description: Set up, migrate, debug, and review Tailwind CSS v4 integrations across standalone HTML, Vue + Vite, and Nuxt projects. Use when tasks mention Tailwind directives/utilities, @import "tailwindcss", @theme tokens, v3-to-v4 migration, plugin wiring, or framework-specific Tailwind build issues, especially when utility-class workflow is the primary change surface.
 ---
 
-# Tailwind Modern
+# Dev Tailwind
 
 ## Overview
 

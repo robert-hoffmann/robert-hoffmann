@@ -1,9 +1,9 @@
 ---
-name: css-modern
-description: Enforce modern CSS authoring with DTCG-aligned design tokens, native nesting, container queries, cascade layers, and progressive enhancement. Use when creating, reviewing, or refactoring `.css` files or style blocks in web codebases including Vue/Nuxt/Quasar and Tailwind-powered apps.
+name: dev-css
+description: Author, review, and refactor plain CSS and Vue/Nuxt style blocks using design tokens, cascade layers, native nesting, container queries, and progressive enhancement. Use when tasks mention .css files, style blocks, selectors, specificity, layout/theming, accessibility styling, or browser-support fallbacks, especially when Tailwind utility workflow is not the primary change surface.
 ---
 
-# CSS Modern
+# Dev CSS
 
 ## Overview
 

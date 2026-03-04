@@ -1,9 +1,9 @@
 ---
-name: python-modern
-description: Project-specific Python engineering standards for this repository. Use when creating, editing, reviewing, refactoring, or testing Python code and when translating requirements into typed Python 3.12.x implementations with modern language features, robust error handling, and clear domain boundaries.
+name: dev-python
+description: Design, review, refactor, and test repository Python code using typed Python 3.12.x patterns, boundary validation, and structured error handling. Use when tasks involve Python files, pytest/ruff/mypy workflows, packaging/tooling decisions, dataclass or Pydantic modeling, or Python service/repository logic.
 ---
 
-# Python Modern
+# Dev Python
 
 ## Overview
 
