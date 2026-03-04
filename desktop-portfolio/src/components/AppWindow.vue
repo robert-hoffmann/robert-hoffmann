@@ -84,14 +84,22 @@ function onHeaderPointerDown(event: PointerEvent) {
 
 function onHeaderDoubleClick(event: MouseEvent) {
   if (isTitleBarControlTarget(event.target)) return
+  if (isMusicNopeAction.value) {
+    triggerNopePenguin()
+    return
+  }
   if (!props.canMaximize) return
   emit('toggleMaximize', props.windowState.id)
 }
 
+function triggerNopePenguin() {
+  nopeAnimationKey.value += 1
+  showNopePenguin.value = true
+}
+
 function onGreenButtonClick() {
   if (isMusicNopeAction.value) {
-    nopeAnimationKey.value += 1
-    showNopePenguin.value = true
+    triggerNopePenguin()
     return
   }
   if (!props.canMaximize) return
