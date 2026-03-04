@@ -4,7 +4,7 @@ import type { MediaTransportCapabilities, VideoMediaTransport } from '../types/m
 import { VIDEO_POSTER_SOURCES } from '../data/videoPosterSources'
 
 const PLAYLIST_ID = 'PLLBhCscredzYvSwHG3PJm4w-LIC4xwYaJ'
-const YT_NOCOOKIE_HOST = 'https://www.youtube-nocookie.com'
+const YT_EMBED_HOST = 'https://www.youtube.com'
 
 const poster = VIDEO_POSTER_SOURCES
 
@@ -173,7 +173,7 @@ export function useYouTubePlaylistTransport(): VideoMediaTransport {
     if (!el) return
 
     player = new YT.Player(el, {
-      host   : YT_NOCOOKIE_HOST,
+      host   : YT_EMBED_HOST,
       width  : '100%',
       height : '100%',
       playerVars : {

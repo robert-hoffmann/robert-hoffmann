@@ -22,8 +22,8 @@ const VIDEO_POSTER_FALLBACK =
   VIDEO_POSTER_SOURCES.avif ??
   `${import.meta.env.BASE_URL}video-poster.webp`
 
-/** Privacy-enhanced embed host — avoids most YouTube tracking cookies */
-const YT_NOCOOKIE_HOST = 'https://www.youtube-nocookie.com'
+/** Standard embed host — improves signed-in playback compatibility in iframe context. */
+const YT_EMBED_HOST = 'https://www.youtube.com'
 
 const containerRef = useTemplateRef<HTMLDivElement>('playerContainer')
 const wrapperRef   = useTemplateRef<HTMLDivElement>('videoWrapper')
@@ -169,8 +169,7 @@ function toggleFullscreen() {
 /**
  * Bootstrap the real YouTube player on first user interaction.
  * Until called, only a lightweight thumbnail facade is shown,
- * which avoids loading the IFrame API script and the ~19
- * third-party cookies that come with it.
+ * which avoids loading the IFrame API script and third-party requests on page load.
  */
 async function bootstrapPlayer(autoplay = true) {
   showFacade.value = false
@@ -180,7 +179,7 @@ async function bootstrapPlayer(autoplay = true) {
   if (!el) return
 
   player = new YT.Player(el, {
-    host    : YT_NOCOOKIE_HOST,
+    host    : YT_EMBED_HOST,
     width   : '100%',
     height  : '100%',
     playerVars : {

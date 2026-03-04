@@ -101,7 +101,7 @@ Instead of a traditional scrolling portfolio landing page, visitors can interact
   - FFT-based equalizer visualization driven by Web Audio analysis
 - `Video`
   - Custom YouTube playlist player UI with previous/next/play/pause/stop/seek/volume/fullscreen controls
-  - Uses privacy-enhanced `youtube-nocookie.com` embed host
+  - Uses standard `youtube.com` embed host for stronger signed-in playback compatibility
   - Lazy loads the YouTube API only after user interaction
 - `GeoWars.app`
   - Embedded mini-game window with score/wave/lives HUD plus pause/restart controls
@@ -157,7 +157,7 @@ npm run generate-og-image
 - SEO metadata, Open Graph tags, Twitter card tags, and JSON-LD structured data are defined in `index.html`.
 - `public/` includes PWA-style metadata and icons (`site.webmanifest`, favicons, touch icons) plus media/image assets.
 - Vue mounts over prerendered content and sets a client-side hydration marker (`data-app-mounted`) after startup.
-- Video playback is optimized for privacy/performance by deferring the YouTube IFrame API until first interaction and using `youtube-nocookie.com`.
+- Video playback is optimized for startup performance by deferring the YouTube IFrame API until first interaction.
 
 ## Content / Customization
 
