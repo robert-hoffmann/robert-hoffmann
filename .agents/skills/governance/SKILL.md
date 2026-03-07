@@ -1,6 +1,10 @@
 ---
 name: governance
 description: Unified governance skill for repository governance, testing and TDD governance, evidence and ADR/claim governance, and shared governance contracts. Use when defining, auditing, or executing deterministic governance gates and bounded exception-aware controls.
+metadata:
+  desktop-portfolio-help-topics: "overview,evidence,testing,repository,core,glossary,combos,invoke"
+  desktop-portfolio-help-aliases: "repo=repository"
+  desktop-portfolio-help-default-topic: "overview"
 ---
 
 # Governance
