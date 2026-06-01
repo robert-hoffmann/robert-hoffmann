@@ -49,40 +49,11 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
    * We override sizes only where needed; other windows inherit registry defaults.
    */
   small : [
-    {
-      itemId : 'projects',
-      x      : 40,
-      y      : 58,
-      zIndex : 100,
-      size   : { w : 440, h : 560 },
-    },
-    {
-      itemId : 'about',
-      x      : 498,
-      y      : 42,
-      zIndex : 101,
-      size   : { w : 455, h : 610 },
-    },
-    {
-      itemId : 'video',
-      x      : 724,
-      y      : 392,
-      zIndex : 102,
-      size   : { w : 386, h : 274 },
-    },
-    {
-      itemId : 'music',
-      x      : 470,
-      y      : 500,
-      zIndex : 103,
-    },
-    {
-      itemId : 'resume',
-      x      : 840,
-      y      : 56,
-      zIndex : 104,
-      size   : { w : 480, h : 612 },
-    },
+    { itemId : 'projects', x : 110, y : 32 , zIndex : 100, size : { w : 440, h : 596 } },
+    { itemId : 'about'   , x : 556, y : 32 , zIndex : 101, size : { w : 455, h : 596 } },
+    { itemId : 'video'   , x : 810, y : 285, zIndex : 102, size : { w : 460, h : 340 } },
+    { itemId : 'music'   , x : 581, y : 440, zIndex : 103 },
+    //{ itemId : 'resume'  , x : 840, y : 56 , zIndex : 104, size : { w : 480, h : 612 } },
   ],
   /*
    * `medium` targets mainstream 16:9 desktop classes.
@@ -93,11 +64,11 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
    * - 1920x1080
    */
   medium : [
-    { itemId : 'projects', x : 110,  y : 82,  zIndex : 100 },
-    { itemId : 'about',    x : 540,  y : 40,  zIndex : 101 },
-    { itemId : 'video',    x : 890,  y : 410, zIndex : 102 },
-    { itemId : 'music',    x : 710,  y : 650, zIndex : 103 },
-    { itemId : 'resume',   x : 1260, y : 64,  zIndex : 104 },
+    { itemId : 'projects', x : 108,  y : 65,  zIndex : 100, size : { w : 480, h : 612 } },
+    { itemId : 'about',    x : 549,  y : 32,  zIndex : 101, size : { w : 497, h : 686 } },
+    { itemId : 'video',    x : 866,  y : 301, zIndex : 102, size : { w : 466, h : 393 } },
+    { itemId : 'music',    x : 676,  y : 529, zIndex : 103 },
+    // { itemId : 'resume',   x : 1260, y : 64,  zIndex : 104 },
   ],
   /*
    * `large` targets roomy desktop classes.
