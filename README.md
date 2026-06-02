@@ -12,7 +12,7 @@ I've been building software, shipping products, and breaking things in productio
 
 | Project | What it is |
 | --- | --- |
-| [Uncle Bob]([https://github.com/robert-hoffmann/prompts](https://github.com/robert-hoffmann/uncle-bob)) | Portable GitHub Copilot skills, custom agents, and governance workflows for consistent, high-quality AI-assisted development |
+| [Uncle Bob]([https://github.com/robert-hoffmann/prompts](https://github.com/robert-hoffmann/uncle-bob) | Portable GitHub Copilot skills, custom agents, and governance workflows for consistent, high-quality AI-assisted development |
 | [PowerToys for OpenAI](https://github.com/robert-hoffmann/PowerToys4OpenAI) | Chrome extension — custom GPT answers on search pages + full chat IDE |
 | [Parallax Desiger](https://github.com/robert-hoffmann/parallax-designer) | Visual editor for designing parallax scenes with real-time preview - 100% AI Generated |
 | [HeadJS](https://headjs.github.io/) | Responsive JS loader — 4 K+ ⭐ — made IE6+ websites device-friendly before it was cool |
