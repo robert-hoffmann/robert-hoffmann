@@ -245,6 +245,12 @@ Candidate highlights:
 - `Strongly typed resources`
 - `Localized JavaScript export`
 
+### PhantomUI — Web-to-PDF Converter
+
+Source links:
+
+- GitHub: https://github.com/itechnology/PhantomUI
+
 ## New Project Candidates
 
 ### i-technology.net — AI-Built Desktop Portfolio

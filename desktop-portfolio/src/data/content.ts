@@ -1222,6 +1222,12 @@ export const projects = [
       'WPF',
       'PhantomJS',
     ],
+    links      : [
+      {
+        label : 'GitHub',
+        href  : 'https://github.com/itechnology/PhantomUI',
+      },
+    ],
   },
   {
     id         : 'proj-mario',
