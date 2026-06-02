@@ -608,6 +608,69 @@ export const projects = [
     ],
   },
   {
+    id         : 'proj-maser-academy-inventory',
+    name       : {
+      en : 'Maser Academy — Course Inventory Planning',
+      fr : 'Maser Academy — Planification d\u2019inventaire formation',
+    } satisfies Localized,
+    org        : {
+      en : 'Maser Engineering for Maser Academy',
+      fr : 'Maser Engineering pour Maser Academy',
+    } satisfies Localized,
+    period     : '2025',
+    summary    : {
+      en :
+        'Airtable-based inventory planning system for Maser Academy training centers. Managers ' +
+        'select an upcoming course session, training center, student group, and exercises; the ' +
+        'system aggregates required supplies across 76 practical exercises, 532 supply types, ' +
+        'and 5 suppliers into a purchasing list with references, prices, totals, automations, ' +
+        'and CSV export for the buying department.',
+      fr :
+        'Système Airtable de planification d\u2019inventaire pour les centres de formation Maser ' +
+        'Academy. Les managers sélectionnent une session à venir, un centre, un groupe de ' +
+        'stagiaires et les travaux pratiques prévus ; le système agrège les fournitures ' +
+        'nécessaires sur 76 travaux pratiques, 532 types de fournitures et 5 fournisseurs en ' +
+        'liste d\u2019achat avec références, prix, totaux, automatisations et export CSV pour le ' +
+        'service achats.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : '76 practical exercises',
+        fr : '76 travaux pratiques',
+      },
+      {
+        en : '532 supply types',
+        fr : '532 types de fournitures',
+      },
+      {
+        en : '5 suppliers',
+        fr : '5 fournisseurs',
+      },
+      {
+        en : 'Automatic purchase lists',
+        fr : 'Listes d\u2019achat automatiques',
+      },
+      {
+        en : 'CSV purchasing export',
+        fr : 'Export CSV achats',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      'Airtable',
+      'Airtable Automations',
+      'Linked Records',
+      'Formulas',
+      'CSV',
+      'Inventory Modeling',
+    ],
+    links      : [
+      {
+        label : 'Maser Academy',
+        href  : 'https://www.maser-academy.com/',
+      },
+    ],
+  },
+  {
     id         : 'proj-roland-garros-navigation',
     name       : {
       en : 'Roland-Garros — Staff Navigation PWA',

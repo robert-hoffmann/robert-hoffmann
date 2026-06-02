@@ -26,6 +26,7 @@ Goal: turn the current `Projects` window into `Project Highlights`: fewer, stron
 - CSS now supports wrapped metric chips through `.project-highlights`.
 - Current ordering keeps TMIP Scheduler first, then the AI-built portfolio, Parallax Designer, and Uncle Bob, then TMIP Logger, so the top of the list shows both industrial impact and AI workflow/toolmaker positioning.
 - Wind Turbine Maintenance sits after SBM and before Attendance because it is a production industrial operations app with strong offline field-sync complexity, but fewer verified business/user metrics than SBM.
+- Maser Academy Inventory sits after Attendance and before Roland-Garros because it is a useful operations/planning system, but currently has fewer scale and technical-complexity signals than the offline attendance workflow.
 
 ## Data Model Options
 
@@ -590,6 +591,53 @@ Remaining questions:
 - Did it include audit logs, correction workflow, or approval/validation states?
 - What offline-sync mechanism was used for signatures?
 
+### Maser Academy Course Inventory Planning
+
+Public company context:
+
+- Website: https://www.maser-academy.com/
+- Public site describes Maser Academy as a professional training organization and a Maser Engineering brand.
+- Public 2025 key figure: 1,132 learners.
+
+Raw facts:
+
+- Assumed period for now: 2025.
+- Built for Maser Academy, a Maser Engineering training subsidiary.
+- Built in Airtable.
+- Supports multiple training centers in France.
+- Training courses have batches of students and materials needed for the duration of the course.
+- Helps teachers and managers prepare upcoming courses.
+- Tracks training centers, course exercises, supplies, suppliers, prices, and product references.
+- Tracks 76 different practical exercises / hands-on exercises (`travaux pratiques`).
+- Tracks 532 different supply types, including screws, rivets, hammers, and tool boxes.
+- Tracks 5 suppliers.
+- Manager selects an upcoming training center, course/session, and the exercises students will complete.
+- Each exercise has specific supply requirements.
+- System automatically builds a purchase list with references, suppliers, total prices, and required quantities.
+- Purchase list can be sent directly to the department responsible for buying supplies.
+- Uses Airtable automations, drag-and-drop planning, automatic calculations, and final CSV export.
+
+Candidate highlights:
+
+- `76 practical exercises`
+- `532 supply types`
+- `5 suppliers`
+- `Automatic purchase lists`
+- `CSV purchasing export`
+
+Possible positioning:
+
+> Airtable-based inventory planning system for Maser Academy training centers, turning selected courses, student groups, and 76 practical exercises into automatically calculated purchase lists across 532 supply types and 5 suppliers, with references, prices, totals, and CSV export for the buying department.
+
+Remaining questions:
+
+- Confirm the year or year range.
+- How many training centers used it?
+- Approximate number of courses, exercises, supply references, or suppliers tracked?
+- Did it replace spreadsheets, email requests, or manual stock checks?
+- Did it track stock on hand, reservations, shortages, or only purchasing needs?
+- Did it include approval states or procurement follow-up after CSV export?
+
 ### Hutchinson E-Learning / Digital Work Instructions
 
 Raw facts:
@@ -767,19 +815,20 @@ Top industrial / business-critical highlights:
 4. SBM Onboarding & Certification Tracking
 5. Wind Turbine Maintenance Planning & Field Reporting
 6. Application de Pointage / Attendance Tracking App
-7. Roland-Garros Navigation App
+7. Maser Academy Course Inventory Planning
+8. Roland-Garros Navigation App
 
 High-scale web / media highlights:
 
-8. tchatche.com
-9. Ad Proxy
+9. tchatche.com
+10. Ad Proxy
 
 Builder/toolmaker highlights:
 
-10. HeadJS
-11. PowerToys for OpenAI
-12. MicroCoil Calculator
-13. FindUnusedFiles
+11. HeadJS
+12. PowerToys for OpenAI
+13. MicroCoil Calculator
+14. FindUnusedFiles
 
 Long-tail archive candidates:
 
