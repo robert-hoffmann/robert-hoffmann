@@ -422,41 +422,53 @@ export const projects = [
   {
     id         : 'proj-sbm-compliance',
     name       : {
-      en : 'SBM — Onboarding & Certification Tracking',
-      fr : 'SBM — Suivi onboarding & certifications',
+      en : 'SBM / Ter\u00e9ga — Onboarding & Certification Tracking',
+      fr : 'SBM / Ter\u00e9ga — Suivi onboarding & certifications',
     } satisfies Localized,
     org        : {
-      en : 'Maser Engineering for SBM Company',
-      fr : 'Maser Engineering pour SBM Company',
+      en : 'Maser Engineering for SBM Company and Ter\u00e9ga',
+      fr : 'Maser Engineering pour SBM Company et Ter\u00e9ga',
     } satisfies Localized,
     period     : '2025',
     summary    : {
       en :
         'Compliance onboarding platform for high-risk work sites, combining SCORM training, ' +
         'document collection, certification expiry tracking, subcontractor delegation, and ' +
-        'gate-access verification so site guards can confirm whether a worker is cleared before entry.',
+        'gate-access verification so site guards can confirm whether a worker is cleared before entry. ' +
+        'A white-label Ter\u00e9ga version reused the onboarding and certification core with document ' +
+        'management and advanced role delegation disabled.',
       fr :
         'Plateforme d\u2019onboarding conformité pour sites à risque, combinant formations SCORM, ' +
         'collecte documentaire, suivi d\u2019expiration des certifications, délégation aux ' +
         'sous-traitants et contrôle d\u2019accès afin que les gardiens vérifient les habilitations ' +
-        'avant l\u2019entrée sur site.',
+        'avant l\u2019entrée sur site. Une version marque blanche Ter\u00e9ga réutilisait le coeur ' +
+        'onboarding et certification avec gestion documentaire et délégation de rôles avancée ' +
+        'désactivées.',
     } satisfies Localized,
     highlights : [
       {
-        en : '117 companies',
-        fr : '117 entreprises',
+        en : 'SBM: 117 companies',
+        fr : 'SBM : 117 entreprises',
       },
       {
-        en : '595 users',
-        fr : '595 utilisateurs',
+        en : 'SBM: 595 users',
+        fr : 'SBM : 595 utilisateurs',
       },
       {
-        en : '219 managed documents',
-        fr : '219 documents gérés',
+        en : 'Ter\u00e9ga: 2,303 users',
+        fr : 'Ter\u00e9ga : 2 303 utilisateurs',
+      },
+      {
+        en : 'SBM: 219 documents',
+        fr : 'SBM : 219 documents',
       },
       {
         en : 'Expiry automation',
         fr : 'Automatisation des expirations',
+      },
+      {
+        en : 'White-label variant',
+        fr : 'Version marque blanche',
       },
     ] satisfies Localized[],
     stack      : [
@@ -466,6 +478,82 @@ export const projects = [
       'Bootstrap',
       'MariaDB',
       'SCORM',
+    ],
+    links      : [
+      {
+        label : 'SBM Company',
+        href  : 'https://sbm-company.com/',
+      },
+      {
+        label : 'Ter\u00e9ga',
+        href  : 'https://www.terega.fr/en/',
+      },
+    ],
+  },
+  {
+    id         : 'proj-wind-maintenance',
+    name       : {
+      en : 'Wind Turbine Maintenance Operations Platform',
+      fr : 'Plateforme d\u2019opérations de maintenance éolienne',
+    } satisfies Localized,
+    org        : {
+      en : 'Maser Engineering',
+      fr : 'Maser Engineering',
+    } satisfies Localized,
+    period     : '2022 – 2024',
+    summary    : {
+      en :
+        'Production maintenance operations platform for Maser Engineering\u2019s renewable-energy ' +
+        'field teams, combining a Symfony planning back office with an offline-capable Quasar ' +
+        'companion app. Managers planned multi-team interventions across 10-20 wind parks and ' +
+        'hundreds of turbines; field engineers downloaded site and job documents, captured ' +
+        'checklists, photos, signatures, timestamps, work reports, machine status, and downtime, ' +
+        'used Google Maps directions, and synced queued updates when connectivity returned.',
+      fr :
+        'Plateforme d\u2019opérations de maintenance en production pour les équipes terrain énergie ' +
+        'renouvelable de Maser Engineering, combinant back-office Symfony de planification et ' +
+        'application compagnon Quasar utilisable hors ligne. Les managers planifiaient des ' +
+        'interventions multi-équipes sur 10-20 parcs éoliens et des centaines d\u2019éoliennes ; ' +
+        'les techniciens téléchargeaient les documents site et job, saisissaient checklists, ' +
+        'photos, signatures, horodatages, rapports de travaux, directions Google Maps, statut ' +
+        'machine, temps d\u2019arrêt et synchronisation en file d\u2019attente au retour réseau.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : 'Hundreds of turbines',
+        fr : 'Des centaines d\u2019éoliennes',
+      },
+      {
+        en : '10-20 wind parks',
+        fr : '10-20 parcs éoliens',
+      },
+      {
+        en : '20-30 field engineers',
+        fr : '20-30 techniciens terrain',
+      },
+      {
+        en : 'Offline Dexie sync',
+        fr : 'Sync hors ligne Dexie',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      'Symfony',
+      'Live Components',
+      'Bootstrap',
+      'MariaDB',
+      'REST API',
+      'Quasar',
+      'Vue.js',
+      'Dexie',
+      'IndexedDB',
+      'Google Maps',
+      'PDF',
+    ],
+    links      : [
+      {
+        label : 'Maser maintenance',
+        href  : 'https://maser-engineering.com/specialite-maintenance/',
+      },
     ],
   },
   {

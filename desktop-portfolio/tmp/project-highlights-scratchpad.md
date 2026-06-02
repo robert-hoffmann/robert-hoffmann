@@ -25,6 +25,7 @@ Goal: turn the current `Projects` window into `Project Highlights`: fewer, stron
 - The window title now says `Project Highlights`.
 - CSS now supports wrapped metric chips through `.project-highlights`.
 - Current ordering keeps TMIP Scheduler first, then the AI-built portfolio, Parallax Designer, and Uncle Bob, then TMIP Logger, so the top of the list shows both industrial impact and AI workflow/toolmaker positioning.
+- Wind Turbine Maintenance sits after SBM and before Attendance because it is a production industrial operations app with strong offline field-sync complexity, but fewer verified business/user metrics than SBM.
 
 ## Data Model Options
 
@@ -552,6 +553,8 @@ Raw facts:
 - Used by Maser Engineering training center for aerospace cabling and related training.
 - Replaced paper attendance sheets.
 - Teachers collected digital student signatures.
+- App is fully offline capable.
+- Offline signatures can sync back when the app goes online again.
 - Signatures fed a HR back office.
 - HR could see attendees, absences, attended hours, and generate attendance sheets for sending companies.
 - Automatically calculated invoicing for companies that sent students.
@@ -564,12 +567,13 @@ Candidate highlights:
 
 - `Paper attendance replaced`
 - `Hundreds of students/year`
+- `Offline signature sync`
 - `PDF attendance sheets`
 - `Automated billing exports`
 
 Possible positioning:
 
-> Digital attendance and invoicing workflow for an aerospace training center, replacing paper sign-in sheets with teacher-collected signatures, HR back-office validation, automatic attendance reports, and company billing calculations.
+> Digital attendance and invoicing workflow for an aerospace training center, replacing paper sign-in sheets with offline-capable teacher-collected signatures, HR back-office validation, automatic attendance reports, and company billing calculations.
 
 Remaining questions:
 
@@ -578,6 +582,7 @@ Remaining questions:
 - Were signatures legally binding or just operational proof?
 - Was billing based on hours, courses, student/day, or attendance rate?
 - Did it include audit logs, correction workflow, or approval/validation states?
+- What offline-sync mechanism was used for signatures?
 
 ### Hutchinson E-Learning / Digital Work Instructions
 
@@ -637,6 +642,9 @@ Raw facts:
 
 - Built in 2025.
 - Client: SBM Company.
+- Modified white-label variant also built for Teréga: https://www.terega.fr/en/
+- Teréga variant used the same onboarding/certification core, but document management and advanced role/delegation features were disabled.
+- Teréga scope: 2,303 users.
 - Onboarding and certification tracking system.
 - Client can deliver interactive SCORM courses.
 - Tracks course completion for chemical risk, onboarding, and similar training.
@@ -650,15 +658,17 @@ Raw facts:
 
 Candidate highlights:
 
-- `117 companies`
-- `595 users`
-- `219 managed documents`
+- `SBM: 117 companies`
+- `SBM: 595 users`
+- `Teréga: 2,303 users`
+- `SBM: 219 managed documents`
 - `Certification expiry automation`
 - `Gate-access compliance checks`
+- `White-label Teréga variant`
 
 Possible positioning:
 
-> Compliance onboarding platform for high-risk work sites, combining SCORM training, document collection, certification expiry tracking, subcontractor delegation, and gate-access verification so guards can confirm whether a worker is cleared before entry.
+> Compliance onboarding platform for high-risk work sites, combining SCORM training, document collection, certification expiry tracking, subcontractor delegation, and gate-access verification so guards can confirm whether a worker is cleared before entry. A modified white-label Teréga version reused the onboarding and certification core with document management and advanced delegation disabled.
 
 Remaining questions:
 
@@ -666,6 +676,78 @@ Remaining questions:
 - How were identities checked: badge, QR code, ID document, search, mobile app?
 - Did it include audit trails, document validation workflow, reminders, dashboards, or exports?
 - Was SCORM delivered through an existing LMS or built into this app?
+
+### Wind Turbine Maintenance Planning & Field Reporting
+
+Working public title options:
+
+- Wind Turbine Maintenance Operations Platform
+- Wind Park Maintenance Planning & Field Reporting
+- Wind Turbine Intervention Management Platform
+
+Raw facts:
+
+- Built from 2022 to 2024.
+- Built for Maser Engineering.
+- Public Maser Engineering website: https://maser-engineering.com
+- Most relevant public page: https://maser-engineering.com/specialite-maintenance/
+- Maser Engineering publicly lists maintenance as one of its expertise poles and lists renewable energy / wind-turbine maintenance as part of that activity.
+- Role: full-stack engineer.
+- Production application; current usage status unknown.
+- Managers use the Symfony web application to manage intervention teams across maintained wind parks.
+- Web stack: Symfony, Symfony UX Live Components, Bootstrap, MariaDB, REST API.
+- Web back office includes a full inventory of maintained parks.
+- Inventory includes wind turbines, machine specs, machine numbers, maintenance documents, and related technical information.
+- Planning mode lets managers plan field interventions for multiple teams on specific dates.
+- Planning captures which team goes to which wind turbine and what work must be done.
+- Companion field app is built with Quasar and Vue.js.
+- Field app is fully offline capable.
+- Offline sync uses IndexedDB through Dexie for complex local persistence.
+- App uses a queue system and syncs queued work when connectivity returns.
+- Relevant documents are downloaded directly when online and when selecting a maintenance site/job.
+- Engineers use the companion app on site with the information needed for each maintenance job.
+- Engineers can declare a machine on/off or in maintenance mode.
+- Engineers can take pictures, write reports, and add comments offline.
+- When the app goes online again, it syncs field data back to the server.
+- Managers can then see intervention reports, machine status, photos, comments, and site updates.
+- No offline conflict-resolution system was needed.
+- Tracks per-turbine maintenance history, including past interventions, documents, and photos.
+- Outputs include PDF report generation and a team planning calendar.
+- PDF report generation is server-side.
+- Reports include checklists, signatures, technician names, work performed, and timestamps.
+- Tracks planned vs completed interventions, delays, and total machine downtime.
+- Sites are geolocated.
+- Google Maps integration gives directions to intervention sites.
+- Site records include park manager contact information.
+- App is phone-compatible.
+- Field scope observed: around 20-30 field engineers.
+- Scale: hundreds of wind turbines and 10-20 parks across France.
+- Business impact: less paperwork and better traceability.
+
+Candidate highlights:
+
+- `2022-2024 production app`
+- `Offline field reporting`
+- `Multi-team intervention planning`
+- `20-30 field engineers`
+- `Hundreds of turbines`
+- `10-20 wind parks`
+- `Wind park inventory`
+- `Photo + report sync`
+- `Machine status tracking`
+- `PDF report generation`
+- `IndexedDB/Dexie offline sync`
+- `Google Maps site directions`
+
+Possible positioning:
+
+> Wind-turbine maintenance operations platform for Maser Engineering, combining a Symfony planning back office with an offline-capable Quasar field app. Managers plan multi-team interventions across 10-20 wind parks and hundreds of turbines; engineers work on site with downloaded maintenance documents, checklists, photos, signatures, comments, machine status updates, Google Maps directions, and queued sync when connectivity returns.
+
+Interview questions:
+
+- Did engineers work with gloves, weather constraints, low connectivity, or rugged field constraints?
+- Did the workflow include checklists, safety procedures, maintenance document acknowledgment, or regulatory/compliance reporting?
+- Any stronger measurable before/after beyond less paperwork and traceability: faster reporting, fewer missed interventions, faster manager visibility?
 
 ## Likely Content Priorities And Ordering
 
@@ -677,20 +759,21 @@ Top industrial / business-critical highlights:
 2. TMIP Logger
 3. Hutchinson E-Learning / Digital Work Instructions
 4. SBM Onboarding & Certification Tracking
-5. Application de Pointage / Attendance Tracking App
-6. Roland-Garros Navigation App
+5. Wind Turbine Maintenance Planning & Field Reporting
+6. Application de Pointage / Attendance Tracking App
+7. Roland-Garros Navigation App
 
 High-scale web / media highlights:
 
-7. tchatche.com
-8. Ad Proxy
+8. tchatche.com
+9. Ad Proxy
 
 Builder/toolmaker highlights:
 
-9. HeadJS
-10. PowerToys for OpenAI
-11. MicroCoil Calculator
-12. FindUnusedFiles
+10. HeadJS
+11. PowerToys for OpenAI
+12. MicroCoil Calculator
+13. FindUnusedFiles
 
 Long-tail archive candidates:
 
