@@ -112,6 +112,7 @@ export interface WindowState {
 export interface WindowAppDefinition {
   id           : string
   title        : string
+  iconTitle?   : Localized
   icon         : string
   iconUrl?     : string
   iconSprite?  : DesktopSpriteKey

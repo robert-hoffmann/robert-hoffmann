@@ -4,7 +4,7 @@
 
 import { ref, reactive } from 'vue'
 import type { DesktopItem, Locale } from '../types/desktop'
-import { getDefaultDesktopItems, getRegistryTitle } from '../data/registry'
+import { getDefaultDesktopItems, getRegistryIconTitle } from '../data/registry'
 import { applyStartupIconLayout, type StartupIconLayout } from '../data/iconLayouts'
 
 const selectedIconId = ref<string | null>(null)
@@ -101,7 +101,7 @@ export function useDesktopIcons() {
   /** Re-derive all desktop icon titles from the registry for the given locale */
   function updateTitlesForLocale(locale: Locale) {
     for (const item of items) {
-      item.title = getRegistryTitle(item.id, locale)
+      item.title = getRegistryIconTitle(item.id, locale)
     }
   }
 

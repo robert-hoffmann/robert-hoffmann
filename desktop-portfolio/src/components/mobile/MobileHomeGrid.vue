@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { DesktopSpriteKey } from '../../types/desktop'
-import { getRegistryTitle, windowRegistry } from '../../data/registry'
+import { getRegistryIconTitle, windowRegistry } from '../../data/registry'
 import { useLocale } from '../../composables/useLocale'
 
 interface MobileHomeGridItem {
@@ -38,7 +38,7 @@ const items = computed(() => {
 
     nextItems.push({
       id,
-      title     : getRegistryTitle(id, locale.value),
+      title     : getRegistryIconTitle(id, locale.value),
       icon      : def.icon,
       iconUrl   : def.iconUrl,
       iconSprite: def.iconSprite,

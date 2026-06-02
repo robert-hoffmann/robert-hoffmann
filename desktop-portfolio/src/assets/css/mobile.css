@@ -223,9 +223,85 @@
   }
 }
 
+.mobile-root--shell .mobile-home-icon-grid .desktop-icon--mobile-grid[data-item-id="projects"] {
+  position  : relative;
+  isolation : isolate;
+
+  &::after {
+    content        : '';
+    position       : absolute;
+    inset          : -0.35rem;
+    border         : 1px solid oklch(78% 0.17 82 / 0.5);
+    border-radius  : calc(var(--radius-lg) + 0.35rem);
+    box-shadow     : 0 0 0.85rem oklch(76% 0.17 82 / 0.3);
+    opacity        : 0;
+    pointer-events : none;
+    transform      : scale(0.86);
+  }
+
+  &:is(:hover, :focus-visible, :active) {
+    animation   : none;
+    will-change : auto;
+  }
+
+  &:is(:hover, :focus-visible, :active)::after {
+    animation : none;
+    opacity   : 0;
+  }
+}
+
+.mobile-root--shell[data-mobile-app-state="minimized"]:not([data-mobile-current-app="projects"])
+.mobile-home-icon-grid .desktop-icon--mobile-grid[data-item-id="projects"] {
+  animation        : mobile-projects-pulse 2.4s ease-in-out 0.7s infinite;
+  transform-origin : center;
+
+  &::after {
+    animation : mobile-projects-pulse-ring 2.4s ease-out 0.7s infinite;
+  }
+}
+
 .mobile-root--shell[data-mobile-app-state="expanded"] .desktop-icon--mobile-grid {
   backdrop-filter         : none;
   -webkit-backdrop-filter : none;
+}
+
+@keyframes mobile-projects-pulse {
+  0%,
+  58%,
+  100% {
+    transform : scale(1);
+  }
+
+  68% {
+    transform : scale(1.085);
+  }
+
+  78% {
+    transform : scale(0.992);
+  }
+
+  88% {
+    transform : scale(1.045);
+  }
+}
+
+@keyframes mobile-projects-pulse-ring {
+  0%,
+  56%,
+  100% {
+    opacity   : 0;
+    transform : scale(0.84);
+  }
+
+  68% {
+    opacity   : 0.75;
+    transform : scale(1.02);
+  }
+
+  92% {
+    opacity   : 0;
+    transform : scale(1.22);
+  }
 }
 
 .mobile-root--shell .app-window-content.mobile {
@@ -529,12 +605,14 @@
   .mobile-root--shell .mobile-home-shell::before,
   .mobile-root--shell .mobile-home-scroll,
   .mobile-root--shell .desktop-icon--mobile-grid,
+  .mobile-root--shell .desktop-icon--mobile-grid::after,
   .mobile-root--shell .dock-launch,
   .mobile-root--shell .dock-tooltip,
   .mobile-root--shell .app-window-content.mobile,
   .mobile-root--shell .notification-toast-stack--mobile,
   .mobile-root--shell .notification-toast-card--mobile {
     transition : none !important;
+    animation  : none !important;
     transform  : none;
   }
 }

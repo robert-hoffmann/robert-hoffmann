@@ -32,6 +32,11 @@ export function getRegistryTitle(id: string, locale: Locale): string {
   return titles[id]?.[locale] ?? windowRegistry[id]?.title ?? id
 }
 
+/** Resolve a desktop/mobile shortcut label without changing the window title */
+export function getRegistryIconTitle(id: string, locale: Locale): string {
+  return windowRegistry[id]?.iconTitle?.[locale] ?? getRegistryTitle(id, locale)
+}
+
 /* ----------------------------------------------------------
    Window Registry
    Each entry's `component` uses dynamic import() for code splitting.
@@ -59,6 +64,10 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
   projects : {
     id            : 'projects',
     title         : 'Project Highlights',
+    iconTitle     : {
+      en : 'Projects',
+      fr : 'Projets',
+    },
     icon          : '📂',
     iconSprite    : 'projects',
     type          : 'folder',
@@ -228,14 +237,14 @@ export function resolveAppComponent(id: string) {
    ---------------------------------------------------------- */
 export function getDefaultDesktopItems(locale: Locale = 'en'): DesktopItem[] {
   return Object.values(windowRegistry).map(def => ({
-    id      : def.id,
-    title   : getRegistryTitle(def.id, locale),
-    icon    : def.icon,
-    iconUrl : def.iconUrl,
+    id         : def.id,
+    title      : getRegistryIconTitle(def.id, locale),
+    icon       : def.icon,
+    iconUrl    : def.iconUrl,
     iconSprite : def.iconSprite,
-    type    : def.type,
-    col     : def.defaultCol,
-    row     : def.defaultRow,
-    url     : def.url,
+    type       : def.type,
+    col        : def.defaultCol,
+    row        : def.defaultRow,
+    url        : def.url,
   }))
 }
