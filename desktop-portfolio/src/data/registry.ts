@@ -13,7 +13,10 @@ import type { DesktopItem, Locale, WindowAppDefinition } from '../types/desktop'
    ---------------------------------------------------------- */
 const titles: Record<string, Record<Locale, string>> = {
   about    : { en : 'About Me',      fr : 'À propos' },
-  projects : { en : 'Projects',      fr : 'Projets' },
+  projects : {
+    en : 'Project Highlights',
+    fr : 'Projets marquants',
+  },
   resume   : { en : 'Resume',        fr : 'CV' },
   twitter  : { en : 'X',             fr : 'X' },
   linkedin : { en : 'LinkedIn',      fr : 'LinkedIn' },
@@ -55,7 +58,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
   },
   projects : {
     id            : 'projects',
-    title         : 'Projects',
+    title         : 'Project Highlights',
     icon          : '📂',
     iconSprite    : 'projects',
     type          : 'folder',

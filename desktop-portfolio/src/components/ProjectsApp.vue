@@ -15,10 +15,12 @@ const { l } = useLocale()
       <div class="project-period">{{ project.period }}</div>
       <span class="project-org">{{ l(project.org) }}</span>
 
-      <div v-if="'highlight' in project">
-        <p class="project-highlight">
-          {{ l(project.highlight) }}
-        </p>
+      <div class="project-highlights">
+        <span
+          v-for="highlight in project.highlights"
+          :key="`${project.id}-${l(highlight)}`"
+          class="project-highlight"
+        >{{ l(highlight) }}</span>
       </div>
 
       <p class="panel-paragraph">{{ l(project.summary) }}</p>

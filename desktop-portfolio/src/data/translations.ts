@@ -14,7 +14,10 @@ const ui: Record<string, Localized> = {
   'topbar.view'              : { en : 'View',               fr : 'Affichage' },
   'topbar.help'              : { en : 'Help',               fr : 'Aide' },
   'topbar.openAbout'         : { en : 'Open About',         fr : 'Ouvrir À propos' },
-  'topbar.openProjects'      : { en : 'Open Projects',      fr : 'Ouvrir Projets' },
+  'topbar.openProjects'      : {
+    en : 'Open Project Highlights',
+    fr : 'Ouvrir Projets marquants',
+  },
   'topbar.openResume'        : { en : 'Open Resume',        fr : 'Ouvrir CV' },
   'topbar.openGeoWars'       : { en : 'Open GeoWars',       fr : 'Ouvrir GeoWars' },
   'topbar.openMusic'         : { en : 'Open Music',         fr : 'Ouvrir Musique' },
