@@ -1,7 +1,9 @@
 export type BackgroundAnchorX = 'left' | 'center' | 'right'
 export type BackgroundAnchorY = 'top' | 'center' | 'bottom'
 export type BackgroundSizeMode = 'cover' | 'contain' | 'custom'
-export type ParallaxWidthBucket = 1280 | 1920 | 2560
+export type DesktopParallaxWidthBucket = 1280 | 1920 | 2560
+export type MobileParallaxWidthBucket = 480 | 768 | 1024
+export type ParallaxWidthBucket = DesktopParallaxWidthBucket | MobileParallaxWidthBucket
 
 export interface SceneConfig {
   maxRot                  : number
@@ -84,11 +86,25 @@ export interface ResolvedParallaxLayer extends ParallaxLayerConfig {
 }
 
 export const DESKTOP_PARALLAX_WIDTH_BUCKETS = [1280, 1920, 2560] as const
+export const MOBILE_PARALLAX_WIDTH_BUCKETS = [480, 768, 1024] as const
 
-export function resolveParallaxWidthBucket(viewportWidth: number): ParallaxWidthBucket {
+export function resolveParallaxWidthBucket(viewportWidth: number): DesktopParallaxWidthBucket {
   if (viewportWidth >= 1921) return 2560
   if (viewportWidth >= 1281) return 1920
   return 1280
+}
+
+export function resolveMobileParallaxWidthBucket(
+  viewportWidth: number,
+  devicePixelRatio = 1,
+): MobileParallaxWidthBucket {
+  const normalizedViewportWidth = Math.max(viewportWidth, 1)
+  const normalizedPixelRatio = Math.min(Math.max(devicePixelRatio, 1), 2)
+  const effectiveWidth = normalizedViewportWidth * normalizedPixelRatio
+
+  if (effectiveWidth >= 900) return 1024
+  if (normalizedViewportWidth <= 320 && normalizedPixelRatio <= 1.5) return 480
+  return 768
 }
 
 export const DEFAULT_PARALLAX_SCENE_CONFIG: ParallaxSceneConfig = {
@@ -240,6 +256,163 @@ export const DEFAULT_PARALLAX_SCENE_CONFIG: ParallaxSceneConfig = {
         scaleBoost : 0.004,
         moveX      : 30,
         moveY      : 18,
+        floatX     : 0,
+        floatY     : 0,
+        floatSpeed : 0,
+      },
+    },
+  ],
+}
+
+export const MOBILE_PARALLAX_SCENE_CONFIG: ParallaxSceneConfig = {
+  scene : {
+    maxRot                  : 2.35,
+    containerLerp           : 0.06,
+    perspective             : 650,
+    documentBackgroundColor : '#000000',
+  },
+  harmonics : {
+    freqA : 1,
+    freqB : 0.7,
+    ampB  : 0.3,
+    freqC : 0.8,
+    freqD : 0.5,
+    ampD  : 0.4,
+  },
+  layers : [
+    {
+      id        : 'layer-bg',
+      presetKey : 'layer-bg',
+      name      : 'Background',
+      imageSrc  : 'media/background.png',
+      visible   : true,
+      geometry  : {
+        topPct    : -6,
+        leftPct   : -6,
+        widthPct  : 112,
+        heightPct : 112,
+        zIndex    : 1,
+        baseZ     : -110,
+        baseScale : 1.1,
+      },
+      background : {
+        position : {
+          anchorX    : 'center',
+          anchorY    : 'center',
+          offsetXPct : 0,
+          offsetYPct : 0,
+        },
+        size : {
+          mode      : 'cover',
+          widthPct  : 100,
+          heightPct : 100,
+        },
+        repeat : {
+          x : 'no-repeat',
+          y : 'no-repeat',
+        },
+        color     : '#00000000',
+        blendMode : 'normal',
+        origin    : 'padding-box',
+        clip      : 'border-box',
+      },
+      motion : {
+        lerp       : 0.035,
+        scaleBoost : 0.006,
+        moveX      : 5,
+        moveY      : 4,
+        floatX     : 2,
+        floatY     : 1.5,
+        floatSpeed : 0.00008,
+      },
+    },
+    {
+      id        : 'layer-mid',
+      presetKey : 'layer-mid',
+      name      : 'Middle',
+      imageSrc  : 'media/middle.png',
+      visible   : true,
+      geometry  : {
+        topPct    : -10,
+        leftPct   : -10,
+        widthPct  : 120,
+        heightPct : 120,
+        zIndex    : 2,
+        baseZ     : -35,
+        baseScale : 1.05,
+      },
+      background : {
+        position : {
+          anchorX    : 'center',
+          anchorY    : 'center',
+          offsetXPct : 0,
+          offsetYPct : 0,
+        },
+        size : {
+          mode      : 'cover',
+          widthPct  : 100,
+          heightPct : 100,
+        },
+        repeat : {
+          x : 'no-repeat',
+          y : 'no-repeat',
+        },
+        color     : '#00000000',
+        blendMode : 'normal',
+        origin    : 'padding-box',
+        clip      : 'border-box',
+      },
+      motion : {
+        lerp       : 0.045,
+        scaleBoost : 0.035,
+        moveX      : 14,
+        moveY      : 11,
+        floatX     : 14,
+        floatY     : 12,
+        floatSpeed : 0.00036,
+      },
+    },
+    {
+      id        : 'layer-fg',
+      presetKey : 'layer-fg',
+      name      : 'Foreground',
+      imageSrc  : 'media/foreground.png',
+      visible   : true,
+      geometry  : {
+        topPct    : -16,
+        leftPct   : -16,
+        widthPct  : 132,
+        heightPct : 132,
+        zIndex    : 4,
+        baseZ     : 18,
+        baseScale : 1,
+      },
+      background : {
+        position : {
+          anchorX    : 'center',
+          anchorY    : 'center',
+          offsetXPct : 0,
+          offsetYPct : 0,
+        },
+        size : {
+          mode      : 'cover',
+          widthPct  : 100,
+          heightPct : 100,
+        },
+        repeat : {
+          x : 'no-repeat',
+          y : 'no-repeat',
+        },
+        color     : '#00000000',
+        blendMode : 'normal',
+        origin    : 'padding-box',
+        clip      : 'border-box',
+      },
+      motion : {
+        lerp       : 0.06,
+        scaleBoost : 0.008,
+        moveX      : 22,
+        moveY      : 16,
         floatX     : 0,
         floatY     : 0,
         floatSpeed : 0,

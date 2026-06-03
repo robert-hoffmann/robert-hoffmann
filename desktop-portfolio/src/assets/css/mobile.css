@@ -40,32 +40,89 @@
   background-color   : #1a0a35;
 }
 
-.mobile-root--shell .mobile-home-shell::before,
-.mobile-root--shell .mobile-home-shell::after {
-  content        : '';
-  position       : absolute;
-  inset          : 0;
-  z-index        : 0;
-  pointer-events : none;
-}
-
-.mobile-root--shell .mobile-home-shell::before {
-  background-image : image-set(
-    url('/wallpaper-mobile-left.avif') type('image/avif'),
-    url('/wallpaper-mobile-left.webp') type('image/webp')
-  );
-  background-size     : cover;
-  background-position : center center;
-  background-repeat   : no-repeat;
-  transform           : scale(1.02);
-  filter              : saturate(1.04);
-  opacity             : 1;
-}
-
 .mobile-root--shell .mobile-home-shell > * {
   position         : relative;
   z-index          : 1;
   min-inline-size  : 0;
+}
+
+.mobile-root--shell .mobile-home-shell > .mobile-background-stack {
+  position        : absolute;
+  z-index         : 0;
+  min-inline-size : auto;
+}
+
+.mobile-background-stack {
+  position       : absolute;
+  inset          : 0;
+  pointer-events : none;
+  overflow       : hidden;
+}
+
+.mobile-bg-layer {
+  position            : absolute;
+  inset               : 0;
+  pointer-events      : none;
+  background-size     : cover;
+  background-position : center;
+  background-repeat   : no-repeat;
+  transition          : opacity var(--dur-slow) var(--ease-out),
+                        transform var(--dur-fast) var(--ease-out);
+}
+
+.mobile-bg-layer--lqip {
+  opacity          : 1;
+  transform        : scale(1.05);
+  background-image : url('/parallax/mobile/layer-bg-lqip.webp'),
+                     linear-gradient(135deg, #1a0a35, #9964ac);
+  filter           : blur(18px) saturate(1.12);
+}
+
+.mobile-bg-layer--sharp {
+  --mobile-sharp-image : none;
+
+  opacity          : 0;
+  transform        : scale(1.03);
+  background-image : var(--mobile-sharp-image),
+                     url('/parallax/mobile/layer-bg-lqip.webp'),
+                     linear-gradient(135deg, #1a0a35, #9964ac);
+}
+
+.mobile-bg-layer--parallax {
+  opacity  : 0;
+  overflow : hidden;
+}
+
+.mobile-bg-layer--visible {
+  opacity : 1;
+}
+
+.mobile-bg-layer--hidden {
+  opacity : 0;
+}
+
+.mobile-bg-layer--parallax .mobile-parallax-scene {
+  position       : absolute;
+  inset          : 0;
+  pointer-events : none;
+  opacity        : 1;
+}
+
+.mobile-parallax-container {
+  position        : absolute;
+  inset           : 0;
+  transform-style : preserve-3d;
+  will-change     : transform;
+}
+
+.mobile-parallax-layer {
+  --parallax-layer-image : none;
+
+  position            : absolute;
+  pointer-events      : none;
+  backface-visibility : hidden;
+  will-change         : transform;
+  background-image    : var(--parallax-layer-image);
 }
 
 .mobile-root--shell .topbar.mobile {
@@ -602,7 +659,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mobile-root--shell .mobile-home-shell::before,
+  .mobile-bg-layer,
+  .mobile-parallax-scene,
   .mobile-root--shell .mobile-home-scroll,
   .mobile-root--shell .desktop-icon--mobile-grid,
   .mobile-root--shell .desktop-icon--mobile-grid::after,

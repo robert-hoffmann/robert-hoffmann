@@ -4,6 +4,7 @@ import MobileHeader from './mobile/MobileHeader.vue'
 import MobileHomeGrid from './mobile/MobileHomeGrid.vue'
 import MobileDock from './mobile/MobileDock.vue'
 import MobileAppSurface from './mobile/MobileAppSurface.vue'
+import MobileBackgroundStack from './MobileBackgroundStack.vue'
 import MobileToastStack from './mobile/MobileToastStack.vue'
 import { useLocale } from '../composables/useLocale'
 import { useTheme } from '../composables/useTheme'
@@ -52,6 +53,10 @@ const notificationTimers: Array<ReturnType<typeof setTimeout>> = []
 
 const currentAppItemId = computed(() =>
   mobileShell.currentMobileWindow.value?.itemId ?? '',
+)
+
+const mobileParallaxMotionEnabled = computed(() =>
+  mobileShell.mobileAppState.value !== 'expanded',
 )
 
 const currentWindowCapabilities = computed(() => {
@@ -158,8 +163,9 @@ function scheduleMobileNotifications() {
   })
 }
 
+updateClockLabels()
+
 onMounted(() => {
-  updateClockLabels()
   clockTimer = setInterval(updateClockLabels, 15_000)
   scheduleMobileNotifications()
 })
@@ -204,6 +210,8 @@ watch(
     :data-mobile-current-app="currentAppItemId || undefined"
   >
     <div class="mobile-home-shell" :style="rootStyle">
+      <MobileBackgroundStack :motion-enabled="mobileParallaxMotionEnabled" />
+
       <MobileHeader :owner-name="OWNER_NAME" />
 
       <main class="desktop-area mobile-home-main" :aria-label="t('desktop.area')">
