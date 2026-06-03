@@ -252,11 +252,11 @@
 
 .mobile-root--shell[data-mobile-app-state="minimized"]:not([data-mobile-current-app="projects"])
 .mobile-home-icon-grid .desktop-icon--mobile-grid[data-item-id="projects"] {
-  animation        : mobile-projects-pulse 2.4s ease-in-out 0.7s infinite;
+  animation        : mobile-projects-pulse 2.4s ease-in-out 0s 4;
   transform-origin : center;
 
   &::after {
-    animation : mobile-projects-pulse-ring 2.4s ease-out 0.7s infinite;
+    animation : mobile-projects-pulse-ring 2.4s ease-out 0s 4;
   }
 }
 
