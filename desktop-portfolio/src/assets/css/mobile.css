@@ -53,9 +53,8 @@
 }
 
 .mobile-background-stack {
-  --z-bg-lqip     : 0;
-  --z-bg-sharp    : 1;
-  --z-bg-parallax : 2;
+  --z-bg-lqip      : 0;
+  --z-bg-wallpaper : 1;
 
   position        : absolute;
   inset           : 0;
@@ -63,7 +62,6 @@
   pointer-events  : none;
   overflow        : hidden;
   contain         : paint;
-  transform       : translateZ(0);
 }
 
 .mobile-bg-layer {
@@ -75,36 +73,28 @@
   background-size             : cover;
   background-position         : center;
   background-repeat           : no-repeat;
-  will-change                 : opacity, transform;
-  transition                  : opacity var(--dur-slow) var(--ease-out),
-                                transform var(--dur-fast) var(--ease-out);
+  will-change                 : opacity;
+  transition                  : opacity var(--dur-slow) var(--ease-out);
 }
 
 .mobile-bg-layer--lqip {
   z-index          : var(--z-bg-lqip);
   opacity          : 1;
   transform        : translate3d(0, 0, 0) scale(1.05);
-  background-image : url('/parallax/mobile/layer-bg-lqip.webp'),
+  background-image : url('/parallax/mobile/wallpaper-lqip.webp'),
                      linear-gradient(135deg, #1a0a35, #9964ac);
   filter           : blur(18px) saturate(1.12);
 }
 
-.mobile-bg-layer--sharp {
-  --mobile-sharp-image : none;
+.mobile-bg-layer--wallpaper {
+  --mobile-wallpaper-image : none;
 
-  z-index          : var(--z-bg-sharp);
+  z-index          : var(--z-bg-wallpaper);
   opacity          : 0;
   transform        : translate3d(0, 0, 0) scale(1.03);
-  background-image : var(--mobile-sharp-image),
-                     url('/parallax/mobile/layer-bg-lqip.webp'),
+  background-image : var(--mobile-wallpaper-image),
+                     url('/parallax/mobile/wallpaper-lqip.webp'),
                      linear-gradient(135deg, #1a0a35, #9964ac);
-}
-
-.mobile-bg-layer--parallax {
-  z-index   : var(--z-bg-parallax);
-  opacity   : 0;
-  overflow  : hidden;
-  transform : translate3d(0, 0, 0);
 }
 
 .mobile-bg-layer--visible {
@@ -113,35 +103,6 @@
 
 .mobile-bg-layer--hidden {
   opacity : 0;
-}
-
-.mobile-bg-layer--parallax .mobile-parallax-scene {
-  position                    : absolute;
-  inset                       : 0;
-  pointer-events              : none;
-  backface-visibility         : hidden;
-  -webkit-backface-visibility : hidden;
-  opacity                     : 1;
-  transform                   : translateZ(0);
-}
-
-.mobile-parallax-container {
-  position                : absolute;
-  inset                   : 0;
-  transform-style         : preserve-3d;
-  -webkit-transform-style : preserve-3d;
-  will-change             : transform;
-}
-
-.mobile-parallax-layer {
-  --parallax-layer-image : none;
-
-  position                    : absolute;
-  pointer-events              : none;
-  backface-visibility         : hidden;
-  -webkit-backface-visibility : hidden;
-  will-change                 : transform;
-  background-image            : var(--parallax-layer-image);
 }
 
 .mobile-root--shell .topbar.mobile {
@@ -705,7 +666,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .mobile-bg-layer,
-  .mobile-parallax-scene,
   .mobile-root--shell .mobile-home-scroll,
   .mobile-root--shell .desktop-icon--mobile-grid,
   .mobile-root--shell .desktop-icon--mobile-grid::after,

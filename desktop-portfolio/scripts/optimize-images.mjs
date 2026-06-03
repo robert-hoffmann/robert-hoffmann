@@ -7,7 +7,8 @@
  *    favicon-32.png, favicon-16.png) from public/profile.jpg.
  * 3. Generates a 64×64 circular desktop-icon thumbnail (profile-icon.webp).
  * 4. Generates local video poster assets (video-poster.webp / .avif).
- * 5. Generates desktop and mobile parallax LQIP assets from tmp/background.
+ * 5. Generates desktop parallax LQIP assets from tmp/background.
+ * 6. Generates desktop parallax layers and flattened mobile wallpapers.
  *
  * Usage:  node scripts/optimize-images.mjs
  */
@@ -22,10 +23,11 @@ const TMP      = fileURLToPath(new URL('../tmp/', import.meta.url))
 const QUALITY  = { webp : 80, avif : 55 }
 const EXTS     = new Set(['.jpg', '.jpeg', '.png'])
 const SKIP     = new Set(['favicon-16.png', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'])
-const DESKTOP_PARALLAX_WIDTHS = [1280, 1920, 2560]
-const MOBILE_PARALLAX_WIDTHS = [480, 768, 1024]
-const MOBILE_PARALLAX_ASPECT_RATIO = 16 / 9
-const MOBILE_PARALLAX_CROP_OFFSET_X_RATIO = 200 / 768
+
+const DESKTOP_PARALLAX_WIDTHS               = [1280, 1920, 2560]
+const MOBILE_BACKGROUND_WIDTHS              = [480, 768, 1024]
+const MOBILE_BACKGROUND_ASPECT_RATIO        = 16 / 9
+const MOBILE_BACKGROUND_CROP_OFFSET_X_RATIO = 200 / 768
 const PWA_ICON_PNG_OPTIONS = {
   adaptiveFiltering : true,
   compressionLevel  : 9,
@@ -62,19 +64,19 @@ async function exists(pathname) {
   }
 }
 
-function mobileParallaxHeightForWidth(width) {
-  return Math.round(width * MOBILE_PARALLAX_ASPECT_RATIO)
+function mobileBackgroundHeightForWidth(width) {
+  return Math.round(width * MOBILE_BACKGROUND_ASPECT_RATIO)
 }
 
-async function resolveMobileParallaxCrop(referenceSource, targetWidth) {
-  const targetHeight = mobileParallaxHeightForWidth(targetWidth)
+async function resolveMobileBackgroundCrop(referenceSource, targetWidth) {
+  const targetHeight = mobileBackgroundHeightForWidth(targetWidth)
   const metadata = await sharp(referenceSource).metadata()
   const sourceWidth = metadata.width ?? targetWidth
   const sourceHeight = metadata.height ?? targetHeight
   const scale = Math.max(targetWidth / sourceWidth, targetHeight / sourceHeight)
   const scaledWidth = Math.max(targetWidth, Math.round(sourceWidth * scale))
   const scaledHeight = Math.max(targetHeight, Math.round(sourceHeight * scale))
-  const preferredLeft = Math.round(targetWidth * MOBILE_PARALLAX_CROP_OFFSET_X_RATIO)
+  const preferredLeft = Math.round(targetWidth * MOBILE_BACKGROUND_CROP_OFFSET_X_RATIO)
 
   return {
     left         : Math.min(Math.max(preferredLeft, 0), Math.max(0, scaledWidth - targetWidth)),
@@ -86,7 +88,7 @@ async function resolveMobileParallaxCrop(referenceSource, targetWidth) {
   }
 }
 
-function mobileParallaxBase(source, crop) {
+function mobileBackgroundBase(source, crop) {
   return sharp(source)
     .resize(crop.scaledWidth, crop.scaledHeight, { fit : 'fill' })
     .extract({
@@ -95,6 +97,28 @@ function mobileParallaxBase(source, crop) {
       width  : crop.width,
       height : crop.height,
     })
+}
+
+async function mobileWallpaperBuffer(crop) {
+  const [backgroundInput, middleInput, foregroundInput] = await Promise.all(
+    PARALLAX_LAYERS.map((layer) =>
+      mobileBackgroundBase(join(TMP, layer.sourceFile), crop).png().toBuffer(),
+    ),
+  )
+
+  return sharp(backgroundInput)
+    .composite([
+      {
+        input : middleInput,
+        blend : 'over',
+      },
+      {
+        input : foregroundInput,
+        blend : 'over',
+      },
+    ])
+    .png()
+    .toBuffer()
 }
 
 /* ---- 1. WebP + AVIF variants ---- */
@@ -243,7 +267,7 @@ if (videoPosterSrc) {
   console.log('⚠ No source found for video poster generation')
 }
 
-/* ---- 6. Desktop + mobile LQIP outputs (single source) ---- */
+/* ---- 6. Desktop LQIP output (single source) ---- */
 const backgroundSourceCandidates = [
   join(TMP, 'background.png'),
   join(TMP, 'background.jpg'),
@@ -258,11 +282,7 @@ const backgroundSource = await (async () => {
 
 if (backgroundSource) {
   const desktopParallaxAssetDir = join(PUBLIC, 'parallax', 'desktop')
-  const mobileParallaxAssetDir = join(PUBLIC, 'parallax', 'mobile')
-  await Promise.all([
-    mkdir(desktopParallaxAssetDir, { recursive : true }),
-    mkdir(mobileParallaxAssetDir, { recursive : true }),
-  ])
+  await mkdir(desktopParallaxAssetDir, { recursive : true })
 
   const desktopLqipOutput = join(desktopParallaxAssetDir, 'layer-bg-lqip.webp')
   await sharp(backgroundSource)
@@ -276,23 +296,8 @@ if (backgroundSource) {
     '✓ Desktop LQIP → ' +
     `parallax/desktop/layer-bg-lqip.webp (${(desktopLqipSize / 1024).toFixed(1)}KB)`,
   )
-
-  const mobileLqipOutput = join(mobileParallaxAssetDir, 'layer-bg-lqip.webp')
-  const mobileLqipCrop = await resolveMobileParallaxCrop(backgroundSource, 96)
-  await mobileParallaxBase(backgroundSource, mobileLqipCrop)
-    .blur(4)
-    .webp({ quality : 44 })
-    .toFile(mobileLqipOutput)
-
-  const mobileLqipSize = (await stat(mobileLqipOutput)).size
-  console.log(
-    '✓ Mobile LQIP → ' +
-    `parallax/mobile/layer-bg-lqip.webp (${(mobileLqipSize / 1024).toFixed(1)}KB)`,
-  )
 } else {
-  console.log(
-    '⚠ No tmp/background source found (png/jpg/webp) — skipping desktop + mobile LQIP generation',
-  )
+  console.log('⚠ No tmp/background source found (png/jpg/webp) — skipping desktop LQIP generation')
 }
 
 /* ---- 7. Desktop icon sprite runtime optimization ---- */
@@ -324,9 +329,9 @@ if (await exists(desktopSpriteSource)) {
   console.log('⚠ No desktop-profile-icons.webp found — skipping runtime sprite optimization')
 }
 
-/* ---- 8. Desktop + mobile parallax layer optimization (tmp -> public/parallax) ---- */
+/* ---- 8. Desktop parallax layers + mobile wallpapers (tmp -> public/parallax) ---- */
 const desktopParallaxLayerOutputDir = join(PUBLIC, 'parallax', 'desktop')
-const mobileParallaxLayerOutputDir = join(PUBLIC, 'parallax', 'mobile')
+const mobileBackgroundOutputDir      = join(PUBLIC, 'parallax', 'mobile')
 const hasParallaxSources = await Promise.all(
   PARALLAX_LAYERS.map(async ({ sourceFile }) => exists(join(TMP, sourceFile))),
 )
@@ -334,13 +339,8 @@ const hasParallaxSources = await Promise.all(
 if (hasParallaxSources.every(Boolean)) {
   await Promise.all([
     mkdir(desktopParallaxLayerOutputDir, { recursive : true }),
-    mkdir(mobileParallaxLayerOutputDir, { recursive : true }),
+    mkdir(mobileBackgroundOutputDir, { recursive : true }),
   ])
-
-  const mobileCropByWidth = new Map()
-  for (const width of MOBILE_PARALLAX_WIDTHS) {
-    mobileCropByWidth.set(width, await resolveMobileParallaxCrop(backgroundSource, width))
-  }
 
   for (const layer of PARALLAX_LAYERS) {
     const source = join(TMP, layer.sourceFile)
@@ -361,33 +361,42 @@ if (hasParallaxSources.every(Boolean)) {
         `${basename(webpOutput)} (${(webpBytes / 1024).toFixed(1)}KB)`,
       )
     }
+  }
 
-    for (const width of MOBILE_PARALLAX_WIDTHS) {
-      const crop = mobileCropByWidth.get(width)
-      const webpOutput = join(mobileParallaxLayerOutputDir, `${layer.id}-${width}.webp`)
+  const mobileLqipCrop = await resolveMobileBackgroundCrop(backgroundSource, 96)
+  const mobileLqipInput = await mobileWallpaperBuffer(mobileLqipCrop)
+  const mobileLqipOutput = join(mobileBackgroundOutputDir, 'wallpaper-lqip.webp')
+  await sharp(mobileLqipInput)
+    .blur(4)
+    .webp({ quality : 44 })
+    .toFile(mobileLqipOutput)
 
-      if (!crop) {
-        console.log(`⚠ Missing mobile crop geometry for ${width}px — skipping ${layer.id}`)
-        continue
-      }
+  const mobileLqipSize = (await stat(mobileLqipOutput)).size
+  console.log(
+    '✓ Mobile wallpaper LQIP → ' +
+    `parallax/mobile/wallpaper-lqip.webp (${(mobileLqipSize / 1024).toFixed(1)}KB)`,
+  )
 
-      await mobileParallaxBase(source, crop)
-        .webp({
-          quality      : layer.webpQuality,
-          alphaQuality : layer.alphaQuality,
-          effort       : 6,
-        })
-        .toFile(webpOutput)
+  for (const width of MOBILE_BACKGROUND_WIDTHS) {
+    const crop = await resolveMobileBackgroundCrop(backgroundSource, width)
+    const wallpaperInput = await mobileWallpaperBuffer(crop)
+    const webpOutput = join(mobileBackgroundOutputDir, `wallpaper-${width}.webp`)
 
-      const webpBytes = (await stat(webpOutput)).size
-      console.log(
-        `✓ Mobile parallax ${layer.id} ${width}px → ` +
-        `${basename(webpOutput)} (${(webpBytes / 1024).toFixed(1)}KB)`,
-      )
-    }
+    await sharp(wallpaperInput)
+      .webp({
+        quality : 76,
+        effort  : 6,
+      })
+      .toFile(webpOutput)
+
+    const webpBytes = (await stat(webpOutput)).size
+    console.log(
+      `✓ Mobile wallpaper ${width}px → ` +
+      `${basename(webpOutput)} (${(webpBytes / 1024).toFixed(1)}KB)`,
+    )
   }
 } else {
-  console.log('⚠ Missing tmp parallax source PNG files — skipping parallax layer optimization')
+  console.log('⚠ Missing tmp parallax source PNG files — skipping parallax + mobile wallpaper optimization')
 }
 
 console.log('Done.')

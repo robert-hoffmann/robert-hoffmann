@@ -55,10 +55,6 @@ const currentAppItemId = computed(() =>
   mobileShell.currentMobileWindow.value?.itemId ?? '',
 )
 
-const mobileParallaxMotionEnabled = computed(() =>
-  mobileShell.mobileAppState.value !== 'expanded',
-)
-
 const currentWindowCapabilities = computed(() => {
   const currentWindow = mobileShell.currentMobileWindow.value
   if (!currentWindow) {
@@ -210,7 +206,7 @@ watch(
     :data-mobile-current-app="currentAppItemId || undefined"
   >
     <div class="mobile-home-shell" :style="rootStyle">
-      <MobileBackgroundStack :motion-enabled="mobileParallaxMotionEnabled" />
+      <MobileBackgroundStack />
 
       <MobileHeader :owner-name="OWNER_NAME" />
 
