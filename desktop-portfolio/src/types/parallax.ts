@@ -85,6 +85,12 @@ export interface ResolvedParallaxLayer extends ParallaxLayerConfig {
   bucket   : ParallaxWidthBucket
 }
 
+export interface MobileParallaxTarget {
+  x      : number
+  y      : number
+  active : boolean
+}
+
 export const DESKTOP_PARALLAX_WIDTH_BUCKETS = [1280, 1920, 2560] as const
 export const MOBILE_PARALLAX_WIDTH_BUCKETS = [480, 768, 1024] as const
 

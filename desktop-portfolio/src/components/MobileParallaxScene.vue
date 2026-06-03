@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import type { ComponentPublicInstance, CSSProperties } from 'vue'
-import type { MobileParallaxTarget } from '../composables/useMobileOrientationParallax'
-import type { ParallaxSceneConfig, ResolvedParallaxLayer } from '../types/parallax'
+import type { MobileParallaxTarget, ParallaxSceneConfig, ResolvedParallaxLayer } from '../types/parallax'
 
 const props = withDefaults(defineProps<{
   scene : ParallaxSceneConfig

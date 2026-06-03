@@ -2,7 +2,6 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import type { CSSProperties } from 'vue'
 import MobileParallaxScene from './MobileParallaxScene.vue'
-import { useMobileOrientationParallax } from '../composables/useMobileOrientationParallax'
 import type {
   BackgroundAnchorX,
   BackgroundAnchorY,
@@ -29,7 +28,6 @@ const props = withDefaults(defineProps<{
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 const LQIP_HIDE_OVERLAP_MS = 180
 
-const orientationControls = useMobileOrientationParallax()
 const sceneConfig = ref<ParallaxSceneConfig>(MOBILE_PARALLAX_SCENE_CONFIG)
 const activeBucket = ref<MobileParallaxWidthBucket | null>(null)
 const activeLayers = ref<ResolvedParallaxLayer[]>([])
@@ -49,19 +47,13 @@ const widthBucket = ref<MobileParallaxWidthBucket>(
 let reducedMotionMedia: MediaQueryList | null = null
 let pendingTicket = 0
 let lqipHideTimer: number | null = null
-let gestureListenersActive = false
-let accessRequested = false
 
 const parallaxEnabled = computed(() =>
   Boolean(props.enabled && !isReducedMotion.value),
 )
 
-const orientationEnabled = computed(() =>
-  Boolean(parallaxEnabled.value && props.motionEnabled),
-)
-
-const sceneMotionEnabled = computed(() =>
-  Boolean(orientationEnabled.value && parallaxReady.value),
+const sceneAnimationEnabled = computed(() =>
+  Boolean(parallaxEnabled.value && props.motionEnabled && activeLayers.value.length > 0),
 )
 
 const sharpLayerStyle = computed<CSSProperties>(() => ({
@@ -332,55 +324,8 @@ function syncReducedMotion() {
   isReducedMotion.value = Boolean(reducedMotionMedia?.matches)
 }
 
-function removeGestureListeners() {
-  if (!gestureListenersActive) return
-
-  window.removeEventListener('click', onFirstGesture, { capture : true })
-  window.removeEventListener('touchend', onFirstGesture, { capture : true })
-  gestureListenersActive = false
-}
-
-function addGestureListeners() {
-  if (gestureListenersActive || accessRequested || !orientationEnabled.value) return
-
-  window.addEventListener('click', onFirstGesture, { capture : true, once : true })
-  window.addEventListener('touchend', onFirstGesture, {
-    capture : true,
-    once    : true,
-    passive : true,
-  })
-  gestureListenersActive = true
-}
-
-function syncGestureListeners() {
-  if (orientationEnabled.value) {
-    addGestureListeners()
-    return
-  }
-
-  removeGestureListeners()
-}
-
-async function requestOrientationAccess() {
-  if (!orientationEnabled.value) return
-
-  const canUseOrientation = await orientationControls.requestAccessFromUserGesture()
-  if (canUseOrientation && sceneMotionEnabled.value) {
-    orientationControls.start()
-  }
-}
-
-function onFirstGesture() {
-  if (accessRequested) return
-
-  accessRequested = true
-  removeGestureListeners()
-  void requestOrientationAccess()
-}
-
 function onReducedMotionChange() {
   syncReducedMotion()
-  syncGestureListeners()
   void refreshAssets()
 }
 
@@ -459,7 +404,6 @@ async function reloadSceneAndAssets() {
 
 function onResize() {
   const nextBucket = resolveMobileParallaxWidthBucket(window.innerWidth, window.devicePixelRatio)
-  orientationControls.resetCalibration()
   if (nextBucket === widthBucket.value) return
 
   widthBucket.value = nextBucket
@@ -471,28 +415,13 @@ watch(() => props.sceneUrl, async () => {
 })
 
 watch(() => props.enabled, () => {
-  syncGestureListeners()
   void refreshAssets()
 })
-
-watch(() => props.motionEnabled, () => {
-  syncGestureListeners()
-})
-
-watch(sceneMotionEnabled, (enabled) => {
-  if (!enabled) {
-    orientationControls.stop()
-    return
-  }
-
-  orientationControls.start()
-}, { immediate : true })
 
 onMounted(async () => {
   reducedMotionMedia = window.matchMedia(REDUCED_MOTION_QUERY)
   reducedMotionMedia.addEventListener('change', onReducedMotionChange)
   syncReducedMotion()
-  syncGestureListeners()
 
   window.addEventListener('resize', onResize, { passive : true })
 
@@ -501,8 +430,6 @@ onMounted(async () => {
 
 onUnmounted(() => {
   clearLqipHideTimer()
-  removeGestureListeners()
-  orientationControls.stop()
   reducedMotionMedia?.removeEventListener('change', onReducedMotionChange)
   window.removeEventListener('resize', onResize)
 })
@@ -526,10 +453,9 @@ onUnmounted(() => {
       :class="{ 'mobile-bg-layer--visible': parallaxReady && parallaxEnabled }"
     >
       <MobileParallaxScene
-        :enabled="sceneMotionEnabled"
+        :enabled="sceneAnimationEnabled"
         :scene="sceneConfig"
         :layers="activeLayers"
-        :read-target="orientationControls.readTarget"
       />
     </div>
   </div>

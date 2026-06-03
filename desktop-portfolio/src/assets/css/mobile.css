@@ -495,11 +495,15 @@
 }
 
 .mobile-root--shell .dock.mobile {
-  inline-size     : 100%;
-  min-inline-size : 0;
-  justify-content : stretch;
-  padding-inline  : var(--space-3);
-  padding-block   : var(--space-2);
+  inline-size                 : 100%;
+  min-inline-size             : 0;
+  justify-content             : stretch;
+  padding-inline              : var(--space-3);
+  padding-block               : var(--space-2);
+  isolation                   : isolate;
+  backface-visibility         : hidden;
+  -webkit-backface-visibility : hidden;
+  transform                   : translateZ(0);
 }
 
 .mobile-root--shell .dock.mobile::before {
@@ -520,10 +524,13 @@
 }
 
 .mobile-root--shell .dock-tray.mobile {
-  inline-size    : 100%;
-  min-inline-size: 0;
-  gap            : var(--space-1);
-  overflow       : hidden;
+  inline-size                 : 100%;
+  min-inline-size             : 0;
+  gap                         : var(--space-1);
+  overflow                    : hidden;
+  backface-visibility         : hidden;
+  -webkit-backface-visibility : hidden;
+  transform                   : translateZ(0);
 }
 
 .mobile-root--shell .dock-tray-scroll.mobile {
