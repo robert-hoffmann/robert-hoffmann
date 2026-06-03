@@ -30,7 +30,7 @@ const videoTransport = transport.kind === 'video' ? transport : null
 const presetConfig = computed<MediaPresetConfig>(() => MEDIA_PLAYER_PRESETS[props.preset])
 const layoutConfig = computed(() => presetConfig.value.layout)
 const videoFrameRef = useTemplateRef<HTMLDivElement>('videoFrame')
-const posterSizes = useElementImageSizes(videoFrameRef, 960)
+const posterSizes = useElementImageSizes(videoFrameRef, 416)
 
 const rootClasses = computed(() => [
   'unified-media-player',

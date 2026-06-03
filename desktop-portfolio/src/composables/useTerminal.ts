@@ -283,7 +283,7 @@ export function useTerminal(options: TerminalOptions) {
           '   ██████████████   │  Shell:  zsh 5.9         │',
           '   ██            ██ │  Term:   tmux 3.4        │',
           '   ██   ▒▒▒▒▒   ██  │  Theme:  Tokyo Night     │',
-          '   ██   ▒▒▒▒▒   ██  │  Font:   JetBrains Mono  │',
+          '   ██   ▒▒▒▒▒   ██  │  Font:   System Mono     │',
           `   ██            ██ │  Uptime: ${upStr.padEnd(16)}│`,
           '   ██████████████   │  Lang:   TypeScript 5.9  │',
           '                    ╰──────────────────────────╯',

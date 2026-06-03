@@ -251,7 +251,9 @@ onUnmounted(() => {
         type="button"
         :aria-label="t('topbar.switchTheme', { theme: t(`theme.${theme === 'dark' ? 'light' : 'dark'}`) })"
         @click="emit('toggleTheme')"
-      >{{ theme === 'dark' ? '☀︎' : '☾' }}</button>
+      >
+        <span aria-hidden="true">{{ theme === 'dark' ? '☀︎' : '☾' }}</span>
+      </button>
       <button
         class="topbar-icon-btn"
         type="button"

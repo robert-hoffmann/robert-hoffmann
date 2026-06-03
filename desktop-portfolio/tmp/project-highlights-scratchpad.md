@@ -24,9 +24,9 @@ Goal: turn the current `Projects` window into `Project Highlights`: fewer, stron
 - The data model now uses `highlights: Localized[]`.
 - The window title now says `Project Highlights`.
 - CSS now supports wrapped metric chips through `.project-highlights`.
-- Current ordering keeps TMIP Scheduler first, then the AI-built portfolio, Parallax Designer, and Uncle Bob, then TMIP Logger, so the top of the list shows both industrial impact and AI workflow/toolmaker positioning.
-- Wind Turbine Maintenance sits after SBM and before Attendance because it is a production industrial operations app with strong offline field-sync complexity, but fewer verified business/user metrics than SBM.
-- Maser Academy Inventory sits after Attendance and before Roland-Garros because it is a useful operations/planning system, but currently has fewer scale and technical-complexity signals than the offline attendance workflow.
+- Current ordering is intentionally extensive and impact-ranked. It starts with TMIP Scheduler, Uncle Bob, TMIP Logger, SBM / Teréga, the AI-built portfolio, Parallax Designer, Hutchinson, tchatche.com, and Ad Proxy, then continues through public tooling, industrial apps, dashboards, and older experiments.
+- `registry.ts` separates the mobile/desktop shortcut label `Projects` from the window title `Project Highlights`.
+- The mobile Projects icon has a short three-cycle pulse on the minimized mobile home screen so users notice the main portfolio content when no window is open.
 
 ## Data Model Options
 
@@ -807,39 +807,34 @@ Interview questions:
 
 Direction: keep a very extensive list, ordered by impact. The top should feel commercially and technically heavy; the lower section should still show the builder/toolmaker pattern across tools, libraries, dashboards, and side products.
 
-Top industrial / business-critical highlights:
+Current order:
 
-1. TMIP Scheduler
-2. TMIP Logger
-3. Hutchinson E-Learning / Digital Work Instructions
-4. SBM Onboarding & Certification Tracking
-5. Wind Turbine Maintenance Planning & Field Reporting
-6. Application de Pointage / Attendance Tracking App
-7. Maser Academy Course Inventory Planning
-8. Roland-Garros Navigation App
+1. TMIP Scheduler — Industrial Data Orchestration
+2. Uncle Bob — Agentic AI Workflow System
+3. TMIP Logger — QoS & KPI Observability
+4. SBM / Teréga — Onboarding & Certification Tracking
+5. i-technology.net — AI-Built Desktop Portfolio
+6. Parallax Designer — AI-Built Visual Builder
+7. Hutchinson — Digital Work Instructions
+8. tchatche.com — White-Label Chat Platform
+9. Ad Proxy — Ad-Distribution Server
+10. T4ResX — Localization Tooling
+11. HeadJS — Open-Source JS Library
+12. Wind Turbine Maintenance Operations Platform
+13. Student Attendance & Invoicing System
+14. Maser Academy — Course Inventory Planning
+15. Roland-Garros — Staff Navigation PWA
+16. FindUnusedFiles — Visual Studio Extension
+17. Public Health Analytics Dashboards
+18. HealthMonitoring — Error Tracking
+19. JsonRaw — Lightweight JSON Protocol
+20. PowerToys for OpenAI
+21. MicroCoil Calculator — Web & Mobile
+22. Web-Monitor.NET
+23. PhantomUI — Web-to-PDF Converter
+24. jQuery Mario — Mobile Web Game POC
 
-High-scale web / media highlights:
-
-9. tchatche.com
-10. Ad Proxy
-
-Builder/toolmaker highlights:
-
-11. HeadJS
-12. PowerToys for OpenAI
-13. MicroCoil Calculator
-14. FindUnusedFiles
-
-Long-tail archive candidates:
-
-- Stats DREES / Stats COVID
-- HealthMonitoring / Web-Monitor.NET
-- JsonR
-- T4ResX
-- PhantomUI
-- jQuery Mario
-
-Note: continue appending later. The section can grow as long as ordering remains disciplined: most impressive/highest-signal cards first, narrower tools and older experiments lower.
+Future additions should be inserted into this order by signal strength: production/business-critical impact first, then high-scale public/web systems, then builder/toolmaker projects, then narrower utilities and older experiments.
 
 ## Future Project Interview Template
 
@@ -857,10 +852,8 @@ Use this template when adding more project highlights later:
 10. Public links, docs, store listings, screenshots, or safe references.
 11. Confidentiality limits: what can be named, generalized, or omitted.
 
-## Next Decisions
+## Maintenance Notes
 
-1. Rename the window title from `Projects` to `Project Highlights`.
-2. Change `highlight` to `highlights`.
-3. Draft polished bilingual copy for the current highlight set.
-4. Update `content.ts`, `ProjectsApp.vue`, and probably `registry.ts`.
-5. Run the Vue/TypeScript build after edits.
+- The reusable interview template above is the standard path for adding more project highlights later.
+- Keep public claims grounded in known facts, public links, or user-confirmed numbers.
+- When new highlights are added, update `content.ts`, prerender output expectations, SEO fallback copy if needed, and this ordering note.

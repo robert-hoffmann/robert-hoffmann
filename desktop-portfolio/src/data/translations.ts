@@ -86,8 +86,8 @@ const ui: Record<string, Localized> = {
 
   /* ---- Desktop / Dock ---- */
   'desktop.area'             : { en : 'Desktop area',       fr : 'Zone de bureau' },
-  'desktop.srTitle'          : { en : 'Robert Hoffmann — Full-Stack Engineer & Consultant',
-                                 fr : 'Robert Hoffmann — Ingénieur Full-Stack & Consultant' },
+  'desktop.srTitle'          : { en : 'Robert Hoffmann — Industrial Full-Stack Consultant',
+                                 fr : 'Robert Hoffmann — Consultant Full-Stack industriel' },
   'dock.label'               : { en : 'Dock',               fr : 'Dock' },
   'dock.launch'              : { en : 'Launch {title}',     fr : 'Lancer {title}' },
   'dock.toggle'              : { en : 'Toggle {title}',     fr : 'Basculer {title}' },

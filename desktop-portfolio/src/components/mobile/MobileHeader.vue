@@ -74,7 +74,9 @@ onUnmounted(() => {
         type="button"
         :aria-label="t('topbar.switchTheme', { theme: t(`theme.${theme.theme.value === 'dark' ? 'light' : 'dark'}`) })"
         @click="theme.toggle()"
-      >{{ theme.theme.value === 'dark' ? '☀︎' : '☾' }}</button>
+      >
+        <span aria-hidden="true">{{ theme.theme.value === 'dark' ? '☀︎' : '☾' }}</span>
+      </button>
 
       <button
         v-if="supportsFullscreen"

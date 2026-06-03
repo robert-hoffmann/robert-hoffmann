@@ -28,7 +28,7 @@ const YT_EMBED_HOST = 'https://www.youtube.com'
 const containerRef = useTemplateRef<HTMLDivElement>('playerContainer')
 const wrapperRef   = useTemplateRef<HTMLDivElement>('videoWrapper')
 const posterFrameRef = useTemplateRef<HTMLDivElement>('posterFrame')
-const posterSizes = useElementImageSizes(posterFrameRef, 960)
+const posterSizes = useElementImageSizes(posterFrameRef, 416)
 
 /** True while showing the static thumbnail facade (before first play) */
 const showFacade = ref(true)

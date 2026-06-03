@@ -174,7 +174,7 @@ onUnmounted(() => {
   flex-direction : column;
   block-size     : 100%;
   background     : var(--term-bg);
-  font-family    : 'JetBrains Mono', ui-monospace, monospace;
+  font-family    : var(--font-mono);
   font-size      : 13px;
   line-height    : 1.5;
   color          : var(--term-fg);
