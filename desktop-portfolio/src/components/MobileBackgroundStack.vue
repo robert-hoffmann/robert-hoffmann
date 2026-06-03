@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import type { CSSProperties } from 'vue'
 import MobileParallaxScene from './MobileParallaxScene.vue'
 import { useMobileOrientationParallax } from '../composables/useMobileOrientationParallax'
@@ -161,6 +161,23 @@ function scheduleLqipHide() {
     lqipHideTimer = null
     lqipHidden.value = true
   }, LQIP_HIDE_OVERLAP_MS)
+}
+
+function waitForAnimationFrame() {
+  return new Promise<void>((resolve) => {
+    if (document.hidden) {
+      window.setTimeout(resolve, 16)
+      return
+    }
+
+    window.requestAnimationFrame(() => resolve())
+  })
+}
+
+async function waitForLayerPaint() {
+  await nextTick()
+  await waitForAnimationFrame()
+  await waitForAnimationFrame()
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -388,6 +405,9 @@ async function refreshAssets() {
   const isFirstSharpReveal = !sharpReady.value
   activeBucket.value = nextBucket
   activeSharpUrl.value = nextSharpUrl
+  await waitForLayerPaint()
+  if (ticket !== pendingTicket) return
+
   sharpReady.value = true
   if (isFirstSharpReveal) {
     scheduleLqipHide()
@@ -421,6 +441,9 @@ async function refreshAssets() {
   if (ticket !== pendingTicket) return
 
   activeLayers.value = nextLayers
+  await waitForLayerPaint()
+  if (ticket !== pendingTicket) return
+
   parallaxReady.value = true
 }
 

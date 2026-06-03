@@ -225,7 +225,6 @@ function setLayerRef(layerId: string, node: Element | ComponentPublicInstance | 
 watch(() => props.enabled, (enabled) => {
   if (!enabled) {
     stopAnimation()
-    resetRuntimeState()
     return
   }
 
