@@ -10,8 +10,8 @@ import type { Localized } from '../types/desktop'
 export const about = {
   name     : 'Robert Hoffmann',
   tagline  : {
-    en : 'Full-Stack Engineer · Consultant · 25+ years in tech',
-    fr : 'Ingénieur Full-Stack · Consultant · 25+ ans dans la tech',
+    en : 'Full-Stack Consultant · Industrial Software · AI Workflows',
+    fr : 'Consultant Full-Stack · Logiciels industriels · Workflows IA',
   } satisfies Localized,
   photo    : `${import.meta.env.BASE_URL}profile-avatar-80.avif`,
   photoSrcSet : [
@@ -22,38 +22,42 @@ export const about = {
 
   aiCallout : {
     en :
-      'I use AI tools, agents, and workflows every day\u202F— for research, writing specs, ' +
-      'reviewing codebases, and accelerating delivery. I\u2019m genuinely comfortable ' +
-      'with the whole stack, from prompt engineering to raw code.',
+      'I use AI agents as part of the engineering workflow, not just as autocomplete: ' +
+      'research, specs, code review, implementation, documentation sync, quality gates, ' +
+      'and repeatable delivery systems. The goal is not novelty; it is faster, clearer, ' +
+      'more controlled software delivery.',
     fr :
-      'J\u2019utilise des outils d\u2019IA, des agents et des workflows au quotidien\u202F— ' +
-      'pour la recherche, la rédaction de spécifications, la revue de code et ' +
-      'l\u2019accélération des livraisons. Je suis réellement à l\u2019aise avec l\u2019ensemble ' +
-      'de la chaîne, du prompt engineering au code brut.',
+      'J\u2019utilise les agents IA comme partie intégrante du workflow d\u2019ingénierie, pas ' +
+      'seulement comme autocomplétion : recherche, specs, revue de code, implémentation, ' +
+      'synchronisation documentaire, quality gates et systèmes de livraison répétables. ' +
+      'Le but n\u2019est pas la nouveauté ; c\u2019est une livraison logicielle plus rapide, plus ' +
+      'claire et mieux contrôlée.',
   } satisfies Localized,
 
   summary : {
     en :
-      'I\u2019ve spent 25+ years shipping software across aerospace, telecom, and media\u202F— ' +
-      'from white-label chat platforms handling 400M requests a day and ad systems ' +
-      'serving 3B+ impressions a month, to industrial IoT pipelines feeding real-time ' +
-      'dashboards on the factory floor. High-traffic, mission-critical, and usually ' +
-      'the kind of thing that has to work at 3\u202Fam.',
+      'I\u2019ve spent 25+ years building software that has to survive real traffic, real ' +
+      'operations, and real users: white-label chat platforms handling 400M requests/day, ' +
+      'ad systems serving 3B+ impressions/month, offline field apps for industrial teams, ' +
+      'and data orchestration systems running 30K+ jobs/day. Today I focus on industrial ' +
+      'software, operational platforms, observability, and AI-assisted engineering workflows.',
     fr :
-      'En 25+ ans, j\u2019ai livré des logiciels dans l\u2019aérospatiale, les télécoms et les ' +
-      'médias\u202F— des plateformes de chat en marque blanche traitant 400M de requêtes ' +
-      'par jour et des régies pub servant 3Md+ d\u2019impressions par mois, jusqu\u2019aux ' +
-      'pipelines IoT industriels alimentant des tableaux de bord temps réel en usine. ' +
-      'Fort trafic, systèmes critiques, et le genre de chose qui doit fonctionner à 3\u202Fh du matin.',
+      'En 25+ ans, j\u2019ai construit des logiciels qui doivent tenir face au vrai trafic, ' +
+      'aux vraies opérations et aux vrais utilisateurs : plateformes de chat en marque ' +
+      'blanche traitant 400M de requêtes/jour, régies publicitaires servant 3Md+ ' +
+      'd\u2019impressions/mois, apps terrain hors ligne pour équipes industrielles et systèmes ' +
+      'd\u2019orchestration de données exécutant 30K+ jobs/jour. Aujourd\u2019hui, je me concentre ' +
+      'sur les logiciels industriels, plateformes opérationnelles, l\u2019observabilité et les ' +
+      'workflows d\u2019ingénierie assistés par IA.',
   } satisfies Localized,
 
   expertise : [
-    { en : 'AI Tools & Agents',       fr : 'Outils IA & Agents' },
-    { en : '.NET · TS · Vue · Python', fr : '.NET · TS · Vue · Python' },
-    { en : 'Data Pipelines & IoT',    fr : 'Pipelines de données & IoT' },
-    { en : 'Skywise / Foundry',       fr : 'Skywise / Foundry' },
-    { en : 'DevOps & CI/CD',          fr : 'DevOps & CI/CD' },
-    { en : 'Agile & Scrum',           fr : 'Agile & Scrum' },
+    { en : 'AI Workflows & Agents',          fr : 'Workflows IA & Agents' },
+    { en : 'Industrial Software',            fr : 'Logiciels industriels' },
+    { en : 'Offline Field Apps',             fr : 'Apps terrain hors ligne' },
+    { en : 'Data Orchestration',             fr : 'Orchestration de données' },
+    { en : 'Vue · Python · Symfony · .NET',  fr : 'Vue · Python · Symfony · .NET' },
+    { en : 'Observability & Traceability',   fr : 'Observabilité & traçabilité' },
   ] satisfies Localized[],
 
   certifications : [
@@ -1344,8 +1348,8 @@ export const experience = [
       fr : 'Maser Engineering',
     } satisfies Localized,
     role     : {
-      en : 'Consultant — Data & IoT Integration',
-      fr : 'Consultant — Intégration Data & IoT',
+      en : 'Consultant — Industrial Software & Operations Platforms',
+      fr : 'Consultant — Logiciels industriels & plateformes opérationnelles',
     } satisfies Localized,
     period   : 'Mar 2022 – Present',
     location : {
@@ -1358,37 +1362,53 @@ export const experience = [
     } satisfies Localized,
     summary  : {
       en :
-        'Designing and optimizing industrial data workflows with progressive specialization ' +
-        'in Airbus Skywise / Palantir Foundry for aerospace, energy, and industrial clients ' +
-        'including Airbus, Safran, Hutchinson, Terega, SBM, and Nexess IoT.',
+        'Building production software for industrial, aerospace, energy, training, and ' +
+        'compliance operations: data orchestration, offline field apps, planning back offices, ' +
+        'certification workflows, inventory systems, observability tooling, and AI-assisted ' +
+        'delivery workflows for clients including Airbus, Hutchinson, SBM, Teréga, CRIT, Nexess, ' +
+        'and Maser Academy.',
       fr :
-        'Conception et optimisation de workflows de données industrielles avec spécialisation ' +
-        'progressive sur Airbus Skywise / Palantir Foundry pour des clients de l\u2019aérospatiale, ' +
-        'de l\u2019énergie et de l\u2019industrie, dont Airbus, Safran, Hutchinson, Terega, SBM et Nexess IoT.',
+        'Conception et livraison de logiciels de production pour les opérations industrielles, ' +
+        'aéronautiques, énergie, formation et conformité : orchestration de données, apps terrain ' +
+        'hors ligne, back-offices de planification, workflows de certification, systèmes ' +
+        'd\u2019inventaire, observabilité et workflows de livraison assistés par IA pour des clients ' +
+        'dont Airbus, Hutchinson, SBM, Teréga, CRIT, Nexess et Maser Academy.',
     } satisfies Localized,
     bullets  : [
       {
-        en : 'Data collection & transformation — APIs, CSV, JSON, XML, IoT sensor feeds, log parsing',
-        fr : 'Collecte & transformation de données — APIs, CSV, JSON, XML, flux capteurs IoT, parsing de logs',
+        en : 'Delivered full-stack operational platforms across Symfony, Vue, Quasar, Python, Airtable, MariaDB, SQLite, and REST APIs',
+        fr : 'Livraison de plateformes opérationnelles full-stack avec Symfony, Vue, Quasar, Python, Airtable, MariaDB, SQLite et APIs REST',
       },
       {
-        en : 'Workflow automation — no-code, low-code, and full-code (n8n, Make, Airtable, custom APIs)',
-        fr : 'Automatisation de workflows — no-code, low-code et full-code (n8n, Make, Airtable, APIs custom)',
+        en : 'Built offline-capable field and tablet apps for wind-turbine maintenance, training attendance, and manufacturing work instructions',
+        fr : 'Création d\u2019apps terrain et tablette hors ligne pour maintenance éolienne, pointage formation et instructions de fabrication',
       },
       {
-        en : 'Skywise / Foundry dataset integration, ontology modeling, and SQL & Spark pipelines',
-        fr : 'Intégration de datasets Skywise / Foundry, modélisation d\u2019ontologies, et pipelines SQL & Spark',
+        en : 'Modernized industrial data pipelines, job orchestration, structured logging, alerting, and traceability systems',
+        fr : 'Modernisation de pipelines de données industrielles, orchestration de jobs, logging structuré, alerting et traçabilité',
       },
       {
-        en : 'Slate dashboards for operational health, performance, and error monitoring',
-        fr : 'Tableaux de bord Slate pour le suivi opérationnel, la performance et la surveillance d\u2019erreurs',
+        en : 'Integrated smart cabinets, Google Workspace, Skywise / Foundry, Airtable, PDFs, CSV exports, and internal back-office tools',
+        fr : 'Intégration d\u2019armoires connectées, Google Workspace, Skywise / Foundry, Airtable, PDFs, exports CSV et outils back-office internes',
       },
       {
-        en : 'Alerting & observability for anomaly and error-trend detection',
-        fr : 'Alerting & observabilité pour la détection d\u2019anomalies et de tendances d\u2019erreurs',
+        en : 'Introduced AI-assisted engineering workflows, quality gates, documentation sync, and repeatable delivery practices',
+        fr : 'Introduction de workflows d\u2019ingénierie assistés par IA, quality gates, synchronisation documentaire et pratiques de livraison répétables',
       },
     ] satisfies Localized[],
-    stack    : ['C#', 'PHP', 'Vue.js', 'Python', 'SQL', 'Skywise', 'Foundry'],
+    stack    : [
+      'Python',
+      'PHP',
+      'Symfony',
+      'Vue.js',
+      'Quasar',
+      'Airtable',
+      'MariaDB',
+      'SQLite',
+      'REST APIs',
+      'Skywise / Foundry',
+      'AI Workflows',
+    ],
   },
   {
     id       : 'exp-independent',
