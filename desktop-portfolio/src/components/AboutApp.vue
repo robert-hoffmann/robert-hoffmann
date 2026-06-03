@@ -231,12 +231,15 @@ onUnmounted(() => {
     <div class="about-certs">
       <h4 class="about-section-title">{{ t('about.certifications') }}</h4>
       <div class="about-cert-pills">
-        <span
+        <a
           v-for="cert in about.certifications"
           :key="cert.label"
+          :href="cert.href"
+          target="_blank"
+          rel="noopener noreferrer"
           class="about-pill about-pill--cert"
           :title="cert.issuer"
-        >{{ cert.label }}</span>
+        >{{ cert.label }}</a>
       </div>
     </div>
 
@@ -454,6 +457,8 @@ onUnmounted(() => {
   background   : transparent;
   border-color : var(--border-default);
   font-size    : var(--text-xs);
+  cursor       : pointer;
+  text-decoration : none;
 }
 
 /* ---- Responsive: stack stats 2×2 in narrow windows ---- */
