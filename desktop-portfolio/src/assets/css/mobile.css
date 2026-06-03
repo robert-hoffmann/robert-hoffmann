@@ -157,14 +157,29 @@
   isolation                   : isolate;
   backface-visibility         : hidden;
   -webkit-backface-visibility : hidden;
-  background                  : linear-gradient(
-    180deg,
-    oklch(19% 0.012 250 / 0.985) 0%,
-    oklch(14% 0.01 250 / 0.985) 100%
-  );
+  background                  : var(--surface-overlay);
+  border-color                : var(--border-default);
+  color                       : var(--text-primary);
   backdrop-filter             : none;
   -webkit-backdrop-filter     : none;
   will-change                 : opacity, transform;
+}
+
+.mobile-root--shell .notification-toast-cta-bar--soft {
+  background   : var(--icon-hover-bg);
+  border-color : var(--border-subtle);
+}
+
+.mobile-root--shell .notification-toast-cta-bar--accent {
+  border-color : var(--icon-selected-bd);
+}
+
+.mobile-root--shell .notification-toast-cta-bar-icon {
+  background : var(--border-subtle);
+}
+
+.mobile-root--shell .notification-toast-cta-bar--accent .notification-toast-cta-bar-icon {
+  background : var(--icon-selected-bd);
 }
 
 .mobile-root--shell .notification-toast-card--mobile[data-visible="false"][data-entry-origin="stack"] {
