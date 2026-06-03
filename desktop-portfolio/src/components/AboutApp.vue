@@ -4,6 +4,7 @@ import { about } from '../data/content'
 import { useLocale } from '../composables/useLocale'
 
 const { l, t } = useLocale()
+const baseUrl = import.meta.env.BASE_URL
 
 const POINTER_MEDIA_QUERY        = '(hover: hover) and (pointer: fine)'
 const REDUCED_MOTION_MEDIA_QUERY = '(prefers-reduced-motion: reduce)'
@@ -239,7 +240,11 @@ onUnmounted(() => {
           rel="noopener noreferrer"
           class="about-pill about-pill--cert"
           :title="cert.issuer"
-        >{{ cert.label }}</a>
+          :style="{ '--cert-icon-url': `url('${baseUrl}icons/${cert.icon}.svg')` }"
+        >
+          <span class="about-cert-icon" aria-hidden="true"></span>
+          <span>{{ cert.label }}</span>
+        </a>
       </div>
     </div>
 
@@ -454,11 +459,22 @@ onUnmounted(() => {
 }
 
 .about-pill--cert {
-  background   : transparent;
-  border-color : var(--border-default);
-  font-size    : var(--text-xs);
-  cursor       : pointer;
+  gap             : 0.36rem;
+  background      : transparent;
+  border-color    : var(--border-default);
+  font-size       : var(--text-xs);
+  cursor          : pointer;
   text-decoration : none;
+}
+
+.about-cert-icon {
+  inline-size             : 0.82rem;
+  block-size              : 0.82rem;
+  flex                    : 0 0 auto;
+  background              : currentColor;
+  opacity                 : 0.82;
+  mask                    : var(--cert-icon-url) center / contain no-repeat;
+  -webkit-mask            : var(--cert-icon-url) center / contain no-repeat;
 }
 
 /* ---- Responsive: stack stats 2×2 in narrow windows ---- */

@@ -64,36 +64,43 @@ export const about = {
     {
       label  : 'PSM',
       issuer : 'Scrum.org',
+      icon   : 'scrum',
       href   : 'https://www.scrum.org/user/614185',
     },
     {
       label  : 'PSPO',
       issuer : 'Scrum.org',
+      icon   : 'scrum',
       href   : 'https://www.scrum.org/user/614185',
     },
     {
       label  : 'Lean Six Sigma',
       issuer : 'LinkedIn',
+      icon   : 'linkedin',
       href   : 'https://www.linkedin.com/learning/certificates/ea7aeab9046a8a37af23a00a2e3b3263b1bae86059bb2a14f387156da1f13d12',
     },
     {
       label  : 'Change Mgmt',
       issuer : 'LinkedIn',
+      icon   : 'linkedin',
       href   : 'https://www.linkedin.com/learning/certificates/809c54d4c06ee8f5b9ffadb06cc25f134ece32146c02c38de5e920a5cf4089c9',
     },
     {
       label  : 'Strategic Agility',
       issuer : 'LinkedIn',
+      icon   : 'linkedin',
       href   : 'https://www.linkedin.com/learning/certificates/194ee73337c919c6fb56a526beccfa78dd1325ee81142777769e4c5a7e1d196f',
     },
     {
       label  : 'Digital Transformation',
       issuer : 'LinkedIn',
+      icon   : 'linkedin',
       href   : 'https://www.linkedin.com/learning/certificates/366ab1cc56e81f92e057968e0441ac6515cf33e09b4e3ad461ec479ac84635d0',
     },
     {
       label  : 'Digital Strategy',
       issuer : 'LinkedIn',
+      icon   : 'linkedin',
       href   : 'https://www.linkedin.com/learning/certificates/0f87d3ffb057ac3c06c32372af91009d9bb03b48ad6970f0eb6f61d70c6872ca',
     },
   ],
