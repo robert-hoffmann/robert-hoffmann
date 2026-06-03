@@ -131,124 +131,6 @@ export const projects = [
     ],
   },
   {
-    id         : 'proj-desktop-portfolio',
-    name       : {
-      en : 'i-technology.net — AI-Built Desktop Portfolio',
-      fr : 'i-technology.net — Portfolio desktop construit avec l\u2019IA',
-    } satisfies Localized,
-    org        : {
-      en : 'Independent',
-      fr : 'Indépendant',
-    } satisfies Localized,
-    period     : '2026 – present',
-    summary    : {
-      en :
-        'Interactive portfolio and AI-workflow testbed that turns a resume into a desktop ' +
-        'simulator. Built through AI-driven engineering workflows, it combines a macOS-style ' +
-        'shell, typed app registry, draggable and resizable window manager, async-loaded mini ' +
-        'apps, bilingual content, mobile shell, prerendered SEO, and performance-focused asset loading.',
-      fr :
-        'Portfolio interactif et banc d\u2019essai de workflows IA transformant un CV en simulateur ' +
-        'desktop. Construit via des workflows d\u2019ingénierie pilotés par l\u2019IA, il combine shell ' +
-        'style macOS, registre d\u2019apps typé, gestionnaire de fenêtres déplaçables et ' +
-        'redimensionnables, mini-apps chargées en async, contenu bilingue, shell mobile, SEO ' +
-        'prérendu et chargement d\u2019assets optimisé.',
-    } satisfies Localized,
-    highlights : [
-      {
-        en : '100% AI-built',
-        fr : '100% construit avec l\u2019IA',
-      },
-      {
-        en : 'Desktop simulator + mini apps',
-        fr : 'Simulateur desktop + mini-apps',
-      },
-      {
-        en : 'Lighthouse 100 desktop',
-        fr : 'Lighthouse 100 desktop',
-      },
-      {
-        en : 'Lighthouse 99 mobile',
-        fr : 'Lighthouse 99 mobile',
-      },
-    ] satisfies Localized[],
-    stack      : [
-      'Vue 3',
-      'TypeScript',
-      'Vite',
-      'Tailwind CSS v4',
-      'Three.js',
-      'vite-prerender-plugin',
-      'Sharp',
-      'AI Workflows',
-    ],
-    links      : [
-      { label : 'Live site', href : 'https://i-technology.net/' },
-    ],
-  },
-  {
-    id         : 'proj-parallax-designer',
-    name       : {
-      en : 'Parallax Designer — AI-Built Visual Builder',
-      fr : 'Parallax Designer — Builder visuel construit avec l\u2019IA',
-    } satisfies Localized,
-    org        : {
-      en : 'Independent',
-      fr : 'Indépendant',
-    } satisfies Localized,
-    period     : '2026 – present',
-    summary    : {
-      en :
-        'Browser-based visual editor for designing multi-layer parallax scenes like the ' +
-        'portfolio background system. It provides real-time preview, layer geometry and motion ' +
-        'controls, local asset storage, presets, schema validation, standalone runtime HTML export, ' +
-        'and an AI-driven documentation pipeline syncing app, user, and API docs into a VitePress site.',
-      fr :
-        'Éditeur visuel navigateur pour concevoir des scènes parallax multi-couches comme le ' +
-        'système de fond du portfolio. Il propose preview temps réel, contrôles géométrie et ' +
-        'mouvement par couche, stockage local d\u2019assets, presets, validation de schéma, export ' +
-        'HTML runtime autonome et pipeline documentaire IA synchronisant app, docs utilisateur ' +
-        'et API vers un site VitePress.',
-    } satisfies Localized,
-    highlights : [
-      {
-        en : '100% AI-built',
-        fr : '100% construit avec l\u2019IA',
-      },
-      {
-        en : 'Real-time parallax editor',
-        fr : 'Éditeur parallax temps réel',
-      },
-      {
-        en : 'Standalone HTML export',
-        fr : 'Export HTML autonome',
-      },
-      {
-        en : 'Automated VitePress docs',
-        fr : 'Docs VitePress automatisées',
-      },
-    ] satisfies Localized[],
-    stack      : [
-      'Vue 3',
-      'TypeScript',
-      'Vite',
-      'Tailwind CSS v4',
-      'Dexie',
-      'IndexedDB',
-      'SortableJS',
-      'Vitest',
-      'Playwright',
-      'VitePress',
-      'GitHub Actions',
-      'AI Workflows',
-    ],
-    links      : [
-      { label : 'Live app', href : 'https://robert-hoffmann.github.io/parallax-designer/' },
-      { label : 'Docs',     href : 'https://robert-hoffmann.github.io/parallax-designer/docs/' },
-      { label : 'GitHub',   href : 'https://github.com/robert-hoffmann/parallax-designer' },
-    ],
-  },
-  {
     id         : 'proj-uncle-bob',
     name       : {
       en : 'Uncle Bob — Agentic AI Workflow System',
@@ -369,57 +251,6 @@ export const projects = [
     ],
   },
   {
-    id         : 'proj-hutchinson-work-instructions',
-    name       : {
-      en : 'Hutchinson — Digital Work Instructions',
-      fr : 'Hutchinson — Instructions de travail digitales',
-    } satisfies Localized,
-    org        : {
-      en : 'Maser Engineering for Hutchinson',
-      fr : 'Maser Engineering pour Hutchinson',
-    } satisfies Localized,
-    period     : '2022 – 2023',
-    summary    : {
-      en :
-        'Tablet work-instruction platform for transferring composite-manufacturing know-how ' +
-        'between factories. Operators used it with safety gloves at the workstation, with ' +
-        'offline access to PDF plans, MP4 videos, annotated images, schemas, PPE checks, ' +
-        'materials, tools, and step-by-step assembly guidance.',
-      fr :
-        'Plateforme tablette d\u2019instructions de travail pour transférer le savoir-faire de ' +
-        'fabrication composite entre usines. Les opérateurs l\u2019utilisaient avec des gants de ' +
-        'sécurité au poste, avec accès hors ligne aux plans PDF, vidéos MP4, images annotées, ' +
-        'schémas, contrôles EPI, matériaux, outils et guidage d\u2019assemblage étape par étape.',
-    } satisfies Localized,
-    highlights : [
-      {
-        en : '512 parts',
-        fr : '512 pièces',
-      },
-      {
-        en : '10,202 assembly steps',
-        fr : '10 202 étapes d\u2019assemblage',
-      },
-      {
-        en : 'Offline tablet app',
-        fr : 'Application tablette hors ligne',
-      },
-      {
-        en : '10 Airtable content contributors',
-        fr : '10 contributeurs contenu Airtable',
-      },
-    ] satisfies Localized[],
-    stack      : [
-      'Quasar',
-      'Vue.js',
-      'Airtable',
-      'MySQL',
-      'C#',
-      'PHP',
-      'Offline UX',
-    ],
-  },
-  {
     id         : 'proj-sbm-compliance',
     name       : {
       en : 'SBM / Ter\u00e9ga — Onboarding & Certification Tracking',
@@ -488,6 +319,386 @@ export const projects = [
         label : 'Ter\u00e9ga',
         href  : 'https://www.terega.fr/en/',
       },
+    ],
+  },
+  {
+    id         : 'proj-desktop-portfolio',
+    name       : {
+      en : 'i-technology.net — AI-Built Desktop Portfolio',
+      fr : 'i-technology.net — Portfolio desktop construit avec l\u2019IA',
+    } satisfies Localized,
+    org        : {
+      en : 'Independent',
+      fr : 'Indépendant',
+    } satisfies Localized,
+    period     : '2026 – present',
+    summary    : {
+      en :
+        'Interactive portfolio and AI-workflow testbed that turns a resume into a desktop ' +
+        'simulator. Built through AI-driven engineering workflows, it combines a macOS-style ' +
+        'shell, typed app registry, draggable and resizable window manager, async-loaded mini ' +
+        'apps, bilingual content, mobile shell, prerendered SEO, and performance-focused asset loading.',
+      fr :
+        'Portfolio interactif et banc d\u2019essai de workflows IA transformant un CV en simulateur ' +
+        'desktop. Construit via des workflows d\u2019ingénierie pilotés par l\u2019IA, il combine shell ' +
+        'style macOS, registre d\u2019apps typé, gestionnaire de fenêtres déplaçables et ' +
+        'redimensionnables, mini-apps chargées en async, contenu bilingue, shell mobile, SEO ' +
+        'prérendu et chargement d\u2019assets optimisé.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : '100% AI-built',
+        fr : '100% construit avec l\u2019IA',
+      },
+      {
+        en : 'Desktop simulator + mini apps',
+        fr : 'Simulateur desktop + mini-apps',
+      },
+      {
+        en : 'Lighthouse 100 desktop',
+        fr : 'Lighthouse 100 desktop',
+      },
+      {
+        en : 'Lighthouse 99 mobile',
+        fr : 'Lighthouse 99 mobile',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      'Vue 3',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS v4',
+      'Three.js',
+      'vite-prerender-plugin',
+      'Sharp',
+      'AI Workflows',
+    ],
+    links      : [
+      { label : 'Live site', href : 'https://i-technology.net/' },
+    ],
+  },
+  {
+    id         : 'proj-parallax-designer',
+    name       : {
+      en : 'Parallax Designer — AI-Built Visual Builder',
+      fr : 'Parallax Designer — Builder visuel construit avec l\u2019IA',
+    } satisfies Localized,
+    org        : {
+      en : 'Independent',
+      fr : 'Indépendant',
+    } satisfies Localized,
+    period     : '2026 – present',
+    summary    : {
+      en :
+        'Browser-based visual editor for designing multi-layer parallax scenes like the ' +
+        'portfolio background system. It provides real-time preview, layer geometry and motion ' +
+        'controls, local asset storage, presets, schema validation, standalone runtime HTML export, ' +
+        'and an AI-driven documentation pipeline syncing app, user, and API docs into a VitePress site.',
+      fr :
+        'Éditeur visuel navigateur pour concevoir des scènes parallax multi-couches comme le ' +
+        'système de fond du portfolio. Il propose preview temps réel, contrôles géométrie et ' +
+        'mouvement par couche, stockage local d\u2019assets, presets, validation de schéma, export ' +
+        'HTML runtime autonome et pipeline documentaire IA synchronisant app, docs utilisateur ' +
+        'et API vers un site VitePress.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : '100% AI-built',
+        fr : '100% construit avec l\u2019IA',
+      },
+      {
+        en : 'Real-time parallax editor',
+        fr : 'Éditeur parallax temps réel',
+      },
+      {
+        en : 'Standalone HTML export',
+        fr : 'Export HTML autonome',
+      },
+      {
+        en : 'Automated VitePress docs',
+        fr : 'Docs VitePress automatisées',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      'Vue 3',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS v4',
+      'Dexie',
+      'IndexedDB',
+      'SortableJS',
+      'Vitest',
+      'Playwright',
+      'VitePress',
+      'GitHub Actions',
+      'AI Workflows',
+    ],
+    links      : [
+      { label : 'Live app', href : 'https://robert-hoffmann.github.io/parallax-designer/' },
+      { label : 'Docs',     href : 'https://robert-hoffmann.github.io/parallax-designer/docs/' },
+      { label : 'GitHub',   href : 'https://github.com/robert-hoffmann/parallax-designer' },
+    ],
+  },
+  {
+    id         : 'proj-hutchinson-work-instructions',
+    name       : {
+      en : 'Hutchinson — Digital Work Instructions',
+      fr : 'Hutchinson — Instructions de travail digitales',
+    } satisfies Localized,
+    org        : {
+      en : 'Maser Engineering for Hutchinson',
+      fr : 'Maser Engineering pour Hutchinson',
+    } satisfies Localized,
+    period     : '2022 – 2023',
+    summary    : {
+      en :
+        'Tablet work-instruction platform for transferring composite-manufacturing know-how ' +
+        'between factories. Operators used it with safety gloves at the workstation, with ' +
+        'offline access to PDF plans, MP4 videos, annotated images, schemas, PPE checks, ' +
+        'materials, tools, and step-by-step assembly guidance.',
+      fr :
+        'Plateforme tablette d\u2019instructions de travail pour transférer le savoir-faire de ' +
+        'fabrication composite entre usines. Les opérateurs l\u2019utilisaient avec des gants de ' +
+        'sécurité au poste, avec accès hors ligne aux plans PDF, vidéos MP4, images annotées, ' +
+        'schémas, contrôles EPI, matériaux, outils et guidage d\u2019assemblage étape par étape.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : '512 parts',
+        fr : '512 pièces',
+      },
+      {
+        en : '10,202 assembly steps',
+        fr : '10 202 étapes d\u2019assemblage',
+      },
+      {
+        en : 'Offline tablet app',
+        fr : 'Application tablette hors ligne',
+      },
+      {
+        en : '10 Airtable content contributors',
+        fr : '10 contributeurs contenu Airtable',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      'Quasar',
+      'Vue.js',
+      'Airtable',
+      'MySQL',
+      'C#',
+      'PHP',
+      'Offline UX',
+    ],
+  },
+  {
+    id         : 'proj-chatapp',
+    name       : {
+      en : 'tchatche.com — White-Label Chat Platform',
+      fr : 'tchatche.com — Plateforme de chat en marque blanche',
+    } satisfies Localized,
+    org        : {
+      en : '123 Multimedia / Index Multimedia',
+      fr : '123 Multimedia / Index Multimedia',
+    } satisfies Localized,
+    period     : '2004 – 2013',
+    summary    : {
+      en :
+        'Senior full-stack C# architecture for a high-scale real-time chat and community ' +
+        'platform sold as a white-label product to SFR, Bouygues, Orange, TF1, NRJ, Chérie FM, ' +
+        'and others. The product included full moderation, picture albums, location search, ' +
+        'Google Maps integration, a dedicated Facebook app, social sharing, and 13-language i18n.',
+      fr :
+        'Architecture full-stack C# senior pour une plateforme de chat temps réel et communauté ' +
+        'à grande échelle, vendue en marque blanche à SFR, Bouygues, Orange, TF1, NRJ, Chérie FM ' +
+        'et autres. Le produit incluait modération complète, albums photo, recherche géolocalisée, ' +
+        'intégration Google Maps, application Facebook dédiée, partage social et i18n en 13 langues.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : '600M page views/month',
+        fr : '600M pages vues/mois',
+      },
+      {
+        en : '400M requests/day',
+        fr : '400M requêtes/jour',
+      },
+      {
+        en : '$300K/month revenue peak',
+        fr : 'Pic à 300K$/mois',
+      },
+      {
+        en : '13-language i18n',
+        fr : 'i18n en 13 langues',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      '.NET MVC5',
+      'WebAPI 2',
+      '.NET 4.5',
+      'C#',
+      'CSS3',
+      'HTML5',
+      'LESS',
+      'jsRender',
+      'Google Maps',
+    ],
+  },
+  {
+    id         : 'proj-adproxy',
+    name       : {
+      en : 'Ad Proxy — Ad-Distribution Server',
+      fr : 'Ad Proxy — Serveur de distribution publicitaire',
+    } satisfies Localized,
+    org        : {
+      en : 'Index Multimedia',
+      fr : 'Index Multimedia',
+    } satisfies Localized,
+    period     : '2010 – 2013',
+    summary    : {
+      en :
+        'Generic ad-distribution server that gave ad managers one scheduling and dispatch ' +
+        'entry point across chat, news, blog, and white-label sites. It consolidated many ' +
+        'ad-agency contracts and agency-specific systems behind demographic targeting, ' +
+        'format detection, site routing, and performance-based delivery.',
+      fr :
+        'Serveur générique de distribution publicitaire donnant aux responsables pub un point ' +
+        'd\u2019entrée unique pour planifier et diffuser sur les sites chat, news, blog et marque ' +
+        'blanche. Il consolidait de nombreux contrats régies et systèmes propres à chaque régie ' +
+        'derrière ciblage démographique, détection de format, routage par site et diffusion ' +
+        'basée sur la performance.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : '3B+ ads served/month',
+        fr : '3Md+ pubs servies/mois',
+      },
+      {
+        en : '+20% ad revenue',
+        fr : '+20% revenus publicitaires',
+      },
+      {
+        en : '+30% click-through rate',
+        fr : '+30% taux de clic',
+      },
+      {
+        en : '~5% CPU on 2 servers',
+        fr : '~5% CPU sur 2 serveurs',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      'ASP.NET 4',
+      'C#',
+      'Ad Serving',
+      'Targeting',
+      'Load Balancing',
+    ],
+  },
+  {
+    id         : 'proj-t4resx',
+    name       : {
+      en : 'T4ResX — Localization Tooling',
+      fr : 'T4ResX — Outillage de localisation',
+    } satisfies Localized,
+    org        : {
+      en : 'Index Multimedia',
+      fr : 'Index Multimedia',
+    } satisfies Localized,
+    period     : '2012 – 2014',
+    summary    : {
+      en :
+        'Open-source Visual Studio T4 tooling distributed through NuGet and the Visual Studio ' +
+        'Marketplace, transforming RESX files into strongly typed resource accessors for websites, ' +
+        'class libraries, ViewModels, localized JavaScript exports, database-backed translations, ' +
+        'and RESX-to-Excel translator workflows.',
+      fr :
+        'Outillage T4 Visual Studio open source distribué via NuGet et Visual Studio Marketplace, ' +
+        'transformant les fichiers RESX en accesseurs de ressources fortement typés pour sites web, ' +
+        'bibliothèques de classes, ViewModels, exports JavaScript localisés, traductions en base ' +
+        'et workflows RESX-vers-Excel pour traducteurs.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : '14.5K NuGet downloads',
+        fr : '14.5K téléchargements NuGet',
+      },
+      {
+        en : '2.3K VS Marketplace installs',
+        fr : '2.3K installations VS Marketplace',
+      },
+      {
+        en : 'Strongly typed resources',
+        fr : 'Ressources fortement typées',
+      },
+      {
+        en : 'Localized JavaScript export',
+        fr : 'Export JavaScript localisé',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      'C#',
+      'T4',
+      'Visual Studio',
+      'RESX',
+    ],
+    links      : [
+      {
+        label : 'NuGet',
+        href  : 'https://www.nuget.org/packages/T4ResX',
+      },
+      {
+        label : 'VS Marketplace',
+        href  : 'https://marketplace.visualstudio.com/items?itemName=RobertHoffmann.T4ResX',
+      },
+      {
+        label : 'GitHub',
+        href  : 'https://github.com/itechnology/T4ResX',
+      },
+    ],
+  },
+  {
+    id         : 'proj-headjs',
+    name       : {
+      en : 'HeadJS — Open-Source JS Library',
+      fr : 'HeadJS — Bibliothèque JS open source',
+    } satisfies Localized,
+    org        : {
+      en : 'Open Source / Index Multimedia',
+      fr : 'Open source / Index Multimedia',
+    } satisfies Localized,
+    period     : '2011 – 2014',
+    summary    : {
+      en :
+        'Main maintainer of a popular JavaScript library for non-blocking script loading, ' +
+        'resource management, responsive helpers, browser detection, feature detection, ' +
+        'HTML5 enabling, and Modernizr-style shim support during the IE6+ and mobile-web era.',
+      fr :
+        'Mainteneur principal d\u2019une bibliothèque JavaScript populaire pour chargement de scripts ' +
+        'non bloquant, gestion de ressources, helpers responsive, détection navigateur, détection ' +
+        'de fonctionnalités, activation HTML5 et support de shims type Modernizr à l\u2019époque IE6+ ' +
+        'et web mobile.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : 'Main maintainer',
+        fr : 'Mainteneur principal',
+      },
+      {
+        en : '4K+ GitHub stars',
+        fr : '4K+ étoiles GitHub',
+      },
+      {
+        en : '400+ forks',
+        fr : '400+ forks',
+      },
+      {
+        en : 'Script loader + feature detection',
+        fr : 'Loader JS + feature detection',
+      },
+    ] satisfies Localized[],
+    stack      : ['JavaScript'],
+    links      : [
+      { label : 'Docs',   href : 'https://headjs.github.io/' },
+      { label : 'GitHub', href : 'https://github.com/headjs/headjs' },
     ],
   },
   {
@@ -720,246 +931,6 @@ export const projects = [
     ],
   },
   {
-    id         : 'proj-chatapp',
-    name       : {
-      en : 'tchatche.com — White-Label Chat Platform',
-      fr : 'tchatche.com — Plateforme de chat en marque blanche',
-    } satisfies Localized,
-    org        : {
-      en : '123 Multimedia / Index Multimedia',
-      fr : '123 Multimedia / Index Multimedia',
-    } satisfies Localized,
-    period     : '2004 – 2013',
-    summary    : {
-      en :
-        'Senior full-stack C# architecture for a high-scale real-time chat and community ' +
-        'platform sold as a white-label product to SFR, Bouygues, Orange, TF1, NRJ, Chérie FM, ' +
-        'and others. The product included full moderation, picture albums, location search, ' +
-        'Google Maps integration, a dedicated Facebook app, social sharing, and 13-language i18n.',
-      fr :
-        'Architecture full-stack C# senior pour une plateforme de chat temps réel et communauté ' +
-        'à grande échelle, vendue en marque blanche à SFR, Bouygues, Orange, TF1, NRJ, Chérie FM ' +
-        'et autres. Le produit incluait modération complète, albums photo, recherche géolocalisée, ' +
-        'intégration Google Maps, application Facebook dédiée, partage social et i18n en 13 langues.',
-    } satisfies Localized,
-    highlights : [
-      {
-        en : '600M page views/month',
-        fr : '600M pages vues/mois',
-      },
-      {
-        en : '400M requests/day',
-        fr : '400M requêtes/jour',
-      },
-      {
-        en : '$300K/month revenue peak',
-        fr : 'Pic à 300K$/mois',
-      },
-      {
-        en : '13-language i18n',
-        fr : 'i18n en 13 langues',
-      },
-    ] satisfies Localized[],
-    stack      : [
-      '.NET MVC5',
-      'WebAPI 2',
-      '.NET 4.5',
-      'C#',
-      'CSS3',
-      'HTML5',
-      'LESS',
-      'jsRender',
-      'Google Maps',
-    ],
-  },
-  {
-    id         : 'proj-adproxy',
-    name       : {
-      en : 'Ad Proxy — Ad-Distribution Server',
-      fr : 'Ad Proxy — Serveur de distribution publicitaire',
-    } satisfies Localized,
-    org        : {
-      en : 'Index Multimedia',
-      fr : 'Index Multimedia',
-    } satisfies Localized,
-    period     : '2010 – 2013',
-    summary    : {
-      en :
-        'Generic ad-distribution server that gave ad managers one scheduling and dispatch ' +
-        'entry point across chat, news, blog, and white-label sites. It consolidated many ' +
-        'ad-agency contracts and agency-specific systems behind demographic targeting, ' +
-        'format detection, site routing, and performance-based delivery.',
-      fr :
-        'Serveur générique de distribution publicitaire donnant aux responsables pub un point ' +
-        'd\u2019entrée unique pour planifier et diffuser sur les sites chat, news, blog et marque ' +
-        'blanche. Il consolidait de nombreux contrats régies et systèmes propres à chaque régie ' +
-        'derrière ciblage démographique, détection de format, routage par site et diffusion ' +
-        'basée sur la performance.',
-    } satisfies Localized,
-    highlights : [
-      {
-        en : '3B+ ads served/month',
-        fr : '3Md+ pubs servies/mois',
-      },
-      {
-        en : '+20% ad revenue',
-        fr : '+20% revenus publicitaires',
-      },
-      {
-        en : '+30% click-through rate',
-        fr : '+30% taux de clic',
-      },
-      {
-        en : '~5% CPU on 2 servers',
-        fr : '~5% CPU sur 2 serveurs',
-      },
-    ] satisfies Localized[],
-    stack      : [
-      'ASP.NET 4',
-      'C#',
-      'Ad Serving',
-      'Targeting',
-      'Load Balancing',
-    ],
-  },
-  {
-    id         : 'proj-headjs',
-    name       : {
-      en : 'HeadJS — Open-Source JS Library',
-      fr : 'HeadJS — Bibliothèque JS open source',
-    } satisfies Localized,
-    org        : {
-      en : 'Open Source / Index Multimedia',
-      fr : 'Open source / Index Multimedia',
-    } satisfies Localized,
-    period     : '2011 – 2014',
-    summary    : {
-      en :
-        'Main maintainer of a popular JavaScript library for non-blocking script loading, ' +
-        'resource management, responsive helpers, browser detection, feature detection, ' +
-        'HTML5 enabling, and Modernizr-style shim support during the IE6+ and mobile-web era.',
-      fr :
-        'Mainteneur principal d\u2019une bibliothèque JavaScript populaire pour chargement de scripts ' +
-        'non bloquant, gestion de ressources, helpers responsive, détection navigateur, détection ' +
-        'de fonctionnalités, activation HTML5 et support de shims type Modernizr à l\u2019époque IE6+ ' +
-        'et web mobile.',
-    } satisfies Localized,
-    highlights : [
-      {
-        en : 'Main maintainer',
-        fr : 'Mainteneur principal',
-      },
-      {
-        en : '4K+ GitHub stars',
-        fr : '4K+ étoiles GitHub',
-      },
-      {
-        en : '400+ forks',
-        fr : '400+ forks',
-      },
-      {
-        en : 'Script loader + feature detection',
-        fr : 'Loader JS + feature detection',
-      },
-    ] satisfies Localized[],
-    stack      : ['JavaScript'],
-    links      : [
-      { label : 'Docs',   href : 'https://headjs.github.io/' },
-      { label : 'GitHub', href : 'https://github.com/headjs/headjs' },
-    ],
-  },
-  {
-    id         : 'proj-powertoys',
-    name       : {
-      en : 'PowerToys for OpenAI',
-      fr : 'PowerToys pour OpenAI',
-    } satisfies Localized,
-    org        : {
-      en : 'Independent',
-      fr : 'Indépendant',
-    } satisfies Localized,
-    period     : '2023 – archived',
-    summary    : {
-      en :
-        'Archived Chrome and Edge extension built when early GPT interfaces were still limited. ' +
-        'It added chat history, voice-to-text, custom profiles, and search-provider integration ' +
-        'that injected a ChatGPT-style box directly into Google and other search result pages.',
-      fr :
-        'Extension Chrome et Edge archivée, créée lorsque les premières interfaces GPT restaient ' +
-        'limitées. Elle ajoutait historique de chat, voix vers texte, profils personnalisés et ' +
-        'intégration moteurs de recherche injectant une boîte type ChatGPT directement dans Google ' +
-        'et d\u2019autres pages de résultats.',
-    } satisfies Localized,
-    highlights : [
-      {
-        en : 'Archived Chrome + Edge extension',
-        fr : 'Extension Chrome + Edge archivée',
-      },
-      {
-        en : 'Search-page GPT injection',
-        fr : 'Injection GPT dans les résultats',
-      },
-      {
-        en : 'Voice-to-text',
-        fr : 'Voix vers texte',
-      },
-      {
-        en : 'Custom prompt profiles',
-        fr : 'Profils de prompts personnalisés',
-      },
-    ] satisfies Localized[],
-    stack      : [
-      'Browser Extension',
-      'JavaScript',
-      'OpenAI API',
-      'Chrome',
-      'Edge',
-    ],
-  },
-  {
-    id         : 'proj-microcoil',
-    name       : {
-      en : 'MicroCoil Calculator — Web & Mobile',
-      fr : 'Calculateur MicroCoil — Web & mobile',
-    } satisfies Localized,
-    org        : {
-      en : 'Independent',
-      fr : 'Indépendant',
-    } satisfies Localized,
-    period     : '2014 – present',
-    summary    : {
-      en :
-        'Community toolset for DIY vapers, combining a mobile app and mobile-first web app ' +
-        'deployed across major French vaping e-commerce sites. It helped users calculate coil ' +
-        'resistance and estimate liquid consumption while transitioning from smoking to vaping.',
-      fr :
-        'Outils communautaires pour vapoteurs DIY, combinant application mobile et application ' +
-        'web mobile-first déployée sur de grands sites e-commerce français de vape. Ils aidaient ' +
-        'à calculer la résistance de coils et estimer la consommation de liquide lors de la ' +
-        'transition du tabac vers la vape.',
-    } satisfies Localized,
-    highlights : [
-      {
-        en : '50K+ monthly active web users',
-        fr : '50K+ utilisateurs web actifs/mois',
-      },
-      {
-        en : '10K+ Android installs',
-        fr : '10K+ installations Android',
-      },
-      {
-        en : 'Major French vape sites',
-        fr : 'Grands sites vape français',
-      },
-    ] satisfies Localized[],
-    stack      : [
-      'Vue.js',
-      'Cordova',
-      'AngularJS',
-      'Bootstrap',
-    ],
-  },
-  {
     id         : 'proj-findunused',
     name       : {
       en : 'FindUnusedFiles — Visual Studio Extension',
@@ -1101,6 +1072,149 @@ export const projects = [
     ],
   },
   {
+    id         : 'proj-jsonr',
+    name       : {
+      en : 'JsonRaw — Lightweight JSON Protocol',
+      fr : 'JsonRaw — Protocole JSON léger',
+    } satisfies Localized,
+    org        : {
+      en : 'Index Multimedia',
+      fr : 'Index Multimedia',
+    } satisfies Localized,
+    period     : '2012 – 2013',
+    summary    : {
+      en :
+        'Production lightweight JSON protocol used by the tchatche.com chat platform to reduce ' +
+        'bandwidth on high-volume Ajax traffic. It removed repeated object keys from payloads ' +
+        'and reconstructed data from implicit schemas or type hints, anticipating the same ' +
+        'shape-aware compression idea now seen in LLM-oriented formats like TOON.',
+      fr :
+        'Protocole JSON léger utilisé en production par la plateforme de chat tchatche.com pour ' +
+        'réduire la bande passante sur du trafic Ajax à fort volume. Il supprimait les clés ' +
+        'd\u2019objet répétées des payloads, puis reconstruisait les données via schémas implicites ' +
+        'ou indices de type, anticipant la même idée de compression orientée structure que l\u2019on ' +
+        'retrouve aujourd\u2019hui dans des formats pour LLM comme TOON.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : 'Production tchatche.com chat traffic',
+        fr : 'Trafic chat tchatche.com en production',
+      },
+      {
+        en : '43-51% smaller sample payloads',
+        fr : 'Payloads exemples réduits de 43-51%',
+      },
+      {
+        en : 'Schema-aware key elision',
+        fr : 'Élimination des clés par schéma',
+      },
+      {
+        en : 'TOON-like idea in 2012',
+        fr : 'Idée proche de TOON en 2012',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      'JavaScript',
+      'C#',
+      '.NET',
+      'JSON',
+    ],
+    links      : [
+      { label : 'GitHub', href : 'https://github.com/itechnology/JsonRaw' },
+    ],
+  },
+  {
+    id         : 'proj-powertoys',
+    name       : {
+      en : 'PowerToys for OpenAI',
+      fr : 'PowerToys pour OpenAI',
+    } satisfies Localized,
+    org        : {
+      en : 'Independent',
+      fr : 'Indépendant',
+    } satisfies Localized,
+    period     : '2023 – archived',
+    summary    : {
+      en :
+        'Archived Chrome and Edge extension built when early GPT interfaces were still limited. ' +
+        'It added chat history, voice-to-text, custom profiles, and search-provider integration ' +
+        'that injected a ChatGPT-style box directly into Google and other search result pages.',
+      fr :
+        'Extension Chrome et Edge archivée, créée lorsque les premières interfaces GPT restaient ' +
+        'limitées. Elle ajoutait historique de chat, voix vers texte, profils personnalisés et ' +
+        'intégration moteurs de recherche injectant une boîte type ChatGPT directement dans Google ' +
+        'et d\u2019autres pages de résultats.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : 'Archived Chrome + Edge extension',
+        fr : 'Extension Chrome + Edge archivée',
+      },
+      {
+        en : 'Search-page GPT injection',
+        fr : 'Injection GPT dans les résultats',
+      },
+      {
+        en : 'Voice-to-text',
+        fr : 'Voix vers texte',
+      },
+      {
+        en : 'Custom prompt profiles',
+        fr : 'Profils de prompts personnalisés',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      'Browser Extension',
+      'JavaScript',
+      'OpenAI API',
+      'Chrome',
+      'Edge',
+    ],
+  },
+  {
+    id         : 'proj-microcoil',
+    name       : {
+      en : 'MicroCoil Calculator — Web & Mobile',
+      fr : 'Calculateur MicroCoil — Web & mobile',
+    } satisfies Localized,
+    org        : {
+      en : 'Independent',
+      fr : 'Indépendant',
+    } satisfies Localized,
+    period     : '2014 – present',
+    summary    : {
+      en :
+        'Community toolset for DIY vapers, combining a mobile app and mobile-first web app ' +
+        'deployed across major French vaping e-commerce sites. It helped users calculate coil ' +
+        'resistance and estimate liquid consumption while transitioning from smoking to vaping.',
+      fr :
+        'Outils communautaires pour vapoteurs DIY, combinant application mobile et application ' +
+        'web mobile-first déployée sur de grands sites e-commerce français de vape. Ils aidaient ' +
+        'à calculer la résistance de coils et estimer la consommation de liquide lors de la ' +
+        'transition du tabac vers la vape.',
+    } satisfies Localized,
+    highlights : [
+      {
+        en : '50K+ monthly active web users',
+        fr : '50K+ utilisateurs web actifs/mois',
+      },
+      {
+        en : '10K+ Android installs',
+        fr : '10K+ installations Android',
+      },
+      {
+        en : 'Major French vape sites',
+        fr : 'Grands sites vape français',
+      },
+    ] satisfies Localized[],
+    stack      : [
+      'Vue.js',
+      'Cordova',
+      'AngularJS',
+      'Bootstrap',
+    ],
+  },
+  {
     id         : 'proj-webmonitor',
     name       : {
       en : 'Web-Monitor.NET',
@@ -1141,109 +1255,6 @@ export const projects = [
       'Bootstrap',
       'Azure',
       'Azure SQL',
-    ],
-  },
-  {
-    id         : 'proj-jsonr',
-    name       : {
-      en : 'JsonR — Lightweight JSON Protocol',
-      fr : 'JsonR — Protocole JSON léger',
-    } satisfies Localized,
-    org        : {
-      en : 'Index Multimedia',
-      fr : 'Index Multimedia',
-    } satisfies Localized,
-    period     : '2012 – 2013',
-    summary    : {
-      en :
-        'Lightweight JSON protocol that reduced Ajax payload sizes by over 50%, saving bandwidth ' +
-        'and improving load times across high-traffic web applications. It rewrote an earlier ' +
-        'protocol that already delivered roughly 40% savings.',
-      fr :
-        'Protocole JSON léger réduisant la taille des payloads Ajax de plus de 50%, économisant ' +
-        'de la bande passante et améliorant les temps de chargement sur des applications web à ' +
-        'fort trafic. Il réécrivait un protocole précédent déjà à environ 40% d\u2019économie.',
-    } satisfies Localized,
-    highlights : [
-      {
-        en : '50%+ Ajax payload reduction',
-        fr : '50%+ de réduction payload Ajax',
-      },
-      {
-        en : 'Bandwidth optimization',
-        fr : 'Optimisation bande passante',
-      },
-      {
-        en : 'High-traffic web apps',
-        fr : 'Applications web à fort trafic',
-      },
-    ] satisfies Localized[],
-    stack      : [
-      'JavaScript',
-      '.NET',
-      'JSON',
-    ],
-  },
-  {
-    id         : 'proj-t4resx',
-    name       : {
-      en : 'T4ResX — Localization Tooling',
-      fr : 'T4ResX — Outillage de localisation',
-    } satisfies Localized,
-    org        : {
-      en : 'Index Multimedia',
-      fr : 'Index Multimedia',
-    } satisfies Localized,
-    period     : '2012 – 2014',
-    summary    : {
-      en :
-        'Open-source Visual Studio T4 tooling distributed through NuGet and the Visual Studio ' +
-        'Marketplace, transforming RESX files into strongly typed resource accessors for websites, ' +
-        'class libraries, ViewModels, localized JavaScript exports, database-backed translations, ' +
-        'and RESX-to-Excel translator workflows.',
-      fr :
-        'Outillage T4 Visual Studio open source distribué via NuGet et Visual Studio Marketplace, ' +
-        'transformant les fichiers RESX en accesseurs de ressources fortement typés pour sites web, ' +
-        'bibliothèques de classes, ViewModels, exports JavaScript localisés, traductions en base ' +
-        'et workflows RESX-vers-Excel pour traducteurs.',
-    } satisfies Localized,
-    highlights : [
-      {
-        en : '14.5K NuGet downloads',
-        fr : '14.5K téléchargements NuGet',
-      },
-      {
-        en : '2.3K VS Marketplace installs',
-        fr : '2.3K installations VS Marketplace',
-      },
-      {
-        en : 'Strongly typed resources',
-        fr : 'Ressources fortement typées',
-      },
-      {
-        en : 'Localized JavaScript export',
-        fr : 'Export JavaScript localisé',
-      },
-    ] satisfies Localized[],
-    stack      : [
-      'C#',
-      'T4',
-      'Visual Studio',
-      'RESX',
-    ],
-    links      : [
-      {
-        label : 'NuGet',
-        href  : 'https://www.nuget.org/packages/T4ResX',
-      },
-      {
-        label : 'VS Marketplace',
-        href  : 'https://marketplace.visualstudio.com/items?itemName=RobertHoffmann.T4ResX',
-      },
-      {
-        label : 'GitHub',
-        href  : 'https://github.com/itechnology/T4ResX',
-      },
     ],
   },
   {
