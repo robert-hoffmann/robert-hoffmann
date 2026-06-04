@@ -373,33 +373,36 @@ export const projects = [
     period     : '2026 – present',
     summary    : {
       en :
-        'Interactive portfolio and AI-workflow testbed that turns a resume into a desktop ' +
-        'simulator. Built through AI-driven engineering workflows, it combines a macOS-style ' +
-        'shell, typed app registry, draggable and resizable window manager, async-loaded mini ' +
-        'apps, bilingual content, mobile shell, prerendered SEO, and performance-focused asset loading.',
+        'Recruiter-facing portfolio and AI-workflow case study that turns a resume into an ' +
+        'interactive desktop product. Built through AI-driven engineering workflows, it combines a ' +
+        'macOS-style shell, typed app registry, draggable and resizable window manager, async-loaded mini ' +
+        'apps, bilingual content, mobile shell, prerendered SEO, structured metadata, and ' +
+        'measured Google PageSpeed scores for fast, accessible first impressions.',
       fr :
-        'Portfolio interactif et banc d\u2019essai de workflows IA transformant un CV en simulateur ' +
-        'desktop. Construit via des workflows d\u2019ingénierie pilotés par l\u2019IA, il combine shell ' +
-        'style macOS, registre d\u2019apps typé, gestionnaire de fenêtres déplaçables et ' +
+        'Portfolio orienté recruteurs et cas d\u2019étude de workflow IA transformant un CV en ' +
+        'produit interactif style desktop. Construit via des workflows d\u2019ingénierie pilotés ' +
+        'par l\u2019IA, il combine shell style macOS, registre d\u2019apps typé, gestionnaire de ' +
+        'fenêtres déplaçables et ' +
         'redimensionnables, mini-apps chargées en async, contenu bilingue, shell mobile, SEO ' +
-        'prérendu et chargement d\u2019assets optimisé.',
+        'prérendu, données structurées et scores Google PageSpeed mesurés pour une première ' +
+        'impression rapide et accessible.',
     } satisfies Localized,
     highlights : [
       {
-        en : '100% AI-built',
-        fr : '100% construit avec l\u2019IA',
+        en : 'AI-assisted product case study',
+        fr : 'Cas produit assisté par IA',
       },
       {
-        en : 'Desktop simulator + mini apps',
-        fr : 'Simulateur desktop + mini-apps',
+        en : 'Desktop UX + mobile candidate flow',
+        fr : 'UX desktop + parcours mobile candidat',
       },
       {
-        en : 'Lighthouse 100 desktop',
-        fr : 'Lighthouse 100 desktop',
+        en : 'Google PageSpeed 100/99',
+        fr : 'Google PageSpeed 100/99',
       },
       {
-        en : 'Lighthouse 99 mobile',
-        fr : 'Lighthouse 99 mobile',
+        en : '100 Accessibility + SEO',
+        fr : '100 Accessibilité + SEO',
       },
     ] satisfies Localized[],
     stack      : [
@@ -413,7 +416,18 @@ export const projects = [
       'AI Workflows',
     ],
     links      : [
-      { label : 'Live site', href : 'https://i-technology.net/' },
+      {
+        label : 'Live site',
+        href  : 'https://i-technology.net/',
+      },
+      {
+        label : 'Mobile PageSpeed',
+        href  : 'https://pagespeed.web.dev/analysis/https-i-technology-net/vahahakfk6?form_factor=mobile',
+      },
+      {
+        label : 'Desktop PageSpeed',
+        href  : 'https://pagespeed.web.dev/analysis/https-i-technology-net/vahahakfk6?form_factor=desktop',
+      },
     ],
   },
   {
