@@ -19,6 +19,7 @@ import {
   type OpenPortfolioAppEventDetail,
   usePortfolioNavigation,
 } from '../composables/usePortfolioNavigation'
+import { useViewMode } from '../composables/useViewMode'
 
 const { l, t } = useLocale(galleryMessages)
 const {
@@ -26,6 +27,8 @@ const {
   galleryImageRequest,
   showProjectInfo,
 } = usePortfolioNavigation()
+
+const { isMobile } = useViewMode()
 
 const selectedIndex = ref(0)
 const captionIndex  = ref(0)
@@ -827,6 +830,7 @@ onBeforeUnmount(() => {
             <div
               ref="trackEl"
               class="image-viewer-track"
+              data-mobile-swipe-lock
               :class="{ 'image-viewer-track--dragging': isMouseDragging }"
               @scroll="updateSelectedIndexFromScroll"
               @pointerdown="onTrackPointerDown"
@@ -856,6 +860,7 @@ onBeforeUnmount(() => {
             </div>
 
             <button
+              v-if="!isMobile"
               class="image-viewer-arrow image-viewer-arrow--previous"
               type="button"
               :aria-label="t('imageViewer.previous')"
@@ -866,6 +871,7 @@ onBeforeUnmount(() => {
             </button>
 
             <button
+              v-if="!isMobile"
               class="image-viewer-arrow image-viewer-arrow--next"
               type="button"
               :aria-label="t('imageViewer.next')"
@@ -881,6 +887,7 @@ onBeforeUnmount(() => {
       <aside
         ref="filmstripEl"
         class="image-viewer-filmstrip"
+        data-mobile-swipe-lock
         :class="{ 'image-viewer-filmstrip--dragging': isFilmstripDragging }"
         :aria-label="t('imageViewer.thumbnails')"
         @pointerdown="onFilmstripPointerDown"

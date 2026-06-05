@@ -207,6 +207,7 @@ onBeforeUnmount(() => {
   overflow-y            : auto;
   scrollbar-width       : thin;
   scrollbar-color       : var(--icon-selected-bg) var(--surface-raised);
+  touch-action          : pan-y;
 
   &::-webkit-scrollbar {
     inline-size : 8px;
