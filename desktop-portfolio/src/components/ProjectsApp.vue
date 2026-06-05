@@ -16,7 +16,11 @@ import {
 } from '../composables/usePortfolioNavigation'
 
 const { l, t } = useLocale(projectsMessages)
-const { projectInfoRequest, showGalleryImage } = usePortfolioNavigation()
+const {
+  clearProjectInfoRequest,
+  projectInfoRequest,
+  showGalleryImage,
+} = usePortfolioNavigation()
 
 const highlightedProjectId = ref<string | null>(null)
 const projectElements      = new Map<string, HTMLElement>()
@@ -102,6 +106,7 @@ watch(
     if (!request) return
 
     await scrollToRequestedProject(request.projectId)
+    clearProjectInfoRequest(request.requestId)
   },
   { immediate : true },
 )

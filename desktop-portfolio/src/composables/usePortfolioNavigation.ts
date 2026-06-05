@@ -43,6 +43,16 @@ function requestOpenApp(detail: OpenPortfolioAppEventDetail) {
   ))
 }
 
+function clearProjectInfoRequest(requestId: number) {
+  if (projectInfoRequest.value?.requestId !== requestId) return
+  projectInfoRequest.value = null
+}
+
+function clearGalleryImageRequest(requestId: number) {
+  if (galleryImageRequest.value?.requestId !== requestId) return
+  galleryImageRequest.value = null
+}
+
 export function usePortfolioNavigation() {
   function showProjectInfo(projectId: string) {
     projectInfoRequest.value = {
@@ -67,6 +77,8 @@ export function usePortfolioNavigation() {
   }
 
   return {
+    clearGalleryImageRequest,
+    clearProjectInfoRequest,
     galleryImageRequest : readonly(galleryImageRequest),
     projectInfoRequest  : readonly(projectInfoRequest),
     showGalleryImage,

@@ -21,7 +21,11 @@ import {
 } from '../composables/usePortfolioNavigation'
 
 const { l, t } = useLocale(galleryMessages)
-const { galleryImageRequest, showProjectInfo } = usePortfolioNavigation()
+const {
+  clearGalleryImageRequest,
+  galleryImageRequest,
+  showProjectInfo,
+} = usePortfolioNavigation()
 
 const selectedIndex = ref(0)
 const captionIndex  = ref(0)
@@ -761,6 +765,7 @@ watch(
     if (!request) return
 
     selectImageById(request.imageId)
+    clearGalleryImageRequest(request.requestId)
   },
   { immediate : true },
 )

@@ -11,6 +11,10 @@ import { useTheme } from '../composables/useTheme'
 import { useToast } from '../composables/useToast'
 import { useViewMode } from '../composables/useViewMode'
 import { useMobileShell } from '../composables/useMobileShell'
+import {
+  OPEN_PORTFOLIO_APP_EVENT,
+  type OpenPortfolioAppEventDetail,
+} from '../composables/usePortfolioNavigation'
 import { getRegistryTitle, windowRegistry } from '../data/registry'
 import {
   BRIDGED_TOAST_DURATION_MS,
@@ -159,15 +163,24 @@ function scheduleMobileNotifications() {
   })
 }
 
+function onOpenPortfolioApp(event: Event) {
+  const detail = (event as CustomEvent<OpenPortfolioAppEventDetail>).detail
+  if (!detail?.itemId) return
+
+  mobileShell.openPortfolioApp(detail)
+}
+
 updateClockLabels()
 
 onMounted(() => {
   clockTimer = setInterval(updateClockLabels, 15_000)
+  window.addEventListener(OPEN_PORTFOLIO_APP_EVENT, onOpenPortfolioApp)
   scheduleMobileNotifications()
 })
 
 onUnmounted(() => {
   if (clockTimer) clearInterval(clockTimer)
+  window.removeEventListener(OPEN_PORTFOLIO_APP_EVENT, onOpenPortfolioApp)
   clearNotificationTimers()
 })
 

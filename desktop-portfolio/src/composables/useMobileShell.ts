@@ -3,6 +3,7 @@ import type { MobileAppState, WindowMode, WindowState } from '../types/desktop'
 import { windowRegistry, getRegistryTitle } from '../data/registry'
 import { useLocale } from './useLocale'
 import { resolveWindowPolicy } from './useWindowManager'
+import type { OpenPortfolioAppEventDetail } from './usePortfolioNavigation'
 
 type MobileDockWindow = Pick<WindowState, 'id' | 'itemId' | 'title'>
 type MobileWindowDisplayMode = Exclude<WindowMode, 'minimized'>
@@ -127,6 +128,10 @@ export function useMobileShell() {
     mobileAppState.value = 'expanded'
   }
 
+  function openPortfolioApp(detail: OpenPortfolioAppEventDetail) {
+    launchFromIcon(detail.itemId)
+  }
+
   function selectDockWindow(windowId: string) {
     const itemId = itemIdFromWindowId(windowId, openItemIds.value)
     if (!itemId) return
@@ -223,6 +228,7 @@ export function useMobileShell() {
     mobileAppState,
     openMobileWindows,
     launchFromIcon,
+    openPortfolioApp,
     selectDockWindow,
     toggleCurrentAppVisibility,
     closeWindowById,
