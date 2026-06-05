@@ -74,8 +74,8 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     icon          : '▧',
     iconUrl       : `${import.meta.env.BASE_URL}icons/gallery.svg`,
     type          : 'app',
-    defaultCol    : 1,
-    defaultRow    : 3,
+    defaultCol    : 3,
+    defaultRow    : 8,
     window        : {
       size : {
         default : { w : 760, h : 590 },

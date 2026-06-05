@@ -21,13 +21,13 @@ const { locale } = useLocale()
 const HOME_ITEM_IDS = [
   'about',
   'projects',
-  'gallery',
   'resume',
   'twitter',
   'linkedin',
   'github',
   'music',
-  'video'
+  'video',
+  'gallery'
 ] as const
 
 const items = computed(() => {
