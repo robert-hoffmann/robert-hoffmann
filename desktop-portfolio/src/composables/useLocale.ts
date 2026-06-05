@@ -8,7 +8,12 @@
 import { ref } from 'vue'
 import type { Locale } from '../types/desktop'
 import { useToast } from './useToast'
-import ui from '../data/translations'
+import {
+  interfaceMessages,
+  resolveMessage,
+  type MessageCatalog,
+  type MessageParams,
+} from '../data/interface'
 
 /** Detect browser language preference — returns 'fr' for any fr variant, 'en' otherwise */
 function detectBrowserLocale(): Locale {
@@ -21,21 +26,16 @@ function detectBrowserLocale(): Locale {
 
 const locale = ref<Locale>(detectBrowserLocale())
 
-export function useLocale() {
+export function useLocale(localMessages?: MessageCatalog) {
   const { show } = useToast()
 
   /** Look up a UI translation key, with optional {placeholder} interpolation */
-  function t(key: string, params?: Record<string, string | number>): string {
-    const entry = ui[key]
-    let text = entry?.[locale.value] ?? key
+  function t(key: string, params?: MessageParams): string {
+    const catalogs = localMessages
+      ? [localMessages, interfaceMessages]
+      : [interfaceMessages]
 
-    if (params) {
-      for (const [k, v] of Object.entries(params)) {
-        text = text.replaceAll(`{${k}}`, String(v))
-      }
-    }
-
-    return text
+    return resolveMessage(catalogs, key, locale.value, params)
   }
 
   /** Resolve a Localized object (e.g. { en: '...', fr: '...' }) to the current locale */

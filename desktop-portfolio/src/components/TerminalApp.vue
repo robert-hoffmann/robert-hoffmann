@@ -2,8 +2,9 @@
 import { inject, onMounted, onUnmounted, nextTick, useTemplateRef, ref } from 'vue'
 import { useTerminal } from '../composables/useTerminal'
 import { useLocale } from '../composables/useLocale'
+import { terminalMessages } from '../data/apps/terminal'
 
-const { t, locale } = useLocale()
+const { t, locale } = useLocale(terminalMessages)
 
 /* ---- app launcher bridge ---- */
 const openApp = inject<(id: string) => void>('openApp')

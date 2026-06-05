@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { experience } from '../data/content'
+import { experience } from '../data/apps/resume'
 import { useLocale } from '../composables/useLocale'
 
 const { l } = useLocale()

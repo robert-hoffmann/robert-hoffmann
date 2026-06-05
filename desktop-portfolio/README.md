@@ -163,9 +163,9 @@ npm run generate-og-image
 
 If you want to adapt this portfolio for your own content, these are the main files to edit:
 
-- `src/data/content.ts` for profile, projects, resume/experience, and content copy
+- `src/data/interface.ts` for shell/interface localization strings loaded at startup
+- `src/data/apps/` for app-owned messages and localized content loaded with each lazy app
 - `src/data/registry.ts` for desktop items, app/window definitions, icons, and window sizing/behavior
-- `src/data/translations.ts` for UI text and localization strings (`EN` / `FR`)
 
 Useful supporting files:
 

@@ -7,6 +7,8 @@ import { useAudioMediaTransport } from '../composables/useAudioMediaTransport'
 import { useElementImageSizes } from '../composables/useElementImageSizes'
 import { useYouTubePlaylistTransport } from '../composables/useYouTubePlaylistTransport'
 import { MEDIA_PLAYER_PRESETS } from '../data/mediaPlayerPresets'
+import { musicMessages } from '../data/apps/music'
+import { videoMessages } from '../data/apps/video'
 import type {
   MediaPreset,
   MediaPresetConfig,
@@ -17,7 +19,10 @@ const props = defineProps<{
   preset : MediaPreset
 }>()
 
-const { t } = useLocale()
+const { t } = useLocale({
+  ...musicMessages,
+  ...videoMessages,
+})
 const seekBar = useSeekBar()
 
 const transport: UnifiedMediaTransport = props.preset === 'music'

@@ -4,8 +4,9 @@ import { formatTime } from '../utils'
 import type { MusicPlayerState } from '../types/desktop'
 import { useLocale } from '../composables/useLocale'
 import { useSeekBar } from '../composables/useSeekBar'
+import { musicMessages } from '../data/apps/music'
 
-const { t } = useLocale()
+const { t } = useLocale(musicMessages)
 
 const EQ_BARS   = 16
 const FFT_SIZE  = 64  /* smallest power-of-2 ≥ 2×EQ_BARS → 32 bins */

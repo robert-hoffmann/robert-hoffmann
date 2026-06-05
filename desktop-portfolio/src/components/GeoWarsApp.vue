@@ -10,8 +10,9 @@ import {
 } from '../modules/geowars'
 import type { GameState } from '../types/desktop'
 import { useLocale } from '../composables/useLocale'
+import { geoWarsMessages } from '../data/apps/geoWars'
 
-const { t } = useLocale()
+const { t } = useLocale(geoWarsMessages)
 
 const canvasHostRef = useTemplateRef<HTMLDivElement>('geowarsCanvasHost')
 const interactionHostRef = useTemplateRef<HTMLDivElement>('geowarsInteractionHost')

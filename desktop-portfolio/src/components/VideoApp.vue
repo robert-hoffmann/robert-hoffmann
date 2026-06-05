@@ -9,8 +9,9 @@ import {
   VIDEO_POSTER_SOURCES,
   VIDEO_POSTER_WEBP_SRCSET,
 } from '../data/videoPosterSources'
+import { videoMessages } from '../data/apps/video'
 
-const { t } = useLocale()
+const { t } = useLocale(videoMessages)
 
 /** Injected from AppWindow — true when this window is front-most */
 const windowFocused = inject<Readonly<import('vue').Ref<boolean>>>('windowFocused', ref(true))

@@ -352,11 +352,13 @@ export function useTerminal(options: TerminalOptions) {
     )
     if (matchedApp) {
       const def = windowRegistry[matchedApp]!
+      const title = getRegistryTitle(matchedApp, getLocale())
+
       if (def.type === 'link' && def.url) {
-        pushOutput(tr('term.launch.opening', { title : def.title }))
+        pushOutput(tr('term.launch.opening', { title }))
         window.open(def.url, '_blank', 'noopener')
       } else {
-        pushOutput(tr('term.launch.launching', { title : getRegistryTitle(matchedApp, getLocale()) }))
+        pushOutput(tr('term.launch.launching', { title }))
         onLaunchApp(matchedApp)
       }
       return

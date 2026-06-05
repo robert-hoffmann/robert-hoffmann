@@ -32,13 +32,4 @@ export default defineConfig({
       prerenderScript : resolve(__dirname, 'prerender.ts'),
     }),
   ],
-  build   : {
-    rollupOptions : {
-      output : {
-        manualChunks : {
-          three : ['three'],
-        },
-      },
-    },
-  },
 })

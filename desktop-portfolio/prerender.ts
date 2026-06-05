@@ -6,7 +6,9 @@
    Vue's createApp().mount() replaces this on client hydration.
    ============================================================ */
 
-import { about, projects, experience } from './src/data/content.ts'
+import { about } from './src/data/apps/about.ts'
+import { projects } from './src/data/apps/projects.ts'
+import { experience } from './src/data/apps/resume.ts'
 
 /* Prerender runs outside Vue reactivity; force deterministic EN strings. */
 function asEnglishText(value: unknown): string {

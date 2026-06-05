@@ -111,8 +111,8 @@ export interface WindowState {
 /** Definition for a window-app in the typed registry */
 export interface WindowAppDefinition {
   id           : string
-  title        : string
-  iconTitle?   : Localized
+  titleKey     : string
+  iconTitleKey?: string
   icon         : string
   iconUrl?     : string
   iconSprite?  : DesktopSpriteKey

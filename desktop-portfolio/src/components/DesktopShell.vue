@@ -19,6 +19,10 @@ import { useSessionPersistence } from '../composables/useSessionPersistence'
 import { useViewMode } from '../composables/useViewMode'
 import { useWindowSfx } from '../composables/useWindowSfx'
 import { usePointerCapabilities } from '../composables/usePointerCapabilities'
+import {
+  OPEN_PORTFOLIO_APP_EVENT,
+  type OpenPortfolioAppEventDetail,
+} from '../composables/usePortfolioNavigation'
 import { getRegistryTitle, windowRegistry } from '../data/registry'
 import { getStartupIconLayoutsForViewport } from '../data/iconLayouts'
 import { getStartupWindowLayoutsForViewport } from '../data/windowLayouts'
@@ -221,6 +225,13 @@ function openItem(itemId: string) {
 /* Expose openItem to child components (used by TerminalApp) */
 provide('openApp', openItem)
 
+function onOpenPortfolioApp(event: Event) {
+  const detail = (event as CustomEvent<OpenPortfolioAppEventDetail>).detail
+  if (!detail?.itemId) return
+
+  openItem(detail.itemId)
+}
+
 function resetDesktop() {
   clearStartupSchedule()
   session.reset()
@@ -374,6 +385,7 @@ function onViewportResize() {
 onMounted(() => {
   const restored = session.restore()
   window.addEventListener('resize', onViewportResize, { passive : true })
+  window.addEventListener(OPEN_PORTFOLIO_APP_EVENT, onOpenPortfolioApp)
 
   if (!isMobile.value) {
     previousWorkAreaRect = wm.getWorkAreaRect()
@@ -393,6 +405,7 @@ onUnmounted(() => {
   clearStartupSchedule()
   clearDesktopNotificationSchedule()
   window.removeEventListener('resize', onViewportResize)
+  window.removeEventListener(OPEN_PORTFOLIO_APP_EVENT, onOpenPortfolioApp)
 })
 
 /* ---- locale watcher — re-derive titles when locale changes ---- */

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import { about } from '../data/content'
+import { about, aboutMessages } from '../data/apps/about'
 import { useLocale } from '../composables/useLocale'
 
-const { l, t } = useLocale()
+const { l, t } = useLocale(aboutMessages)
 const baseUrl = import.meta.env.BASE_URL
 
 const POINTER_MEDIA_QUERY        = '(hover: hover) and (pointer: fine)'
