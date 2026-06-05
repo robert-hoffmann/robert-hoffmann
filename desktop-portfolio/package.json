@@ -16,17 +16,17 @@
     "@tailwindcss/vite": "^4.1.18",
     "tailwindcss": "^4.1.18",
     "three": "^0.182.0",
-    "vue": "^3.5.25"
+    "vue": "^3.5.28"
   },
   "devDependencies": {
-    "@types/node": "^24.10.1",
+    "@types/node": "^24.10.13",
     "@types/three": "^0.182.0",
-    "@vitejs/plugin-vue": "^6.0.2",
+    "@vitejs/plugin-vue": "^6.0.4",
     "@vue/tsconfig": "^0.8.1",
     "sharp": "^0.34.5",
     "typescript": "~5.9.3",
     "vite": "^7.3.1",
     "vite-prerender-plugin": "^0.5.12",
-    "vue-tsc": "^3.1.5"
+    "vue-tsc": "^3.2.4"
   }
 }
