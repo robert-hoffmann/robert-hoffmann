@@ -318,7 +318,7 @@ onUnmounted(() => {
       <div class="video-player-controls-row">
         <!-- Previous -->
         <button
-          class="unified-media-player__btn unified-media-player__btn--sm"
+          class="video-player-btn video-player-btn--sm"
           type="button"
           :disabled="showFacade || !state.ready"
           :aria-label="t('video.previous')"
@@ -331,7 +331,7 @@ onUnmounted(() => {
 
         <!-- Play / Pause -->
         <button
-          class="unified-media-player__btn unified-media-player__btn--main"
+          class="video-player-btn video-player-btn--main"
           type="button"
           :disabled="!showFacade && !state.ready"
           :aria-label="t('video.playPause')"
@@ -349,7 +349,7 @@ onUnmounted(() => {
 
         <!-- Next -->
         <button
-          class="unified-media-player__btn unified-media-player__btn--sm"
+          class="video-player-btn video-player-btn--sm"
           type="button"
           :disabled="showFacade || !state.ready"
           :aria-label="t('video.next')"
@@ -362,7 +362,7 @@ onUnmounted(() => {
 
         <!-- Stop -->
         <button
-          class="unified-media-player__btn unified-media-player__btn--sm"
+          class="video-player-btn video-player-btn--sm"
           type="button"
           :disabled="!state.playing"
           :aria-label="t('video.stop')"
@@ -383,7 +383,7 @@ onUnmounted(() => {
 
         <!-- Volume -->
         <button
-          class="unified-media-player__btn unified-media-player__btn--sm"
+          class="video-player-btn video-player-btn--sm"
           type="button"
           :aria-label="t('video.toggleMute')"
           @click="toggleMute"
@@ -409,7 +409,7 @@ onUnmounted(() => {
 
         <!-- Fullscreen -->
         <button
-          class="unified-media-player__btn unified-media-player__btn--sm"
+          class="video-player-btn video-player-btn--sm"
           type="button"
           :aria-label="t('video.fullscreen')"
           @click="toggleFullscreen"
@@ -425,3 +425,184 @@ onUnmounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.video-player {
+  position       : relative;
+  display        : flex;
+  flex-direction : column;
+  inline-size    : 100%;
+  block-size     : 100%;
+  min-block-size : 0;
+  padding        : var(--space-2);
+  overflow       : hidden;
+  background     : var(--surface-window);
+}
+
+.video-player-frame {
+  position       : relative;
+  flex           : 1;
+  min-block-size : 0;
+  background     : #000;
+}
+
+.video-player-overlay {
+  position : absolute;
+  inset    : 0;
+  z-index  : 1;
+  cursor   : pointer;
+}
+
+.video-player-poster {
+  position    : absolute;
+  inset       : 0;
+  inline-size : 100%;
+  block-size  : 100%;
+  object-fit  : cover;
+}
+
+.video-player-facade-play {
+  position        : absolute;
+  inset           : 0;
+  z-index         : 1;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  border          : none;
+  background      : none;
+  cursor          : pointer;
+  transition      : opacity 0.2s ease;
+
+  &:hover {
+    opacity : 0.85;
+  }
+
+  & svg path:first-child {
+    fill         : #f00;
+    fill-opacity : 1;
+  }
+}
+
+.video-player-frame iframe {
+  inline-size : 100%;
+  block-size  : 100%;
+  border      : none;
+}
+
+.video-player-controls {
+  display        : flex;
+  flex-direction : column;
+  flex-shrink    : 0;
+  background     : var(--surface-window);
+}
+
+.video-player-bar {
+  position         : relative;
+  overflow         : hidden;
+  block-size       : 8px;
+  margin-block-end : var(--space-2);
+  border-radius    : 4px;
+  background       : var(--surface-overlay);
+  cursor           : pointer;
+}
+
+.video-player-bar-hover {
+  position           : absolute;
+  inset-block        : 0;
+  inset-inline-start : 0;
+  z-index            : 2;
+  border-radius      : 4px;
+  pointer-events     : none;
+}
+
+.seek-preview--forward {
+  background : color-mix(in srgb, #8ed8ff 70%, transparent);
+}
+
+.seek-preview--backward {
+  background : color-mix(in srgb, #ff9aa2 65%, transparent);
+}
+
+.seek-fill--backward {
+  background : color-mix(in srgb, #8ed8ff 85%, transparent);
+}
+
+.video-player-bar-fill {
+  position      : relative;
+  z-index       : 1;
+  block-size    : 100%;
+  border-radius : 4px;
+  background    : var(--c-accent);
+  transition    : width 0.3s linear;
+}
+
+.video-player-controls-row {
+  display     : flex;
+  align-items : center;
+  gap         : var(--space-2);
+}
+
+.video-player-btn {
+  display         : inline-flex;
+  align-items     : center;
+  justify-content : center;
+  border          : none;
+  border-radius   : 999px;
+  background      : var(--icon-selected-bg);
+  color           : var(--c-accent);
+  cursor          : pointer;
+  touch-action    : manipulation;
+  transition      : background var(--dur-fast) var(--ease-out),
+                    transform var(--dur-fast) var(--ease-out),
+                    box-shadow var(--dur-fast) var(--ease-out);
+
+  &:focus-visible {
+    outline        : 2px solid color-mix(in srgb, var(--c-accent) 70%, white);
+    outline-offset : 2px;
+  }
+
+  &:disabled {
+    opacity    : 0.4;
+    cursor     : default;
+    transform  : none;
+    box-shadow : none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .video-player-btn:hover {
+    background : var(--c-accent);
+    color      : var(--c-white);
+    transform  : scale(1.08);
+  }
+}
+
+.video-player-btn--main {
+  inline-size : 3.4rem;
+  block-size  : 3.4rem;
+}
+
+.video-player-btn--sm {
+  inline-size : 2.1rem;
+  block-size  : 2.1rem;
+}
+
+.video-player-time {
+  color       : var(--text-secondary);
+  font-family : var(--font-mono);
+  font-size   : 0.7rem;
+  white-space : nowrap;
+}
+
+.video-player-spacer {
+  flex : 1;
+}
+
+.video-player-volume {
+  inline-size  : 60px;
+  block-size   : 4px;
+  accent-color : var(--c-accent);
+  appearance   : auto;
+  cursor       : pointer;
+}
+</style>

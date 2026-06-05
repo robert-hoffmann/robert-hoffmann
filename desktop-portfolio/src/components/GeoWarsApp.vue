@@ -193,8 +193,10 @@ function onRestartFromGameOver() {
 
 <style scoped>
 .geowars-wrapper {
+  inline-size    : 100%;
   block-size     : 100%;
   min-block-size : 0;
+  padding        : var(--space-2);
 }
 
 .geowars-stage {

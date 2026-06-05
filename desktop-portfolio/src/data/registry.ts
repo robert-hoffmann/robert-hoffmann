@@ -7,34 +7,22 @@
 
 import { defineAsyncComponent } from 'vue'
 import type { DesktopItem, Locale, WindowAppDefinition } from '../types/desktop'
-
-/* ----------------------------------------------------------
-   Localized window titles — keyed by registry ID
-   ---------------------------------------------------------- */
-const titles: Record<string, Record<Locale, string>> = {
-  about    : { en : 'About Me',      fr : 'À propos' },
-  projects : {
-    en : 'Project Highlights',
-    fr : 'Projets marquants',
-  },
-  resume   : { en : 'Resume',        fr : 'CV' },
-  twitter  : { en : 'X',             fr : 'X' },
-  linkedin : { en : 'LinkedIn',      fr : 'LinkedIn' },
-  github   : { en : 'GitHub',        fr : 'GitHub' },
-  extras   : { en : 'GeoWars.app',   fr : 'GeoWars.app' },
-  music    : { en : 'Music',         fr : 'Musique' },
-  video    : { en : 'Video',         fr : 'Vidéo' },
-  terminal : { en : 'Terminal',      fr : 'Terminal' },
-}
+import { resolveInterfaceMessage } from './interface'
 
 /** Resolve a registry entry's title for the given locale */
 export function getRegistryTitle(id: string, locale: Locale): string {
-  return titles[id]?.[locale] ?? windowRegistry[id]?.title ?? id
+  const def = windowRegistry[id]
+
+  return def ? resolveInterfaceMessage(def.titleKey, locale) : id
 }
 
 /** Resolve a desktop/mobile shortcut label without changing the window title */
 export function getRegistryIconTitle(id: string, locale: Locale): string {
-  return windowRegistry[id]?.iconTitle?.[locale] ?? getRegistryTitle(id, locale)
+  const def = windowRegistry[id]
+
+  if (!def) return id
+
+  return resolveInterfaceMessage(def.iconTitleKey ?? def.titleKey, locale)
 }
 
 /* ----------------------------------------------------------
@@ -45,7 +33,7 @@ export function getRegistryIconTitle(id: string, locale: Locale): string {
 export const windowRegistry: Record<string, WindowAppDefinition> = {
   about : {
     id            : 'about',
-    title         : 'About Me',
+    titleKey      : 'registry.about.title',
     icon          : '👤',
     iconUrl       : `${import.meta.env.BASE_URL}profile-icon.webp`,
     iconSprite    : 'profile',
@@ -63,11 +51,8 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
   },
   projects : {
     id            : 'projects',
-    title         : 'Project Highlights',
-    iconTitle     : {
-      en : 'Projects',
-      fr : 'Projets',
-    },
+    titleKey      : 'registry.projects.title',
+    iconTitleKey  : 'registry.projects.iconTitle',
     icon          : '📂',
     iconSprite    : 'projects',
     type          : 'folder',
@@ -82,9 +67,31 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     },
     component     : () => import('../components/ProjectsApp.vue'),
   },
+  gallery : {
+    id            : 'gallery',
+    titleKey      : 'registry.gallery.title',
+    iconTitleKey  : 'registry.gallery.iconTitle',
+    icon          : '▧',
+    iconUrl       : `${import.meta.env.BASE_URL}icons/gallery.svg`,
+    type          : 'app',
+    defaultCol    : 1,
+    defaultRow    : 3,
+    window        : {
+      size : {
+        default : { w : 760, h : 590 },
+        min     : { w : 520, h : 390 },
+        max     : { w : 1180, h : 900 },
+      },
+      placement : {
+        openStrategy    : 'fixed',
+        defaultPosition : { x : 594, y : 65 },
+      },
+    },
+    component     : () => import('../components/ImageViewerApp.vue'),
+  },
   resume : {
     id            : 'resume',
-    title         : 'Resume',
+    titleKey      : 'registry.resume.title',
     icon          : '📄',
     iconSprite    : 'resume',
     type          : 'file',
@@ -101,7 +108,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
   },
   twitter : {
     id            : 'twitter',
-    title         : 'X',
+    titleKey      : 'registry.twitter.title',
     icon          : '𝕏',
     iconUrl       : `${import.meta.env.BASE_URL}icons/x.svg`,
     iconSprite    : 'social-x',
@@ -112,7 +119,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
   },
   linkedin : {
     id            : 'linkedin',
-    title         : 'LinkedIn',
+    titleKey      : 'registry.linkedin.title',
     icon          : '💼',
     iconUrl       : `${import.meta.env.BASE_URL}icons/linkedin.svg`,
     iconSprite    : 'social-linkedin',
@@ -123,7 +130,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
   },
   github : {
     id            : 'github',
-    title         : 'GitHub',
+    titleKey      : 'registry.github.title',
     icon          : '🐙',
     iconUrl       : `${import.meta.env.BASE_URL}icons/github.svg`,
     iconSprite    : 'social-github',
@@ -135,7 +142,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
 
   extras : {
     id            : 'extras',
-    title         : 'GeoWars.app',
+    titleKey      : 'registry.extras.title',
     icon          : '🕹️',
     iconSprite    : 'joystick',
     type          : 'app',
@@ -152,7 +159,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
   },
   music : {
     id            : 'music',
-    title         : 'Music',
+    titleKey      : 'registry.music.title',
     icon          : '🎵',
     iconSprite    : 'music',
     type          : 'app',
@@ -182,7 +189,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
   },
   video : {
     id            : 'video',
-    title         : 'Video',
+    titleKey      : 'registry.video.title',
     icon          : '📺',
     iconSprite    : 'video',
     type          : 'app',
@@ -204,7 +211,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
   },
   terminal : {
     id            : 'terminal',
-    title         : 'Terminal',
+    titleKey      : 'registry.terminal.title',
     icon          : '>_',
     iconUrl       : `${import.meta.env.BASE_URL}icons/terminal.svg`,
     iconSprite    : 'terminal',

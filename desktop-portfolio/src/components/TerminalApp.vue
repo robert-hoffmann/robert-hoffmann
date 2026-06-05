@@ -173,7 +173,9 @@ onUnmounted(() => {
 
   display        : flex;
   flex-direction : column;
+  inline-size    : 100%;
   block-size     : 100%;
+  min-block-size : 0;
   background     : var(--term-bg);
   font-family    : var(--font-mono);
   font-size      : 13px;

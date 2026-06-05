@@ -265,9 +265,34 @@ onUnmounted(() => {
 
 <style scoped>
 .about-content {
-  display        : flex;
-  flex-direction : column;
-  gap            : var(--space-5);
+  display         : flex;
+  flex-direction  : column;
+  gap             : var(--space-5);
+  inline-size     : 100%;
+  block-size      : 100%;
+  min-block-size  : 0;
+  padding         : var(--space-6);
+  overflow-y      : auto;
+  scrollbar-width : thin;
+  scrollbar-color : var(--icon-selected-bg) var(--surface-raised);
+
+  &::-webkit-scrollbar {
+    inline-size : 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius : 4px;
+    background    : var(--surface-raised);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius : 4px;
+    background    : var(--icon-selected-bg);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background : var(--c-accent);
+  }
 }
 
 /* ---- Header ---- */

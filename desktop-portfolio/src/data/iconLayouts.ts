@@ -37,6 +37,7 @@ const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[
   small : [
     { itemId : 'about',    col : 1,  row : 1 },
     { itemId : 'projects', col : 1,  row : 2 },
+    { itemId : 'gallery',  col : 3,  row : 8 },
     { itemId : 'resume',   col : 11, row : 2 },
     { itemId : 'twitter',  col : 14, row : 4 },
     { itemId : 'linkedin', col : 11, row : 5 },
@@ -50,6 +51,7 @@ const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[
   medium : [
     { itemId : 'about',    col : 1,  row : 1 },
     { itemId : 'projects', col : 1,  row : 2 },
+    { itemId : 'gallery',  col : 3,  row : 8 },
     { itemId : 'resume',   col : 14, row : 2 },
     { itemId : 'twitter',  col : 14, row : 4 },
     { itemId : 'linkedin', col : 14, row : 5 },
@@ -63,6 +65,7 @@ const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[
   large : [
     { itemId : 'about',    col : 1,  row : 1 },
     { itemId : 'projects', col : 1,  row : 2 },
+    { itemId : 'gallery',  col : 3,  row : 8 },
     { itemId : 'resume',   col : 14, row : 2 },
     { itemId : 'twitter',  col : 14, row : 4 },
     { itemId : 'linkedin', col : 14, row : 5 },

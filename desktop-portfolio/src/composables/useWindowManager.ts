@@ -531,7 +531,7 @@ function normalizeRestoredWindow(saved: WindowState): WindowState | null {
   const normalized: WindowState = {
     id           : typeof saved.id === 'string' && saved.id ? saved.id : uid(),
     itemId       : saved.itemId,
-    title        : typeof saved.title === 'string' && saved.title ? saved.title : def.title,
+    title        : getRegistryTitle(saved.itemId, 'en'),
     x            : savedRect.x,
     y            : savedRect.y,
     w            : savedRect.w,
