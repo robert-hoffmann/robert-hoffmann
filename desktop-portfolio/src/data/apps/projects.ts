@@ -730,7 +730,7 @@ export const projects = [
     ],
     links      : [
       {
-        label : 'Maser maintenance',
+        label : 'Maser Engineering: Pole Maintenance',
         href  : 'https://maser-engineering.com/specialite-maintenance/',
       },
     ],
@@ -784,6 +784,12 @@ export const projects = [
       'MariaDB',
       'PDF',
       'CSV',
+    ],
+    links      : [
+      {
+        label : 'Maser Engineering: Pole Conseil',
+        href  : 'https://maser-engineering.com/pole-conseil/',
+      }
     ],
   },
   {
