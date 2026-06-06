@@ -152,6 +152,10 @@ Rules:
 - Source images may have mixed dimensions and aspect ratios.
 - Keep source images in this directory after publishing. They are the reusable
   inputs for future regeneration.
+- When inserting a slide before existing slides, renumber source files into the
+  final `1..n` order before publishing. A temporary `0-<projectId>.*` source is
+  fine while staging, but it should be promoted to `1-<projectId>.*` and the
+  existing files shifted before runtime assets and `gallery.ts` are updated.
 
 ## Adding Or Replacing A Source Image
 

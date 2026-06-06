@@ -41,6 +41,32 @@ export const galleryImages = [
     imageId   : 1,
     projectId : 'proj-chatapp',
     title     : {
+      en : 'TchaTche magazine cover',
+      fr : 'Couverture du magazine TchaTche',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Magazine cover from the broader tchatche.com media ecosystem. My work focused on ' +
+        'the main site, user blogs, and dedicated/white-label chat apps, including responsive ' +
+        'versions and Facebook integration.',
+      fr :
+        'Couverture magazine issue de l’écosystème média tchatche.com. Mon travail portait ' +
+        'sur le site principal, les blogs utilisateurs et les apps chat dédiées / marque ' +
+        'blanche, avec versions responsive et intégration Facebook.',
+    } satisfies Localized,
+    alt       : {
+      en :
+        'TchaTche magazine cover with pop music, cinema, games, mobile logos and ringtones, ' +
+        'sport, and SMS bonus callouts',
+      fr :
+        'Couverture du magazine TchaTche avec musique pop, cinéma, jeux, logos et sonneries ' +
+        'mobile, sport et bonus SMS',
+    } satisfies Localized,
+  },
+  {
+    imageId   : 2,
+    projectId : 'proj-chatapp',
+    title     : {
       en : 'tchatche.com map gallery',
       fr : 'Galerie carte tchatche.com',
     } satisfies Localized,
@@ -58,7 +84,7 @@ export const galleryImages = [
     } satisfies Localized,
   },
   {
-    imageId   : 2,
+    imageId   : 3,
     projectId : 'proj-chatapp',
     title     : {
       en : 'tchatche.com profile discovery',
@@ -78,7 +104,7 @@ export const galleryImages = [
     } satisfies Localized,
   },
   {
-    imageId   : 3,
+    imageId   : 4,
     projectId : 'proj-chatapp',
     title     : {
       en : 'NRJ white-label chat search',
@@ -98,7 +124,7 @@ export const galleryImages = [
     } satisfies Localized,
   },
   {
-    imageId   : 4,
+    imageId   : 5,
     projectId : 'proj-chatapp',
     title     : {
       en : 'TchatcheBlog community portal',
@@ -118,7 +144,7 @@ export const galleryImages = [
     } satisfies Localized,
   },
   {
-    imageId   : 5,
+    imageId   : 6,
     projectId : 'proj-desktop-portfolio',
     title     : {
       en : 'Desktop portfolio workspace',
@@ -138,7 +164,7 @@ export const galleryImages = [
     } satisfies Localized,
   },
   {
-    imageId   : 6,
+    imageId   : 7,
     projectId : 'proj-parallax-designer',
     title     : {
       en : 'Parallax Designer layer editor',
@@ -158,7 +184,7 @@ export const galleryImages = [
     } satisfies Localized,
   },
   {
-    imageId   : 7,
+    imageId   : 8,
     projectId : 'proj-parallax-designer',
     title     : {
       en : 'Parallax Designer architecture docs',
@@ -178,7 +204,7 @@ export const galleryImages = [
     } satisfies Localized,
   },
   {
-    imageId   : 8,
+    imageId   : 9,
     projectId : 'proj-sbm-compliance',
     title     : {
       en : 'SBM compliance dashboard',
@@ -232,6 +258,7 @@ const sampleAccents  = [
   'oklch(64% 0.16 205)',
   'oklch(62% 0.19 350)',
   'oklch(60% 0.16 120)',
+  'oklch(66% 0.17 40)',
 ] satisfies readonly [string, ...string[]]
 
 function padGalleryIndex(index: number) {

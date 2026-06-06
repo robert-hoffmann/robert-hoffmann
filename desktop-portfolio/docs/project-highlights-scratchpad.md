@@ -50,12 +50,19 @@ Confirmed path: Option B. The requested content has multiple impact facts per pr
 
 ## Existing Projects To Improve
 
-### tchatche.com - Real-Time Chat Platform
+### tchatche.com - Media & Community Ecosystem
 
 Current strength: already has exceptional scale.
 
 Potential sharper angle:
 
+- tchatche.com was a broader media/community ecosystem, not only a chat app.
+- The ecosystem included a print magazine, an MTV-like satellite music TV
+  program, a main site with people news, horoscope, interviews, games and prize
+  mechanics, user blogs, dedicated email, a dedicated/white-label chat app, and
+  iOS/Android mobile applications.
+- Direct work scope: main site, user blog platform, and chat app, including
+  responsive versions and Facebook integration.
 - High-scale real-time chat platform.
 - White-label deployments for major French media brands.
 - Strong performance constraints: 600M page views/month, 400M requests/day, 200 KB UI, PageSpeed 97/100, IE support.

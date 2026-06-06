@@ -190,7 +190,7 @@ export const projects = [
   },
   {
     id         : 'proj-sbm-compliance',
-    imageId    : 8,
+    imageId    : 9,
     name       : {
       en : 'SBM / Ter\u00e9ga: Onboarding & Certification Tracking',
       fr : 'SBM / Ter\u00e9ga: Suivi onboarding & certifications',
@@ -262,7 +262,7 @@ export const projects = [
   },
   {
     id         : 'proj-desktop-portfolio',
-    imageId    : 5,
+    imageId    : 6,
     name       : {
       en : 'i-technology.net: AI-Built Desktop Portfolio',
       fr : 'i-technology.net: Portfolio desktop construit avec l\u2019IA',
@@ -333,7 +333,7 @@ export const projects = [
   },
   {
     id         : 'proj-parallax-designer',
-    imageId    : 6,
+    imageId    : 7,
     name       : {
       en : 'Parallax Designer: AI-Built Visual Builder',
       fr : 'Parallax Designer: Builder visuel construit avec l\u2019IA',
@@ -449,8 +449,8 @@ export const projects = [
     id         : 'proj-chatapp',
     imageId    : 1,
     name       : {
-      en : 'tchatche.com: White-Label Chat Platform',
-      fr : 'tchatche.com: Plateforme de chat en marque blanche',
+      en : 'tchatche.com: Media & Community Ecosystem',
+      fr : 'tchatche.com: Écosystème média & communautaire',
     } satisfies Localized,
     org        : {
       en : '123 Multimedia / Index Multimedia',
@@ -459,15 +459,19 @@ export const projects = [
     period     : '2004 – 2013',
     summary    : {
       en :
-        'Senior full-stack C# architecture for a high-scale real-time chat and community ' +
-        'platform sold as a white-label product to SFR, Bouygues, Orange, TF1, NRJ, Chérie FM, ' +
-        'and others. The product included full moderation, picture albums, location search, ' +
-        'Google Maps integration, a dedicated Facebook app, social sharing, and 13-language i18n.',
+        'Senior full-stack C# work across the tchatche.com main site, user blog platform, ' +
+        'and dedicated/white-label chat apps inside a broader media ecosystem that also included ' +
+        'a magazine, satellite music TV program, email, games, people news, horoscope/interviews, ' +
+        'and iOS/Android apps. My scope included responsive versions, Facebook integration, ' +
+        'moderation, picture albums, location search, Google Maps, social sharing, and ' +
+        '13-language i18n.',
       fr :
-        'Architecture full-stack C# senior pour une plateforme de chat temps réel et communauté ' +
-        'à grande échelle, vendue en marque blanche à SFR, Bouygues, Orange, TF1, NRJ, Chérie FM ' +
-        'et autres. Le produit incluait modération complète, albums photo, recherche géolocalisée, ' +
-        'intégration Google Maps, application Facebook dédiée, partage social et i18n en 13 langues.',
+        'Travail full-stack C# senior sur le site principal tchatche.com, la plateforme de blogs ' +
+        'utilisateurs et les apps chat dédiées / marque blanche au sein d’un écosystème média ' +
+        'plus large incluant magazine, émission musicale satellite, email, jeux, people news, ' +
+        'horoscope/interviews et apps iOS/Android. Mon périmètre incluait versions responsive, ' +
+        'intégration Facebook, modération, albums photo, recherche géolocalisée, Google Maps, ' +
+        'partage social et i18n en 13 langues.',
     } satisfies Localized,
     highlights : [
       {
@@ -481,6 +485,14 @@ export const projects = [
       {
         en : '$300K/month revenue peak',
         fr : 'Pic à 300K$/mois',
+      },
+      {
+        en : 'Main site + blog + chat apps',
+        fr : 'Site principal + blogs + apps chat',
+      },
+      {
+        en : 'Responsive + Facebook integration',
+        fr : 'Responsive + intégration Facebook',
       },
       {
         en : '13-language i18n',
