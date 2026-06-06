@@ -26,6 +26,11 @@ const FULLSCREEN_GESTURE_SLOP_PX  = 8
 const FULLSCREEN_CLOSE_THRESHOLD  = 72
 const FULLSCREEN_AXIS_LOCK_RATIO  = 1.15
 const FULLSCREEN_ZOOM_EPSILON     = 0.01
+const FULLSCREEN_SWIPE_DECAY      = 0.92
+const FULLSCREEN_SWIPE_FRAME_MS   = 16.67
+const FULLSCREEN_SWIPE_MAX_FRAME  = 32
+const FULLSCREEN_SWIPE_MIN_SPEED  = 0.02
+const FULLSCREEN_SWIPE_RELEASE_MS = 120
 const DOUBLE_TAP_MAX_DELAY_MS     = 300
 const DOUBLE_TAP_MAX_DISTANCE_PX  = 30
 
@@ -58,6 +63,9 @@ interface FullscreenGestureState {
   startDistance   : number
   startCenterX    : number
   startCenterY    : number
+  lastTime        : number
+  lastX           : number
+  velocityX       : number
   dragged         : boolean
 }
 
@@ -109,8 +117,13 @@ const fullscreenGestureState: FullscreenGestureState = {
   startDistance   : 0,
   startCenterX    : 0,
   startCenterY    : 0,
+  lastTime        : 0,
+  lastX           : 0,
+  velocityX       : 0,
   dragged         : false,
 }
+
+let fullscreenSwipeFrame: number | null = null
 
 const slideCount = computed(() => props.slides.length)
 const fullscreenSlide = computed<ImageViewerSlide>(() =>
@@ -165,6 +178,62 @@ function snapFullscreenTrackToNearestSlide(behavior: ScrollBehavior = 'smooth') 
 
 function setFullscreenTrackFreeDrag(enabled: boolean) {
   setTrackElementFreeDrag(fullscreenTrackEl.value, enabled)
+}
+
+function cancelFullscreenSwipeMomentum() {
+  if (fullscreenSwipeFrame !== null) {
+    cancelAnimationFrame(fullscreenSwipeFrame)
+    fullscreenSwipeFrame = null
+  }
+}
+
+function shouldSkipFullscreenSwipeMomentum(velocityX: number) {
+  return Math.abs(velocityX) < FULLSCREEN_SWIPE_MIN_SPEED
+}
+
+function finishFullscreenSwipeMomentum() {
+  fullscreenSwipeFrame = null
+  setFullscreenTrackFreeDrag(false)
+  snapFullscreenTrackToNearestSlide('smooth')
+}
+
+function scrollFullscreenTrackWithMomentum(velocityX: number) {
+  const track = fullscreenTrackEl.value
+
+  if (!track || shouldSkipFullscreenSwipeMomentum(velocityX)) {
+    finishFullscreenSwipeMomentum()
+    return
+  }
+
+  cancelFullscreenSwipeMomentum()
+
+  let currentVelocityX = velocityX
+  let previousFrame    = performance.now()
+
+  const tick = (timestamp: number) => {
+    const elapsed     = Math.min(timestamp - previousFrame, FULLSCREEN_SWIPE_MAX_FRAME)
+    const maxScrollX  = Math.max(track.scrollWidth - track.clientWidth, 0)
+    const rawScrollX  = track.scrollLeft + (currentVelocityX * elapsed)
+    const nextScrollX = clamp(rawScrollX, 0, maxScrollX)
+    const decay       = Math.pow(
+      FULLSCREEN_SWIPE_DECAY,
+      elapsed / FULLSCREEN_SWIPE_FRAME_MS,
+    )
+
+    previousFrame    = timestamp
+    track.scrollLeft = nextScrollX
+
+    currentVelocityX = nextScrollX === rawScrollX ? currentVelocityX * decay : 0
+
+    if (shouldSkipFullscreenSwipeMomentum(currentVelocityX)) {
+      finishFullscreenSwipeMomentum()
+      return
+    }
+
+    fullscreenSwipeFrame = requestAnimationFrame(tick)
+  }
+
+  fullscreenSwipeFrame = requestAnimationFrame(tick)
 }
 
 function getPointDistance(first: GesturePoint, second: GesturePoint) {
@@ -259,6 +328,7 @@ function releaseFullscreenPointerCapture(pointerId: number) {
 function resetFullscreenGestureState() {
   fullscreenPointers.forEach(point => releaseFullscreenPointerCapture(point.pointerId))
   fullscreenPointers.clear()
+  cancelFullscreenSwipeMomentum()
   setFullscreenTrackFreeDrag(false)
 
   fullscreenGestureState.pointerId       = null
@@ -271,6 +341,9 @@ function resetFullscreenGestureState() {
   fullscreenGestureState.startDistance   = 0
   fullscreenGestureState.startCenterX    = 0
   fullscreenGestureState.startCenterY    = 0
+  fullscreenGestureState.lastTime        = 0
+  fullscreenGestureState.lastX           = 0
+  fullscreenGestureState.velocityX       = 0
   fullscreenGestureState.dragged         = false
   fullscreenGestureMode.value            = 'idle'
   fullscreenDismissY.value               = 0
@@ -329,6 +402,8 @@ function showFullscreenAdjacentSlide(direction: 'previous' | 'next') {
     trackIndex,
   } = getAdjacentSlideTarget(direction)
 
+  cancelFullscreenSwipeMomentum()
+  setFullscreenTrackFreeDrag(false)
   setSelectedIndex(targetIndex)
   resetFullscreenZoom()
 
@@ -362,6 +437,8 @@ function beginFullscreenPinchGesture() {
 
   if (!metrics || metrics.distance <= 0) return
 
+  cancelFullscreenSwipeMomentum()
+  setFullscreenTrackFreeDrag(false)
   fullscreenGestureState.pointerId       = null
   fullscreenGestureState.startScale      = fullscreenScale.value
   fullscreenGestureState.startTranslateX = fullscreenTranslateX.value
@@ -391,6 +468,9 @@ function updateFullscreenPinchGesture() {
 }
 
 function beginFullscreenSinglePointerGesture(event: PointerEvent) {
+  cancelFullscreenSwipeMomentum()
+  setFullscreenTrackFreeDrag(false)
+
   fullscreenGestureState.pointerId       = event.pointerId
   fullscreenGestureState.startX          = event.clientX
   fullscreenGestureState.startY          = event.clientY
@@ -398,6 +478,9 @@ function beginFullscreenSinglePointerGesture(event: PointerEvent) {
   fullscreenGestureState.startTranslateY = fullscreenTranslateY.value
   fullscreenGestureState.startScrollLeft = fullscreenTrackEl.value?.scrollLeft ?? 0
   fullscreenGestureState.startScale      = fullscreenScale.value
+  fullscreenGestureState.lastTime        = performance.now()
+  fullscreenGestureState.lastX           = event.clientX
+  fullscreenGestureState.velocityX       = 0
   fullscreenGestureState.dragged         = false
   fullscreenGestureMode.value            = 'idle'
   fullscreenDismissY.value               = 0
@@ -463,6 +546,33 @@ function handleFullscreenTap(event: PointerEvent) {
   fullscreenTapState.lastTapX    = event.clientX
   fullscreenTapState.lastTapY    = event.clientY
   fullscreenTapState.lastTapTime = now
+}
+
+function updateFullscreenSwipeVelocity(event: PointerEvent) {
+  const now     = performance.now()
+  const elapsed = Math.max(now - fullscreenGestureState.lastTime, 1)
+
+  fullscreenGestureState.velocityX = -(event.clientX - fullscreenGestureState.lastX) / elapsed
+  fullscreenGestureState.lastTime  = now
+  fullscreenGestureState.lastX     = event.clientX
+}
+
+function getFullscreenReleaseVelocity(event: PointerEvent) {
+  const now     = performance.now()
+  const elapsed = Math.max(now - fullscreenGestureState.lastTime, 1)
+  const deltaX  = event.clientX - fullscreenGestureState.lastX
+
+  if (deltaX !== 0) {
+    fullscreenGestureState.velocityX = -deltaX / elapsed
+    fullscreenGestureState.lastTime  = now
+    fullscreenGestureState.lastX     = event.clientX
+
+    return fullscreenGestureState.velocityX
+  }
+
+  if (elapsed > FULLSCREEN_SWIPE_RELEASE_MS) return 0
+
+  return fullscreenGestureState.velocityX
 }
 
 function onFullscreenPointerDown(event: PointerEvent) {
@@ -555,6 +665,7 @@ function onFullscreenPointerMove(event: PointerEvent) {
       track.scrollLeft = fullscreenGestureState.startScrollLeft - deltaX
     }
 
+    updateFullscreenSwipeVelocity(event)
     event.preventDefault()
   }
 }
@@ -563,6 +674,10 @@ function finishFullscreenSinglePointerGesture(event: PointerEvent) {
   const mode    = fullscreenGestureMode.value
   const deltaY  = event.clientY - fullscreenGestureState.startY
   const dragged = fullscreenGestureState.dragged
+
+  const velocityX = mode === 'swipe'
+    ? getFullscreenReleaseVelocity(event)
+    : fullscreenGestureState.velocityX
 
   fullscreenGestureState.pointerId = null
   fullscreenGestureState.dragged   = false
@@ -579,8 +694,7 @@ function finishFullscreenSinglePointerGesture(event: PointerEvent) {
   }
 
   if (mode === 'swipe') {
-    setFullscreenTrackFreeDrag(false)
-    snapFullscreenTrackToNearestSlide('smooth')
+    scrollFullscreenTrackWithMomentum(velocityX)
     return
   }
 
@@ -647,6 +761,8 @@ function onFullscreenKeydown(event: KeyboardEvent) {
 }
 
 function onWindowResize() {
+  cancelFullscreenSwipeMomentum()
+  setFullscreenTrackFreeDrag(false)
   resetFullscreenZoom()
   scrollFullscreenTrackToTrackIndex(logicalIndexToTrackIndex(props.selectedIndex), 'instant')
 }
