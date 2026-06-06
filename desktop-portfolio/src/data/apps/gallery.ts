@@ -41,8 +41,8 @@ export const galleryImages = [
     imageId   : 1,
     projectId : 'proj-chatapp',
     title     : {
-      en : 'TchaTche magazine cover',
-      fr : 'Couverture du magazine TchaTche',
+      en : 'TchaTche: Magazine',
+      fr : 'TchaTche: Magazine',
     } satisfies Localized,
     summary   : {
       en :
@@ -67,8 +67,8 @@ export const galleryImages = [
     imageId   : 2,
     projectId : 'proj-chatapp',
     title     : {
-      en : 'tchatche.com map gallery',
-      fr : 'Galerie carte tchatche.com',
+      en : 'TchaTche: Gallery (chat)',
+      fr : 'TchaTche: Galerie (chats)',
     } satisfies Localized,
     summary   : {
       en :
@@ -87,8 +87,8 @@ export const galleryImages = [
     imageId   : 3,
     projectId : 'proj-chatapp',
     title     : {
-      en : 'tchatche.com profile discovery',
-      fr : 'Découverte profil tchatche.com',
+      en : 'TchaTche: Profile (chat)',
+      fr : 'TchaTche: Profil (chats)',
     } satisfies Localized,
     summary   : {
       en :
@@ -107,8 +107,8 @@ export const galleryImages = [
     imageId   : 4,
     projectId : 'proj-chatapp',
     title     : {
-      en : 'NRJ white-label chat search',
-      fr : 'Recherche chat marque blanche NRJ',
+      en : 'TchaTche: NRJ (white label)',
+      fr : 'TchaTche: NRJ (marque blanche)',
     } satisfies Localized,
     summary   : {
       en :
@@ -127,8 +127,8 @@ export const galleryImages = [
     imageId   : 5,
     projectId : 'proj-chatapp',
     title     : {
-      en : 'TchatcheBlog community portal',
-      fr : 'Portail communautaire TchatcheBlog',
+      en : 'TchaTche: Blogs',
+      fr : 'TchaTche: Blogs',
     } satisfies Localized,
     summary   : {
       en :
@@ -147,8 +147,8 @@ export const galleryImages = [
     imageId   : 6,
     projectId : 'proj-desktop-portfolio',
     title     : {
-      en : 'Desktop portfolio workspace',
-      fr : 'Espace de travail portfolio desktop',
+      en : 'Work Portfolio',
+      fr : 'Portfolio de travail',
     } satisfies Localized,
     summary   : {
       en :
@@ -167,8 +167,8 @@ export const galleryImages = [
     imageId   : 7,
     projectId : 'proj-parallax-designer',
     title     : {
-      en : 'Parallax Designer layer editor',
-      fr : 'Éditeur de calques Parallax Designer',
+      en : 'Parallax Designer (interface)',
+      fr : 'Parallax Designer (interface)',
     } satisfies Localized,
     summary   : {
       en :
@@ -187,8 +187,8 @@ export const galleryImages = [
     imageId   : 8,
     projectId : 'proj-parallax-designer',
     title     : {
-      en : 'Parallax Designer architecture docs',
-      fr : 'Docs architecture Parallax Designer',
+      en : 'Parallax Designer (documentation)',
+      fr : 'Parallax Designer (documentation)',
     } satisfies Localized,
     summary   : {
       en :
@@ -207,8 +207,8 @@ export const galleryImages = [
     imageId   : 9,
     projectId : 'proj-sbm-compliance',
     title     : {
-      en : 'SBM compliance dashboard',
-      fr : 'Dashboard conformité SBM',
+      en : 'SBM: Compliance Dashboard',
+      fr : 'SBM : Dashboard de conformité',
     } satisfies Localized,
     summary   : {
       en :
