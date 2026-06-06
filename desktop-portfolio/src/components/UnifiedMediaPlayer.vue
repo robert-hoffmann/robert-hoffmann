@@ -247,6 +247,7 @@ async function onMetaFullscreen() {
                 loading="eager"
                 fetchpriority="high"
                 decoding="async"
+                draggable="false"
               >
             </picture>
 
@@ -284,6 +285,7 @@ async function onMetaFullscreen() {
         :alt="displayArtworkAlt"
         loading="eager"
         decoding="async"
+        draggable="false"
       >
     </div>
 
@@ -519,11 +521,13 @@ async function onMetaFullscreen() {
 }
 
 .unified-media-player__art-image {
-  display         : block;
-  inline-size     : 100%;
-  block-size      : 100%;
-  object-fit      : cover;
-  object-position : 50% 22%;
+  display            : block;
+  inline-size        : 100%;
+  block-size         : 100%;
+  object-fit         : cover;
+  object-position    : 50% 22%;
+  user-select        : none;
+  -webkit-user-drag : none;
 }
 
 .unified-media-player__visual--video {
@@ -553,11 +557,13 @@ async function onMetaFullscreen() {
 }
 
 .unified-media-player__video-poster {
-  position    : absolute;
-  inset       : 0;
-  inline-size : 100%;
-  block-size  : 100%;
-  object-fit  : cover;
+  position          : absolute;
+  inset             : 0;
+  inline-size       : 100%;
+  block-size        : 100%;
+  object-fit        : cover;
+  user-select       : none;
+  -webkit-user-drag : none;
 }
 
 .unified-media-player__video-facade-play {
