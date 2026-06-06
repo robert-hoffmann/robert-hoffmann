@@ -16,8 +16,8 @@ export const projects = [
     id         : 'proj-tmip-scheduler',
     imageId    : 1,
     name       : {
-      en : 'TMIP Scheduler — Industrial Data Orchestration',
-      fr : 'TMIP Scheduler — Orchestration de données industrielles',
+      en : 'TMIP Scheduler: Industrial Data Orchestration',
+      fr : 'TMIP Scheduler: Orchestration de données industrielles',
     } satisfies Localized,
     org        : {
       en : 'Maser Engineering for Airbus',
@@ -73,8 +73,8 @@ export const projects = [
     id         : 'proj-uncle-bob',
     imageId    : 2,
     name       : {
-      en : 'Uncle Bob — Agentic AI Workflow System',
-      fr : 'Uncle Bob — Système de workflow IA agentique',
+      en : 'Uncle Bob: Agentic AI Workflow System',
+      fr : 'Uncle Bob: Système de workflow IA agentique',
     } satisfies Localized,
     org        : {
       en : 'Independent',
@@ -144,8 +144,8 @@ export const projects = [
     id         : 'proj-tmip-logger',
     imageId    : 3,
     name       : {
-      en : 'TMIP Logger — QoS & KPI Observability',
-      fr : 'TMIP Logger — Observabilité QoS & KPI',
+      en : 'TMIP Logger: QoS & KPI Observability',
+      fr : 'TMIP Logger: Observabilité QoS & KPI',
     } satisfies Localized,
     org        : {
       en : 'Maser Engineering for Airbus',
@@ -195,8 +195,8 @@ export const projects = [
     id         : 'proj-sbm-compliance',
     imageId    : 4,
     name       : {
-      en : 'SBM / Ter\u00e9ga — Onboarding & Certification Tracking',
-      fr : 'SBM / Ter\u00e9ga — Suivi onboarding & certifications',
+      en : 'SBM / Ter\u00e9ga: Onboarding & Certification Tracking',
+      fr : 'SBM / Ter\u00e9ga: Suivi onboarding & certifications',
     } satisfies Localized,
     org        : {
       en : 'Maser Engineering for SBM Company and Ter\u00e9ga',
@@ -267,8 +267,8 @@ export const projects = [
     id         : 'proj-desktop-portfolio',
     imageId    : 5,
     name       : {
-      en : 'i-technology.net — AI-Built Desktop Portfolio',
-      fr : 'i-technology.net — Portfolio desktop construit avec l\u2019IA',
+      en : 'i-technology.net: AI-Built Desktop Portfolio',
+      fr : 'i-technology.net: Portfolio desktop construit avec l\u2019IA',
     } satisfies Localized,
     org        : {
       en : 'Independent',
@@ -338,8 +338,8 @@ export const projects = [
     id         : 'proj-parallax-designer',
     imageId    : 6,
     name       : {
-      en : 'Parallax Designer — AI-Built Visual Builder',
-      fr : 'Parallax Designer — Builder visuel construit avec l\u2019IA',
+      en : 'Parallax Designer: AI-Built Visual Builder',
+      fr : 'Parallax Designer: Builder visuel construit avec l\u2019IA',
     } satisfies Localized,
     org        : {
       en : 'Independent',
@@ -401,8 +401,8 @@ export const projects = [
     id         : 'proj-hutchinson-work-instructions',
     imageId    : 7,
     name       : {
-      en : 'Hutchinson — Digital Work Instructions',
-      fr : 'Hutchinson — Instructions de travail digitales',
+      en : 'Hutchinson: Digital Work Instructions',
+      fr : 'Hutchinson: Instructions de travail digitales',
     } satisfies Localized,
     org        : {
       en : 'Maser Engineering for Hutchinson',
@@ -453,8 +453,8 @@ export const projects = [
     id         : 'proj-chatapp',
     imageId    : 8,
     name       : {
-      en : 'tchatche.com — White-Label Chat Platform',
-      fr : 'tchatche.com — Plateforme de chat en marque blanche',
+      en : 'tchatche.com: White-Label Chat Platform',
+      fr : 'tchatche.com: Plateforme de chat en marque blanche',
     } satisfies Localized,
     org        : {
       en : '123 Multimedia / Index Multimedia',
@@ -507,8 +507,8 @@ export const projects = [
     id         : 'proj-adproxy',
     imageId    : 9,
     name       : {
-      en : 'Ad Proxy — Ad-Distribution Server',
-      fr : 'Ad Proxy — Serveur de distribution publicitaire',
+      en : 'Ad Proxy: Ad-Distribution Server',
+      fr : 'Ad Proxy: Serveur de distribution publicitaire',
     } satisfies Localized,
     org        : {
       en : 'Index Multimedia',
@@ -558,8 +558,8 @@ export const projects = [
     id         : 'proj-t4resx',
     imageId    : 10,
     name       : {
-      en : 'T4ResX — Localization Tooling',
-      fr : 'T4ResX — Outillage de localisation',
+      en : 'T4ResX: Localization Tooling',
+      fr : 'T4ResX: Outillage de localisation',
     } satisfies Localized,
     org        : {
       en : 'Index Multimedia',
@@ -621,8 +621,8 @@ export const projects = [
     id         : 'proj-headjs',
     imageId    : 11,
     name       : {
-      en : 'HeadJS — Open-Source JS Library',
-      fr : 'HeadJS — Bibliothèque JS open source',
+      en : 'HeadJS: Open-Source JS Library',
+      fr : 'HeadJS: Bibliothèque JS open source',
     } satisfies Localized,
     org        : {
       en : 'Open Source / Index Multimedia',
@@ -787,8 +787,8 @@ export const projects = [
     id         : 'proj-maser-academy-inventory',
     imageId    : 14,
     name       : {
-      en : 'Maser Academy — Course Inventory Planning',
-      fr : 'Maser Academy — Planification d\u2019inventaire formation',
+      en : 'Maser Academy: Course Inventory Planning',
+      fr : 'Maser Academy: Planification d\u2019inventaire formation',
     } satisfies Localized,
     org        : {
       en : 'Maser Engineering for Maser Academy',
@@ -851,8 +851,8 @@ export const projects = [
     id         : 'proj-roland-garros-navigation',
     imageId    : 15,
     name       : {
-      en : 'Roland-Garros — Staff Navigation PWA',
-      fr : 'Roland-Garros — PWA de guidage du personnel',
+      en : 'Roland-Garros: Staff Navigation PWA',
+      fr : 'Roland-Garros: PWA de guidage du personnel',
     } satisfies Localized,
     org        : {
       en : 'Maser Engineering for CRIT / Roland-Garros',
@@ -900,8 +900,8 @@ export const projects = [
   {
     id         : 'proj-findunused',
     name       : {
-      en : 'FindUnusedFiles — Visual Studio Extension',
-      fr : 'FindUnusedFiles — Extension Visual Studio',
+      en : 'FindUnusedFiles: Visual Studio Extension',
+      fr : 'FindUnusedFiles: Extension Visual Studio',
     } satisfies Localized,
     org        : {
       en : 'Index Multimedia',
@@ -1000,8 +1000,8 @@ export const projects = [
   {
     id         : 'proj-healthmon',
     name       : {
-      en : 'HealthMonitoring — Error Tracking',
-      fr : 'HealthMonitoring — Suivi d\u2019erreurs',
+      en : 'HealthMonitoring: Error Tracking',
+      fr : 'HealthMonitoring: Suivi d\u2019erreurs',
     } satisfies Localized,
     org        : {
       en : 'Index Multimedia',
@@ -1041,8 +1041,8 @@ export const projects = [
   {
     id         : 'proj-jsonr',
     name       : {
-      en : 'JsonRaw — Lightweight JSON Protocol',
-      fr : 'JsonRaw — Protocole JSON léger',
+      en : 'JsonRaw: Lightweight JSON Protocol',
+      fr : 'JsonRaw: Protocole JSON léger',
     } satisfies Localized,
     org        : {
       en : 'Index Multimedia',
@@ -1141,8 +1141,8 @@ export const projects = [
   {
     id         : 'proj-microcoil',
     name       : {
-      en : 'MicroCoil Calculator — Web & Mobile',
-      fr : 'Calculateur MicroCoil — Web & mobile',
+      en : 'MicroCoil Calculator: Web & Mobile',
+      fr : 'Calculateur MicroCoil: Web & mobile',
     } satisfies Localized,
     org        : {
       en : 'Independent',
@@ -1227,8 +1227,8 @@ export const projects = [
   {
     id         : 'proj-phantomui',
     name       : {
-      en : 'PhantomUI — Web-to-PDF Converter',
-      fr : 'PhantomUI — Convertisseur web vers PDF',
+      en : 'PhantomUI: Web-to-PDF Converter',
+      fr : 'PhantomUI: Convertisseur web vers PDF',
     } satisfies Localized,
     org        : {
       en : 'Independent',
@@ -1273,8 +1273,8 @@ export const projects = [
   {
     id         : 'proj-mario',
     name       : {
-      en : 'jQuery Mario — Mobile Web Game POC',
-      fr : 'jQuery Mario — POC jeu web mobile',
+      en : 'jQuery Mario: Mobile Web Game POC',
+      fr : 'jQuery Mario: POC jeu web mobile',
     } satisfies Localized,
     org        : {
       en : '123 Multimedia SA',
