@@ -238,7 +238,6 @@ function resetDesktop() {
   resetDesktopIconsForCurrentViewport()
   wm.closeAll()
   openDefaultWindowsStaggered()
-  theme.setTheme('dark')
   toast.show(t('toast.desktopReset'))
 }
 

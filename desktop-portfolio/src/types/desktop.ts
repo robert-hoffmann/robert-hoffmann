@@ -166,15 +166,24 @@ export type MobileAppState = 'expanded' | 'minimized'
 /** Bilingual text field - keyed by locale */
 export type Localized = Record<Locale, string>
 
-/** Serializable session state for localStorage */
-export interface SessionState {
-  version?        : number
-  theme           : Theme
-  locale          : Locale
+/** Shared app preferences persisted for both desktop and mobile shells. */
+export interface PortfolioSharedState {
+  locale : Locale
+  theme  : Theme
+}
+
+/** Desktop-only state persisted inside the versioned portfolio state object. */
+export interface PortfolioDesktopState {
   desktopItems    : DesktopItem[]
   focusedWindowId : string | null
   nextZIndex      : number
   windows         : WindowState[]
+}
+
+/** Versioned localStorage payload. The key name carries the storage version. */
+export interface PortfolioState {
+  shared   : PortfolioSharedState
+  desktop? : PortfolioDesktopState
 }
 
 /** GeoWars game state (read from game engine) */

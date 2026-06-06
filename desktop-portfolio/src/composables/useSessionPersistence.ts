@@ -1,76 +1,59 @@
 /* ============================================================
    useSessionPersistence - localStorage persistence composable
    ============================================================
-   Saves/restores window state, theme, locale, icon positions.
+   Saves/restores desktop window state and icon positions.
    ============================================================ */
 
 import { watch } from 'vue'
-import type { DesktopItem, SessionState, WindowState } from '../types/desktop'
+import type {
+  DesktopItem,
+  PortfolioDesktopState,
+  WindowState,
+} from '../types/desktop'
 import { useWindowManager } from './useWindowManager'
-import { useTheme } from './useTheme'
 import { useLocale } from './useLocale'
-import { debounce, safeParse } from '../utils'
+import { debounce } from '../utils'
 import { getDefaultDesktopItems } from '../data/registry'
-
-const STORAGE_KEY       = 'desktop-portfolio-state'
-
-/**
- * Schema version for persisted desktop state.
- * Any version mismatch is treated as incompatible and reset.
- */
-const SETTINGS_VERSION  = 2
+import {
+  clearDesktopState,
+  readDesktopState,
+  writeDesktopState,
+} from './usePortfolioState'
 
 export function useSessionPersistence(desktopItems: DesktopItem[]) {
   const wm    = useWindowManager()
-  const th    = useTheme()
   const i18n  = useLocale()
   const defaults = getDefaultDesktopItems(i18n.locale.value)
 
   /* ---- save ---- */
   const save = debounce(() => {
-    try {
-      const data: SessionState = {
-        version         : SETTINGS_VERSION,
-        theme           : th.theme.value,
-        locale          : i18n.locale.value,
-        desktopItems    : desktopItems,
-        focusedWindowId : wm.state.focusedWindowId,
-        nextZIndex      : wm.state.nextZIndex,
-        windows         : wm.state.windows.map(w => ({
-          id : w.id, itemId : w.itemId, title : w.title,
-          x : w.x, y : w.y, w : w.w, h : w.h,
-          zIndex : w.zIndex,
-          mode : w.mode,
-          restoreBounds : w.restoreBounds,
-          restoreMode : w.restoreMode,
-        })),
-      }
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-    } catch {
-      /* Quota exceeded or private browsing - fail silently */
+    const data: PortfolioDesktopState = {
+      desktopItems    : desktopItems,
+      focusedWindowId : wm.state.focusedWindowId,
+      nextZIndex      : wm.state.nextZIndex,
+      windows         : wm.state.windows.map(w => ({
+        id            : w.id,
+        itemId        : w.itemId,
+        title         : w.title,
+        x             : w.x,
+        y             : w.y,
+        w             : w.w,
+        h             : w.h,
+        zIndex        : w.zIndex,
+        mode          : w.mode,
+        restoreBounds : w.restoreBounds,
+        restoreMode   : w.restoreMode,
+      })),
     }
+
+    writeDesktopState(data)
   }, 500)
 
   /* ---- restore ---- */
   function restore(): boolean {
     try {
-      const raw    = localStorage.getItem(STORAGE_KEY)
-      const parsed = safeParse<SessionState>(raw)
-      if (!parsed || typeof parsed !== 'object') return false
-
-      /* Incompatible persisted schema → discard and reinitialize */
-      if (parsed.version !== SETTINGS_VERSION) {
-        reset()
-        return false
-      }
-
-      if (parsed.theme === 'dark' || parsed.theme === 'light') {
-        th.setTheme(parsed.theme)
-      }
-
-      if (parsed.locale === 'en' || parsed.locale === 'fr') {
-        i18n.setLocale(parsed.locale)
-      }
+      const parsed = readDesktopState()
+      if (!parsed) return false
 
       if (Array.isArray(parsed.desktopItems)) {
         const defaultMap = new Map(defaults.map(d => [d.id, d]))
@@ -114,12 +97,21 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
 
   /* ---- reset ---- */
   function reset() {
-    localStorage.removeItem(STORAGE_KEY)
+    clearDesktopState()
   }
 
   /* ---- auto-save watcher ---- */
   function startAutoSave() {
-    watch(() => [wm.state.windows, wm.state.focusedWindowId, th.theme.value, i18n.locale.value, desktopItems], save, { deep : true })
+    watch(
+      () => [
+        wm.state.windows,
+        wm.state.focusedWindowId,
+        wm.state.nextZIndex,
+        desktopItems,
+      ],
+      save,
+      { deep : true },
+    )
   }
 
   return { save, restore, reset, startAutoSave }

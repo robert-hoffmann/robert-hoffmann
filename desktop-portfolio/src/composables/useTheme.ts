@@ -6,6 +6,7 @@ import { ref } from 'vue'
 import type { Theme } from '../types/desktop'
 import { useToast } from './useToast'
 import { useLocale } from './useLocale'
+import { writeSharedState } from './usePortfolioState'
 
 const THEME_TRANSITION_ATTR        = 'data-theme-transition'
 const THEME_TRANSITION_DURATION_VAR = '--dur-theme'
@@ -103,6 +104,7 @@ export function useTheme() {
     const currentTheme = root.getAttribute('data-theme')
 
     theme.value = t_
+    writeSharedState({ theme : t_ })
     if (currentTheme === t_) {
       root.setAttribute('data-theme', t_)
       syncBrowserThemeColor(t_)
