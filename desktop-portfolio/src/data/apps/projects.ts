@@ -1274,33 +1274,43 @@ export const projects = [
   {
     id         : 'proj-mario',
     name       : {
-      en : 'jQuery Mario: Mobile Web Game POC',
-      fr : 'jQuery Mario: POC jeu web mobile',
+      en : 'jQuery Mario: Nicky Larson POC',
+      fr : 'jQuery Mario: POC Nicky Larson',
     } satisfies Localized,
     org        : {
-      en : '123 Multimedia SA',
-      fr : '123 Multimedia SA',
+      en : 'Index Multimedia',
+      fr : 'Index Multimedia',
     } satisfies Localized,
     period     : '2011',
     summary    : {
       en :
-        'Lightweight browser-game proof of concept built to evaluate alternatives to full game ' +
-        'frameworks while exploring how to port a Flash game experience to the mobile web.',
+        'Lightweight browser-game proof of concept built to test whether a Flash game from ' +
+        'the Nicky Larson franchise could be ported to the web with a jQuery-based implementation.',
       fr :
-        'Preuve de concept de jeu navigateur léger pour évaluer des alternatives aux frameworks ' +
-        'de jeu complets lors de l\u2019exploration du portage d\u2019une expérience Flash vers le web mobile.',
+        'Preuve de concept de jeu navigateur léger pour tester le portage web d\u2019un jeu Flash ' +
+        'de la franchise Nicky Larson avec une implémentation basée sur jQuery.',
     } satisfies Localized,
     highlights : [
       {
-        en : 'Flash-to-mobile-web POC',
-        fr : 'POC Flash vers web mobile',
+        en : 'Nicky Larson Flash port POC',
+        fr : 'POC portage Flash Nicky Larson',
       },
       {
-        en : 'Lightweight game framework test',
-        fr : 'Test framework jeu léger',
+        en : 'jQuery browser-game prototype',
+        fr : 'Prototype jeu navigateur jQuery',
       },
     ] satisfies Localized[],
     stack      : ['jQuery'],
+    links      : [
+      {
+        label : 'Demo',
+        href  : 'https://itechnology.github.io/jQuery.Mario/#game',
+      },
+      {
+        label : 'GitHub',
+        href  : 'https://github.com/itechnology/jQuery.Mario',
+      },
+    ],
   },
 ] as const
 
