@@ -59,6 +59,10 @@ const currentAppItemId = computed(() =>
   mobileShell.currentMobileWindow.value?.itemId ?? '',
 )
 
+const openMobileWindowIds = computed(() =>
+  mobileShell.openMobileWindows.value.map(windowState => windowState.id),
+)
+
 const currentWindowCapabilities = computed(() => {
   const currentWindow = mobileShell.currentMobileWindow.value
   if (!currentWindow) {
@@ -239,6 +243,7 @@ watch(
 
         <MobileAppSurface
           :window-state="mobileShell.currentMobileWindow.value"
+          :open-window-ids="openMobileWindowIds"
           :is-expanded="mobileShell.mobileAppState.value === 'expanded'"
           :title="mobileShell.currentAppTitle.value"
           :can-minimize="currentWindowCapabilities.canMinimize"

@@ -4,11 +4,12 @@ import type { WindowState } from '../../types/desktop'
 import MobileWindowFrame from './MobileWindowFrame.vue'
 
 const props = defineProps<{
-  windowState : WindowState | null
-  isExpanded  : boolean
-  title       : string
-  canMinimize : boolean
-  canMaximize : boolean
+  windowState   : WindowState | null
+  openWindowIds : string[]
+  isExpanded    : boolean
+  title         : string
+  canMinimize   : boolean
+  canMaximize   : boolean
 }>()
 
 const emit = defineEmits<{
@@ -19,17 +20,8 @@ const emit = defineEmits<{
 }>()
 
 const surfaceRef = ref<HTMLElement | null>(null)
-/*
- * Avoid loading the current app component while the mobile surface is still
- * minimized on first paint. Once a window is expanded, keep it mounted while
- * that same window remains selected (including when minimized/restored).
- */
-const mountedWindowId = ref<string | null>(
-  props.windowState && props.isExpanded ? props.windowState.id : null,
-)
-const shouldRenderWindow = computed(() =>
-  Boolean(props.windowState && mountedWindowId.value === props.windowState.id),
-)
+const mountedWindows = ref<WindowState[]>([])
+const activeWindowId = computed(() => props.windowState?.id ?? null)
 
 const SWIPE_AXIS_LOCK_SLOP_PX = 10
 const SWIPE_AXIS_LOCK_RATIO = 1.15
@@ -97,6 +89,53 @@ function removeSwipeDocumentListeners() {
   document.removeEventListener('pointermove', onSurfacePointerMove)
   document.removeEventListener('pointerup', finishSurfaceSwipe)
   document.removeEventListener('pointercancel', finishSurfaceSwipe)
+}
+
+function upsertMountedWindow(windowState: WindowState) {
+  const nextWindowState = { ...windowState }
+  const existingIndex = mountedWindows.value.findIndex(
+    mountedWindow => mountedWindow.id === windowState.id,
+  )
+
+  if (existingIndex === -1) {
+    mountedWindows.value = [...mountedWindows.value, nextWindowState]
+    return
+  }
+
+  mountedWindows.value = mountedWindows.value.map((mountedWindow, index) =>
+    index === existingIndex ? nextWindowState : mountedWindow,
+  )
+}
+
+function removeMountedWindow(windowId: string) {
+  mountedWindows.value = mountedWindows.value.filter(
+    mountedWindow => mountedWindow.id !== windowId,
+  )
+}
+
+function pruneClosedMountedWindows() {
+  const openWindowIds = new Set(props.openWindowIds)
+
+  mountedWindows.value = mountedWindows.value.filter(
+    mountedWindow => openWindowIds.has(mountedWindow.id),
+  )
+}
+
+function syncCurrentMountedWindow() {
+  if (!props.windowState) return
+
+  const isAlreadyMounted = mountedWindows.value.some(
+    mountedWindow => mountedWindow.id === props.windowState?.id,
+  )
+
+  if (!props.isExpanded && !isAlreadyMounted) return
+
+  upsertMountedWindow(props.windowState)
+}
+
+function requestCloseWindow(windowId: string) {
+  removeMountedWindow(windowId)
+  emit('close', windowId)
 }
 
 function canStartSwipeFromTarget(target: EventTarget | null) {
@@ -203,7 +242,7 @@ function finishSurfaceSwipe(event: PointerEvent) {
 
     clearSwipeTimer()
     swipeState.settleTimeoutId = window.setTimeout(() => {
-      emit('close', windowId)
+      requestCloseWindow(windowId)
       swipeState.isClosing = false
       swipeState.settleTimeoutId = null
 
@@ -226,24 +265,19 @@ function finishSurfaceSwipe(event: PointerEvent) {
 }
 
 watch(
-  () => [props.windowState?.id ?? null, props.isExpanded] as const,
-  ([windowId, isExpanded], previous) => {
-    const previousWindowId = previous?.[0] ?? null
-
-    if (!windowId) {
-      mountedWindowId.value = null
-      return
-    }
-
-    if (isExpanded) {
-      mountedWindowId.value = windowId
-      return
-    }
-
-    if (windowId !== previousWindowId) {
-      mountedWindowId.value = null
-    }
+  () => [props.windowState, props.isExpanded] as const,
+  () => {
+    syncCurrentMountedWindow()
   },
+  { immediate : true },
+)
+
+watch(
+  () => props.openWindowIds.join('\0'),
+  () => {
+    pruneClosedMountedWindows()
+  },
+  { immediate : true },
 )
 
 watch(
@@ -274,21 +308,27 @@ onUnmounted(() => {
     :inert="windowState && !isExpanded ? true : undefined"
     @pointerdown.capture="onSurfacePointerDown"
   >
-    <div v-if="windowState && shouldRenderWindow" class="mobile-app-surface-shell">
+    <div
+      v-for="mountedWindow in mountedWindows"
+      v-show="mountedWindow.id === activeWindowId"
+      :key="mountedWindow.id"
+      class="mobile-app-surface-shell"
+      :aria-hidden="mountedWindow.id === activeWindowId ? undefined : 'true'"
+      :inert="mountedWindow.id === activeWindowId ? undefined : true"
+    >
       <MobileWindowFrame
-        :key="windowState.id"
-        :window-state="windowState"
-        :is-focused="isExpanded"
-        :can-minimize="canMinimize"
-        :can-maximize="canMaximize"
-        @close="emit('close', $event)"
+        :window-state="mountedWindow"
+        :is-focused="isExpanded && mountedWindow.id === activeWindowId"
+        :can-minimize="mountedWindow.id === activeWindowId ? canMinimize : false"
+        :can-maximize="mountedWindow.id === activeWindowId ? canMaximize : false"
+        @close="requestCloseWindow"
         @minimize="emit('minimize', $event)"
         @toggle-maximize="emit('toggleMaximize', $event)"
         @focus="emit('focus', $event)"
       />
     </div>
 
-    <div v-else-if="!windowState" class="mobile-app-surface-empty" aria-live="polite">
+    <div v-if="!windowState" class="mobile-app-surface-empty" aria-live="polite">
       <p class="mobile-app-surface-empty-kicker">Mobile</p>
       <p class="mobile-app-surface-empty-title">Select an app</p>
       <p class="mobile-app-surface-empty-copy">
