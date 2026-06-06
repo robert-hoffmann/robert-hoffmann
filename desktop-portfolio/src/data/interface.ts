@@ -102,8 +102,8 @@ export const interfaceMessages = {
     fr : 'À propos de ce site',
   },
   'topbar.viewSource'                 : {
-    en : 'View Source on GitHub',
-    fr : 'Voir le code source sur GitHub',
+    en : 'View my GitHub page',
+    fr : 'Voir ma page GitHub',
   },
   'cvDownload.label'                  : {
     en : 'Download Resume/CV',
