@@ -1,9 +1,9 @@
 /* ============================================================
-   useViewMode — Responsive desktop/mobile layout composable
+   useViewMode - Responsive desktop/mobile layout composable
    ============================================================
    Detects viewport size/orientation via matchMedia and exposes a
    reactive `isMobile` computed. A session-only `viewOverride` ref
-   allows users to toggle between views for previewing — it is never
+   allows users to toggle between views for previewing - it is never
    persisted so nobody accidentally gets stuck on the wrong layout.
    ============================================================ */
 
@@ -25,7 +25,7 @@ const MOBILE_TABLET_PORTRAIT_TOUCH_QUERY = [
 ].join(' and ')
 const MOBILE_QUERY = `${MOBILE_PHONE_QUERY}, ${MOBILE_TABLET_PORTRAIT_TOUCH_QUERY}`
 
-/* Module-level singleton — shared across all consumers */
+/* Module-level singleton - shared across all consumers */
 const viewportIsMobile = ref(false)
 const viewOverride     = ref<ViewMode | null>(null)
 
@@ -41,14 +41,14 @@ function ensureListener() {
 
   const handler = (e: MediaQueryListEvent) => {
     viewportIsMobile.value = e.matches
-    /* Reset override when viewport changes — prevents being stuck
+    /* Reset override when viewport changes - prevents being stuck
        in desktop mode on a phone/tablet after rotation, for example */
     viewOverride.value = null
   }
 
   mobileMql.addEventListener('change', handler)
 
-  /* Cleanup is intentionally omitted — singleton lives for the
+  /* Cleanup is intentionally omitted - singleton lives for the
      duration of the SPA. If this composable is ever used in
      tests, call onScopeDispose to remove the listener. */
 }

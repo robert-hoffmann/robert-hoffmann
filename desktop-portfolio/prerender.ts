@@ -1,5 +1,5 @@
 /* ============================================================
-   Prerender Script — Static HTML for Crawlers
+   Prerender Script - Static HTML for Crawlers
    ============================================================
    Generates a static HTML representation of the portfolio
    content for search engines and social media crawlers.
@@ -81,7 +81,7 @@ export function prerender() {
 
         return `
       <article>
-        <h3>${escapeHtml(asEnglishText(e.role))} — ${escapeHtml(asEnglishText(e.company))}</h3>
+        <h3>${escapeHtml(asEnglishText(e.role))} - ${escapeHtml(asEnglishText(e.company))}</h3>
         <p>${escapeHtml(e.period)}${'location' in e ? ` · ${escapeHtml(asEnglishText(e.location))}` : ''}</p>
         <p>${escapeHtml(asEnglishText(e.summary))}</p>
         ${renderList(bullets)}
@@ -96,13 +96,13 @@ export function prerender() {
     .join('\n          ')
 
   const certHtml = about.certifications
-    .map((c) => `<li><a href="${escapeHtml(c.href)}">${escapeHtml(c.label)} — ${escapeHtml(c.issuer)}</a></li>`)
+    .map((c) => `<li><a href="${escapeHtml(c.href)}">${escapeHtml(c.label)} - ${escapeHtml(c.issuer)}</a></li>`)
     .join('\n          ')
 
   const html = `
     <div data-prerender-root style="max-width:48rem;margin:0 auto;padding:2rem;font-family:system-ui,sans-serif;line-height:1.6;color:#e0e0e0;">
       <header>
-        <h1>${escapeHtml(about.name)} — Industrial Full-Stack Consultant</h1>
+        <h1>${escapeHtml(about.name)} - Industrial Full-Stack Consultant</h1>
         <p>${escapeHtml(asEnglishText(about.tagline))}</p>
       </header>
 
@@ -143,7 +143,7 @@ export function prerender() {
     html,
     head: {
       lang  : 'en',
-      title : 'Robert Hoffmann — Industrial Full-Stack Consultant',
+      title : 'Robert Hoffmann - Industrial Full-Stack Consultant',
     },
   }
 }

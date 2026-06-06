@@ -1,5 +1,5 @@
 /* ============================================================
-   useToast — Simple toast notification composable
+   useToast - Simple toast notification composable
    ============================================================ */
 
 import { ref } from 'vue'

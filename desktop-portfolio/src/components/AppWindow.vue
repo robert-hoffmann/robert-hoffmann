@@ -39,7 +39,7 @@ const shellStyle = computed(() => ({
 /*
  * Resolve the async component exactly once from the registry.
  * Using shallowRef (not computed) ensures no reactive dependency
- * on windowState — so zIndex bumps, position changes, etc. never
+ * on windowState - so zIndex bumps, position changes, etc. never
  * cause Vue to see a "new" component and remount the content.
  * This is critical for iframes (YouTube) that reload on remount.
  */

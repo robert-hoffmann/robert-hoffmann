@@ -119,8 +119,8 @@ export const terminalMessages = {
     fr : 'Aucune commande dans l’historique.',
   },
   'term.top.header'        : {
-    en : 'Processes: 12  total, 2 running  —  up {uptime}',
-    fr : 'Processus : 12 total, 2 actifs  —  up {uptime}',
+    en : 'Processes: 12  total, 2 running  -  up {uptime}',
+    fr : 'Processus : 12 total, 2 actifs  -  up {uptime}',
   },
   'term.uptime.up'         : {
     en : 'up {time}',

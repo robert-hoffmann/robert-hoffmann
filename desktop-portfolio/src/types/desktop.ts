@@ -1,5 +1,5 @@
 /* ============================================================
-   Desktop Portfolio — Core Type Definitions
+   Desktop Portfolio - Core Type Definitions
    ============================================================ */
 
 export type DesktopSpriteKey =
@@ -163,7 +163,7 @@ export type Locale = 'en' | 'fr'
 export type ViewMode = 'desktop' | 'mobile'
 export type MobileAppState = 'expanded' | 'minimized'
 
-/** Bilingual text field — keyed by locale */
+/** Bilingual text field - keyed by locale */
 export type Localized = Record<Locale, string>
 
 /** Serializable session state for localStorage */

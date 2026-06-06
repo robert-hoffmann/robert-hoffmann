@@ -1,5 +1,5 @@
 /* ============================================================
-   useTerminal — Fake tmux terminal composable
+   useTerminal - Fake tmux terminal composable
    ============================================================
    Manages scrollback buffer, command history, and a registry
    of fake shell commands. Accepts an `onLaunchApp` callback
@@ -27,7 +27,7 @@ interface TerminalOptions {
   t           : (key: string, params?: Record<string, string | number>) => string
 }
 
-/** A single output line — either raw text, a translation reference, or a structured banner. */
+/** A single output line - either raw text, a translation reference, or a structured banner. */
 type OutputEntry =
   | string
   | { tKey: string; tParams?: Record<string, string | number> }

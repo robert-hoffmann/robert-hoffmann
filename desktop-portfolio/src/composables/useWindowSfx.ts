@@ -1,5 +1,5 @@
 /* ============================================================
-   useWindowSfx — Subtle desktop window swoosh effects
+   useWindowSfx - Subtle desktop window swoosh effects
    ============================================================
    Manual single-window actions only:
    - minimize (downward sweep)

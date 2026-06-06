@@ -392,7 +392,7 @@ onMounted(() => {
 
     if (!restored) {
       resetDesktopIconsForCurrentViewport()
-      /* First visit — open default windows in staggered batches */
+      /* First visit - open default windows in staggered batches */
       openDefaultWindowsStaggered()
     }
   }
@@ -408,7 +408,7 @@ onUnmounted(() => {
   window.removeEventListener(OPEN_PORTFOLIO_APP_EVENT, onOpenPortfolioApp)
 })
 
-/* ---- locale watcher — re-derive titles when locale changes ---- */
+/* ---- locale watcher - re-derive titles when locale changes ---- */
 watch(locale, (loc) => {
   if (isMobile.value) return
   wm.updateTitlesForLocale(loc)

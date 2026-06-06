@@ -212,7 +212,7 @@ try {
   const iconSize2 = (await stat(join(PUBLIC, 'profile-icon.webp'))).size
   console.log(`✓ Desktop icon: profile-icon.webp (${(iconSize2 / 1024).toFixed(1)}KB)`)
 } catch {
-  console.log('⚠ No profile.jpg found — skipping favicon + avatar + icon generation')
+  console.log('⚠ No profile.jpg found - skipping favicon + avatar + icon generation')
 }
 
 /* ---- 5. Local video poster variants (for Video app facade) ---- */
@@ -297,7 +297,7 @@ if (backgroundSource) {
     `parallax/desktop/layer-bg-lqip.webp (${(desktopLqipSize / 1024).toFixed(1)}KB)`,
   )
 } else {
-  console.log('⚠ No tmp/background source found (png/jpg/webp) — skipping desktop LQIP generation')
+  console.log('⚠ No tmp/background source found (png/jpg/webp) - skipping desktop LQIP generation')
 }
 
 /* ---- 7. Desktop icon sprite runtime optimization ---- */
@@ -326,7 +326,7 @@ if (await exists(desktopSpriteSource)) {
     `from ${(desktopSpriteSourceBytes / 1024).toFixed(1)}KB source)`,
   )
 } else {
-  console.log('⚠ No desktop-profile-icons.webp found — skipping runtime sprite optimization')
+  console.log('⚠ No desktop-profile-icons.webp found - skipping runtime sprite optimization')
 }
 
 /* ---- 8. Desktop parallax layers + mobile wallpapers (tmp -> public/parallax) ---- */
@@ -396,7 +396,7 @@ if (hasParallaxSources.every(Boolean)) {
     )
   }
 } else {
-  console.log('⚠ Missing tmp parallax source PNG files — skipping parallax + mobile wallpaper optimization')
+  console.log('⚠ Missing tmp parallax source PNG files - skipping parallax + mobile wallpaper optimization')
 }
 
 console.log('Done.')

@@ -1,5 +1,5 @@
 /* ============================================================
-   useDesktopIcons — Icon selection, keyboard nav, drag
+   useDesktopIcons - Icon selection, keyboard nav, drag
    ============================================================ */
 
 import { ref, reactive } from 'vue'

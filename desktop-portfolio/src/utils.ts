@@ -12,7 +12,7 @@ export function uid(): string {
   return Math.random().toString(36).slice(2, 9)
 }
 
-/** Safe JSON parse — returns null on failure */
+/** Safe JSON parse - returns null on failure */
 export function safeParse<T = unknown>(str: string | null): T | null {
   if (!str) return null
   try {
@@ -22,7 +22,7 @@ export function safeParse<T = unknown>(str: string | null): T | null {
   }
 }
 
-/** Debounce utility — delays invocation until `ms` after last call */
+/** Debounce utility - delays invocation until `ms` after last call */
 export function debounce<A extends unknown[]>(
   fn : (...args: A) => void,
   ms : number,

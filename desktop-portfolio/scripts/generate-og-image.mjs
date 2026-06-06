@@ -1,5 +1,5 @@
 /* ============================================================
-   Generate OG Image — Social Sharing Preview (1200×630)
+   Generate OG Image - Social Sharing Preview (1200×630)
    ============================================================
    Creates a branded card using sharp's SVG-to-PNG pipeline.
    Run: node scripts/generate-og-image.mjs

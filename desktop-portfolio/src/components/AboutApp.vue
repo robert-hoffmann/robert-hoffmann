@@ -250,8 +250,8 @@ onUnmounted(() => {
           target="_blank"
           rel="noopener noreferrer"
           class="about-pill about-pill--cert"
-          :title="`${cert.label} — ${cert.issuer}`"
-          :aria-label="`${cert.label} — ${cert.issuer}`"
+          :title="`${cert.label} - ${cert.issuer}`"
+          :aria-label="`${cert.label} - ${cert.issuer}`"
           :style="{ '--cert-icon-url': `url('${baseUrl}icons/${cert.icon}.svg')` }"
         >
           <span class="about-cert-icon" aria-hidden="true"></span>

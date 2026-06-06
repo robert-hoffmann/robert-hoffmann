@@ -1,5 +1,5 @@
 /* ============================================================
-   usePointerCapabilities — Pointer capability media queries
+   usePointerCapabilities - Pointer capability media queries
    ============================================================
    Detects coarse/fine pointer availability via matchMedia.
    Shared singleton state keeps desktop touch adaptations

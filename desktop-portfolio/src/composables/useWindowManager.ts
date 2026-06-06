@@ -1,5 +1,5 @@
 /* ============================================================
-   useWindowManager — Window lifecycle + geometry manager
+   useWindowManager - Window lifecycle + geometry manager
    ============================================================
    Owns all runtime window state transitions and geometry writes:
    open, close, minimize, restore, maximize, focus, move, resize,

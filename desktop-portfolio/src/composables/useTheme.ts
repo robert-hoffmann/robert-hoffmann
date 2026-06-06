@@ -1,5 +1,5 @@
 /* ============================================================
-   useTheme — Dark/light theme toggle composable
+   useTheme - Dark/light theme toggle composable
    ============================================================ */
 
 import { ref } from 'vue'

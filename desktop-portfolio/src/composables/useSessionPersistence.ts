@@ -1,5 +1,5 @@
 /* ============================================================
-   useSessionPersistence — localStorage persistence composable
+   useSessionPersistence - localStorage persistence composable
    ============================================================
    Saves/restores window state, theme, locale, icon positions.
    ============================================================ */
@@ -47,7 +47,7 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
       }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
     } catch {
-      /* Quota exceeded or private browsing — fail silently */
+      /* Quota exceeded or private browsing - fail silently */
     }
   }, 500)
 

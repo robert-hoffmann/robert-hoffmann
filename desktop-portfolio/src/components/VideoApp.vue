@@ -13,7 +13,7 @@ import { videoMessages } from '../data/apps/video'
 
 const { t } = useLocale(videoMessages)
 
-/** Injected from AppWindow — true when this window is front-most */
+/** Injected from AppWindow - true when this window is front-most */
 const windowFocused = inject<Readonly<import('vue').Ref<boolean>>>('windowFocused', ref(true))
 
 const PLAYLIST_ID = 'PLLBhCscredzYvSwHG3PJm4w-LIC4xwYaJ'
@@ -23,7 +23,7 @@ const VIDEO_POSTER_FALLBACK =
   VIDEO_POSTER_SOURCES.avif ??
   `${import.meta.env.BASE_URL}video-poster.webp`
 
-/** Standard embed host — improves signed-in playback compatibility in iframe context. */
+/** Standard embed host - improves signed-in playback compatibility in iframe context. */
 const YT_EMBED_HOST = 'https://www.youtube.com'
 
 const containerRef = useTemplateRef<HTMLDivElement>('playerContainer')
@@ -165,7 +165,7 @@ function toggleFullscreen() {
   else void el.requestFullscreen()
 }
 
-/* -- Lifecycle — lazy facade -------------------------------- */
+/* -- Lifecycle - lazy facade -------------------------------- */
 
 /**
  * Bootstrap the real YouTube player on first user interaction.
@@ -242,10 +242,10 @@ function onOverlayPointerDown() {
   if (showFacade.value) { void bootstrapPlayer(true); return }
   if (!player || !state.ready) return
   if (!windowFocused.value) {
-    // Window is about to receive focus via event bubbling — auto-play
+    // Window is about to receive focus via event bubbling - auto-play
     if (!state.playing) player.playVideo()
   } else {
-    // Already focused — toggle play/pause
+    // Already focused - toggle play/pause
     onPlayPause()
   }
 }
@@ -260,7 +260,7 @@ onUnmounted(() => {
   <div ref="videoWrapper" class="video-player">
     <!-- YouTube player target (YT API replaces inner div with iframe) -->
     <div ref="posterFrame" class="video-player-frame">
-      <!-- Lite facade — static thumbnail shown until the user clicks play.
+      <!-- Lite facade - static thumbnail shown until the user clicks play.
            Avoids loading the YouTube IFrame API (and its cookies) on page load. -->
       <template v-if="showFacade">
         <picture>
@@ -294,7 +294,7 @@ onUnmounted(() => {
       <template v-else>
         <div ref="playerContainer" />
       </template>
-      <!-- Transparent overlay — intercepts all clicks so YouTube's
+      <!-- Transparent overlay - intercepts all clicks so YouTube's
            native link / fullscreen handling never fires -->
       <div v-if="!showFacade" class="video-player-overlay" @pointerdown="onOverlayPointerDown" />
     </div>

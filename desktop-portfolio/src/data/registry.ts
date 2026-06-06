@@ -1,5 +1,5 @@
 /* ============================================================
-   Window App Registry — Typed Registry + Desktop Items
+   Window App Registry - Typed Registry + Desktop Items
    ============================================================
    Each entry maps a desktop item ID to its metadata and
    lazy-loaded component. Adding a new window = add one entry.

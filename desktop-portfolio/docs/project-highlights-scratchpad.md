@@ -226,7 +226,7 @@ Questions:
 - Should Project Highlights be curated to 8-12 strongest items, with these folded into experience bullets?
 - Which of these still matter strategically for your current positioning?
 
-### T4ResX — Localization Tooling
+### T4ResX - Localization Tooling
 
 Source links:
 
@@ -250,7 +250,7 @@ Candidate highlights:
 - `Strongly typed resources`
 - `Localized JavaScript export`
 
-### PhantomUI — Web-to-PDF Converter
+### PhantomUI - Web-to-PDF Converter
 
 Source links:
 
@@ -258,7 +258,7 @@ Source links:
 
 ## New Project Candidates
 
-### i-technology.net — AI-Built Desktop Portfolio
+### i-technology.net - AI-Built Desktop Portfolio
 
 Raw facts:
 
@@ -304,7 +304,7 @@ Remaining questions:
 - Should we add a source-code/GitHub link if the repository is public?
 - Do we want to verify the Lighthouse scores locally and archive the report as evidence?
 
-### Parallax Designer — AI-Built Visual Builder
+### Parallax Designer - AI-Built Visual Builder
 
 Source links:
 
@@ -360,7 +360,7 @@ Remaining questions:
 - Should this sit above or below the main portfolio card?
 - Any Lighthouse/performance score for the designer itself?
 
-### Uncle Bob — Agentic AI Workflow System
+### Uncle Bob - Agentic AI Workflow System
 
 Source links:
 
@@ -813,30 +813,30 @@ Direction: keep a very extensive list, ordered by impact. The top should feel co
 
 Current order:
 
-1. TMIP Scheduler — Industrial Data Orchestration
-2. Uncle Bob — Agentic AI Workflow System
-3. TMIP Logger — QoS & KPI Observability
-4. SBM / Teréga — Onboarding & Certification Tracking
-5. i-technology.net — AI-Built Desktop Portfolio
-6. Parallax Designer — AI-Built Visual Builder
-7. Hutchinson — Digital Work Instructions
-8. tchatche.com — White-Label Chat Platform
-9. Ad Proxy — Ad-Distribution Server
-10. T4ResX — Localization Tooling
-11. HeadJS — Open-Source JS Library
+1. TMIP Scheduler - Industrial Data Orchestration
+2. Uncle Bob - Agentic AI Workflow System
+3. TMIP Logger - QoS & KPI Observability
+4. SBM / Teréga - Onboarding & Certification Tracking
+5. i-technology.net - AI-Built Desktop Portfolio
+6. Parallax Designer - AI-Built Visual Builder
+7. Hutchinson - Digital Work Instructions
+8. tchatche.com - White-Label Chat Platform
+9. Ad Proxy - Ad-Distribution Server
+10. T4ResX - Localization Tooling
+11. HeadJS - Open-Source JS Library
 12. Wind Turbine Maintenance Operations Platform
 13. Student Attendance & Invoicing System
-14. Maser Academy — Course Inventory Planning
-15. Roland-Garros — Staff Navigation PWA
-16. FindUnusedFiles — Visual Studio Extension
+14. Maser Academy - Course Inventory Planning
+15. Roland-Garros - Staff Navigation PWA
+16. FindUnusedFiles - Visual Studio Extension
 17. Public Health Analytics Dashboards
-18. HealthMonitoring — Error Tracking
-19. JsonRaw — Lightweight JSON Protocol
+18. HealthMonitoring - Error Tracking
+19. JsonRaw - Lightweight JSON Protocol
 20. PowerToys for OpenAI
-21. MicroCoil Calculator — Web & Mobile
+21. MicroCoil Calculator - Web & Mobile
 22. Web-Monitor.NET
-23. PhantomUI — Web-to-PDF Converter
-24. jQuery Mario — Mobile Web Game POC
+23. PhantomUI - Web-to-PDF Converter
+24. jQuery Mario - Mobile Web Game POC
 
 Future additions should be inserted into this order by signal strength: production/business-critical impact first, then high-scale public/web systems, then builder/toolmaker projects, then narrower utilities and older experiments.
 

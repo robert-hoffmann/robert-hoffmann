@@ -1,5 +1,5 @@
 /* ============================================================
-   Desktop Portfolio — Main CSS Entrypoint
+   Desktop Portfolio - Main CSS Entrypoint
    ============================================================
    Tailwind v4 CSS-first setup with design tokens, layers,
    and component styles ported from the original stylesheet.
@@ -26,7 +26,7 @@
 }
 
 /* ----------------------------------------------------------
-   TAILWIND v4 — Theme Tokens
+   TAILWIND v4 - Theme Tokens
    ---------------------------------------------------------- */
 @theme {
   --font-sans : 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -41,7 +41,7 @@
    ---------------------------------------------------------- */
 @layer base {
   :root {
-    /* — Color primitives (oklch) — */
+    /* - Color primitives (oklch) - */
     --c-black        : oklch(0% 0 0);
     --c-white        : oklch(100% 0 0);
     --c-gray-50      : oklch(97% 0.003 250);
@@ -62,7 +62,7 @@
     --c-yellow       : oklch(80% 0.16 85);
     --c-green        : oklch(72% 0.19 145);
 
-    /* — Spacing scale — */
+    /* - Spacing scale - */
     --space-1  : 0.25rem;
     --space-2  : 0.5rem;
     --space-3  : 0.75rem;
@@ -74,7 +74,7 @@
     --space-12 : 3rem;
     --space-16 : 4rem;
 
-    /* — Radii — */
+    /* - Radii - */
     --radius-sm  : 0.25rem;
     --radius-md  : 0.5rem;
     --radius-lg  : 0.75rem;
@@ -82,7 +82,7 @@
     --radius-2xl : 1.25rem;
     --radius-full: 9999px;
 
-    /* — Typography — */
+    /* - Typography - */
     --text-xs  : 0.6875rem;
     --text-sm  : 0.8125rem;
     --text-base: 0.9375rem;
@@ -95,14 +95,14 @@
     --leading-normal : 1.5;
     --leading-relaxed: 1.65;
 
-    /* — Shadows — */
+    /* - Shadows - */
     --shadow-sm  : 0 1px 3px oklch(0% 0 0 / 0.15);
     --shadow-md  : 0 4px 12px oklch(0% 0 0 / 0.2);
     --shadow-lg  : 0 8px 28px oklch(0% 0 0 / 0.3);
     --shadow-xl  : 0 12px 40px oklch(0% 0 0 / 0.35);
     --shadow-glow: 0 0 20px oklch(68% 0.16 250 / 0.25);
 
-    /* — Z-index scale — */
+    /* - Z-index scale - */
     --z-desktop : 0;
     --z-icons   : 10;
     --z-windows : 100;
@@ -110,7 +110,7 @@
     --z-dock    : 50;
     --z-toast   : 1000;
 
-    /* — Transition defaults — */
+    /* - Transition defaults - */
     --ease-out   : cubic-bezier(0.22, 1, 0.36, 1);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --dur-fast   : 120ms;
@@ -118,7 +118,7 @@
     --dur-slow   : 350ms;
     --dur-theme  : 350ms;
 
-    /* — Traffic-light controls — */
+    /* - Traffic-light controls - */
     --traffic-light-dot-size        : 0.9rem;
     --traffic-light-hit-size        : 1.5rem;
     --traffic-light-visual-gap      : 0.5rem;
@@ -133,7 +133,7 @@
     --nope-peek-hold-ratio          : 65%;
   }
 
-  /* — Semantic tokens : dark (default) — */
+  /* - Semantic tokens : dark (default) - */
   [data-theme="dark"] {
     --surface-base     : var(--c-gray-950);
     --surface-raised   : oklch(16% 0.008 250 / 0.85);
@@ -167,7 +167,7 @@
 
   }
 
-  /* — Semantic tokens : light — */
+  /* - Semantic tokens : light - */
   [data-theme="light"] {
     --surface-base     : var(--c-gray-50);
     --surface-raised   : oklch(98% 0.003 250 / 0.9);
@@ -200,7 +200,7 @@
     --focus-ring       : oklch(55% 0.18 250 / 0.6);
   }
 
-  /* — Base resets — */
+  /* - Base resets - */
   *,
   *::before,
   *::after {

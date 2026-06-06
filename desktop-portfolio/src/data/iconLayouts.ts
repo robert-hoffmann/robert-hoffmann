@@ -1,5 +1,5 @@
 /* ============================================================
-   Startup Icon Layout Profiles — Separate Desktop Icon Defaults
+   Startup Icon Layout Profiles - Separate Desktop Icon Defaults
    ============================================================
    Uses the same width-only startup profile selection as window
    layouts, while keeping icon-grid defaults in a dedicated module

@@ -1,5 +1,5 @@
 /* ============================================================
-   Component Styles — Desktop Shell UI
+   Component Styles - Desktop Shell UI
    ============================================================
    All desktop-UI component styles: topbar, icons, windows,
    dock, toast, panels, game HUD, music player.
@@ -533,14 +533,14 @@
   box-shadow    : 0 1px 4px oklch(0% 0 0 / 0.15);
 }
 
-/* Terminal icon has its own built-in background — skip the white pill */
+/* Terminal icon has its own built-in background - skip the white pill */
 .desktop-icon-img[src*="terminal"] {
   background : transparent;
   padding    : 0;
   box-shadow : none;
 }
 
-/* Profile icon — no white pill, photo fills the space */
+/* Profile icon - no white pill, photo fills the space */
 .desktop-icon-img[src*="profile"] {
   padding    : 0;
   background : transparent;

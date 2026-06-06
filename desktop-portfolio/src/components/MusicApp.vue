@@ -26,7 +26,7 @@ const state = reactive<MusicPlayerState>({
 
 /**
  * Per-bar heights (0–100 %) driven by real FFT data.
- * shallowRef avoids deep tracking — triggerRef is used for
+ * shallowRef avoids deep tracking - triggerRef is used for
  * explicit, low-overhead updates at ~60 fps.
  */
 const barHeights = shallowRef<number[]>(Array.from<number>({ length: EQ_BARS }).fill(0))
@@ -59,7 +59,7 @@ function ensureAnalyser() {
   analyser.connect(audioCtx.destination)
 }
 
-/** rAF loop — read frequency bins and map to bar heights */
+/** rAF loop - read frequency bins and map to bar heights */
 function tickEq() {
   if (!analyser || !freqData) return
 
@@ -79,7 +79,7 @@ function tickEq() {
     heights[i] = Math.max(8, (sum / binsPerBar / 255) * 100)
   }
 
-  /* Explicit trigger — no self-assignment, no deep tracking overhead */
+  /* Explicit trigger - no self-assignment, no deep tracking overhead */
   triggerRef(barHeights)
 
   rafId = requestAnimationFrame(tickEq)
@@ -182,7 +182,7 @@ function setVolume(vol: number) {
 
 function toggleMute() {
   if (state.muted) {
-    /* Unmute — restore previous level (fallback to 0.8 if it was 0) */
+    /* Unmute - restore previous level (fallback to 0.8 if it was 0) */
     setVolume(preMuteVolume || 0.8)
   } else {
     preMuteVolume = state.volume
@@ -371,7 +371,7 @@ onUnmounted(() => {
       <span class="music-player-volume-pct">{{ Math.round((state.muted ? 0 : state.volume) * 100) }}%</span>
     </div>
 
-    <!-- EQ bars — driven by Web Audio FFT data -->
+    <!-- EQ bars - driven by Web Audio FFT data -->
     <div
       class="music-player-eq"
       :class="{ active: state.playing && !state.paused }"

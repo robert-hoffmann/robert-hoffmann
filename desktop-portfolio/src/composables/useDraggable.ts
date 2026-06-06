@@ -1,5 +1,5 @@
 /* ============================================================
-   useDraggable — Pointer-event-based drag composable
+   useDraggable - Pointer-event-based drag composable
    ============================================================
    Tracks pointer offsets only; window manager owns geometry rules.
    ============================================================ */
@@ -16,7 +16,7 @@ interface DragContext {
 
 let dragCtx: DragContext | null = null
 
-/** Shared drag handlers — only one drag active at a time */
+/** Shared drag handlers - only one drag active at a time */
 function onDragMove(
   e            : PointerEvent,
   findWindow   : (id: string) => WindowState | undefined,
@@ -59,7 +59,7 @@ function onPointerCancel() {
   cleanupDrag()
 }
 
-/* We need a closure to pass findWindow through — set during startDrag */
+/* We need a closure to pass findWindow through - set during startDrag */
 let boundMove: (e: PointerEvent) => void = () => {}
 
 export function useDraggable(

@@ -1,5 +1,5 @@
 /* ============================================================
-   useResizable — Pointer-event-based resize composable
+   useResizable - Pointer-event-based resize composable
    ============================================================
    Tracks pointer deltas only; window manager owns size constraints.
    ============================================================ */

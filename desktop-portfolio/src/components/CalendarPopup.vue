@@ -26,7 +26,7 @@ const startDay = new Date(year, month, 1).getDay()
 /** Total days in the current month */
 const daysInMonth = new Date(year, month + 1, 0).getDate()
 
-/** Calendar grid cells — null for leading blanks, day numbers for real days */
+/** Calendar grid cells - null for leading blanks, day numbers for real days */
 const calendarCells = computed<Array<number | null>>(() => {
   const cells: Array<number | null> = Array.from({ length : startDay }, () => null)
   for (let d = 1; d <= daysInMonth; d++) cells.push(d)

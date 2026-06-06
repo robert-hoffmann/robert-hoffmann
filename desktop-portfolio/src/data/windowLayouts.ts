@@ -1,5 +1,5 @@
 /* ============================================================
-   Startup Window Layout Profiles — Width-only desktop selection
+   Startup Window Layout Profiles - Width-only desktop selection
    ============================================================
    Uses raw viewport width to classify the screen into one of
    three canonical startup layout profiles (`small`, `medium`,

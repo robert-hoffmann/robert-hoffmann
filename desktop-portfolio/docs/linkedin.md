@@ -5,7 +5,7 @@ file is not canonical app data and is not parsed by generators. Promote reusable
 facts manually into `src/data/apps/about.ts`, `src/data/apps/resume.ts`,
 `src/data/apps/projects.ts`, or `src/data/docs/cv.ts` when needed.
 
-## Profile Headline — EN
+## Profile Headline - EN
 
 Recommended:
 
@@ -19,7 +19,7 @@ Alternatives:
 - Senior Full-Stack Consultant | Industrial Software, Data Orchestration, Observability & Product/R&D Delivery
 - Product-Minded Full-Stack Consultant | Industrial Platforms, Data Workflows, Offline Apps & AI-Assisted Engineering
 
-## Profile Headline — FR
+## Profile Headline - FR
 
 Recommandé :
 
@@ -33,35 +33,35 @@ Alternatives :
 - Consultant Full-Stack senior | Logiciels industriels, orchestration data, observabilité & delivery Produit/R&D
 - Consultant Full-Stack orienté produit | Plateformes industrielles, workflows data, apps offline & ingénierie assistée par IA
 
-## Featured Links — EN
+## Featured Links - EN
 
-### i-technology.net — AI-Built Desktop Portfolio
+### i-technology.net - AI-Built Desktop Portfolio
 
 100% AI-built, architected through agent workflows: 25+ years of frontend, UI/UX, and performance craft distilled into a web app.
 
 https://i-technology.net/
 
-### GitHub — robert-hoffmann/uncle-bob
+### GitHub - robert-hoffmann/uncle-bob
 
 Portable AI-agent workflow system for quality, governance, documentation sync, and repeatable software delivery.
 
 https://github.com/robert-hoffmann/uncle-bob
 
-## Featured Links — FR
+## Featured Links - FR
 
-### i-technology.net — Portfolio desktop construit avec l’IA
+### i-technology.net - Portfolio desktop construit avec l’IA
 
 100% construit avec l’IA et architecturé via workflows agents : 25+ ans de frontend, UI/UX et performance distillés dans une web app.
 
 https://i-technology.net/
 
-### GitHub — robert-hoffmann/uncle-bob
+### GitHub - robert-hoffmann/uncle-bob
 
 Système portable de workflows pour agents IA : qualité, gouvernance, sync documentaire et livraison logicielle répétable.
 
 https://github.com/robert-hoffmann/uncle-bob
 
-## About — EN
+## About - EN
 
 I build production software for industrial operations: data orchestration, offline field apps, observability tooling, compliance workflows, and full-stack platforms that people actually use.
 
@@ -73,7 +73,7 @@ I also use AI agents in my day-to-day engineering workflow, not just for autocom
 
 I enjoy making complex systems feel simpler and more actionable, especially with teams that care about reliability as much as delivery.
 
-## About — FR
+## About - FR
 
 Je construis des logiciels de production pour les opérations industrielles : orchestration de données, applications terrain hors ligne, observabilité, workflows de conformité et plateformes full-stack réellement utilisées sur le terrain.
 
@@ -85,9 +85,9 @@ J’utilise aussi les agents IA dans mon workflow d’ingénierie au quotidien, 
 
 J’aime rendre les systèmes complexes plus simples et actionnables, surtout avec des équipes qui prennent la fiabilité aussi au sérieux que la livraison.
 
-## Maser Engineering — EN
+## Maser Engineering - EN
 
-Consultant — Industrial Software & Operations Platforms
+Consultant - Industrial Software & Operations Platforms
 
 I design and build operational software for industrial teams: systems that move data between platforms, support field work offline, improve traceability, and replace fragile manual workflows with reliable tools.
 
@@ -101,9 +101,9 @@ I design and build operational software for industrial teams: systems that move 
 
 Stack: Python, Symfony/PHP, Vue, Quasar, Airtable, MariaDB, SQLite, REST APIs, Skywise / Foundry, Google Workspace, AI-assisted delivery workflows.
 
-## Maser Engineering — FR
+## Maser Engineering - FR
 
-Consultant — Logiciels industriels & plateformes opérationnelles
+Consultant - Logiciels industriels & plateformes opérationnelles
 
 Je conçois et construis des logiciels opérationnels pour équipes industrielles : systèmes qui font circuler les données entre plateformes, soutiennent le travail terrain hors ligne, améliorent la traçabilité et remplacent des workflows manuels fragiles par des outils fiables.
 

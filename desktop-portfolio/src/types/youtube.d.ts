@@ -1,5 +1,5 @@
 /* ============================================================
-   YouTube IFrame Player API — Ambient Type Declarations
+   YouTube IFrame Player API - Ambient Type Declarations
    ============================================================
    Minimal subset used by VideoApp.vue.
    Full reference: https://developers.google.com/youtube/iframe_api_reference

@@ -218,8 +218,8 @@ export const interfaceMessages = {
     fr : 'URL de la page copiée',
   },
   'toast.copyFailed'                  : {
-    en : 'Copy failed — use browser address bar',
-    fr : 'Échec de la copie — utilisez la barre d’adresse',
+    en : 'Copy failed - use browser address bar',
+    fr : 'Échec de la copie - utilisez la barre d’adresse',
   },
   'toast.tiledWindows'                : {
     en : 'Tiled {n} windows',
@@ -238,8 +238,8 @@ export const interfaceMessages = {
     fr : 'Toutes les fenêtres restaurées',
   },
   'toast.aboutSite'                   : {
-    en : 'Desktop Portfolio — a macOS-inspired static portfolio by Robert Hoffmann',
-    fr : 'Desktop Portfolio — un portfolio statique inspiré de macOS par Robert Hoffmann',
+    en : 'Desktop Portfolio - a macOS-inspired static portfolio by Robert Hoffmann',
+    fr : 'Desktop Portfolio - un portfolio statique inspiré de macOS par Robert Hoffmann',
   },
   'toast.switchedTheme'               : {
     en : 'Switched to {theme} theme',
@@ -274,8 +274,8 @@ export const interfaceMessages = {
     fr : 'Zone de bureau',
   },
   'desktop.srTitle'                   : {
-    en : 'Robert Hoffmann — Industrial Full-Stack Consultant',
-    fr : 'Robert Hoffmann — Consultant Full-Stack industriel',
+    en : 'Robert Hoffmann - Industrial Full-Stack Consultant',
+    fr : 'Robert Hoffmann - Consultant Full-Stack industriel',
   },
   'dock.label'                        : {
     en : 'Dock',

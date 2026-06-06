@@ -1,7 +1,7 @@
 /* ============================================================
-   Geometry Wars — Three.js Neon Twin-Stick Mini-Game
+   Geometry Wars - Three.js Neon Twin-Stick Mini-Game
    ============================================================
-   Proper ES module — no window globals.
+   Proper ES module - no window globals.
    Import and call init/destroy/start/restart/setManualPause directly.
    ============================================================ */
 
@@ -177,7 +177,7 @@ let resizeObs: ResizeObserver | null = null
 const waveSpawnTimers: number[] = []
 
 /* ----------------------------------------------------------
-   THRUST AUDIO — Rocket thruster roar
+   THRUST AUDIO - Rocket thruster roar
    ----------------------------------------------------------
    Rocket thrust is mostly turbulent noise, not tonal.
    Two noise layers (low rumble + mid crackle) through a
@@ -210,7 +210,7 @@ function startThrust() {
   const ctx = ensureAudio()
   if (!ctx || thrustNoiseLow) return
 
-  /* Shared noise buffer — 4 s of white noise */
+  /* Shared noise buffer - 4 s of white noise */
   const dur  = 4
   const buf  = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate)
   const data = buf.getChannelData(0)
@@ -222,7 +222,7 @@ function startThrust() {
   thrustShaper.oversample = '2x'
   thrustShaper.connect(ctx.destination)
 
-  /* Low rumble noise — lowpass filtered, drives the body */
+  /* Low rumble noise - lowpass filtered, drives the body */
   thrustNoiseLow        = ctx.createBufferSource()
   thrustNoiseLow.buffer = buf
   thrustNoiseLow.loop   = true
@@ -235,7 +235,7 @@ function startThrust() {
   thrustNoiseLow.connect(thrustLowFilter).connect(thrustLowGain).connect(thrustShaper)
   thrustNoiseLow.start()
 
-  /* Mid-high crackle noise — bandpass for turbulence texture */
+  /* Mid-high crackle noise - bandpass for turbulence texture */
   thrustNoiseHigh        = ctx.createBufferSource()
   thrustNoiseHigh.buffer = buf
   thrustNoiseHigh.loop   = true
@@ -250,7 +250,7 @@ function startThrust() {
   thrustNoiseHigh.connect(thrustHighFilter).connect(thrustHighGain).connect(thrustShaper)
   thrustNoiseHigh.start()
 
-  /* Sub-bass sine — subtle physical rumble you feel more than hear */
+  /* Sub-bass sine - subtle physical rumble you feel more than hear */
   thrustSub           = ctx.createOscillator()
   thrustSub.type      = 'sine'
   thrustSub.frequency.value = 30
@@ -277,21 +277,21 @@ function updateThrustAudio(t: number) {
   const now = audioCtx.currentTime
   const s   = 0.04                                     // smoothing time constant
 
-  /* Low rumble — volume scales linearly, filter opens with thrust */
+  /* Low rumble - volume scales linearly, filter opens with thrust */
   thrustLowGain.gain.setTargetAtTime(t * THRUST_VOL_MAX, now, s)
   thrustLowFilter.frequency.setTargetAtTime(150 + t * 350, now, s)
 
-  /* Mid crackle — kicks in harder at higher thrust (quadratic) */
+  /* Mid crackle - kicks in harder at higher thrust (quadratic) */
   thrustHighGain.gain.setTargetAtTime(t * t * THRUST_VOL_MAX * 0.7, now, s)
   thrustHighFilter.frequency.setTargetAtTime(800 + t * 1400, now, s)
 
-  /* Sub-bass rumble — gentle pitch rise */
+  /* Sub-bass rumble - gentle pitch rise */
   thrustSubGain.gain.setTargetAtTime(t * THRUST_VOL_MAX * 0.5, now, s)
   thrustSub.frequency.setTargetAtTime(30 + t * 18, now, s)
 }
 
 /* ----------------------------------------------------------
-   AUDIO — Web Audio SFX (procedural)
+   AUDIO - Web Audio SFX (procedural)
    ---------------------------------------------------------- */
 let audioCtx: AudioContext | null = null
 
@@ -331,7 +331,7 @@ function sfxShoot() {
   osc.start(ctx.currentTime)
   osc.stop(ctx.currentTime + 0.12)
 }
-/** Enemy explosion — filtered noise burst + low thump */
+/** Enemy explosion - filtered noise burst + low thump */
 function sfxKill() {
   const ctx = ensureAudio()
   if (!ctx) return
@@ -368,7 +368,7 @@ function sfxKill() {
   osc.stop(t + 0.2)
 }
 
-/** Player-hit explosion — heavier version with longer tail */
+/** Player-hit explosion - heavier version with longer tail */
 function sfxHit() {
   const ctx = ensureAudio()
   if (!ctx) return
@@ -407,7 +407,7 @@ function sfxWave()     { playTone(660, 0.10, 'sine', 0.10); setTimeout(() => pla
 function sfxGameOver() { playTone(220, 0.4, 'sawtooth', 0.15); setTimeout(() => playTone(160, 0.5, 'sawtooth', 0.12), 250) }
 
 /* ----------------------------------------------------------
-   BACKGROUND MUSIC — Procedural synthwave loop
+   BACKGROUND MUSIC - Procedural synthwave loop
    ----------------------------------------------------------
    A look-ahead scheduler plays bass + arpeggio patterns
    through a shared GainNode so volume and muting are cheap.
@@ -419,7 +419,7 @@ const MUSIC_SCHEDULE_INTERVAL = 50                    // scheduler tick (ms)
 const MUSIC_VOL_BASS          = 0.010
 const MUSIC_VOL_ARP           = 0.007
 
-/* Frequencies — A minor key */
+/* Frequencies - A minor key */
 const N = {
   A2 : 110.00, C3 : 130.81, D3 : 146.83, E3 : 164.81,
   F2 : 87.31,  G2 : 98.00,  F3 : 174.61, G3 : 196.00,
@@ -462,7 +462,7 @@ function scheduleMusicNote(
   osc.stop(time + dur + 0.02)
 }
 
-/** Look-ahead scheduler tick — schedules notes within the look-ahead window. */
+/** Look-ahead scheduler tick - schedules notes within the look-ahead window. */
 function musicTick() {
   if (!audioCtx || !musicGain) return
   const deadline = audioCtx.currentTime + MUSIC_LOOK_AHEAD

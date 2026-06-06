@@ -1,5 +1,5 @@
 /* ============================================================
-   useLocale — EN/FR locale toggle composable
+   useLocale - EN/FR locale toggle composable
    ============================================================
    Module-level singleton ref shared across all consumers.
    Mirrors the useTheme pattern: reactive ref + side effects.
@@ -15,7 +15,7 @@ import {
   type MessageParams,
 } from '../data/interface'
 
-/** Detect browser language preference — returns 'fr' for any fr variant, 'en' otherwise */
+/** Detect browser language preference - returns 'fr' for any fr variant, 'en' otherwise */
 function detectBrowserLocale(): Locale {
   const langs = navigator.languages ?? [navigator.language]
   for (const lang of langs) {
