@@ -87,16 +87,16 @@ export const galleryImages = [
     imageId   : 3,
     projectId : 'proj-chatapp',
     title     : {
-      en : 'TchaTche: Profile (chat)',
-      fr : 'TchaTche: Profil (chats)',
+      en : 'TchaTche: GeoLocalization (chat)',
+      fr : 'TchaTche: Géolocalisation (chats)',
     } satisfies Localized,
     summary   : {
       en :
-        'Map search screen with a profile popover, social counters, game ads, and the ' +
-        'real-time member list used in the chat platform.',
+        'Map search with a profile popover, social counters, game ads, and the ' +
+        'real-time member list used in the chat platform. (integrated MaxMind geolocation)',
       fr :
-        'Écran de recherche cartographique avec popover profil, compteurs sociaux, publicités ' +
-        'jeux et liste membres temps réel de la plateforme de chat.',
+        'Écran de recherche avec popover profil, compteurs sociaux, publicités ' +
+        'jeux et liste membres temps réel de la plateforme de chat. (géolocalisation MaxMind intégrée)',
     } satisfies Localized,
     alt       : {
       en : 'tchatche.com map search screen with profile popover and member list',
