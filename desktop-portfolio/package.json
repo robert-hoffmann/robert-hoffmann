@@ -4,14 +4,16 @@
   "version": "1.6.20",
   "type": "module",
   "scripts": {
-    "dev"                   : "vite",
-    "build"                 : "vue-tsc -b && vite build",
-    "preview"               : "vite preview",
-    "prod"                  : "npm run build && npm run preview",
-    "optimize-images"       : "node scripts/optimize-images.mjs",
-    "generate-og-image"     : "node scripts/generate-og-image.mjs",
-    "gallery:generate-test" : "node scripts/generate-gallery-test-images.mjs",
-    "prebuild"              : "node scripts/optimize-images.mjs && node scripts/generate-og-image.mjs"
+    "dev"                     : "vite",
+    "build"                   : "vue-tsc -b && vite build",
+    "preview"                 : "vite preview",
+    "prod"                    : "npm run build && npm run preview",
+    "optimize-images"         : "node scripts/optimize-images.mjs",
+    "generate-og-image"       : "node scripts/generate-og-image.mjs",
+    "gallery:generate-test"   : "node scripts/generate-gallery-test-images.mjs",
+    "docs:cv"                 : "node scripts/generate-cv-docs.mjs",
+    "docs:cv:install-browsers": "playwright install chromium",
+    "prebuild"                : "node scripts/optimize-images.mjs && node scripts/generate-og-image.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
@@ -24,6 +26,7 @@
     "@types/three": "^0.184.1",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/tsconfig": "^0.9.1",
+    "playwright": "^1.60.0",
     "sharp": "^0.34.5",
     "typescript": "~6.0.3",
     "vite": "^8.0.16",

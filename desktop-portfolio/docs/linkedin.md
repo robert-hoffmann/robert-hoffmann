@@ -1,5 +1,10 @@
 # LinkedIn Drafts
 
+Purpose: LinkedIn-specific profile, featured-link, and channel-copy drafts. This
+file is not canonical app data and is not parsed by generators. Promote reusable
+facts manually into `src/data/apps/about.ts`, `src/data/apps/resume.ts`,
+`src/data/apps/projects.ts`, or `src/data/docs/cv.ts` when needed.
+
 ## Profile Headline — EN
 
 Recommended:

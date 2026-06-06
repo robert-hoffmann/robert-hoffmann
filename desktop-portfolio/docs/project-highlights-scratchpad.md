@@ -1,5 +1,9 @@
 # Project Highlights Scratchpad
 
+Purpose: evidence and research scratchpad for project claims. This file is not
+parsed by generators. Promote stable claims manually into `src/data/apps/projects.ts`
+or `src/data/docs/cv.ts` when they become app or CV source material.
+
 Working note for revising `src/data/content.ts` and `src/components/ProjectsApp.vue`.
 
 Goal: turn the current `Projects` window into `Project Highlights`: fewer, stronger project cards with title, period, company/client, impact highlights, description, and technologies.
