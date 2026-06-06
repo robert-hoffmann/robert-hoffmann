@@ -112,7 +112,7 @@ onUnmounted(() => {
           v-if="line.type === 'welcome-banner'"
           class="terminal-welcome-banner"
           role="note"
-          aria-label="Welcome banner"
+          :aria-label="t('term.welcome.ariaLabel')"
         >
           <p class="terminal-welcome-title">{{ t('term.welcome.title') }}</p>
           <p class="terminal-welcome-hint">{{ t('term.welcome.hint') }}</p>
@@ -139,7 +139,7 @@ onUnmounted(() => {
           autocorrect="off"
           autocapitalize="off"
           spellcheck="false"
-          aria-label="Terminal input"
+          :aria-label="t('term.input.ariaLabel')"
           @keydown="onKeyDown"
         />
       </div>

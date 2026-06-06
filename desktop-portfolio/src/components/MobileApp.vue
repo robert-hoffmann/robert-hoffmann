@@ -233,7 +233,7 @@ watch(
         <MobileToastStack ref="mobileToastStackRef" />
 
         <div class="mobile-home-scroll">
-          <section class="mobile-home-hero" aria-label="Time and date">
+          <section class="mobile-home-hero" :aria-label="t('mobile.timeAndDate')">
             <p class="mobile-home-clock">{{ clockLabel }}</p>
             <p class="mobile-home-date">{{ dateLabel }}</p>
           </section>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref, watch } from 'vue'
 import type { WindowState } from '../../types/desktop'
+import { useLocale } from '../../composables/useLocale'
 import MobileWindowFrame from './MobileWindowFrame.vue'
 
 const props = defineProps<{
@@ -22,6 +23,7 @@ const emit = defineEmits<{
 const surfaceRef = ref<HTMLElement | null>(null)
 const mountedWindows = ref<WindowState[]>([])
 const activeWindowId = computed(() => props.windowState?.id ?? null)
+const { t } = useLocale()
 
 const SWIPE_AXIS_LOCK_SLOP_PX = 10
 const SWIPE_AXIS_LOCK_RATIO = 1.15
@@ -303,7 +305,7 @@ onUnmounted(() => {
     ref="surfaceRef"
     class="app-window-content mobile"
     data-mobile-app-surface
-    :aria-label="windowState ? title || windowState.title : 'Current mobile app'"
+    :aria-label="windowState ? title || windowState.title : t('mobile.currentApp')"
     :aria-hidden="windowState && isExpanded ? 'false' : 'true'"
     :inert="windowState && !isExpanded ? true : undefined"
     @pointerdown.capture="onSurfacePointerDown"
@@ -329,11 +331,9 @@ onUnmounted(() => {
     </div>
 
     <div v-if="!windowState" class="mobile-app-surface-empty" aria-live="polite">
-      <p class="mobile-app-surface-empty-kicker">Mobile</p>
-      <p class="mobile-app-surface-empty-title">Select an app</p>
-      <p class="mobile-app-surface-empty-copy">
-        Open an app from the grid, then use the dock to hide or restore it.
-      </p>
+      <p class="mobile-app-surface-empty-kicker">{{ t('mobile.emptyKicker') }}</p>
+      <p class="mobile-app-surface-empty-title">{{ t('mobile.emptyTitle') }}</p>
+      <p class="mobile-app-surface-empty-copy">{{ t('mobile.emptyCopy') }}</p>
     </div>
   </section>
 </template>

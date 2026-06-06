@@ -16,7 +16,7 @@ const emit = defineEmits<{
   launch : [itemId: string]
 }>()
 
-const { locale } = useLocale()
+const { locale, t } = useLocale()
 
 const HOME_ITEM_IDS = [
   'about',
@@ -52,7 +52,7 @@ const items = computed(() => {
 </script>
 
 <template>
-  <section class="mobile-home-icons" aria-label="Application shortcuts">
+  <section class="mobile-home-icons" :aria-label="t('mobile.applicationShortcuts')">
     <div class="mobile-home-icon-grid">
       <button
         v-for="item in items"

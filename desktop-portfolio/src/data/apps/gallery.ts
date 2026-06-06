@@ -4,25 +4,41 @@ import type { ProjectId } from './projects'
 
 // #region Messages
 export const galleryMessages = {
-  'imageViewer.previous'    : {
+  'imageViewer.previous'              : {
     en : 'previous',
     fr : 'précédent',
   },
-  'imageViewer.next'        : {
+  'imageViewer.next'                  : {
     en : 'next',
     fr : 'suivant',
   },
-  'imageViewer.thumbnails'  : {
+  'imageViewer.thumbnails'            : {
     en : 'Project thumbnails',
     fr : 'Miniatures des projets',
   },
-  'imageViewer.thumbnail'   : {
+  'imageViewer.thumbnail'             : {
     en : 'Show image {index}: {title}',
     fr : 'Afficher image {index} : {title}',
   },
-  'imageViewer.projectInfo' : {
+  'imageViewer.projectInfo'           : {
     en : 'Project Info',
     fr : 'Infos projet',
+  },
+  'imageViewer.fullscreenOpen'        : {
+    en : 'Open full-screen image',
+    fr : 'Afficher l’image en plein écran',
+  },
+  'imageViewer.fullscreenClose'       : {
+    en : 'Close full-screen image',
+    fr : 'Fermer l’image en plein écran',
+  },
+  'imageViewer.fullscreenCloseText'   : {
+    en : 'Close',
+    fr : 'Fermer',
+  },
+  'imageViewer.fullscreenMobileHint'  : {
+    en : 'Pinch to zoom. &#8595; to close.',
+    fr : 'Pincez pour zoomer. &#8595; pour fermer.',
   },
 } satisfies MessageCatalog
 // #endregion Messages

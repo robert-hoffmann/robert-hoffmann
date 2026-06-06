@@ -153,28 +153,16 @@ const activeSlide = computed<ImageViewerSlide>(() =>
   imageViewerSlides[lockedCaptionIndex.value ?? captionIndex.value] ?? imageViewerSlides[0],
 )
 const fullscreenOpenLabel = computed(() =>
-  l({
-    en : 'Open full-screen image',
-    fr : 'Afficher l’image en plein écran',
-  }),
+  t('imageViewer.fullscreenOpen'),
 )
 const fullscreenCloseLabel = computed(() =>
-  l({
-    en : 'Close full-screen image',
-    fr : 'Fermer l’image en plein écran',
-  }),
+  t('imageViewer.fullscreenClose'),
 )
 const fullscreenCloseText = computed(() =>
-  l({
-    en : 'Close',
-    fr : 'Fermer',
-  }),
+  t('imageViewer.fullscreenCloseText'),
 )
 const fullscreenHintText = computed(() =>
-  l({
-    en : 'Pinch to zoom. &#8595; to close.',
-    fr : 'Pincez pour zoomer. &#8595; pour fermer.',
-  }),
+  t('imageViewer.fullscreenMobileHint'),
 )
 
 function normalizeIndex(index: number) {

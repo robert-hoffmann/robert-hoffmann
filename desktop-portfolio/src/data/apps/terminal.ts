@@ -14,6 +14,14 @@ export const terminalMessages = {
     en : 'Type "help" for commands or "ls" for apps',
     fr : 'Tapez "help" pour les commandes ou "ls"',
   },
+  'term.welcome.ariaLabel' : {
+    en : 'Welcome banner',
+    fr : 'Bannière de bienvenue',
+  },
+  'term.input.ariaLabel'   : {
+    en : 'Terminal input',
+    fr : 'Saisie du terminal',
+  },
   'term.cmd.help'          : {
     en : 'Show available commands',
     fr : 'Afficher les commandes disponibles',

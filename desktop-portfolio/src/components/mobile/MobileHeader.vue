@@ -44,7 +44,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="topbar mobile" aria-label="Site header">
+  <header class="topbar mobile" :aria-label="t('topbar.siteHeader')">
     <div class="topbar-group">
       <span class="topbar-brand">{{ ownerName }}</span>
     </div>

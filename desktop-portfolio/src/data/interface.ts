@@ -129,6 +129,22 @@ export const interfaceMessages = {
     en : 'Switch to French',
     fr : 'Passer en anglais',
   },
+  'topbar.desktopTopBar'              : {
+    en : 'Desktop top bar',
+    fr : 'Barre supérieure du bureau',
+  },
+  'topbar.siteHeader'                 : {
+    en : 'Site header',
+    fr : 'En-tête du site',
+  },
+  'topbar.menuLabel'                  : {
+    en : '{menu} menu',
+    fr : 'Menu {menu}',
+  },
+  'calendar.label'                    : {
+    en : 'Calendar',
+    fr : 'Calendrier',
+  },
   'calendar.month.0'                  : {
     en : 'January',
     fr : 'Janvier',
@@ -277,6 +293,30 @@ export const interfaceMessages = {
     en : 'Robert Hoffmann - Industrial Full-Stack Consultant',
     fr : 'Robert Hoffmann - Consultant Full-Stack industriel',
   },
+  'mobile.timeAndDate'                : {
+    en : 'Time and date',
+    fr : 'Heure et date',
+  },
+  'mobile.applicationShortcuts'        : {
+    en : 'Application shortcuts',
+    fr : 'Raccourcis d’applications',
+  },
+  'mobile.currentApp'                 : {
+    en : 'Current mobile app',
+    fr : 'Application mobile courante',
+  },
+  'mobile.emptyKicker'                : {
+    en : 'Mobile',
+    fr : 'Mobile',
+  },
+  'mobile.emptyTitle'                 : {
+    en : 'Select an app',
+    fr : 'Sélectionner une app',
+  },
+  'mobile.emptyCopy'                  : {
+    en : 'Open an app from the grid, then use the dock to hide or restore it.',
+    fr : 'Ouvrez une app depuis la grille, puis utilisez le dock pour la masquer ou la restaurer.',
+  },
   'dock.label'                        : {
     en : 'Dock',
     fr : 'Dock',
@@ -292,6 +332,42 @@ export const interfaceMessages = {
   'dock.trash'                        : {
     en : 'Trash',
     fr : 'Corbeille',
+  },
+  'dock.mobileToolbar'                : {
+    en : 'App dock',
+    fr : 'Dock des apps',
+  },
+  'dock.openApps'                     : {
+    en : 'Open apps',
+    fr : 'Apps ouvertes',
+  },
+  'dock.currentAppControls'           : {
+    en : 'Current app controls',
+    fr : 'Contrôles de l’app courante',
+  },
+  'dock.currentAppUnavailable'        : {
+    en : 'Select an app to enable minimize or restore',
+    fr : 'Sélectionnez une app pour activer la réduction ou la restauration',
+  },
+  'dock.noCurrentApp'                 : {
+    en : 'No App',
+    fr : 'Aucune app',
+  },
+  'dock.hideApp'                      : {
+    en : 'Hide App',
+    fr : 'Masquer l’app',
+  },
+  'dock.showApp'                      : {
+    en : 'Show App',
+    fr : 'Afficher l’app',
+  },
+  'dock.hideAppWithTitle'             : {
+    en : 'Hide {title}',
+    fr : 'Masquer {title}',
+  },
+  'dock.showAppWithTitle'             : {
+    en : 'Show {title}',
+    fr : 'Afficher {title}',
   },
   'iconType.file'                     : {
     en : 'file',
@@ -364,6 +440,22 @@ export const interfaceMessages = {
   'notification.dismiss'              : {
     en : 'Dismiss notification',
     fr : 'Fermer la notification',
+  },
+  'notification.defaultMessage'       : {
+    en : 'Test mobile notification',
+    fr : 'Notification mobile de test',
+  },
+  'notification.defaultCta'           : {
+    en : 'Click to open',
+    fr : 'Cliquer pour ouvrir',
+  },
+  'notification.open'                 : {
+    en : 'Open',
+    fr : 'Ouvrir',
+  },
+  'notification.now'                  : {
+    en : 'now',
+    fr : 'maintenant',
   },
   'topbar.viewToggle'                 : {
     en : 'Toggle desktop / mobile preview',

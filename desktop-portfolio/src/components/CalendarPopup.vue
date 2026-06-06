@@ -55,7 +55,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="popupEl" class="calendar-popup" role="dialog" aria-label="Calendar">
+  <div ref="popupEl" class="calendar-popup" role="dialog" :aria-label="t('calendar.label')">
     <div class="calendar-header">
       <span class="calendar-month">{{ monthLabel }} {{ year }}</span>
     </div>

@@ -7,6 +7,7 @@ import {
   TOAST_SWIPE_DISMISS_MS,
   TOAST_SWIPE_SETTLE_MS,
 } from '../constants/notificationTimings'
+import { useLocale } from '../composables/useLocale'
 
 type NotificationStackVariant = 'mobile' | 'desktop'
 type MobileToastCtaVariant = 'soft' | 'outline' | 'accent'
@@ -61,10 +62,12 @@ const props = withDefaults(defineProps<{
   variant : 'desktop',
 })
 
-const DEFAULT_TOAST_TITLE = 'Portfolio'
-const DEFAULT_TOAST_MESSAGE = 'Test mobile notification'
-const DEFAULT_TOAST_DURATION_MS = SOCIAL_TOAST_DURATION_MS
-const DEFAULT_TOAST_CTA_LABEL = 'Click to open'
+const { t } = useLocale()
+
+const DEFAULT_TOAST_TITLE         = 'Portfolio'
+const DEFAULT_TOAST_DURATION_MS   = SOCIAL_TOAST_DURATION_MS
+const DEFAULT_TOAST_MESSAGE_KEY   = 'notification.defaultMessage'
+const DEFAULT_TOAST_CTA_LABEL_KEY = 'notification.defaultCta'
 
 const SWIPE_AXIS_LOCK_SLOP_PX = 8
 const SWIPE_AXIS_LOCK_RATIO = 1.1
@@ -133,7 +136,7 @@ function formatToastTime() {
       hourCycle : 'h23',
     }).toLowerCase()
   } catch {
-    return 'now'
+    return t('notification.now')
   }
 }
 
@@ -480,10 +483,10 @@ function onToastClick(event: MouseEvent, toastId: number) {
 
 async function showToast(options: MobileToastOptions = {}) {
   const title = String(options.title ?? DEFAULT_TOAST_TITLE)
-  const message = String(options.message ?? DEFAULT_TOAST_MESSAGE)
+  const message = String(options.message ?? t(DEFAULT_TOAST_MESSAGE_KEY))
   const duration = Math.max(900, Number(options.duration) || DEFAULT_TOAST_DURATION_MS)
   const url = typeof options.url === 'string' ? options.url : ''
-  const ctaLabel = String(options.ctaLabel ?? DEFAULT_TOAST_CTA_LABEL)
+  const ctaLabel = String(options.ctaLabel ?? t(DEFAULT_TOAST_CTA_LABEL_KEY))
   const normalizedCtaVariants = normalizeToastCtaVariants(options.ctaVariants)
   const ctaVariants = url
     ? (normalizedCtaVariants.length
@@ -599,7 +602,7 @@ onUnmounted(() => {
             <span class="notification-toast-cta-bar-icon">↗</span>
             <span>{{ toast.ctaLabel }}</span>
           </span>
-          <span class="notification-toast-cta-bar-trailing">Open</span>
+          <span class="notification-toast-cta-bar-trailing">{{ t('notification.open') }}</span>
         </div>
       </div>
     </aside>

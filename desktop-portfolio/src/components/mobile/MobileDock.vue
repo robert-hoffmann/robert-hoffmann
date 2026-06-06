@@ -33,17 +33,17 @@ const isCurrentExpanded = computed(() =>
 )
 
 const toggleButtonLabel = computed(() => {
-  if (!hasCurrentWindow.value) return 'Select an app to enable minimize or restore'
+  if (!hasCurrentWindow.value) return t('dock.currentAppUnavailable')
   const baseLabel = isCurrentExpanded.value ? t('window.minimize') : t('window.restore')
   return props.currentAppTitle ? `${baseLabel}: ${props.currentAppTitle}` : baseLabel
 })
 
 const toggleTooltipLabel = computed(() => {
-  if (!hasCurrentWindow.value) return 'No App'
-  if (!props.currentAppTitle) return isCurrentExpanded.value ? 'Hide App' : 'Show App'
+  if (!hasCurrentWindow.value) return t('dock.noCurrentApp')
+  if (!props.currentAppTitle) return isCurrentExpanded.value ? t('dock.hideApp') : t('dock.showApp')
   return isCurrentExpanded.value
-    ? `Hide ${props.currentAppTitle}`
-    : `Show ${props.currentAppTitle}`
+    ? t('dock.hideAppWithTitle', { title : props.currentAppTitle })
+    : t('dock.showAppWithTitle', { title : props.currentAppTitle })
 })
 
 function isCurrentWindow(windowId: string) {
@@ -65,8 +65,8 @@ function iconSpriteForItem(itemId: string): DesktopSpriteKey | undefined {
 
 <template>
   <footer class="dock mobile" :aria-label="t('dock.label')">
-    <div class="dock-tray mobile" role="toolbar" aria-label="App dock">
-      <div class="dock-tray-scroll mobile" role="group" aria-label="Open apps">
+    <div class="dock-tray mobile" role="toolbar" :aria-label="t('dock.mobileToolbar')">
+      <div class="dock-tray-scroll mobile" role="group" :aria-label="t('dock.openApps')">
         <button
           v-for="ws in windows"
           :key="`mobile-dock-${ws.id}`"
@@ -104,7 +104,7 @@ function iconSpriteForItem(itemId: string): DesktopSpriteKey | undefined {
 
       <span class="dock-separator" aria-hidden="true" />
 
-      <div class="dock-tray-fixed mobile" role="group" aria-label="Current app controls">
+      <div class="dock-tray-fixed mobile" role="group" :aria-label="t('dock.currentAppControls')">
         <button
           class="dock-launch dock-launch--control"
           type="button"

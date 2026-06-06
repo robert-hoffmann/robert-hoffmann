@@ -151,7 +151,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="topbar" aria-label="Desktop top bar">
+  <header class="topbar" :aria-label="t('topbar.desktopTopBar')">
     <div class="topbar-group">
       <span class="topbar-brand">{{ ownerName }}</span>
       <div
@@ -171,7 +171,7 @@ onUnmounted(() => {
           v-if="openMenuId === menu.label"
           class="topbar-dropdown"
           role="menu"
-          :aria-label="`${menu.label} menu`"
+          :aria-label="t('topbar.menuLabel', { menu : menu.label })"
         >
           <template v-for="item in menu.items" :key="'type' in item && item.type === 'separator' ? `sep-${menu.label}` : ('id' in item ? item.id : undefined)">
             <hr v-if="'type' in item && item.type === 'separator'" class="topbar-dropdown-sep" />
