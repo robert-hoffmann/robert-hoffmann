@@ -9,8 +9,8 @@ export const experience = [
       fr : 'Maser Engineering',
     } satisfies Localized,
     role     : {
-      en : 'Consultant — Industrial Software & Operations Platforms',
-      fr : 'Consultant — Logiciels industriels & plateformes opérationnelles',
+      en : 'Consultant - Industrial Software & Operations Platforms',
+      fr : 'Consultant - Logiciels industriels & plateformes opérationnelles',
     } satisfies Localized,
     period   : 'Mar 2022 – Present',
     location : {
@@ -105,8 +105,8 @@ export const experience = [
         fr : 'Gestion de l\u2019innovation, études de faisabilité, et analyses de marché & concurrentielles',
       },
       {
-        en : 'Full-stack delivery — front-end, back-office, web, mobile, and service architecture',
-        fr : 'Livraison full-stack — front-end, back-office, web, mobile et architecture de services',
+        en : 'Full-stack delivery - front-end, back-office, web, mobile, and service architecture',
+        fr : 'Livraison full-stack - front-end, back-office, web, mobile et architecture de services',
       },
       {
         en : 'DevOps automation, CI/CD, error & project management',
@@ -206,8 +206,8 @@ export const experience = [
         fr : 'Évaluation de l\u2019intégration CI TeamCity et rédaction d\u2019une feuille de route d\u2019évolution d\u2019architecture',
       },
       {
-        en : 'Conducted feasibility studies — emoji messaging POC, static analysis, OWASP pen testing',
-        fr : 'Études de faisabilité — POC messagerie emoji, analyse statique, tests d\u2019intrusion OWASP',
+        en : 'Conducted feasibility studies - emoji messaging POC, static analysis, OWASP pen testing',
+        fr : 'Études de faisabilité - POC messagerie emoji, analyse statique, tests d\u2019intrusion OWASP',
       },
     ] satisfies Localized[],
     stack    : ['Perforce', 'PowerShell', 'C#', 'WinForms', 'TeamCity'],
@@ -241,8 +241,8 @@ export const experience = [
     } satisfies Localized,
     bullets  : [
       {
-        en : 'Piloted cloud migration — Mailchimp, Mandrill, AWS S3, Jira/Confluence, BitBucket',
-        fr : 'Pilotage de la migration cloud — Mailchimp, Mandrill, AWS S3, Jira/Confluence, BitBucket',
+        en : 'Piloted cloud migration - Mailchimp, Mandrill, AWS S3, Jira/Confluence, BitBucket',
+        fr : 'Pilotage de la migration cloud - Mailchimp, Mandrill, AWS S3, Jira/Confluence, BitBucket',
       },
       {
         en : 'Automated mailing workflows via web and mobile API integrations',
@@ -322,24 +322,24 @@ export const experience = [
     } satisfies Localized,
     bullets   : [
       {
-        en : 'Maintained and evolved chat rooms, web apps, and multimedia portals — 6M unique visitors/month',
-        fr : 'Maintenance et évolution de salons de chat, applications web et portails multimédias — 6M visiteurs uniques/mois',
+        en : 'Maintained and evolved chat rooms, web apps, and multimedia portals - 6M unique visitors/month',
+        fr : 'Maintenance et évolution de salons de chat, applications web et portails multimédias - 6M visiteurs uniques/mois',
       },
       {
-        en : 'Designed a generic ad-proxy server — +20\u202F% ad revenue, zero developer intervention',
-        fr : 'Conception d\u2019un serveur proxy publicitaire générique — +20\u202F% de revenus publicitaires, zéro intervention développeur',
+        en : 'Designed a generic ad-proxy server - +20\u202F% ad revenue, zero developer intervention',
+        fr : 'Conception d\u2019un serveur proxy publicitaire générique - +20\u202F% de revenus publicitaires, zéro intervention développeur',
       },
       {
-        en : 'Built responsive ad delivery with device detection — +30\u202F% click-through rate',
-        fr : 'Mise en place d\u2019une diffusion publicitaire responsive avec détection d\u2019appareil — +30\u202F% de taux de clic',
+        en : 'Built responsive ad delivery with device detection - +30\u202F% click-through rate',
+        fr : 'Mise en place d\u2019une diffusion publicitaire responsive avec détection d\u2019appareil - +30\u202F% de taux de clic',
       },
       {
-        en : 'Created an error-tracking tool cutting bug resolution from days to minutes — 5× fewer errors',
-        fr : 'Création d\u2019un outil de suivi d\u2019erreurs réduisant la résolution de bugs de jours à minutes — 5× moins d\u2019erreurs',
+        en : 'Created an error-tracking tool cutting bug resolution from days to minutes - 5× fewer errors',
+        fr : 'Création d\u2019un outil de suivi d\u2019erreurs réduisant la résolution de bugs de jours à minutes - 5× moins d\u2019erreurs',
       },
       {
-        en : 'Elaborated social media strategy with SSO and social sharing — +50\u202F% revenue in 6 months',
-        fr : 'Élaboration d\u2019une stratégie réseaux sociaux avec SSO et partage social — +50\u202F% de revenus en 6 mois',
+        en : 'Elaborated social media strategy with SSO and social sharing - +50\u202F% revenue in 6 months',
+        fr : 'Élaboration d\u2019une stratégie réseaux sociaux avec SSO et partage social - +50\u202F% de revenus en 6 mois',
       },
     ] satisfies Localized[],
     stack     : ['C#', '.NET', 'JavaScript', 'SEO', 'Google Analytics'],
@@ -377,8 +377,8 @@ export const experience = [
         fr : 'Réduction de moitié du temps de déploiement en marque blanche avec un produit moderne et traduisible',
       },
       {
-        en : 'Designed a custom JSON protocol (JsonRaw) — 30–40\u202F% bandwidth savings',
-        fr : 'Conception d\u2019un protocole JSON personnalisé (JsonRaw) — 30–40\u202F% d\u2019économie de bande passante',
+        en : 'Designed a custom JSON protocol (JsonRaw) - 30–40\u202F% bandwidth savings',
+        fr : 'Conception d\u2019un protocole JSON personnalisé (JsonRaw) - 30–40\u202F% d\u2019économie de bande passante',
       },
     ] satisfies Localized[],
     stack    : ['C#', '.NET', 'jQuery', 'JavaScript', 'CSS'],
@@ -404,20 +404,20 @@ export const experience = [
     } satisfies Localized,
     summary  : {
       en :
-        'Built and managed community products (B2B/B2C) — chats, blogs, and portals — under ' +
+        'Built and managed community products (B2B/B2C) - chats, blogs, and portals - under ' +
         'own label, white label, and affiliation models.',
       fr :
-        'Développement et gestion de produits communautaires (B2B/B2C) — chats, blogs et ' +
-        'portails — en marque propre, marque blanche et modèles d\u2019affiliation.',
+        'Développement et gestion de produits communautaires (B2B/B2C) - chats, blogs et ' +
+        'portails - en marque propre, marque blanche et modèles d\u2019affiliation.',
     } satisfies Localized,
     bullets  : [
       {
-        en : 'Deployed internal ad servers — 10× increase in ads served and revenue',
-        fr : 'Déploiement de serveurs publicitaires internes — 10× plus de pubs servies et de revenus',
+        en : 'Deployed internal ad servers - 10× increase in ads served and revenue',
+        fr : 'Déploiement de serveurs publicitaires internes - 10× plus de pubs servies et de revenus',
       },
       {
-        en : 'Integrated monetization services — ad networks, credit card, SMS, micro-payment, paywall',
-        fr : 'Intégration de services de monétisation — régies publicitaires, carte bancaire, SMS, micro-paiement, paywall',
+        en : 'Integrated monetization services - ad networks, credit card, SMS, micro-payment, paywall',
+        fr : 'Intégration de services de monétisation - régies publicitaires, carte bancaire, SMS, micro-paiement, paywall',
       },
       {
         en : 'Customized products for TF1, Skyrock, NRJ Group, M6, SFR, Orange, Microsoft, Pepsi, and more',
@@ -451,8 +451,8 @@ export const experience = [
     } satisfies Localized,
     bullets  : [
       {
-        en : 'Founded 2 websites — a video-game fan site and a content-creator directory with ad monetization',
-        fr : 'Création de 2 sites web — un site de fans de jeux vidéo et un annuaire de créateurs de contenu avec monétisation publicitaire',
+        en : 'Founded 2 websites - a video-game fan site and a content-creator directory with ad monetization',
+        fr : 'Création de 2 sites web - un site de fans de jeux vidéo et un annuaire de créateurs de contenu avec monétisation publicitaire',
       },
       {
         en : 'Managed a CMS product with plugins, marketplace, developer community, and affiliates',
@@ -512,10 +512,10 @@ export const experience = [
     summary  : {
       en :
         'Circuit-board and parts assembly for the first fully digital photo booths using CCD cameras ' +
-        'and color thermal printers — deployed to shopping centers, public spaces, and professional studios.',
+        'and color thermal printers - deployed to shopping centers, public spaces, and professional studios.',
       fr :
         'Assemblage de circuits imprimés et de composants pour les premiers photobooths entièrement numériques ' +
-        'utilisant des caméras CCD et des imprimantes thermiques couleur\u202F— déployés dans des centres ' +
+        'utilisant des caméras CCD et des imprimantes thermiques couleur\u202F- déployés dans des centres ' +
         'commerciaux, espaces publics et studios professionnels.',
     } satisfies Localized,
     bullets  : [] satisfies Localized[],
