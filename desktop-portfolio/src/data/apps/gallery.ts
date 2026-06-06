@@ -39,242 +39,162 @@ export interface GalleryImageContent {
 export const galleryImages = [
   {
     imageId   : 1,
-    projectId : 'proj-tmip-scheduler',
+    projectId : 'proj-chatapp',
     title     : {
-      en : 'TMIP Scheduler gallery sample',
-      fr : 'Exemple galerie TMIP Scheduler',
+      en : 'tchatche.com map gallery',
+      fr : 'Galerie carte tchatche.com',
     } satisfies Localized,
     summary   : {
-      en : 'Temporary numbered image 01 for the TMIP Scheduler project gallery.',
-      fr : 'Image temporaire numéro 01 pour la galerie du projet TMIP Scheduler.',
+      en :
+        'Map-based user discovery interface with a photo carousel overlay from the ' +
+        'white-label tchatche.com chat platform.',
+      fr :
+        'Interface de découverte utilisateurs sur carte avec carrousel photo, issue de la ' +
+        'plateforme de chat en marque blanche tchatche.com.',
     } satisfies Localized,
     alt       : {
-      en : 'Numbered placeholder image 01',
-      fr : 'Image temporaire numérotée 01',
+      en : 'tchatche.com map interface with a photo gallery modal over user listings',
+      fr : 'Interface carte tchatche.com avec galerie photo au-dessus de listes utilisateurs',
     } satisfies Localized,
   },
   {
     imageId   : 2,
-    projectId : 'proj-uncle-bob',
+    projectId : 'proj-chatapp',
     title     : {
-      en : 'Uncle Bob gallery sample',
-      fr : 'Exemple galerie Uncle Bob',
+      en : 'tchatche.com profile discovery',
+      fr : 'Découverte profil tchatche.com',
     } satisfies Localized,
     summary   : {
-      en : 'Temporary numbered image 02 for the Uncle Bob workflow system gallery.',
-      fr : 'Image temporaire numéro 02 pour la galerie du système Uncle Bob.',
+      en :
+        'Map search screen with a profile popover, social counters, game ads, and the ' +
+        'real-time member list used in the chat platform.',
+      fr :
+        'Écran de recherche cartographique avec popover profil, compteurs sociaux, publicités ' +
+        'jeux et liste membres temps réel de la plateforme de chat.',
     } satisfies Localized,
     alt       : {
-      en : 'Numbered placeholder image 02',
-      fr : 'Image temporaire numérotée 02',
+      en : 'tchatche.com map search screen with profile popover and member list',
+      fr : 'Écran de recherche carte tchatche.com avec popover profil et liste membres',
     } satisfies Localized,
   },
   {
     imageId   : 3,
-    projectId : 'proj-tmip-logger',
+    projectId : 'proj-chatapp',
     title     : {
-      en : 'TMIP Logger gallery sample',
-      fr : 'Exemple galerie TMIP Logger',
+      en : 'NRJ white-label chat search',
+      fr : 'Recherche chat marque blanche NRJ',
     } satisfies Localized,
     summary   : {
-      en : 'Temporary numbered image 03 for the TMIP Logger observability gallery.',
-      fr : 'Image temporaire numéro 03 pour la galerie observabilité TMIP Logger.',
+      en :
+        'NRJ-branded deployment of the white-label chat system, showing regional search, ' +
+        'user lists, messaging state, and advertising integration.',
+      fr :
+        'Déploiement NRJ du système de chat en marque blanche, avec recherche régionale, ' +
+        'listes utilisateurs, état messagerie et intégration publicitaire.',
     } satisfies Localized,
     alt       : {
-      en : 'Numbered placeholder image 03',
-      fr : 'Image temporaire numérotée 03',
+      en : 'NRJ branded chat search page with regional filters and user list',
+      fr : 'Page de recherche chat NRJ avec filtres régionaux et liste utilisateurs',
     } satisfies Localized,
   },
   {
     imageId   : 4,
-    projectId : 'proj-sbm-compliance',
+    projectId : 'proj-chatapp',
     title     : {
-      en : 'SBM compliance gallery sample',
-      fr : 'Exemple galerie conformité SBM',
+      en : 'TchatcheBlog community portal',
+      fr : 'Portail communautaire TchatcheBlog',
     } satisfies Localized,
     summary   : {
-      en : 'Temporary numbered image 04 for the compliance onboarding gallery.',
-      fr : 'Image temporaire numéro 04 pour la galerie onboarding conformité.',
+      en :
+        'Community blog portal from the tchatche.com ecosystem, including rankings, member ' +
+        'promotion, search, and cross-navigation into the chat product.',
+      fr :
+        'Portail blog communautaire de l’écosystème tchatche.com, avec classements, promotion ' +
+        'membres, recherche et navigation croisée vers le produit chat.',
     } satisfies Localized,
     alt       : {
-      en : 'Numbered placeholder image 04',
-      fr : 'Image temporaire numérotée 04',
+      en : 'TchatcheBlog community portal with blog rankings and member widgets',
+      fr : 'Portail communautaire TchatcheBlog avec classements blogs et widgets membres',
     } satisfies Localized,
   },
   {
     imageId   : 5,
     projectId : 'proj-desktop-portfolio',
     title     : {
-      en : 'Desktop Portfolio gallery sample',
-      fr : 'Exemple galerie Desktop Portfolio',
+      en : 'Desktop portfolio workspace',
+      fr : 'Espace de travail portfolio desktop',
     } satisfies Localized,
     summary   : {
-      en : 'Temporary numbered image 05 for the desktop portfolio gallery.',
-      fr : 'Image temporaire numéro 05 pour la galerie du portfolio desktop.',
+      en :
+        'The portfolio shell as an interactive desktop product, combining project, about, ' +
+        'media, dock, icon, and window-manager surfaces.',
+      fr :
+        'Le shell portfolio comme produit desktop interactif, combinant projets, à propos, ' +
+        'média, dock, icônes et gestionnaire de fenêtres.',
     } satisfies Localized,
     alt       : {
-      en : 'Numbered placeholder image 05',
-      fr : 'Image temporaire numérotée 05',
+      en : 'Desktop portfolio interface with several overlapping app windows and dock icons',
+      fr : 'Interface portfolio desktop avec plusieurs fenêtres superposées et icônes de dock',
     } satisfies Localized,
   },
   {
     imageId   : 6,
     projectId : 'proj-parallax-designer',
     title     : {
-      en : 'Parallax Designer gallery sample',
-      fr : 'Exemple galerie Parallax Designer',
+      en : 'Parallax Designer layer editor',
+      fr : 'Éditeur de calques Parallax Designer',
     } satisfies Localized,
     summary   : {
-      en : 'Temporary numbered image 06 for the Parallax Designer gallery.',
-      fr : 'Image temporaire numéro 06 pour la galerie Parallax Designer.',
+      en :
+        'Browser-based visual editor for tuning scene layers, geometry, depth, and preview ' +
+        'composition in the portfolio background system.',
+      fr :
+        'Éditeur visuel navigateur pour ajuster les calques, la géométrie, la profondeur et ' +
+        'la composition preview du système de fond du portfolio.',
     } satisfies Localized,
     alt       : {
-      en : 'Numbered placeholder image 06',
-      fr : 'Image temporaire numérotée 06',
+      en : 'Parallax Designer editor with canvas preview, layer stack, and geometry controls',
+      fr : 'Éditeur Parallax Designer avec preview canvas, pile de calques et contrôles géométrie',
     } satisfies Localized,
   },
   {
     imageId   : 7,
-    projectId : 'proj-hutchinson-work-instructions',
+    projectId : 'proj-parallax-designer',
     title     : {
-      en : 'Work instructions gallery sample',
-      fr : 'Exemple galerie instructions de travail',
+      en : 'Parallax Designer architecture docs',
+      fr : 'Docs architecture Parallax Designer',
     } satisfies Localized,
     summary   : {
-      en : 'Temporary numbered image 07 for the digital work instructions gallery.',
-      fr : 'Image temporaire numéro 07 pour la galerie instructions de travail digitales.',
+      en :
+        'Generated VitePress reference documentation showing the editor data flow, component ' +
+        'hierarchy, and implementation structure behind the Parallax Designer app.',
+      fr :
+        'Documentation de référence VitePress générée montrant le flux de données, la hiérarchie ' +
+        'des composants et la structure d’implémentation de Parallax Designer.',
     } satisfies Localized,
     alt       : {
-      en : 'Numbered placeholder image 07',
-      fr : 'Image temporaire numérotée 07',
+      en : 'Parallax Designer documentation page with data flow and component hierarchy diagrams',
+      fr : 'Page de documentation Parallax Designer avec diagrammes de flux et hiérarchie',
     } satisfies Localized,
   },
   {
     imageId   : 8,
-    projectId : 'proj-chatapp',
+    projectId : 'proj-sbm-compliance',
     title     : {
-      en : 'Chat platform gallery sample',
-      fr : 'Exemple galerie plateforme chat',
+      en : 'SBM compliance dashboard',
+      fr : 'Dashboard conformité SBM',
     } satisfies Localized,
     summary   : {
-      en : 'Temporary numbered image 08 for the white-label chat platform gallery.',
-      fr : 'Image temporaire numéro 08 pour la galerie plateforme de chat en marque blanche.',
+      en :
+        'Compliance onboarding dashboard with company, user, training, registration, document, ' +
+        'statistics, and administration entry points.',
+      fr :
+        'Dashboard d’onboarding conformité avec entrées entreprises, utilisateurs, formations, ' +
+        'inscriptions, documents, statistiques et administration.',
     } satisfies Localized,
     alt       : {
-      en : 'Numbered placeholder image 08',
-      fr : 'Image temporaire numérotée 08',
-    } satisfies Localized,
-  },
-  {
-    imageId   : 9,
-    projectId : 'proj-adproxy',
-    title     : {
-      en : 'Ad Proxy gallery sample',
-      fr : 'Exemple galerie Ad Proxy',
-    } satisfies Localized,
-    summary   : {
-      en : 'Temporary numbered image 09 for the ad-distribution server gallery.',
-      fr : 'Image temporaire numéro 09 pour la galerie serveur de distribution publicitaire.',
-    } satisfies Localized,
-    alt       : {
-      en : 'Numbered placeholder image 09',
-      fr : 'Image temporaire numérotée 09',
-    } satisfies Localized,
-  },
-  {
-    imageId   : 10,
-    projectId : 'proj-t4resx',
-    title     : {
-      en : 'T4ResX gallery sample',
-      fr : 'Exemple galerie T4ResX',
-    } satisfies Localized,
-    summary   : {
-      en : 'Temporary numbered image 10 for the localization tooling gallery.',
-      fr : 'Image temporaire numéro 10 pour la galerie outillage de localisation.',
-    } satisfies Localized,
-    alt       : {
-      en : 'Numbered placeholder image 10',
-      fr : 'Image temporaire numérotée 10',
-    } satisfies Localized,
-  },
-  {
-    imageId   : 11,
-    projectId : 'proj-headjs',
-    title     : {
-      en : 'HeadJS gallery sample',
-      fr : 'Exemple galerie HeadJS',
-    } satisfies Localized,
-    summary   : {
-      en : 'Temporary numbered image 11 for the HeadJS open-source library gallery.',
-      fr : 'Image temporaire numéro 11 pour la galerie bibliothèque open source HeadJS.',
-    } satisfies Localized,
-    alt       : {
-      en : 'Numbered placeholder image 11',
-      fr : 'Image temporaire numérotée 11',
-    } satisfies Localized,
-  },
-  {
-    imageId   : 12,
-    projectId : 'proj-wind-maintenance',
-    title     : {
-      en : 'Wind maintenance gallery sample',
-      fr : 'Exemple galerie maintenance éolienne',
-    } satisfies Localized,
-    summary   : {
-      en : 'Temporary numbered image 12 for the wind maintenance operations gallery.',
-      fr : 'Image temporaire numéro 12 pour la galerie opérations de maintenance éolienne.',
-    } satisfies Localized,
-    alt       : {
-      en : 'Numbered placeholder image 12',
-      fr : 'Image temporaire numérotée 12',
-    } satisfies Localized,
-  },
-  {
-    imageId   : 13,
-    projectId : 'proj-attendance-billing',
-    title     : {
-      en : 'Attendance billing gallery sample',
-      fr : 'Exemple galerie pointage facturation',
-    } satisfies Localized,
-    summary   : {
-      en : 'Temporary numbered image 13 for the attendance and invoicing gallery.',
-      fr : 'Image temporaire numéro 13 pour la galerie pointage et facturation.',
-    } satisfies Localized,
-    alt       : {
-      en : 'Numbered placeholder image 13',
-      fr : 'Image temporaire numérotée 13',
-    } satisfies Localized,
-  },
-  {
-    imageId   : 14,
-    projectId : 'proj-maser-academy-inventory',
-    title     : {
-      en : 'Maser Academy gallery sample',
-      fr : 'Exemple galerie Maser Academy',
-    } satisfies Localized,
-    summary   : {
-      en : 'Temporary numbered image 14 for the Maser Academy inventory gallery.',
-      fr : 'Image temporaire numéro 14 pour la galerie inventaire Maser Academy.',
-    } satisfies Localized,
-    alt       : {
-      en : 'Numbered placeholder image 14',
-      fr : 'Image temporaire numérotée 14',
-    } satisfies Localized,
-  },
-  {
-    imageId   : 15,
-    projectId : 'proj-roland-garros-navigation',
-    title     : {
-      en : 'Roland-Garros gallery sample',
-      fr : 'Exemple galerie Roland-Garros',
-    } satisfies Localized,
-    summary   : {
-      en : 'Temporary numbered image 15 for the staff navigation gallery.',
-      fr : 'Image temporaire numéro 15 pour la galerie guidage du personnel.',
-    } satisfies Localized,
-    alt       : {
-      en : 'Numbered placeholder image 15',
-      fr : 'Image temporaire numérotée 15',
+      en : 'SBM compliance dashboard with administration cards and profile side menu',
+      fr : 'Dashboard conformité SBM avec cartes d’administration et menu latéral profil',
     } satisfies Localized,
   },
 ] satisfies readonly [GalleryImageContent, ...GalleryImageContent[]]
@@ -311,14 +231,7 @@ const sampleAccents  = [
   'oklch(68% 0.18 60)',
   'oklch(64% 0.16 205)',
   'oklch(62% 0.19 350)',
-  'oklch(60% 0.18 270)',
-  'oklch(66% 0.16 135)',
-  'oklch(70% 0.16 82)',
-  'oklch(62% 0.17 305)',
-  'oklch(62% 0.14 180)',
-  'oklch(58% 0.18 20)',
-  'oklch(58% 0.16 250)',
-  'oklch(68% 0.15 75)',
+  'oklch(60% 0.16 120)',
 ] satisfies readonly [string, ...string[]]
 
 function padGalleryIndex(index: number) {

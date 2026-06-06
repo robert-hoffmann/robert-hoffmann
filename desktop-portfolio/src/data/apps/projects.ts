@@ -14,7 +14,6 @@ export const projectsMessages = {
 export const projects = [
   {
     id         : 'proj-tmip-scheduler',
-    imageId    : 1,
     name       : {
       en : 'TMIP Scheduler: Industrial Data Orchestration',
       fr : 'TMIP Scheduler: Orchestration de données industrielles',
@@ -71,7 +70,6 @@ export const projects = [
   },
   {
     id         : 'proj-uncle-bob',
-    imageId    : 2,
     name       : {
       en : 'Uncle Bob: Agentic AI Workflow System',
       fr : 'Uncle Bob: Système de workflow IA agentique',
@@ -142,7 +140,6 @@ export const projects = [
   },
   {
     id         : 'proj-tmip-logger',
-    imageId    : 3,
     name       : {
       en : 'TMIP Logger: QoS & KPI Observability',
       fr : 'TMIP Logger: Observabilité QoS & KPI',
@@ -193,7 +190,7 @@ export const projects = [
   },
   {
     id         : 'proj-sbm-compliance',
-    imageId    : 4,
+    imageId    : 8,
     name       : {
       en : 'SBM / Ter\u00e9ga: Onboarding & Certification Tracking',
       fr : 'SBM / Ter\u00e9ga: Suivi onboarding & certifications',
@@ -399,7 +396,6 @@ export const projects = [
   },
   {
     id         : 'proj-hutchinson-work-instructions',
-    imageId    : 7,
     name       : {
       en : 'Hutchinson: Digital Work Instructions',
       fr : 'Hutchinson: Instructions de travail digitales',
@@ -451,7 +447,7 @@ export const projects = [
   },
   {
     id         : 'proj-chatapp',
-    imageId    : 8,
+    imageId    : 1,
     name       : {
       en : 'tchatche.com: White-Label Chat Platform',
       fr : 'tchatche.com: Plateforme de chat en marque blanche',
@@ -505,7 +501,6 @@ export const projects = [
   },
   {
     id         : 'proj-adproxy',
-    imageId    : 9,
     name       : {
       en : 'Ad Proxy: Ad-Distribution Server',
       fr : 'Ad Proxy: Serveur de distribution publicitaire',
@@ -556,7 +551,6 @@ export const projects = [
   },
   {
     id         : 'proj-t4resx',
-    imageId    : 10,
     name       : {
       en : 'T4ResX: Localization Tooling',
       fr : 'T4ResX: Outillage de localisation',
@@ -619,7 +613,6 @@ export const projects = [
   },
   {
     id         : 'proj-headjs',
-    imageId    : 11,
     name       : {
       en : 'HeadJS: Open-Source JS Library',
       fr : 'HeadJS: Bibliothèque JS open source',
@@ -666,7 +659,6 @@ export const projects = [
   },
   {
     id         : 'proj-wind-maintenance',
-    imageId    : 12,
     name       : {
       en : 'Wind Turbine Maintenance Operations Platform',
       fr : 'Plateforme d\u2019opérations de maintenance éolienne',
@@ -733,7 +725,6 @@ export const projects = [
   },
   {
     id         : 'proj-attendance-billing',
-    imageId    : 13,
     name       : {
       en : 'Student Attendance & Invoicing System',
       fr : 'Application de pointage & facturation',
@@ -785,7 +776,6 @@ export const projects = [
   },
   {
     id         : 'proj-maser-academy-inventory',
-    imageId    : 14,
     name       : {
       en : 'Maser Academy: Course Inventory Planning',
       fr : 'Maser Academy: Planification d\u2019inventaire formation',
@@ -849,7 +839,6 @@ export const projects = [
   },
   {
     id         : 'proj-roland-garros-navigation',
-    imageId    : 15,
     name       : {
       en : 'Roland-Garros: Staff Navigation PWA',
       fr : 'Roland-Garros: PWA de guidage du personnel',
