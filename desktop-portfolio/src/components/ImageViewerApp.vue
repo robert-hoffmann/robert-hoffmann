@@ -172,8 +172,8 @@ const fullscreenCloseText = computed(() =>
 )
 const fullscreenHintText = computed(() =>
   l({
-    en : 'Pinch to zoom. Swipe down to close.',
-    fr : 'Pincez pour zoomer. Glissez vers le bas pour fermer.',
+    en : 'Pinch to zoom. &#8595; to close.',
+    fr : 'Pincez pour zoomer. &#8595; pour fermer.',
   }),
 )
 

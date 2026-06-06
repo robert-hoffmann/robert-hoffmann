@@ -781,7 +781,7 @@ onBeforeUnmount(() => {
 
       <div class="image-viewer-lightbox-bottombar">
         <span class="image-viewer-lightbox-counter">{{ fullscreenCounterText }}</span>
-        <span class="image-viewer-lightbox-hint">{{ hintText }}</span>
+        <span class="image-viewer-lightbox-hint" v-html="hintText"></span>
         <button
           class="image-viewer-lightbox-action"
           type="button"
