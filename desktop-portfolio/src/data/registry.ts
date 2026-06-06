@@ -229,7 +229,17 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
       },
     },
     component     : () => import('../components/ImageViewerApp.vue'),
-  },  
+  },
+  'cv-pdf' : {
+    id            : 'cv-pdf',
+    titleKey      : 'registry.cvPdf.title',
+    icon          : 'PDF',
+    iconUrl       : `${import.meta.env.BASE_URL}icons/cv-pdf.webp`,
+    type          : 'link',
+    defaultCol    : 14,
+    defaultRow    : 3,
+    url           : `${import.meta.env.BASE_URL}docs/robert-hoffmann-cv.pdf`,
+  },
 }
 
 /** Resolve a registry entry's component as a Vue async component */

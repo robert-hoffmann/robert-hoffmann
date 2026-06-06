@@ -28,7 +28,7 @@ const HOME_ITEM_IDS = [
   'music',
   'video',
   'gallery',
-  'cv-pdf'
+  'cv-pdf',
 ] as const
 
 const items = computed(() => {

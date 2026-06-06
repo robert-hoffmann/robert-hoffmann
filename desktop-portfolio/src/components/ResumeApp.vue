@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CvDownloadLink from './CvDownloadLink.vue'
 import { experience } from '../data/apps/resume'
 import { useLocale } from '../composables/useLocale'
 
@@ -7,51 +8,58 @@ const { l } = useLocale()
 
 <template>
   <div class="resume-timeline">
-    <article v-for="entry in experience" :key="entry.id" class="resume-entry">
-      <div class="resume-dot" />
+    <CvDownloadLink placement="sticky" />
 
-      <div class="resume-content">
-        <div class="resume-header">
-          <h3 class="content-title">{{ l(entry.company) }}</h3>
-          <span class="content-period">{{ entry.period }}</span>
+    <div class="resume-timeline-list">
+      <article v-for="entry in experience" :key="entry.id" class="resume-entry">
+        <div class="resume-dot" />
+
+        <div class="resume-content">
+          <div class="resume-header">
+            <h3 class="content-title">{{ l(entry.company) }}</h3>
+            <span class="content-period">{{ entry.period }}</span>
+          </div>
+
+          <div class="resume-role-row">
+            <span class="resume-role">{{ l(entry.role) }}</span>
+          </div>
+
+          <span v-if="'type' in entry" class="resume-type">{{ l(entry.type) }}</span>
+          <span v-if="'location' in entry" class="resume-location">{{ l(entry.location) }}</span>
+
+          <p v-if="'highlight' in entry" class="content-highlight">
+            {{ l(entry.highlight) }}
+          </p>
+
+          <p class="panel-paragraph">{{ l(entry.summary) }}</p>
+
+          <ul v-if="entry.bullets.length" class="panel-list">
+            <li v-for="bullet in entry.bullets" :key="`${entry.id}-${l(bullet)}`">{{ l(bullet) }}</li>
+          </ul>
+
+          <div v-if="'stack' in entry" class="content-stack">
+            <span
+              v-for="tech in entry.stack"
+              :key="`${entry.id}-${tech}`"
+              class="content-tag"
+            >{{ tech }}</span>
+          </div>
         </div>
-
-        <div class="resume-role-row">
-          <span class="resume-role">{{ l(entry.role) }}</span>
-        </div>
-
-        <span v-if="'type' in entry" class="resume-type">{{ l(entry.type) }}</span>
-        <span v-if="'location' in entry" class="resume-location">{{ l(entry.location) }}</span>
-
-        <p v-if="'highlight' in entry" class="content-highlight">
-          {{ l(entry.highlight) }}
-        </p>
-
-        <p class="panel-paragraph">{{ l(entry.summary) }}</p>
-
-        <ul v-if="entry.bullets.length" class="panel-list">
-          <li v-for="bullet in entry.bullets" :key="`${entry.id}-${l(bullet)}`">{{ l(bullet) }}</li>
-        </ul>
-
-        <div v-if="'stack' in entry" class="content-stack">
-          <span
-            v-for="tech in entry.stack"
-            :key="`${entry.id}-${tech}`"
-            class="content-tag"
-          >{{ tech }}</span>
-        </div>
-      </div>
-    </article>
+      </article>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .resume-timeline {
+  --cv-download-sticky-top : 10px;
+
   position             : relative;
   inline-size          : 100%;
   block-size           : 100%;
   min-block-size       : 0;
   padding              : var(--space-6);
+  padding-block-start  : 0;
   padding-inline-start : calc(var(--space-6) * 2);
   overflow-y           : auto;
   scrollbar-width      : thin;
@@ -77,12 +85,16 @@ const { l } = useLocale()
   }
 }
 
-.resume-timeline::before {
+.resume-timeline-list {
+  position : relative;
+}
+
+.resume-timeline-list::before {
   content            : '';
   position           : absolute;
-  inset-inline-start : calc(var(--space-6) + 0.5rem);
-  inset-block-start  : calc(var(--space-6) + 0.25rem);
-  inset-block-end    : calc(var(--space-6) + 0.25rem);
+  inset-inline-start : calc(-1 * var(--space-6) + 0.5rem);
+  inset-block-start  : 0.25rem;
+  inset-block-end    : 0.25rem;
   inline-size        : 2px;
   background         : var(--border-subtle);
 }

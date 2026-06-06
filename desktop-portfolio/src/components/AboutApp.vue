@@ -1,10 +1,21 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { about, aboutMessages } from '../data/apps/about'
+import { windowRegistry } from '../data/registry'
 import { useLocale } from '../composables/useLocale'
 
 const { l, t } = useLocale(aboutMessages)
-const baseUrl = import.meta.env.BASE_URL
+const baseUrl  = import.meta.env.BASE_URL
+const cvPdf    = windowRegistry['cv-pdf']
+
+if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url) {
+  throw new Error(
+    'The cv-pdf registry entry must define a PDF link URL.',
+  )
+}
+
+const cvPdfUrl   = cvPdf.url
+const cvPdfLabel = computed(() => t('cvDownload.label'))
 
 const POINTER_MEDIA_QUERY        = '(hover: hover) and (pointer: fine)'
 const REDUCED_MOTION_MEDIA_QUERY = '(prefers-reduced-motion: reduce)'
@@ -259,6 +270,12 @@ onUnmounted(() => {
         rel="noopener noreferrer"
         class="panel-link"
       >{{ link.label }}</a>
+      <a
+        :href="cvPdfUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="panel-link"
+      >{{ cvPdfLabel }}</a>
     </div>
   </div>
 </template>

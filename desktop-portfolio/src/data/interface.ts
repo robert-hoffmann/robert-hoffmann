@@ -105,6 +105,10 @@ export const interfaceMessages = {
     en : 'View Source on GitHub',
     fr : 'Voir le code source sur GitHub',
   },
+  'cvDownload.label'                  : {
+    en : 'Download Resume/CV',
+    fr : 'Télécharger le CV',
+  },
   'topbar.desktop'                    : {
     en : 'Desktop',
     fr : 'Bureau',
@@ -396,6 +400,10 @@ export const interfaceMessages = {
   'registry.resume.title'             : {
     en : 'Resume',
     fr : 'CV',
+  },
+  'registry.cvPdf.title'              : {
+    en : 'CV PDF',
+    fr : 'CV PDF',
   },
   'registry.twitter.title'            : {
     en : 'X',

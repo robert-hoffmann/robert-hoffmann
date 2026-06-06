@@ -7,6 +7,7 @@ import {
   watch,
   type ComponentPublicInstance,
 } from 'vue'
+import CvDownloadLink from './CvDownloadLink.vue'
 import { projects, projectsMessages, type Project } from '../data/apps/projects'
 import { useLocale } from '../composables/useLocale'
 import {
@@ -123,6 +124,8 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="projects-grid">
+    <CvDownloadLink placement="sticky" />
+
     <article
       v-for="project in projects"
       :id="project.id"
@@ -197,6 +200,8 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .projects-grid {
+  --cv-download-sticky-top : 10px;
+
   display               : grid;
   grid-template-columns : 1fr;
   gap                   : 0;
@@ -204,6 +209,7 @@ onBeforeUnmount(() => {
   block-size            : 100%;
   min-block-size        : 0;
   padding               : var(--space-6);
+  padding-block-start   : 0;
   overflow-y            : auto;
   scrollbar-width       : thin;
   scrollbar-color       : var(--icon-selected-bg) var(--surface-raised);
@@ -232,7 +238,7 @@ onBeforeUnmount(() => {
   padding-block-end         : var(--space-6);
   margin-block-end          : var(--space-6);
   border-block-end          : 1px solid var(--border-subtle);
-  scroll-margin-block-start : var(--space-4);
+  scroll-margin-block-start : calc(3rem + var(--space-4));
   transition                : background var(--dur-normal) var(--ease-out),
                               box-shadow var(--dur-normal) var(--ease-out);
 
