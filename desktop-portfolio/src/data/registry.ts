@@ -67,28 +67,6 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     },
     component     : () => import('../components/ProjectsApp.vue'),
   },
-  gallery : {
-    id            : 'gallery',
-    titleKey      : 'registry.gallery.title',
-    iconTitleKey  : 'registry.gallery.iconTitle',
-    icon          : '▧',
-    iconUrl       : `${import.meta.env.BASE_URL}icons/gallery.svg`,
-    type          : 'app',
-    defaultCol    : 3,
-    defaultRow    : 8,
-    window        : {
-      size : {
-        default : { w : 760, h : 590 },
-        min     : { w : 520, h : 390 },
-        max     : { w : 1180, h : 900 },
-      },
-      placement : {
-        openStrategy    : 'fixed',
-        defaultPosition : { x : 594, y : 65 },
-      },
-    },
-    component     : () => import('../components/ImageViewerApp.vue'),
-  },
   resume : {
     id            : 'resume',
     titleKey      : 'registry.resume.title',
@@ -230,6 +208,28 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     },
     component     : () => import('../components/TerminalApp.vue'),
   },
+  gallery : {
+    id            : 'gallery',
+    titleKey      : 'registry.gallery.title',
+    iconTitleKey  : 'registry.gallery.iconTitle',
+    icon          : '▧',
+    iconUrl       : `${import.meta.env.BASE_URL}icons/gallery.webp`,
+    type          : 'app',
+    defaultCol    : 3,
+    defaultRow    : 8,
+    window        : {
+      size : {
+        default : { w : 760, h : 590 },
+        min     : { w : 520, h : 390 },
+        max     : { w : 1180, h : 900 },
+      },
+      placement : {
+        openStrategy    : 'fixed',
+        defaultPosition : { x : 594, y : 65 },
+      },
+    },
+    component     : () => import('../components/ImageViewerApp.vue'),
+  },  
 }
 
 /** Resolve a registry entry's component as a Vue async component */

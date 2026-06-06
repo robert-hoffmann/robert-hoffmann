@@ -547,8 +547,8 @@
   box-shadow : none;
 }
 
-.desktop-icon-img[src*="gallery.svg"],
-.dock-icon-img[src*="gallery.svg"] {
+.desktop-icon-img[src*="gallery.webp"],
+.dock-icon-img[src*="gallery.webp"] {
   inline-size : 48px;
   block-size  : 45.62px;
   padding     : 0;
