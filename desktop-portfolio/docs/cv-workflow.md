@@ -7,6 +7,7 @@ Do not hand-edit the generated files in `public/docs/`.
 
 The generator owns these outputs:
 
+- `public/docs/robert-hoffmann-cv-hero.jpeg`
 - `public/docs/robert-hoffmann-cv.html`
 - `public/docs/robert-hoffmann-cv.pdf`
 - `public/docs/robert-hoffmann-cv.png`
@@ -25,7 +26,10 @@ Runtime app modules own canonical facts used by the portfolio UI:
 
 Document selection is owned by:
 
-- `src/data/docs/cv.ts`: the one-page English CV selection, wording, metrics, and source ids.
+- `src/data/docs/cv.ts`: the one-page English CV selection, wording, metrics, source ids, and visual identity asset references.
+- `public/docs/x-banner-1500x500.jpeg`: the compact CV hero background, shared with the X profile visual identity.
+- `public/docs/profile_400x400.jpg`: the circular CV profile/avatar image, shared with the X profile visual identity.
+- `public/docs/robert-hoffmann-cv-hero.jpeg`: generated flattened hero background used by the HTML/PDF; do not edit directly.
 
 Freeform research and channel-copy notes stay human-owned:
 
@@ -53,10 +57,11 @@ npm run docs:cv
 The generator:
 
 1. Loads `src/data/docs/cv.ts` through Vite SSR so TS data and `import.meta.env.BASE_URL` resolve like the app.
-2. Writes the one-page A4 HTML to `public/docs/robert-hoffmann-cv.html`.
-3. Uses Playwright Chromium to render `public/docs/robert-hoffmann-cv.pdf`.
-4. Uses Playwright Chromium to screenshot the `.sheet` preview to `public/docs/robert-hoffmann-cv.png`.
-5. Verifies the outputs are non-empty, the PDF starts with `%PDF`, and the PNG is `794x1123`.
+2. Uses Sharp to generate `public/docs/robert-hoffmann-cv-hero.jpeg` from `x-banner-1500x500.jpeg` with the configured overlay blend.
+3. Writes the one-page A4 HTML to `public/docs/robert-hoffmann-cv.html`.
+4. Uses Playwright Chromium to render `public/docs/robert-hoffmann-cv.pdf`.
+5. Uses Playwright Chromium to screenshot the `.sheet` preview to `public/docs/robert-hoffmann-cv.png`.
+6. Verifies the outputs are non-empty, the PDF starts with `%PDF`, and the PNG is `794x1123`.
 
 ## App Shortcut
 
@@ -78,19 +83,32 @@ When adding or revising CV content:
 
 1. Update canonical facts first in `about.ts`, `resume.ts`, `projects.ts`, or `gallery.ts` when the app should also show them.
 2. Update `src/data/docs/cv.ts` when the change is a one-page CV selection or wording decision.
-3. Run `npm run docs:cv`.
-4. Review `public/docs/robert-hoffmann-cv.png` visually for overflow, clipping, and one-page fit.
-5. Open `public/docs/robert-hoffmann-cv.pdf` and confirm it is one page.
-6. Run `npm run build`.
-7. Smoke-test desktop and mobile:
+3. Update `public/docs/x-banner-1500x500.jpeg` or `public/docs/profile_400x400.jpg` only when the CV/X visual identity should change.
+4. Run `npm run docs:cv`.
+5. Review `public/docs/robert-hoffmann-cv.png` visually for overflow, clipping, and one-page fit.
+6. Open `public/docs/robert-hoffmann-cv.pdf` and confirm it is one page.
+7. Run `npm run build`.
+8. Smoke-test desktop and mobile:
    - `Resume` opens the existing app window.
    - `CV PDF` opens `docs/robert-hoffmann-cv.pdf` in a new tab.
 
 ## Design Notes
 
-The v1 goal is stability, not editorial redesign. Keep layout and content close
-to the current artifact until the workflow is trusted. Editorial improvements
-should be made after regeneration is deterministic and reviewed.
+The CV uses a compact X-inspired hero: `x-banner-1500x500.jpeg` as the header
+background source and `profile_400x400.jpg` as the circular identity image. The
+PDF does not render the source banner with layered CSS transparency; the
+generator first flattens the banner and overlays into
+`robert-hoffmann-cv-hero.jpeg`. This avoids PDF viewer differences, especially
+PDF.js-based previews.
+
+Tune the banner merge in `scripts/generate-cv-docs.mjs`:
+
+- `HERO_BACKGROUND_OVERLAY.horizontal`: left-to-right dark overlay.
+- `HERO_BACKGROUND_OVERLAY.vertical`: top-to-bottom dark overlay.
+- `HERO_BACKGROUND_JPEG_QUALITY`: flattened JPEG quality.
+
+Keep the header compact enough to preserve one-page density; avoid expanding it
+into a full social-profile hero unless the body content is intentionally reduced.
 
 The CV stays English-only for now. If a French PDF is added later, prefer a
 second curated document object or an explicit locale field rather than deriving

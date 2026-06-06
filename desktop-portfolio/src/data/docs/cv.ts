@@ -25,6 +25,11 @@ interface CvTopMetric {
 
 interface CvCertification extends CvLink {}
 
+interface CvLanguage {
+  flag  : string
+  label : string
+}
+
 interface CvPortfolioProof {
   eyebrow         : string
   title           : string
@@ -55,31 +60,37 @@ interface CvVisualEvidence {
   projectId : ProjectId
 }
 
+interface CvIdentity {
+  avatarSrc : string
+  bannerSrc : string
+}
+
 export interface CvDocument {
-  title             : string
-  name              : string
-  mark              : string
-  topbarKicker      : string
-  role              : string
-  contacts          : readonly CvContact[]
-  metrics           : readonly CvTopMetric[]
-  profile           : {
+  title               : string
+  name                : string
+  identity            : CvIdentity
+  topbarKicker        : string
+  role                : string
+  contacts            : readonly CvContact[]
+  metrics             : readonly CvTopMetric[]
+  profile             : {
     lead : string
     body : string
   }
-  coreStack         : readonly string[]
-  emphasisStack     : readonly string[]
-  certifications    : readonly CvCertification[]
-  portfolioProof    : CvPortfolioProof
-  operatingMode     : readonly string[]
-  currentValue      : string
-  selectedExperience: readonly CvExperienceItem[]
-  impactProjects    : readonly CvImpactProject[]
-  footer            : {
+  coreStack           : readonly string[]
+  deliveryReliability : readonly string[]
+  languages           : readonly CvLanguage[]
+  certifications      : readonly CvCertification[]
+  portfolioProof      : CvPortfolioProof
+  operatingMode       : readonly string[]
+  currentValue        : string
+  selectedExperience  : readonly CvExperienceItem[]
+  impactProjects      : readonly CvImpactProject[]
+  footer              : {
     links : readonly CvLink[]
     text  : string
   }
-  visualEvidence    : readonly CvVisualEvidence[]
+  visualEvidence      : readonly CvVisualEvidence[]
 }
 // #endregion Types
 
@@ -151,20 +162,24 @@ function projectHasGalleryImage(id: ProjectId): boolean {
 // #region Source Selections
 const githubHref   = requireAboutLink('GitHub')
 const linkedInHref = requireAboutLink('LinkedIn')
+const xHref        = requireAboutLink('X')
 
 const maserExperience       = getExperience('exp-maser')
 const independentExperience = getExperience('exp-independent')
+const infomilExperience     = getExperience('exp-infomil')
+const daoExperience         = getExperience('exp-dao')
+const prestaliaExperience   = getExperience('exp-prestalia')
 const indexExperience       = getExperience('exp-index')
 const mmExperience          = getExperience('exp-123mm')
 
 const tmipSchedulerProject  = getProject('proj-tmip-scheduler')
 const tmipLoggerProject     = getProject('proj-tmip-logger')
+const healthmonProject      = getProject('proj-healthmon')
 const windProject           = getProject('proj-wind-maintenance')
 const sbmProject            = getProject('proj-sbm-compliance')
 const hutchinsonProject     = getProject('proj-hutchinson-work-instructions')
 const chatProject           = getProject('proj-chatapp')
 const adProxyProject        = getProject('proj-adproxy')
-const uncleBobProject       = getProject('proj-uncle-bob')
 const portfolioProject      = getProject('proj-desktop-portfolio')
 // #endregion Source Selections
 
@@ -172,7 +187,10 @@ const portfolioProject      = getProject('proj-desktop-portfolio')
 export const cvDocument = {
   title        : `${about.name} - CV`,
   name         : about.name,
-  mark         : 'RH',
+  identity     : {
+    avatarSrc : 'profile_400x400.jpg',
+    bannerSrc : 'x-banner-1500x500.jpeg',
+  },
   topbarKicker : 'Industrial software / AI-assisted delivery',
   role         :
     'Industrial Full-Stack Consultant for operational platforms, data orchestration, offline ' +
@@ -181,7 +199,7 @@ export const cvDocument = {
   contacts : [
     {
       label : 'Location',
-      text  : 'France, hybrid',
+      text  : 'Toulouse - France, Hybrid',
       href  : '',
     },
     {
@@ -190,14 +208,14 @@ export const cvDocument = {
       href  : portfolioHref,
     },
     {
-      label : 'LinkedIn',
-      text  : 'linkedin.com/in/hoffmannrobert',
-      href  : linkedInHref,
+      label : 'Email',
+      text  : 'robert.hoffmann@i-technology.net',
+      href  : 'mailto:robert.hoffmann@i-technology.net',
     },
     {
-      label : 'GitHub',
-      text  : 'github.com/robert-hoffmann',
-      href  : githubHref,
+      label : 'Phone',
+      text  : '+33 6 49 23 44 15',
+      href  : 'tel:+33649234415',
     },
   ],
 
@@ -237,12 +255,16 @@ export const cvDocument = {
   },
 
   coreStack : [
-    'Python 3.12',
+    'Python',
     'FastAPI',
     'C#',
     '.NET',
-    'Vue 3',
+    'VueJS',
     'TypeScript',
+    'HTML5',
+    'CSS3',
+    'Bootstrap',
+    'Tailwind',
     'Symfony',
     'Quasar',
     'MariaDB',
@@ -252,10 +274,31 @@ export const cvDocument = {
     'Google Workspace',
   ],
 
-  emphasisStack : [
+  deliveryReliability : [
     'AI Workflows',
     'Quality Gates',
     'Observability',
+    'Structured Logging',
+    'Error Tracking',
+    'Health Monitoring',
+    'Alerting',
+    'Traceability',
+    'Fast Diagnosis',
+  ],
+
+  languages : [
+    {
+      flag  : '🇬🇧',
+      label : 'English',
+    },
+    {
+      flag  : '🇫🇷',
+      label : 'French',
+    },
+    {
+      flag  : '🇩🇪',
+      label : 'German',
+    },
   ],
 
   certifications : [
@@ -282,6 +325,8 @@ export const cvDocument = {
     'Outside-in delivery: clarify users, failure modes, data flows, and acceptance evidence before polishing UI.',
     'Modernize legacy systems through typing, logging, repeatable checks, and production-friendly migration steps.',
     'Use agent workflows for research, specs, reviews, implementation, docs sync, and quality gates.',
+    'Build operational visibility into products with structured logs, health signals, error classification, alerts, and dashboard feeds.',
+    'Treat quality as runtime evidence: typed contracts, repeatable checks, production telemetry, and fast diagnosis loops.',
   ],
 
   currentValue :
@@ -309,6 +354,15 @@ export const cvDocument = {
         'Advises entrepreneurs, startups, and SMEs on product strategy, automation, technical risk, ROI, and full-stack delivery.',
       ],
       sourceIds : [independentExperience.id],
+    },
+    {
+      date      : '2014<br>2017',
+      role      : 'Web Architect / Delivery Modernization',
+      company   : 'Infomil, dao & Co, Prestalia - Toulouse Area',
+      bullets   : [
+        'Improved source-control architecture, cloud migration, deployment pipelines, bug tracking, and knowledge sharing.',
+      ],
+      sourceIds : [infomilExperience.id, daoExperience.id, prestaliaExperience.id],
     },
     {
       date      : '2003<br>2013',
@@ -350,6 +404,32 @@ export const cvDocument = {
       hasGalleryImage  : projectHasGalleryImage(tmipLoggerProject.id),
     },
     {
+      title            : 'Operational health monitoring - production signals',
+      body             :
+        'Health and alerting layer for industrial jobs: error spikes, SSL expiry, daily ' +
+        'summaries, Skywise feeds, Quiver VM metrics, and plant/job-level diagnosis.',
+      metrics          : [
+        '16 plants',
+        'Skywise + Quiver',
+        'automated alerts',
+      ],
+      sourceProjectIds : [tmipSchedulerProject.id, tmipLoggerProject.id],
+      hasGalleryImage  : projectHasGalleryImage(tmipLoggerProject.id),
+    },
+    {
+      title            : 'HealthMonitoring - error-tracking back office',
+      body             :
+        'Aggregated SQL, IIS, .NET, application, and client-side errors into drill-down ' +
+        'views by machine, exception, message, stack trace, request context, and browser metadata.',
+      metrics          : [
+        'days to minutes',
+        '5x fewer errors',
+        'SQL/IIS/.NET/client',
+      ],
+      sourceProjectIds : [healthmonProject.id],
+      hasGalleryImage  : projectHasGalleryImage(healthmonProject.id),
+    },
+    {
       title            : 'Offline field and compliance platforms',
       href             : getProjectLink(windProject, 'Maser maintenance'),
       body             :
@@ -364,17 +444,16 @@ export const cvDocument = {
       hasGalleryImage  : projectHasGalleryImage(sbmProject.id),
     },
     {
-      title            : 'High-scale web and AI workflow systems',
-      href             : getProjectLink(uncleBobProject, 'Docs'),
+      title            : 'High-scale web and ad-serving systems',
       body             :
-        'White-label chat/ad infrastructure for major media brands, plus portable agent ' +
-        'workflows for quality, governance, documentation sync, and validation.',
+        'White-label chat and ad-serving infrastructure for major French media brands, ' +
+        'covering real-time community traffic, campaign routing, targeting, and branded portals.',
       metrics          : [
+        '600M views/month',
         '400M req/day',
         '3B+ ads/month',
-        '11 AI skills',
       ],
-      sourceProjectIds : [chatProject.id, adProxyProject.id, uncleBobProject.id],
+      sourceProjectIds : [chatProject.id, adProxyProject.id],
       hasGalleryImage  : projectHasGalleryImage(chatProject.id),
     },
   ],
@@ -392,6 +471,10 @@ export const cvDocument = {
       {
         label : 'GitHub',
         href  : githubHref,
+      },
+      {
+        label : 'X',
+        href  : xHref,
       },
     ],
     text : `${about.name} - Industrial Full-Stack Consultant`,
