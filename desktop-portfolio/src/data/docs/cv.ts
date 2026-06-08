@@ -348,14 +348,14 @@ export const cvDocument = {
       role      : english(independentExperience.role),
       company   : `${english(independentExperience.company)} - ${english(independentExperience.location)}`,
       bullets   : [
-        'Advises entrepreneurs, startups, SMEs, and technical teams on product strategy, automation, technical risk, ROI, and full-stack delivery.',
+        'Advises entrepreneurs, startups, SMEs, and product/technical teams on strategy, workflows, technical direction, automation, optimization, ROI, risk, and delivery choices.',
       ],
       sourceIds : [independentExperience.id],
     },
     {
       date      : '2014<br>2017',
       role      : 'Web Architect / Delivery Modernization',
-      company   : 'Infomil, dao & Co, Prestalia - Toulouse Area',
+      company   : 'Infomil, dao & Co, Prestalia - Toulouse, France',
       bullets   : [
         'Improved source-control architecture, cloud migration, deployment pipelines, bug tracking, and knowledge sharing.',
       ],
@@ -364,7 +364,7 @@ export const cvDocument = {
     {
       date      : '2003<br>2013',
       role      : english(indexExperience.role),
-      company   : '123 Multimedia / Index Multimedia',
+      company   : '123 Multimedia / Index Multimedia - Toulouse, France',
       bullets   : [
         'Led and evolved high-traffic community, real-time chat, ad-tech, localization, and error-tracking systems for major French media brands.',
       ],

@@ -1684,7 +1684,7 @@ Stack : Python, Symfony/PHP, VueJS, Quasar, Airtable, SQL, APIs REST, Skywise / 
 
 ```text
 Product / Technology / Automation Consultant - Independent
-2019–Present · Greater Toulouse Area
+2019–Present · Toulouse, France
 
 I help entrepreneurs, startups, SMEs, and technical/product teams make better decisions in high-tech and increasingly automated environments. The offer is expert consultancy and direction: assess the current state, identify high-leverage opportunities, reduce uncertainty, and support teams through strategy, workflows, product choices, technical choices, and execution.
 
@@ -1702,7 +1702,7 @@ Best fit: a company that needs an experienced outside expert to clarify options,
 
 ```text
 Consultant produit / technologie / automatisation - Indépendant
-2019–présent · Grand Toulouse
+2019–présent · Toulouse, France
 
 J’aide entrepreneurs, startups, PME et équipes produit/techniques à prendre de meilleures décisions dans des environnements de plus en plus technologiques et automatisés. L’offre est du conseil et de la direction experte : analyser l’état actuel, identifier les opportunités à fort levier, réduire l’incertitude et accompagner les équipes sur stratégie, workflows, choix produit, choix techniques et exécution.
 
@@ -1750,7 +1750,7 @@ Direction de la stratégie produit pour une startup HealthTech / NutriTech centr
 
 ```text
 R&D Engineer - Infomil
-May 2017–Dec 2017 · Toulouse
+May 2017–Dec 2017 · Toulouse, France
 
 Worked in E.Leclerc’s R&D IT service on source-control architecture, developer tooling, automation, and technical roadmap work for a large internal developer organization.
 
@@ -1768,7 +1768,7 @@ Stack: Perforce, PowerShell, C#, WinForms, TeamCity.
 
 ```text
 Ingénieur R&D - Infomil
-mai 2017–déc. 2017 · Toulouse
+mai 2017–déc. 2017 · Toulouse, France
 
 Intervention au sein du service IT R&D d’E.Leclerc sur l’architecture de gestion de sources, l’outillage développeur, l’automatisation et la roadmap technique d’une grande organisation interne.
 
@@ -1788,7 +1788,7 @@ Stack : Perforce, PowerShell, C#, WinForms, TeamCity.
 
 ```text
 Consultant / Full-Stack Developer - dao & Co
-Apr 2015–Feb 2017 · Ramonville Saint-Agne
+Apr 2015–Feb 2017 · Ramonville, France
 
 Built personalized interfaces, integrations, and automation around e-learning platforms used to train management and staff at major banks and insurance groups.
 
@@ -1802,7 +1802,7 @@ Built personalized interfaces, integrations, and automation around e-learning pl
 
 ```text
 Consultant / Développeur full-stack - dao & Co
-avr. 2015–févr. 2017 · Ramonville Saint-Agne
+avr. 2015–févr. 2017 · Ramonville, France
 
 Développement d’interfaces personnalisées, d’intégrations et d’automatisations autour de plateformes e-learning utilisées pour former cadres et collaborateurs de grands groupes bancaires et d’assurance.
 
@@ -1818,7 +1818,7 @@ Développement d’interfaces personnalisées, d’intégrations et d’automati
 
 ```text
 Web Architect - Prestalia
-Mar 2014–Jul 2014 · Greater Toulouse Area
+Mar 2014–Jul 2014 · Toulouse, France
 
 Reviewed and enhanced technical infrastructure and development workflows for Microsoft-stack web products.
 
@@ -1833,7 +1833,7 @@ Stack: C#, .NET, HTML5, CSS3, JavaScript, jQuery.
 
 ```text
 Architecte web - Prestalia
-mars 2014–juil. 2014 · Grand Toulouse
+mars 2014–juil. 2014 · Toulouse, France
 
 Revue et amélioration de l’infrastructure technique et des workflows de développement pour des produits web Microsoft-stack.
 
@@ -1852,7 +1852,7 @@ This is strategically important. Keep the metric contexts precise.
 
 ```text
 Senior Full-Stack Developer / Tech Lead - Index Multimedia
-2008–Nov 2013 · Greater Toulouse Area
+2008–Nov 2013 · Toulouse, France
 
 Technical lead across high-traffic media, community, chat, ad-serving, and white-label web products.
 
@@ -1869,7 +1869,7 @@ Stack: C#, ASP.NET MVC, Razor, WebAPI, .NET Framework, JavaScript, jQuery, jQuer
 
 ```text
 Développeur full-stack senior / Tech Lead - Index Multimedia
-2008–nov. 2013 · Grand Toulouse
+2008–nov. 2013 · Toulouse, France
 
 Tech lead sur produits web média, communautaires, chat, ad-serving et marque blanche à fort trafic.
 
@@ -1888,7 +1888,7 @@ Stack : C#, ASP.NET MVC, Razor, WebAPI, .NET Framework, JavaScript, jQuery, jQue
 
 ```text
 Senior Full-Stack Developer - CELAD
-2007–2008 · Greater Toulouse Area
+2007–2008 · Toulouse, France
 
 Led technical and design restructuring of internationalized white-label web chat products under legacy-browser and high-volume Ajax constraints.
 
@@ -1903,7 +1903,7 @@ Stack: C#, .NET, jQuery, JavaScript, CSS, JSON, i18n, white-label theming.
 
 ```text
 Développeur full-stack senior - CELAD
-2007–2008 · Grand Toulouse
+2007–2008 · Toulouse, France
 
 Direction de la restructuration technique et design de produits chat web internationalisés en marque blanche, sous contraintes navigateurs legacy et trafic Ajax élevé.
 
@@ -1920,7 +1920,7 @@ Stack : C#, .NET, jQuery, JavaScript, CSS, JSON, i18n, theming marque blanche.
 
 ```text
 Full-Stack Developer / Integrator - 123 Multimedia SA
-2003–2007 · Greater Toulouse Area
+2003–2007 · Toulouse, France
 
 Built B2B/B2C community products, white-label portals, monetized chat/blog systems, CMS-style back offices, and affiliate/reseller integrations.
 
@@ -1937,7 +1937,7 @@ Stack: C#, .NET, JavaScript, CSS, HTML, monetization APIs, ad systems, payment s
 
 ```text
 Développeur full-stack / Intégrateur - 123 Multimedia SA
-2003–2007 · Grand Toulouse
+2003–2007 · Toulouse, France
 
 Développement de produits communautaires B2B/B2C, portails marque blanche, systèmes chat/blog monétisés, back-offices type CMS et intégrations affiliation / revente.
 
@@ -1956,7 +1956,7 @@ Stack : C#, .NET, JavaScript, CSS, HTML, APIs de monétisation, systèmes public
 
 ```text
 Product Owner / Full-Stack Developer - Independent
-1998–2003 · Greater Toulouse Area
+1998–2003 · Toulouse, France
 
 Created early web products before modern frameworks: community sites, CMS/portal software, traffic-generation tools, affiliate systems, plugins/modules, themes, marketplaces, SEO, and monetized content workflows.
 
@@ -1973,7 +1973,7 @@ Stack: PHP, MySQL, JavaScript, CSS, HTML, XML, XSL/XSLT, Zope/Plone, SEO, affili
 
 ```text
 Product Owner / Développeur full-stack - Indépendant
-1998–2003 · Grand Toulouse
+1998–2003 · Toulouse, France
 
 Création de produits web avant les frameworks modernes : sites communautaires, logiciels CMS/portail, outils de génération de trafic, systèmes d’affiliation, plugins/modules, thèmes, marketplaces, SEO et workflows de contenu monétisé.
 

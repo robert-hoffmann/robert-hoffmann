@@ -38,8 +38,8 @@ export const experience = [
     } satisfies Localized,
     bullets  : [
       {
-        en : 'Delivered full-stack operational platforms across Symfony, VueJS, Quasar, Python, Airtable, MariaDB, SQLite, and REST APIs',
-        fr : 'Livraison de plateformes opérationnelles full-stack avec Symfony, VueJS, Quasar, Python, Airtable, MariaDB, SQLite et APIs REST',
+        en : 'Delivered full-stack operational platforms across Symfony, VueJS, Quasar, Python, Airtable, SQL, and REST APIs',
+        fr : 'Livraison de plateformes opérationnelles full-stack avec Symfony, VueJS, Quasar, Python, Airtable, SQL et APIs REST',
       },
       {
         en : 'Built offline-capable field and tablet apps for wind-turbine maintenance, training attendance, and manufacturing work instructions',
@@ -78,13 +78,13 @@ export const experience = [
       fr : 'Indépendant',
     } satisfies Localized,
     role     : {
-      en : 'Product / Full-Stack / AI Workflow Consultant',
-      fr : 'Consultant produit / full-stack / workflows IA',
+      en : 'Product / Technology / Automation Consultant',
+      fr : 'Consultant produit / technologie / automatisation',
     } satisfies Localized,
     period   : '2019 – Present',
     location : {
-      en : 'Greater Toulouse Area',
-      fr : 'Grand Toulouse',
+      en : 'Toulouse, France',
+      fr : 'Toulouse, France',
     } satisfies Localized,
     type     : {
       en : 'Freelance',
@@ -92,33 +92,34 @@ export const experience = [
     } satisfies Localized,
     summary  : {
       en :
-        'Helping entrepreneurs, start-ups, SMEs, and technical teams turn product, operational, ' +
-        'and automation problems into working software and repeatable delivery systems.',
+        'Advising entrepreneurs, start-ups, SMEs, and product/technical teams on strategy, ' +
+        'workflows, product choices, technical direction, automation, and optimization in ' +
+        'increasingly high-tech environments.',
       fr :
-        'Accompagnement d\u2019entrepreneurs, de start-ups, de PME et d\u2019équipes techniques pour ' +
-        'transformer des problèmes produit, opérationnels et d\u2019automatisation en logiciels utiles ' +
-        'et en systèmes de livraison répétables.',
+        'Conseil auprès d\u2019entrepreneurs, de start-ups, de PME et d\u2019équipes produit/techniques ' +
+        'sur stratégie, workflows, choix produit, direction technique, automatisation et ' +
+        'optimisation dans des environnements de plus en plus technologiques.',
     } satisfies Localized,
     bullets  : [
       {
-        en : 'Innovation management, feasibility studies, and market & competitive analysis',
-        fr : 'Gestion de l\u2019innovation, études de faisabilité, et analyses de marché & concurrentielles',
+        en : 'Innovation, feasibility, market, competitive, cost, ROI, risk, and technical-debt analysis',
+        fr : 'Analyse innovation, faisabilité, marché, concurrence, coûts, ROI, risques et dette technique',
       },
       {
-        en : 'Full-stack delivery across frontend, backend, back-office, web, mobile, and service architecture',
-        fr : 'Livraison full-stack sur frontend, backend, back-office, web, mobile et architecture de services',
+        en : 'Workflow and delivery support across Agile, Scrum, Kanban, Lean, BizDevOps, CI/CD, documentation, and project/ticket management',
+        fr : 'Accompagnement workflow et delivery : Agile, Scrum, Kanban, Lean, BizDevOps, CI/CD, documentation et gestion projet/tickets',
       },
       {
-        en : 'AI-directed delivery workflows for planning, implementation, review, testing, documentation sync, and quality gates',
-        fr : 'Workflows de livraison pilotés par IA pour planning, implémentation, revue, tests, synchronisation documentaire et quality gates',
+        en : 'Product and technical guidance for frontend, back-office, web/mobile apps, services, B2B/B2C, e-commerce, cloud, and CDN environments',
+        fr : 'Guidance produit et technique pour frontend, back-office, apps web/mobile, services, B2B/B2C, e-commerce, cloud et CDN',
       },
       {
-        en : 'Digital strategy, growth hacking, SEO/SEA, and user acquisition & retention',
-        fr : 'Stratégie digitale, growth hacking, SEO/SEA, et acquisition & rétention utilisateurs',
+        en : 'Optimization of productivity, QoS, UI/UX, operating costs, automation, and service reliability',
+        fr : 'Optimisation de la productivité, QoS, UI/UX, coûts d\u2019exploitation, automatisation et fiabilité des services',
       },
       {
-        en : 'ROI, cost, risk, technical-debt, user-acquisition, retention, and automation analysis',
-        fr : 'Analyse de ROI, coûts, risques, dette technique, acquisition, rétention et opportunités d\u2019automatisation',
+        en : 'Digital strategy support: SEO/SEA, growth, acquisition, retention, analytics, branding, and user satisfaction',
+        fr : 'Support stratégie digitale : SEO/SEA, growth, acquisition, rétention, analytics, branding et satisfaction utilisateurs',
       },
     ] satisfies Localized[],
     stack    : ['Agile Coach', 'Product Owner', 'Scrum', 'Kanban'],
@@ -156,8 +157,8 @@ export const experience = [
         fr : 'Conception de workflows d\u2019automatisation de diagnostic & de prescription',
       },
       {
-        en : 'Shaped the personalized-care product roadmap',
-        fr : 'Élaboration de la feuille de route produit de soins personnalisés',
+        en : 'Shaped roadmap, positioning, personalization logic, and user journeys for a data-informed care product',
+        fr : 'Structuration de la roadmap, du positionnement, de la logique de personnalisation et des parcours utilisateurs',
       },
     ] satisfies Localized[],
   },
@@ -181,8 +182,8 @@ export const experience = [
       fr : 'Contrat · 8 mois',
     } satisfies Localized,
     summary  : {
-      en : 'E.Leclerc\u2019s R&D IT Service (basically France\u2019s Walmart)',
-      fr : 'Service IT R&D chez E.Leclerc',
+      en : 'Worked in E.Leclerc\u2019s R&D IT service on source-control architecture, developer tooling, automation, and technical roadmap work for a large internal developer organization.',
+      fr : 'Intervention au sein du service IT R&D d\u2019E.Leclerc sur l\u2019architecture de gestion de sources, l\u2019outillage développeur, l\u2019automatisation et la roadmap technique d\u2019une grande organisation interne.',
     } satisfies Localized,
     bullets  : [
       {
@@ -206,8 +207,8 @@ export const experience = [
         fr : 'Évaluation de l\u2019intégration CI TeamCity et rédaction d\u2019une feuille de route d\u2019évolution d\u2019architecture',
       },
       {
-        en : 'Conducted feasibility studies - emoji messaging POC, static analysis, OWASP pen testing',
-        fr : 'Études de faisabilité - POC messagerie emoji, analyse statique, tests d\u2019intrusion OWASP',
+        en : 'Conducted feasibility studies around messaging, static analysis, and OWASP/security testing',
+        fr : 'Études de faisabilité autour de la messagerie, de l\u2019analyse statique et des tests sécurité / OWASP',
       },
     ] satisfies Localized[],
     stack    : ['Perforce', 'PowerShell', 'C#', 'WinForms', 'TeamCity'],
@@ -224,8 +225,8 @@ export const experience = [
     } satisfies Localized,
     period   : 'Apr 2015 – Feb 2017',
     location : {
-      en : 'Ramonville Saint-Agne, France',
-      fr : 'Ramonville Saint-Agne, France',
+      en : 'Ramonville, France',
+      fr : 'Ramonville, France',
     } satisfies Localized,
     type     : {
       en : 'Contract · 1 yr 11 mo',
@@ -233,11 +234,12 @@ export const experience = [
     } satisfies Localized,
     summary  : {
       en :
-        'Built personalized interfaces for e-learning platforms (MOOCs) used to train management ' +
-        'and staff at major banks and insurance groups.',
+        'Built personalized interfaces, integrations, and automation around e-learning platforms ' +
+        'used to train management and staff at major banks and insurance groups.',
       fr :
-        'Développement d\u2019interfaces personnalisées pour des plateformes e-learning (MOOCs) ' +
-        'utilisées pour la formation des cadres et du personnel de grands groupes bancaires et d\u2019assurance.',
+        'Développement d\u2019interfaces personnalisées, d\u2019intégrations et d\u2019automatisations autour ' +
+        'de plateformes e-learning utilisées pour former cadres et collaborateurs de grands ' +
+        'groupes bancaires et d\u2019assurance.',
     } satisfies Localized,
     bullets  : [
       {
@@ -266,16 +268,16 @@ export const experience = [
     } satisfies Localized,
     period   : 'Mar 2014 – Jul 2014',
     location : {
-      en : 'Greater Toulouse Area',
-      fr : 'Grand Toulouse',
+      en : 'Toulouse, France',
+      fr : 'Toulouse, France',
     } satisfies Localized,
     type     : {
       en : 'Contract · 5 months',
       fr : 'Contrat · 5 mois',
     } satisfies Localized,
     summary  : {
-      en : 'Reviewed and enhanced the company\u2019s technical infrastructure and development workflows.',
-      fr : 'Revue et amélioration de l\u2019infrastructure technique et des workflows de développement de l\u2019entreprise.',
+      en : 'Reviewed and enhanced technical infrastructure and development workflows for Microsoft-stack web products.',
+      fr : 'Revue et amélioration de l\u2019infrastructure technique et des workflows de développement pour des produits web Microsoft-stack.',
     } satisfies Localized,
     bullets  : [
       {
@@ -305,8 +307,8 @@ export const experience = [
     } satisfies Localized,
     period    : '2008 – Nov 2013',
     location  : {
-      en : 'Greater Toulouse Area',
-      fr : 'Grand Toulouse',
+      en : 'Toulouse, France',
+      fr : 'Toulouse, France',
     } satisfies Localized,
     type      : {
       en : 'Permanent · ~6 years',
@@ -320,14 +322,10 @@ export const experience = [
         'Tech lead sur produits web média, communautaires, chat, ad-serving et marque blanche ' +
         'à fort trafic.',
     } satisfies Localized,
-    highlight : {
-      en : '6M uniques/mo · 400M req/day network',
-      fr : '6M visiteurs uniques/mois · 400M req/jour réseau',
-    } satisfies Localized,
     bullets   : [
       {
-        en : 'Owned technical delivery for white-label tchatche.com chat apps: frontend architecture, browser compatibility, i18n, performance, moderation, and client/server interaction patterns',
-        fr : 'Responsable technique des apps chat tchatche.com marque blanche : architecture frontend, compatibilité navigateur, i18n, performance, modération et interactions client/serveur',
+        en : 'Owned technical delivery for white-label tchatche.com chat apps: frontend architecture, browser compatibility, i18n, performance, caching, moderation, and client/server interaction patterns',
+        fr : 'Responsable technique des apps chat tchatche.com marque blanche : architecture frontend, compatibilité navigateur, i18n, performance, cache, modération et interactions client/serveur',
       },
       {
         en :
@@ -370,16 +368,16 @@ export const experience = [
     } satisfies Localized,
     period   : '2007 – 2008',
     location : {
-      en : 'Greater Toulouse Area',
-      fr : 'Grand Toulouse',
+      en : 'Toulouse, France',
+      fr : 'Toulouse, France',
     } satisfies Localized,
     type     : {
       en : 'Contract · 1 year',
       fr : 'Contrat · 1 an',
     } satisfies Localized,
     summary  : {
-      en : 'Led technical and design restructuring of internationalized white-label web chat products.',
-      fr : 'Direction de la restructuration technique et design de produits chat web en marque blanche internationalisés.',
+      en : 'Led technical and design restructuring of internationalized white-label web chat products under legacy-browser and high-volume Ajax constraints.',
+      fr : 'Direction de la restructuration technique et design de produits chat web internationalisés en marque blanche, sous contraintes navigateurs legacy et trafic Ajax élevé.',
     } satisfies Localized,
     bullets  : [
       {
@@ -387,8 +385,8 @@ export const experience = [
         fr : 'Architecture d\u2019une application web responsive, internationalisée et personnalisable (IE\u202F6+)',
       },
       {
-        en : 'Halved white-label deployment time while delivering a modern, translatable product',
-        fr : 'Réduction de moitié du temps de déploiement en marque blanche avec un produit moderne et traduisible',
+        en : 'Reduced white-label deployment time while delivering a more maintainable and translatable product',
+        fr : 'Réduction du temps de déploiement marque blanche avec un produit plus maintenable et traduisible',
       },
       {
         en : 'Designed a custom compact JSON protocol (JsonRaw) to reduce bandwidth on high-volume chat/Ajax traffic',
@@ -409,8 +407,8 @@ export const experience = [
     } satisfies Localized,
     period   : '2003 – 2007',
     location : {
-      en : 'Greater Toulouse Area',
-      fr : 'Grand Toulouse',
+      en : 'Toulouse, France',
+      fr : 'Toulouse, France',
     } satisfies Localized,
     type     : {
       en : 'Permanent · 4 years',
@@ -426,16 +424,16 @@ export const experience = [
     } satisfies Localized,
     bullets  : [
       {
-        en : 'Deployed internal ad servers - 10× increase in ads served and revenue',
-        fr : 'Déploiement de serveurs publicitaires internes - 10× plus de pubs servies et de revenus',
-      },
-      {
-        en : 'Integrated monetization services - ad networks, credit card, SMS, micro-payment, paywall',
-        fr : 'Intégration de services de monétisation - régies publicitaires, carte bancaire, SMS, micro-paiement, paywall',
-      },
-      {
         en : 'Customized white-label products for TF1, Skyrock, NRJ Group, M6, SFR, Orange, Microsoft, Pepsi, and more',
         fr : 'Personnalisation de produits marque blanche pour TF1, Skyrock, NRJ Group, M6, SFR, Orange, Microsoft, Pepsi, et plus',
+      },
+      {
+        en : 'Integrated monetization services: ad networks, credit card payments, SMS, micro-payment, and paywalls',
+        fr : 'Intégration de services de monétisation : régies publicitaires, carte bancaire, SMS, micro-paiement et paywalls',
+      },
+      {
+        en : 'Built frontend and backend features across chat, blog, portal, and community products',
+        fr : 'Développement de fonctionnalités frontend et backend sur produits chat, blog, portail et communauté',
       },
     ] satisfies Localized[],
     stack    : ['C#', '.NET', 'JavaScript', 'CSS', 'HTML'],
@@ -452,16 +450,16 @@ export const experience = [
     } satisfies Localized,
     period   : '1998 – 2003',
     location : {
-      en : 'Greater Toulouse Area',
-      fr : 'Grand Toulouse',
+      en : 'Toulouse, France',
+      fr : 'Toulouse, France',
     } satisfies Localized,
     type     : {
       en : 'Freelance · 5 years',
       fr : 'Freelance · 5 ans',
     } satisfies Localized,
     summary  : {
-      en : 'Conceived and managed community-oriented web products from the ground up.',
-      fr : 'Conception et gestion de produits web communautaires de zéro.',
+      en : 'Created early web products before modern frameworks: community sites, CMS/portal software, traffic-generation tools, affiliate systems, SEO, and monetized content workflows.',
+      fr : 'Création de produits web avant les frameworks modernes : sites communautaires, logiciels CMS/portail, outils de génération de trafic, affiliation, SEO et contenu monétisé.',
     } satisfies Localized,
     bullets  : [
       {
@@ -469,8 +467,8 @@ export const experience = [
         fr : 'Création de 2 sites web - un site de fans de jeux vidéo et un annuaire de créateurs de contenu avec monétisation publicitaire',
       },
       {
-        en : 'Managed a CMS product with plugins, marketplace, developer community, and affiliates',
-        fr : 'Gestion d\u2019un produit CMS avec plugins, marketplace, communauté de développeurs et affiliés',
+        en : 'Built and managed PHP/MySQL CMS and community software in the PHP-Nuke era',
+        fr : 'Construction et gestion de logiciels CMS et communautaires PHP/MySQL dans l\u2019ère PHP-Nuke',
       },
       {
         en : 'Built a website promotion tool with traffic generation, affiliate management, and white-label resale',
@@ -491,8 +489,8 @@ export const experience = [
     } satisfies Localized,
     period   : '1996 – 1997',
     location : {
-      en : 'Greater Toulouse Area',
-      fr : 'Grand Toulouse',
+      en : 'Toulouse, France',
+      fr : 'Toulouse, France',
     } satisfies Localized,
     type     : {
       en : '1 year',
@@ -516,8 +514,8 @@ export const experience = [
     } satisfies Localized,
     period   : '1994 – 1996',
     location : {
-      en : 'Greater Toulouse Area',
-      fr : 'Grand Toulouse',
+      en : 'Toulouse, France',
+      fr : 'Toulouse, France',
     } satisfies Localized,
     type     : {
       en : '2 years',

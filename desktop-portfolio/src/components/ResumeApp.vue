@@ -24,12 +24,18 @@ const { l } = useLocale()
             <span class="resume-role">{{ l(entry.role) }}</span>
           </div>
 
-          <span v-if="'type' in entry" class="resume-type">{{ l(entry.type) }}</span>
-          <span v-if="'location' in entry" class="resume-location">{{ l(entry.location) }}</span>
-
-          <p v-if="'highlight' in entry" class="content-highlight">
-            {{ l(entry.highlight) }}
-          </p>
+          <div
+            v-if="'type' in entry || 'location' in entry"
+            class="resume-meta-row"
+          >
+            <span v-if="'type' in entry" class="resume-type">{{ l(entry.type) }}</span>
+            <span
+              v-if="'type' in entry && 'location' in entry"
+              class="resume-meta-separator"
+              aria-hidden="true"
+            >·</span>
+            <span v-if="'location' in entry" class="resume-location">{{ l(entry.location) }}</span>
+          </div>
 
           <p class="panel-paragraph">{{ l(entry.summary) }}</p>
 
@@ -154,10 +160,26 @@ const { l } = useLocale()
   font-size      : var(--text-xs);
 }
 
-.resume-location {
-  display          : block;
+.resume-meta-row {
+  display          : flex;
+  align-items      : center;
+  flex-wrap        : wrap;
+  gap              : var(--space-1);
+  min-inline-size  : 0;
   margin-block-end : var(--space-2);
-  color            : var(--text-meta);
-  font-size        : var(--text-xs);
+}
+
+.resume-meta-separator {
+  color       : var(--text-meta);
+  font-family : var(--font-mono);
+  font-size   : var(--text-xs);
+  line-height : var(--leading-tight);
+}
+
+.resume-location {
+  min-inline-size : 0;
+  color           : var(--text-meta);
+  font-size       : var(--text-xs);
+  line-height     : var(--leading-tight);
 }
 </style>
