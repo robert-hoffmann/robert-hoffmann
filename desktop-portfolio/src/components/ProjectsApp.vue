@@ -7,7 +7,6 @@ import {
   watch,
   type ComponentPublicInstance,
 } from 'vue'
-import CvDownloadLink from './CvDownloadLink.vue'
 import { projects, projectsMessages, type Project } from '../data/apps/projects'
 import { useLocale } from '../composables/useLocale'
 import {
@@ -15,6 +14,7 @@ import {
   type OpenPortfolioAppEventDetail,
   usePortfolioNavigation,
 } from '../composables/usePortfolioNavigation'
+import { windowRegistry } from '../data/registry'
 
 const { l, t } = useLocale(projectsMessages)
 const {
@@ -25,6 +25,16 @@ const {
 
 const highlightedProjectId = ref<string | null>(null)
 const projectElements      = new Map<string, HTMLElement>()
+const cvPdf                = windowRegistry['cv-pdf']
+
+if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url || !cvPdf.iconUrl) {
+  throw new Error(
+    'The cv-pdf registry entry must define a PDF link URL and icon URL.',
+  )
+}
+
+const cvPdfUrl     = cvPdf.url
+const cvPdfIconUrl = cvPdf.iconUrl
 
 let highlightTimer: number | null = null
 
@@ -124,7 +134,37 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="projects-grid">
-    <CvDownloadLink placement="sticky" />
+    <aside
+      class="project-availability"
+      aria-labelledby="project-availability-title"
+    >
+      <a
+        class="project-availability__download"
+        :href="cvPdfUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        :aria-label="t('cvDownload.label')"
+        :title="t('cvDownload.label')"
+      >
+        <img
+          class="project-availability__download-icon"
+          :src="cvPdfIconUrl"
+          alt=""
+          width="48"
+          height="46"
+          aria-hidden="true"
+        />
+      </a>
+      <div class="project-availability__content">
+        <h3
+          id="project-availability-title"
+          class="project-availability__title"
+        >{{ t('projects.availability.title') }}</h3>
+        <p class="project-availability__body">
+          {{ t('projects.availability.body') }}
+        </p>
+      </div>
+    </aside>
 
     <article
       v-for="project in projects"
@@ -200,8 +240,6 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .projects-grid {
-  --cv-download-sticky-top : 10px;
-
   display               : grid;
   grid-template-columns : 1fr;
   gap                   : 0;
@@ -209,7 +247,8 @@ onBeforeUnmount(() => {
   block-size            : 100%;
   min-block-size        : 0;
   padding               : var(--space-6);
-  padding-block-start   : 0;
+  padding-block-start   : var(--space-3);
+  container             : projects-grid / inline-size;
   overflow-y            : auto;
   scrollbar-width       : thin;
   scrollbar-color       : var(--icon-selected-bg) var(--surface-raised);
@@ -253,6 +292,71 @@ onBeforeUnmount(() => {
   border-radius : var(--radius-md);
   background    : color-mix(in oklch, var(--c-accent) 10%, transparent);
   box-shadow    : inset 0 0 0 1px color-mix(in oklch, var(--c-accent) 42%, transparent);
+}
+
+.project-availability {
+  display                : grid;
+  grid-template-columns  : auto minmax(0, 1fr);
+  gap                    : var(--space-2);
+  align-items            : start;
+  margin-block-end       : var(--space-4);
+  padding                : var(--space-3);
+  border                 : 1px solid var(--border-subtle);
+  border-inline-start    : 3px solid var(--c-accent);
+  border-radius          : var(--radius-md);
+  background             : color-mix(in oklch, var(--icon-selected-bg) 74%, transparent);
+  box-shadow             : inset 0 1px 0 oklch(100% 0 0 / 0.06);
+}
+
+.project-availability__content {
+  min-inline-size : 0;
+}
+
+.project-availability__title {
+  margin         : 0 0 var(--space-1);
+  color          : var(--text-primary);
+  font-size      : var(--text-sm);
+  font-weight    : 650;
+  line-height    : var(--leading-tight);
+  letter-spacing : 0.02em;
+}
+
+.project-availability__body {
+  margin         : 0;
+  color          : var(--text-secondary);
+  font-size      : var(--text-xs);
+  line-height    : var(--leading-relaxed);
+  letter-spacing : 0.01em;
+}
+
+.project-availability__download {
+  display         : inline-grid;
+  place-items     : center;
+  align-self      : start;
+  inline-size     : 2.25rem;
+  block-size      : 2.25rem;
+  border-radius   : var(--radius-md);
+  color           : var(--text-primary);
+  text-decoration : none;
+  transition      : background var(--dur-fast) var(--ease-out),
+                    transform var(--dur-fast) var(--ease-out);
+
+  &:hover {
+    background : color-mix(in oklch, var(--c-accent) 16%, transparent);
+    transform  : translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline        : 2px solid var(--focus-ring);
+    outline-offset : 2px;
+  }
+}
+
+.project-availability__download-icon {
+  inline-size : 1.8rem;
+  block-size  : 1.72rem;
+  object-fit  : contain;
+  filter      : drop-shadow(0 1px 2px oklch(0% 0 0 / 0.2));
 }
 
 .project-header {
@@ -334,5 +438,32 @@ onBeforeUnmount(() => {
   font-size      : var(--text-xs);
   line-height    : var(--leading-tight);
   white-space    : nowrap;
+}
+
+@container projects-grid (max-width: 420px) {
+  .project-availability {
+    grid-template-columns : auto minmax(0, 1fr);
+    gap              : var(--space-2);
+    margin-block-end : var(--space-4);
+    padding          : var(--space-2) var(--space-3);
+  }
+
+  .project-availability__title {
+    font-size : var(--text-xs);
+  }
+
+  .project-availability__body {
+    line-height : var(--leading-normal);
+  }
+
+  .project-availability__download {
+    inline-size : 2rem;
+    block-size  : 2rem;
+  }
+
+  .project-availability__download-icon {
+    inline-size : 1.62rem;
+    block-size  : 1.55rem;
+  }
 }
 </style>

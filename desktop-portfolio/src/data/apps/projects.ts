@@ -3,6 +3,20 @@ import type { MessageCatalog } from '../interface'
 
 // #region Messages
 export const projectsMessages = {
+  'projects.availability.body'       : {
+    en :
+      'Product-minded full-stack, frontend/platform lead, or technical owner ' +
+      'in an autonomous product team with strong engineering standards and a ' +
+      'pragmatic AI delivery strategy.',
+    fr :
+      'Full-stack orienté produit, lead frontend/platform ou responsable ' +
+      'technique dans une équipe produit autonome, avec de solides standards ' +
+      'd’ingénierie et une stratégie IA pragmatique.',
+  },
+  'projects.availability.title'      : {
+    en : 'Open to the right senior role',
+    fr : 'Ouvert au bon rôle senior',
+  },
   'projects.openGalleryImage' : {
     en : 'Open gallery image for {title}',
     fr : 'Ouvrir l’image galerie pour {title}',
