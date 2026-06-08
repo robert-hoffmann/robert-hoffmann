@@ -42,7 +42,7 @@ This document is based on:
    - Frontend since 1998.
    - Lead developer and technical owner for the white-label `tchatche.com` chat applications.
    - The tchatche.com chat platform used jQuery, jQuery templates, ASP.NET MVC/Razor, HeadJS, C#/.NET, health monitoring, caching, logging, and high-traffic production infrastructure.
-   - Daytime peaks were around **25K requests/sec** across **5 load-balanced servers**.
+   - Chat-cluster peaks reached around **125K requests/sec** across **5 load-balanced servers** (**~25K/server**).
    - Strong backend experience is present because the frontend/product work required backend APIs, databases, caching, web services, health monitoring, logging, deployment constraints, and production support.
    - Robert does **not** position himself as an ML engineer, Kubernetes specialist, or deep cloud-native SRE.
    - Robert prefers startup-style, scale-up, product-company, and **éditeur de logiciels** environments over bureaucratic paperwork-heavy environments.
@@ -591,8 +591,8 @@ Lead developer and technical owner for the dedicated and white-label chat applic
 ```text
 600M page views/month
 400M requests/day
-~25K requests/sec daytime peaks
-5 load-balanced servers
+~125K requests/sec chat-cluster peaks
+5 load-balanced servers (~25K/server)
 $300K/month revenue peak
 13-language i18n
 Major French telecom/media white labels
@@ -612,7 +612,7 @@ Lead developer and technical owner for the dedicated and white-label tchatche.co
 
 Owned the frontend architecture and much of the end-to-end technical delivery for advanced real-time web chat products rented to major French telecom and media brands. The platform predated modern SPA frameworks and required strong browser engineering with jQuery, jQuery Templates / jsRender-era rendering, HeadJS, ASP.NET MVC/Razor, C#/.NET, WebAPI, optimized JSON payloads, custom UI loading strategies, internationalization, moderation workflows, picture albums, location search, Google Maps integration, Facebook integration, social sharing, caching, and production health/error monitoring.
 
-The chat ecosystem handled very high production traffic: around 600M page views/month, 400M requests/day, and approximately 25K requests/sec during daytime peaks across 5 load-balanced servers. The dedicated and white-label chat business reached around $300K/month in revenue at peak.
+The broader managed media network handled very high production traffic: around 600M page views/month and 400M requests/day. The real-time chat cluster reached approximately 125K requests/sec during peaks across 5 load-balanced servers (~25K/server). The dedicated and white-label chat business reached around $300K/month in revenue at peak.
 ```
 
 **Stack:**
@@ -1634,45 +1634,91 @@ This has real adoption, but the vaping domain may distract in conservative hirin
 
 ## 12. Experience Section Rewrite
 
+Use these as copy-ready EN/FR variants for LinkedIn, CV, and portfolio resume
+entries. Keep the English and French versions close in structure so updates stay
+easy to sync.
+
 ### 12.1 Maser Engineering
 
-Current framing is good but too industrial-first. Recommended rewrite:
+#### EN
 
 ```text
-Consultant - Product, Full-Stack, and Operational Software
+Consultant - Product, Full-Stack & Operational Software
 Maser Engineering · Mar 2022–Present · France / Hybrid
 
-Building production software for aerospace, industrial, energy, training, and compliance operations. The common thread is product-minded full-stack delivery under real operational constraints: offline apps, planning back offices, data orchestration, structured logging, observability, certification workflows, inventory systems, and AI-directed delivery workflows.
+I design and build product-minded full-stack software for aerospace, industrial, energy, training, and compliance operations. The common thread is production robustness: offline use, traceability, observability, real operators, legacy integrations, and production constraints.
 
-- Delivered full-stack products across Symfony, Vue, Quasar, Python, Airtable, MariaDB, SQLite, REST APIs, and Skywise / Foundry integrations.
-- Built offline-capable field and tablet apps for wind-turbine maintenance, training attendance, and manufacturing work instructions.
-- Modernized legacy Python orchestration into typed, observable, maintainable production infrastructure running 30K+ daily jobs.
-- Created structured logging, inspection UIs, alerting, and dashboard feeds to make production issues diagnosable instead of opaque.
-- Used AI-directed engineering workflows, quality gates, documentation sync, and repeatable validation to increase delivery throughput without losing control.
+- Built industrial data workflows for Airbus operations, integrating smart cabinets, scheduled jobs, Google Workspace, Skywise / Foundry, internal management tools, and monitoring outputs.
+- Helped scale and stabilize a job-orchestration system processing 30K+ jobs/day across 16 assembly plants.
+- Reworked legacy Python services into typed, observable, production-grade tooling using modern Python, FastAPI, aiohttp, Pydantic, uv, Ruff, Pyright, structured logging, and Vue-based internal tools.
+- Built observability tooling for job health, plant-level impact, error classification, alerting, SQLite inspection, and analytical dashboard feeds.
+- Delivered offline-first field applications for wind-turbine maintenance, including planning, checklists, photos, signatures, timestamps, reports, machine status, downtime tracking, and queued sync.
+- Built compliance and onboarding platforms for SBM and Teréga, supporting certification workflows, document tracking, expiry automation, and high-risk site access verification.
+- Delivered training and manufacturing support tools: student attendance and billing workflows, Hutchinson digital work instructions, and Maser Academy inventory planning.
 
-Stack: Python, PHP, Symfony, VueJS, Quasar, Airtable, MariaDB, SQLite, REST APIs, Skywise / Foundry, AI workflows.
+Stack: Python, Symfony/PHP, VueJS, Quasar, Airtable, SQL, REST APIs, Skywise / Foundry, AI-directed delivery workflows.
+```
+
+#### FR
+
+```text
+Consultant - Produit, full-stack & logiciels opérationnels
+Maser Engineering · mars 2022–présent · France / Hybride
+
+Je conçois et construis des logiciels full-stack orientés produit pour opérations aéronautiques, industrielles, énergie, formation et conformité. Le fil rouge est la robustesse en production : usage offline, traçabilité, observabilité, vrais opérateurs, intégrations legacy et contraintes de production.
+
+- Création de workflows de données industriels pour les opérations Airbus, intégrant armoires connectées, jobs planifiés, Google Workspace, Skywise / Foundry, outils de gestion internes et sorties de monitoring.
+- Contribution à la montée en charge et à la stabilisation d’un système d’orchestration traitant 30K+ jobs/jour sur 16 usines d’assemblage.
+- Refonte de services Python legacy en outils typés, observables et exploitables en production avec Python moderne, FastAPI, aiohttp, Pydantic, uv, Ruff, Pyright, logging structuré et outils internes Vue.
+- Construction d’outillage d’observabilité pour santé des jobs, impact par usine, classification d’erreurs, alerting, inspection SQLite et flux vers dashboards analytiques.
+- Livraison d’applications terrain offline-first pour la maintenance d’éoliennes : planning, checklists, photos, signatures, horodatages, rapports, statut machine, suivi des arrêts et synchronisation en file d’attente.
+- Construction de plateformes conformité et onboarding pour SBM et Teréga, couvrant workflows de certification, suivi documentaire, automatisation des expirations et vérification d’accès à sites à risque.
+- Livraison d’outils support formation et fabrication : pointage et facturation stagiaires, instructions de travail digitales Hutchinson, et planification d’inventaire Maser Academy.
+
+Stack : Python, Symfony/PHP, VueJS, Quasar, Airtable, SQL, APIs REST, Skywise / Foundry, workflows de livraison pilotés par IA.
 ```
 
 ### 12.2 Independent Consultant
 
-Current wording risks sounding like business consulting only. Recommended:
+#### EN
 
 ```text
-Independent Product / Full-Stack / AI Workflow Consultant
+Product / Technology / Automation Consultant - Independent
 2019–Present · Greater Toulouse Area
 
-Helping entrepreneurs, startups, SMEs, and technical teams turn product, operational, and automation problems into working software and repeatable delivery systems.
+I help entrepreneurs, startups, SMEs, and technical/product teams make better decisions in high-tech and increasingly automated environments. The offer is expert consultancy and direction: assess the current state, identify high-leverage opportunities, reduce uncertainty, and support teams through strategy, workflows, product choices, technical choices, and execution.
 
-- Delivered frontend, backend, back-office, web, mobile, and service-architecture work.
-- Built automation, CI/CD, error-management, project-management, and documentation workflows.
-- Used product, marketing, SEO/SEA, analytics, and business-model analysis to connect software decisions to measurable outcomes.
-- Developed AI-directed delivery workflows and reusable agent skills for planning, implementation, review, testing, documentation sync, and governance.
-- Advised on ROI, technical debt, delivery risk, user acquisition, retention, and automation opportunities.
+- Innovation, feasibility, inventory/state, market/competitive, cost, ROI, risk, and technical-debt analysis.
+- Workflow and delivery support: Agile, Scrum, Kanban, Lean, communication, BizDevOps mindset, CI/CD, continuous improvement, bug/ticket/documentation/project management.
+- Product and technical guidance for frontend, front-office, back-office, web apps, mobile/hybrid apps, services, B2B/B2C, social/e-commerce, and cloud/hybrid/CDN environments.
+- Optimization of workflows, productivity, QoS, UI/UX, user satisfaction, and operating costs including bandwidth, CPU, memory, storage, automation, and service reliability.
+- Digital strategy support: SEO, SEA, SEM, SMO, SMA, inbound/social marketing, growth, acquisition/retention, analytics, branding, evangelization, and client/user satisfaction.
+- Pragmatic methods and support: KISS, DRY, YAGNI, automation, documentation, quality gates, and AI-directed workflows where they improve decision-making and delivery.
 
-Best fit: startup, scale-up, SaaS, software publisher, or autonomous product team.
+Best fit: a company that needs an experienced outside expert to clarify options, challenge assumptions, guide teams, and convert strategy into concrete product, technical, operational, or automation actions.
+```
+
+#### FR
+
+```text
+Consultant produit / technologie / automatisation - Indépendant
+2019–présent · Grand Toulouse
+
+J’aide entrepreneurs, startups, PME et équipes produit/techniques à prendre de meilleures décisions dans des environnements de plus en plus technologiques et automatisés. L’offre est du conseil et de la direction experte : analyser l’état actuel, identifier les opportunités à fort levier, réduire l’incertitude et accompagner les équipes sur stratégie, workflows, choix produit, choix techniques et exécution.
+
+- Analyse innovation, faisabilité, inventaire/état des lieux, marché/concurrence, coûts, ROI, risques et dette technique.
+- Accompagnement workflows et delivery : Agile, Scrum, Kanban, Lean, communication, état d’esprit BizDevOps, CI/CD, amélioration continue, gestion bugs/tickets/documentation/projet.
+- Guidance produit et technique pour frontend, front-office, back-office, apps web, apps mobile/hybrides, services, B2B/B2C, social/e-commerce et environnements cloud/hybrides/CDN.
+- Optimisation des workflows, productivité, QoS, UI/UX, satisfaction utilisateurs et coûts d’exploitation : bande passante, CPU, mémoire, stockage, automatisation et fiabilité des services.
+- Support stratégie digitale : SEO, SEA, SEM, SMO, SMA, inbound/social marketing, growth, acquisition/rétention, analytics, branding, évangélisation et satisfaction client/utilisateur.
+- Méthodes et support pragmatiques : KISS, DRY, YAGNI, automatisation, documentation, quality gates et workflows pilotés par IA lorsqu’ils améliorent la décision et la livraison.
+
+Meilleur fit : entreprise qui a besoin d’un expert externe expérimenté pour clarifier les options, challenger les hypothèses, guider les équipes et transformer la stratégie en actions produit, techniques, opérationnelles ou d’automatisation concrètes.
 ```
 
 ### 12.3 BioCurae
+
+#### EN
 
 ```text
 Chief Product Officer - BioCurae
@@ -1682,10 +1728,25 @@ Led product strategy for a HealthTech / NutriTech startup focused on personalize
 
 - Defined product strategy for nootropics, nutraceutics, and nutrigenomics verticals.
 - Designed diagnostic and prescription automation workflows.
-- Shaped product roadmap, positioning, and personalized-care user journeys.
+- Shaped roadmap, positioning, personalization logic, and user journeys for a data-informed care product.
+```
+
+#### FR
+
+```text
+Chief Product Officer - BioCurae
+2021 · Île-de-France
+
+Direction de la stratégie produit pour une startup HealthTech / NutriTech centrée sur le soin personnalisé.
+
+- Définition de la stratégie produit pour les verticales nootropiques, nutraceutiques et nutrigénomiques.
+- Conception de workflows d’automatisation du diagnostic et de la prescription.
+- Structuration de la roadmap, du positionnement, de la logique de personnalisation et des parcours utilisateurs.
 ```
 
 ### 12.4 Infomil
+
+#### EN
 
 ```text
 R&D Engineer - Infomil
@@ -1703,13 +1764,33 @@ Worked in E.Leclerc’s R&D IT service on source-control architecture, developer
 Stack: Perforce, PowerShell, C#, WinForms, TeamCity.
 ```
 
+#### FR
+
+```text
+Ingénieur R&D - Infomil
+mai 2017–déc. 2017 · Toulouse
+
+Intervention au sein du service IT R&D d’E.Leclerc sur l’architecture de gestion de sources, l’outillage développeur, l’automatisation et la roadmap technique d’une grande organisation interne.
+
+- Ownership et évolution de l’architecture Perforce utilisée par environ 200 développeurs.
+- Audit et migration de l’architecture SCM avec les équipes opérations et sécurité.
+- Modernisation des scripts de maintenance de VBS vers PowerShell 5.
+- Développement de plugins WinForms pour fluidifier les workflows développeurs.
+- Évaluation de l’intégration CI TeamCity et rédaction d’une roadmap d’évolution d’architecture.
+- Études de faisabilité autour de la messagerie, de l’analyse statique et des tests sécurité / OWASP.
+
+Stack : Perforce, PowerShell, C#, WinForms, TeamCity.
+```
+
 ### 12.5 dao & Co
+
+#### EN
 
 ```text
 Consultant / Full-Stack Developer - dao & Co
 Apr 2015–Feb 2017 · Ramonville Saint-Agne
 
-Built personalized interfaces and automation around e-learning platforms used to train management and staff at major banks and insurance groups.
+Built personalized interfaces, integrations, and automation around e-learning platforms used to train management and staff at major banks and insurance groups.
 
 - Delivered frontend and backend integrations for training workflows.
 - Piloted cloud migration and tooling changes across Mailchimp, Mandrill, AWS S3, Jira, Confluence, and Bitbucket.
@@ -1717,7 +1798,23 @@ Built personalized interfaces and automation around e-learning platforms used to
 - Rolled out more structured agile workflow, bug tracking, and knowledge-base sharing.
 ```
 
+#### FR
+
+```text
+Consultant / Développeur full-stack - dao & Co
+avr. 2015–févr. 2017 · Ramonville Saint-Agne
+
+Développement d’interfaces personnalisées, d’intégrations et d’automatisations autour de plateformes e-learning utilisées pour former cadres et collaborateurs de grands groupes bancaires et d’assurance.
+
+- Livraison d’intégrations frontend et backend pour workflows de formation.
+- Pilotage de migration cloud et changements d’outillage : Mailchimp, Mandrill, AWS S3, Jira, Confluence et Bitbucket.
+- Automatisation de workflows d’emailing via intégrations API web et mobile.
+- Mise en place d’un workflow agile plus structuré, bug tracking et partage de base de connaissances.
+```
+
 ### 12.6 Prestalia
+
+#### EN
 
 ```text
 Web Architect - Prestalia
@@ -1732,9 +1829,26 @@ Reviewed and enhanced technical infrastructure and development workflows for Mic
 Stack: C#, .NET, HTML5, CSS3, JavaScript, jQuery.
 ```
 
+#### FR
+
+```text
+Architecte web - Prestalia
+mars 2014–juil. 2014 · Grand Toulouse
+
+Revue et amélioration de l’infrastructure technique et des workflows de développement pour des produits web Microsoft-stack.
+
+- Migration des projets vers une stack Microsoft plus récente, débloquant le développement et accélérant les livraisons.
+- Découplage des dépendances projets pour simplifier les déploiements et réduire les erreurs.
+- Consolidation DNS vers AWS Route 53 et optimisation des pipelines de déploiement.
+
+Stack : C#, .NET, HTML5, CSS3, JavaScript, jQuery.
+```
+
 ### 12.7 Index Multimedia
 
-This is strategically important. Rewrite more forcefully.
+This is strategically important. Keep the metric contexts precise.
+
+#### EN
 
 ```text
 Senior Full-Stack Developer / Tech Lead - Index Multimedia
@@ -1742,31 +1856,67 @@ Senior Full-Stack Developer / Tech Lead - Index Multimedia
 
 Technical lead across high-traffic media, community, chat, ad-serving, and white-label web products.
 
-- Owned technical delivery for dedicated and white-label tchatche.com chat apps, including frontend architecture, browser compatibility, i18n, performance, moderation workflows, and client/server interaction patterns.
-- Operated under high-scale constraints: around 600M page views/month, 400M requests/day, and ~25K requests/sec daytime peaks across 5 load-balanced servers.
+- Owned technical delivery for dedicated and white-label tchatche.com chat apps, including frontend architecture, browser compatibility, i18n, performance, caching, moderation workflows, and client/server interaction patterns.
+- Operated under high-scale constraints: 600M page views/month and 400M requests/day across the managed media network; chat-cluster peaks reached ~125K requests/sec across 5 load-balanced servers.
 - Built generic ad-distribution/proxy infrastructure serving 3B+ ads/month, increasing ad revenue by 20% and click-through rate by 30%.
-- Built production health/error-monitoring tooling aggregating SQL, IIS, .NET, application, and client-side failures, reducing diagnosis from days to minutes.
+- Built production health/error-monitoring tooling aggregating SQL, IIS, .NET, application, and client-side failures, reducing diagnosis from days to minutes and helping cut error volume.
 - Delivered responsive, internationalized, social, location-aware, and monetized community features across main site, blogs, chats, and white-label products.
 
 Stack: C#, ASP.NET MVC, Razor, WebAPI, .NET Framework, JavaScript, jQuery, jQuery Templates / jsRender, HeadJS, SQL Server, caching, load balancing, HealthMonitoring, HTML/CSS, LESS, Google Maps, Facebook APIs.
 ```
 
+#### FR
+
+```text
+Développeur full-stack senior / Tech Lead - Index Multimedia
+2008–nov. 2013 · Grand Toulouse
+
+Tech lead sur produits web média, communautaires, chat, ad-serving et marque blanche à fort trafic.
+
+- Ownership technique des applications chat tchatche.com dédiées et marque blanche : architecture frontend, compatibilité navigateur, i18n, performance, cache, modération et patterns d’interaction client/serveur.
+- Travail sous contraintes très fort trafic : 600M pages vues/mois et 400M requêtes/jour sur le réseau média géré ; pics cluster chat à ~125K requêtes/sec sur 5 serveurs load-balancés.
+- Construction d’une infrastructure générique de distribution/proxy publicitaire servant 3Md+ pubs/mois, avec +20% de revenus publicitaires et +30% de taux de clic.
+- Construction d’un outillage de health/error monitoring agrégeant erreurs SQL, IIS, .NET, applicatives et client-side, réduisant le diagnostic de jours à minutes et contribuant à réduire le volume d’erreurs.
+- Livraison de fonctionnalités communautaires responsive, internationalisées, sociales, géolocalisées et monétisées sur site principal, blogs, chats et produits marque blanche.
+
+Stack : C#, ASP.NET MVC, Razor, WebAPI, .NET Framework, JavaScript, jQuery, jQuery Templates / jsRender, HeadJS, SQL Server, cache, load balancing, HealthMonitoring, HTML/CSS, LESS, Google Maps, APIs Facebook.
+```
+
 ### 12.8 CELAD
+
+#### EN
 
 ```text
 Senior Full-Stack Developer - CELAD
 2007–2008 · Greater Toulouse Area
 
-Led technical and design restructuring of internationalized white-label web chat products.
+Led technical and design restructuring of internationalized white-label web chat products under legacy-browser and high-volume Ajax constraints.
 
 - Architected a skinnable, internationalized, responsive web app supporting IE6+ constraints.
-- Reduced white-label deployment time while delivering a more maintainable, translatable product.
+- Reduced white-label deployment time while delivering a more maintainable and translatable product.
 - Designed a custom compact JSON protocol to reduce bandwidth on high-volume chat/Ajax traffic.
 
 Stack: C#, .NET, jQuery, JavaScript, CSS, JSON, i18n, white-label theming.
 ```
 
+#### FR
+
+```text
+Développeur full-stack senior - CELAD
+2007–2008 · Grand Toulouse
+
+Direction de la restructuration technique et design de produits chat web internationalisés en marque blanche, sous contraintes navigateurs legacy et trafic Ajax élevé.
+
+- Architecture d’une application web skinnable, internationalisée et responsive compatible IE6+.
+- Réduction du temps de déploiement marque blanche tout en livrant un produit plus maintenable et traduisible.
+- Conception d’un protocole JSON compact personnalisé pour réduire la bande passante sur trafic chat/Ajax à fort volume.
+
+Stack : C#, .NET, jQuery, JavaScript, CSS, JSON, i18n, theming marque blanche.
+```
+
 ### 12.9 123 Multimedia
+
+#### EN
 
 ```text
 Full-Stack Developer / Integrator - 123 Multimedia SA
@@ -1774,17 +1924,35 @@ Full-Stack Developer / Integrator - 123 Multimedia SA
 
 Built B2B/B2C community products, white-label portals, monetized chat/blog systems, CMS-style back offices, and affiliate/reseller integrations.
 
-- Delivered white-label customizations for major French telecom and media brands.
+- Delivered white-label customizations for major French telecom and media brands including TF1, Skyrock, NRJ Group, M6, SFR, Orange, Microsoft, and Pepsi.
 - Integrated ad networks, credit card payments, SMS/micro-payment, paywalls, affiliate workflows, and internal monetization tools.
 - Built frontend and backend features across chat, blog, portal, and community products.
+- Deployed internal ad-server workflows that materially increased ads served and revenue.
 - Worked across frontend implementation, backend services, production constraints, SEO, monetization, and brand-specific customization.
 
 Stack: C#, .NET, JavaScript, CSS, HTML, monetization APIs, ad systems, payment systems.
 ```
 
+#### FR
+
+```text
+Développeur full-stack / Intégrateur - 123 Multimedia SA
+2003–2007 · Grand Toulouse
+
+Développement de produits communautaires B2B/B2C, portails marque blanche, systèmes chat/blog monétisés, back-offices type CMS et intégrations affiliation / revente.
+
+- Personnalisation de produits marque blanche pour de grandes marques télécom et média françaises dont TF1, Skyrock, NRJ Group, M6, SFR, Orange, Microsoft et Pepsi.
+- Intégration de régies publicitaires, paiements carte bancaire, SMS/micro-paiement, paywalls, workflows affiliation et outils internes de monétisation.
+- Développement de fonctionnalités frontend et backend sur produits chat, blog, portail et communauté.
+- Déploiement de workflows ad-server internes augmentant significativement le volume de pubs servies et les revenus.
+- Travail sur implémentation frontend, services backend, contraintes production, SEO, monétisation et customisation spécifique par marque.
+
+Stack : C#, .NET, JavaScript, CSS, HTML, APIs de monétisation, systèmes publicitaires, systèmes de paiement.
+```
+
 ### 12.10 Independent 1998–2003
 
-Do not add e-Xoops yet. Use broader wording.
+#### EN
 
 ```text
 Product Owner / Full-Stack Developer - Independent
@@ -1792,15 +1960,31 @@ Product Owner / Full-Stack Developer - Independent
 
 Created early web products before modern frameworks: community sites, CMS/portal software, traffic-generation tools, affiliate systems, plugins/modules, themes, marketplaces, SEO, and monetized content workflows.
 
-- Built PHP/MySQL CMS and community software in the PHP-Nuke/XOOPS/e-Xoops era.
-- Created plugin/module and theme ecosystems for content-heavy web communities.
+- Founded and operated a video-game fan site and a content-creator directory with ad monetization.
+- Built and managed PHP/MySQL CMS and community software in the PHP-Nuke era.
+- Created plugin/module, theme, marketplace, and developer-community workflows for content-heavy web communities.
 - Built website-promotion and affiliate/reseller tooling with white-label resale logic.
 - Worked with early frontend stacks, PHP, JavaScript, CSS, HTML, XML/XSL/XSLT, Zope/Plone-era concepts, SEO, and ad monetization.
 
 Stack: PHP, MySQL, JavaScript, CSS, HTML, XML, XSL/XSLT, Zope/Plone, SEO, affiliate systems.
 ```
 
-**Important:** This avoids an explicit e-Xoops creator claim while still preserving the historical relevance.
+#### FR
+
+```text
+Product Owner / Développeur full-stack - Indépendant
+1998–2003 · Grand Toulouse
+
+Création de produits web avant les frameworks modernes : sites communautaires, logiciels CMS/portail, outils de génération de trafic, systèmes d’affiliation, plugins/modules, thèmes, marketplaces, SEO et workflows de contenu monétisé.
+
+- Création et exploitation d’un site fan de jeux vidéo et d’un annuaire de créateurs de contenu avec monétisation publicitaire.
+- Construction et gestion de logiciels CMS et communautaires PHP/MySQL dans l’ère PHP-Nuke.
+- Création de workflows plugins/modules, thèmes, marketplace et communauté développeur pour communautés web orientées contenu.
+- Développement d’outillage de promotion de sites, affiliation/revente et logique de revente marque blanche.
+- Travail avec les premières stacks frontend, PHP, JavaScript, CSS, HTML, XML/XSL/XSLT, concepts Zope/Plone, SEO et monétisation publicitaire.
+
+Stack : PHP, MySQL, JavaScript, CSS, HTML, XML, XSL/XSLT, Zope/Plone, SEO, systèmes d’affiliation.
+```
 
 ---
 
@@ -1944,7 +2128,7 @@ Robert is not positioning himself as an ML model engineer, Kubernetes/SRE specia
 
 - Lead developer and technical owner for white-label tchatche.com chat applications
 - tchatche.com ecosystem: around 600M page views/month and 400M requests/day
-- Around 25K requests/sec daytime peaks across 5 load-balanced servers
+- Chat cluster: ~125K requests/sec peaks across 5 load-balanced servers (~25K/server)
 - Ad Proxy: 3B+ ads/month, +20% ad revenue, +30% click-through rate
 - HeadJS: main maintainer, 4K+ GitHub stars
 - T4ResX: 15.9K NuGet downloads and 2.3K+ Visual Studio Marketplace installs
@@ -2000,7 +2184,7 @@ ML model engineering, Kubernetes/SRE specialization, pure security engineering, 
 
 - Lead developer and technical owner for white-label tchatche.com chat applications
 - tchatche.com ecosystem: around 600M page views/month and 400M requests/day
-- Around 25K requests/sec daytime peaks across 5 load-balanced servers
+- Chat cluster: ~125K requests/sec peaks across 5 load-balanced servers (~25K/server)
 - Ad Proxy: 3B+ ads/month
 - HeadJS: main maintainer, 4K+ GitHub stars
 - T4ResX: 15.9K NuGet downloads
@@ -2141,7 +2325,7 @@ Not my focus: ML model engineering, Kubernetes/SRE specialization, pure security
 ```markdown
 | Project | What it proves |
 |---|---|
-| [tchatche.com](https://i-technology.net/) | Lead developer / technical owner for white-label real-time chat apps; 600M pv/mo, 400M requests/day, ~25K req/s daytime peaks across 5 load-balanced servers |
+| [tchatche.com](https://i-technology.net/) | Lead developer / technical owner for white-label real-time chat apps; 600M pv/mo and 400M requests/day across the managed media network; ~125K req/s chat-cluster peaks across 5 load-balanced servers |
 | [HeadJS](https://headjs.github.io/) | Main maintainer of 4K+ star JavaScript loader / browser utility from the IE/mobile-web era |
 | [Ad Proxy](https://i-technology.net/) | High-volume ad-distribution platform serving 3B+ ads/month |
 | [Uncle Bob](https://github.com/robert-hoffmann/uncle-bob) | Portable AI-agent skills, workflow, quality gates, docs sync, and governance model |
@@ -2173,7 +2357,7 @@ I am frontend-led, not frontend-limited. My work usually includes backend APIs, 
 
 Selected proof points:
 - Lead developer and technical owner for white-label tchatche.com chat applications.
-- High-traffic ecosystem: 600M page views/month, 400M requests/day, ~25K requests/sec daytime peaks across 5 load-balanced servers.
+- High-traffic ecosystem: 600M page views/month and 400M requests/day across the managed media network; ~125K requests/sec chat-cluster peaks across 5 load-balanced servers.
 - Built ad-distribution infrastructure serving 3B+ ads/month.
 - Main maintainer of HeadJS, a 4K+ star JavaScript library.
 - Created T4ResX and FindUnusedFiles developer tools used by thousands of developers.
@@ -2261,7 +2445,7 @@ Use this to decide which claims can be public, which need qualification, and whi
 | Frontend since 1998 | Self-attested | Add to CV/GitHub | “Frontend and web product engineering since 1998” | Good differentiator. |
 | tchatche.com 600M pv/month | Self-attested/current portfolio | Current portfolio | “around 600M page views/month” | Keep “around” unless audited. |
 | tchatche.com 400M requests/day | Self-attested/current portfolio | Current portfolio | “around 400M requests/day” | Strong but should be reference-checkable. |
-| tchatche.com ~25K req/sec peaks | Self-attested | Robert clarification | “~25K requests/sec daytime peaks across 5 load-balanced servers” | Add if comfortable defending. |
+| tchatche.com ~125K req/sec chat-cluster peaks | Self-attested | Robert clarification | “~125K requests/sec peaks across 5 load-balanced servers (~25K/server)” | Add if comfortable defending. |
 | Technical owner for white-label tchatche chat | Self-attested | Robert clarification | “Lead developer and technical owner” | Important correction; add prominently. |
 | Ad Proxy 3B+ ads/month | Current portfolio | Current portfolio | “3B+ ads served/month” | Strong proof of backend scale. |
 | Ad Proxy +20% revenue / +30% CTR | Current portfolio | Current portfolio | “increased ad revenue by roughly 20% and CTR by roughly 30%” | Use “roughly” unless audited. |
@@ -2343,7 +2527,7 @@ AI-directed, human-owned engineering workflow
 - [ ] Add best-fit environment block: startup, scale-up, SaaS, éditeur de logiciels, autonomous product team.
 - [ ] Add “not primary focus” block: ML, Kubernetes/SRE, security, heavy bureaucracy.
 - [ ] Rewrite tchatche.com as technical owner / lead developer.
-- [ ] Add 25K req/sec and 5 load-balanced servers to tchatche.com if comfortable defending.
+- [ ] Clarify ~125K req/sec chat-cluster peaks across 5 load-balanced servers (~25K/server) for tchatche.com if comfortable defending.
 - [ ] Reorder projects into thematic groups.
 - [ ] Move certifications lower.
 - [ ] Rename “AI-built” to “AI-directed / human-owned.”
@@ -2394,7 +2578,7 @@ Not my focus: ML model engineering, Kubernetes/SRE specialization, pure security
 
 ## Strongest proof points
 
-- Technical owner of white-label tchatche.com chat apps: 600M pv/mo, 400M requests/day, ~25K req/s peaks.
+- Technical owner of white-label tchatche.com chat apps: 600M pv/mo, 400M requests/day network traffic, ~125K req/s chat-cluster peaks.
 - Ad Proxy: 3B+ ads/month, +20% revenue, +30% CTR.
 - HeadJS: main maintainer, 4K+ stars.
 - T4ResX and FindUnusedFiles: developer tools with thousands of downloads/installs.
@@ -2549,7 +2733,7 @@ Senior product-minded full-stack engineer, frontend/platform lead, and technical
 
 ## Selected Proof Points
 
-- Technical owner / lead developer for white-label tchatche.com chat apps: 600M pv/month, 400M requests/day, ~25K req/s daytime peaks across 5 load-balanced servers.
+- Technical owner / lead developer for white-label tchatche.com chat apps: 600M pv/month and 400M requests/day across the managed media network; ~125K req/s chat-cluster peaks across 5 load-balanced servers.
 - Built Ad Proxy serving 3B+ ads/month, improving ad revenue and CTR.
 - Main maintainer of HeadJS, 4K+ star JavaScript library.
 - Created T4ResX and FindUnusedFiles developer tools with thousands of public downloads/installs.
