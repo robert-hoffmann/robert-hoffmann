@@ -632,6 +632,34 @@
   touch-action : none;
 }
 
+.app-window-shell--resize-n,
+.app-window-shell--resize-s,
+.app-window-shell--resize-n *,
+.app-window-shell--resize-s * {
+  cursor : ns-resize !important;
+}
+
+.app-window-shell--resize-e,
+.app-window-shell--resize-w,
+.app-window-shell--resize-e *,
+.app-window-shell--resize-w * {
+  cursor : ew-resize !important;
+}
+
+.app-window-shell--resize-ne,
+.app-window-shell--resize-sw,
+.app-window-shell--resize-ne *,
+.app-window-shell--resize-sw * {
+  cursor : nesw-resize !important;
+}
+
+.app-window-shell--resize-nw,
+.app-window-shell--resize-se,
+.app-window-shell--resize-nw *,
+.app-window-shell--resize-se * {
+  cursor : nwse-resize !important;
+}
+
 .app-window-resize-zone--n {
   inset-block-start : 0;
   inset-inline      : 0;

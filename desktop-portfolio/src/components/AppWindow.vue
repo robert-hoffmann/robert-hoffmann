@@ -36,6 +36,13 @@ const shellStyle = computed(() => ({
   zIndex : props.windowState.zIndex,
 }))
 
+const hoverResizeHandle = ref<WindowResizeHandle | null>(null)
+const shellClass        = computed(() =>
+  hoverResizeHandle.value
+    ? `app-window-shell--resize-${hoverResizeHandle.value}`
+    : null,
+)
+
 /*
  * Resolve the async component exactly once from the registry.
  * Using shallowRef (not computed) ensures no reactive dependency
@@ -68,9 +75,11 @@ const greenButtonDisabled = computed(() =>
 const showNopePenguin = ref(false)
 const nopeAnimationKey = ref(0)
 
-const RESIZE_HANDLES = [
+const RESIZE_HANDLES                = [
   'n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw',
 ] as const satisfies readonly WindowResizeHandle[]
+const RESIZE_CURSOR_EDGE_INSET_PX   = 8
+const RESIZE_CURSOR_CORNER_INSET_PX = 14
 
 function isTitleBarControlTarget(target: EventTarget | null) {
   return target instanceof Element && target.closest('.traffic-lights') !== null
@@ -115,10 +124,60 @@ function onResizeZonePointerDown(event: PointerEvent, handle: WindowResizeHandle
   emit('focus', props.windowState.id)
   emit('resizeStart', event, props.windowState.id, handle)
 }
+
+function resolveHoverResizeHandle(event: PointerEvent, shell: HTMLElement): WindowResizeHandle | null {
+  if (!props.canResize || event.pointerType === 'touch') return null
+
+  const rect = shell.getBoundingClientRect()
+  const x    = event.clientX - rect.left
+  const y    = event.clientY - rect.top
+
+  const nearNorthEdge = y <= RESIZE_CURSOR_EDGE_INSET_PX
+  const nearSouthEdge = y >= rect.height - RESIZE_CURSOR_EDGE_INSET_PX
+  const nearEastEdge  = x >= rect.width - RESIZE_CURSOR_EDGE_INSET_PX
+  const nearWestEdge  = x <= RESIZE_CURSOR_EDGE_INSET_PX
+
+  const nearNorthCorner = y <= RESIZE_CURSOR_CORNER_INSET_PX
+  const nearSouthCorner = y >= rect.height - RESIZE_CURSOR_CORNER_INSET_PX
+  const nearEastCorner  = x >= rect.width - RESIZE_CURSOR_CORNER_INSET_PX
+  const nearWestCorner  = x <= RESIZE_CURSOR_CORNER_INSET_PX
+
+  if (nearNorthCorner && nearEastCorner) return 'ne'
+  if (nearNorthCorner && nearWestCorner) return 'nw'
+  if (nearSouthCorner && nearEastCorner) return 'se'
+  if (nearSouthCorner && nearWestCorner) return 'sw'
+
+  if (nearNorthEdge) return 'n'
+  if (nearSouthEdge) return 's'
+  if (nearEastEdge) return 'e'
+  if (nearWestEdge) return 'w'
+
+  return null
+}
+
+function setHoverResizeHandle(handle: WindowResizeHandle | null) {
+  if (hoverResizeHandle.value === handle) return
+  hoverResizeHandle.value = handle
+}
+
+function onShellPointerMove(event: PointerEvent) {
+  if (!(event.currentTarget instanceof HTMLElement)) return
+  setHoverResizeHandle(resolveHoverResizeHandle(event, event.currentTarget))
+}
+
+function onShellPointerLeave() {
+  setHoverResizeHandle(null)
+}
 </script>
 
 <template>
-  <div class="app-window-shell" :style="shellStyle">
+  <div
+    class="app-window-shell"
+    :class="shellClass"
+    :style="shellStyle"
+    @pointermove="onShellPointerMove"
+    @pointerleave="onShellPointerLeave"
+  >
     <section
       class="app-window"
       role="dialog"
