@@ -11,8 +11,8 @@ chat and ad systems to aerospace/industrial operations software and
 AI-directed, human-owned delivery workflows.
 
 Best fit: autonomous product teams, startups, scale-ups, SaaS companies,
-software publishers / éditeurs de logiciels, and small expert teams that need
-senior technical ownership from product problem to production.
+software product companies, and small expert teams that need senior technical
+ownership from product problem to production.
 
 **Portfolio:** [i-technology.net](https://i-technology.net)
 
