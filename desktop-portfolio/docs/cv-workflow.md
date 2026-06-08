@@ -101,6 +101,12 @@ generator first flattens the banner and overlays into
 `robert-hoffmann-cv-hero.jpeg`. This avoids PDF viewer differences, especially
 PDF.js-based previews.
 
+The circular profile image stays separate from the flattened hero so screen
+HTML and PDF output share one avatar source. Keep `.mark` background rendering
+explicit (`background-repeat`, `background-origin`, and `background-clip`);
+Apple PDF renderers can distort Chromium-generated circular background images
+when those defaults are implicit.
+
 Tune the banner merge in `scripts/generate-cv-docs.mjs`:
 
 - `HERO_BACKGROUND_OVERLAY.horizontal`: left-to-right dark overlay.

@@ -431,7 +431,7 @@ export const cvDocument = {
     },
     {
       title            : 'Offline field and compliance platforms',
-      href             : getProjectLink(windProject, 'Maser maintenance'),
+      href             : getProjectLink(windProject, 'Maser Engineering: Pole Maintenance'),
       body             :
         'Quasar/Vue field apps, Symfony back offices, SCORM onboarding, certification expiry, ' +
         'gate checks, queued sync, and PDF/CSV outputs for industrial teams.',

@@ -360,22 +360,25 @@ function renderHtml(doc) {
     }
 
     .mark {
-      width: 21mm;
-      height: 21mm;
-      border-radius: 50%;
-      background-image: ${avatarUrl};
-      background-position: center;
-      background-size: cover;
-      border: 1.1mm solid rgba(12,18,31,.78);
+      width               : 21mm;
+      height              : 21mm;
+      border-radius       : 50%;
+      background-image    : ${avatarUrl};
+      background-position : center;
+      background-size     : cover;
+      background-repeat   : no-repeat;
+      background-origin   : padding-box;
+      background-clip     : border-box;
+      border              : 1.1mm solid rgba(12,18,31,.78);
       box-shadow:
         0 0 0 1px rgba(255,255,255,.52),
         0 4px 18px rgba(0,0,0,.38);
-      color: transparent;
-      display: grid;
-      font-size: 0;
-      font-weight: 800;
-      overflow: hidden;
-      place-items: center;
+      color               : transparent;
+      display             : grid;
+      font-size           : 0;
+      font-weight         : 800;
+      overflow            : hidden;
+      place-items         : center;
     }
 
     h1 {
@@ -790,10 +793,13 @@ function renderHtml(doc) {
       }
 
       .mark {
-        background-image: ${avatarUrl};
-        background-position: center;
-        background-size: cover;
-        border-color: rgba(255,255,255,.58);
+        background-image    : ${avatarUrl};
+        background-position : center;
+        background-size     : cover;
+        background-repeat   : no-repeat;
+        background-origin   : padding-box;
+        background-clip     : border-box;
+        border-color        : rgba(12,18,31,.78);
       }
 
       .metric {
