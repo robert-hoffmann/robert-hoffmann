@@ -102,7 +102,7 @@ export function prerender() {
   const html = `
     <div data-prerender-root style="max-width:48rem;margin:0 auto;padding:2rem;font-family:system-ui,sans-serif;line-height:1.6;color:#e0e0e0;">
       <header>
-        <h1>${escapeHtml(about.name)} - Industrial Full-Stack Consultant</h1>
+        <h1>${escapeHtml(about.name)} - Senior Product-Minded Full-Stack Engineer</h1>
         <p>${escapeHtml(asEnglishText(about.tagline))}</p>
       </header>
 
@@ -143,7 +143,7 @@ export function prerender() {
     html,
     head: {
       lang  : 'en',
-      title : 'Robert Hoffmann - Industrial Full-Stack Consultant',
+      title : 'Robert Hoffmann - Senior Product-Minded Full-Stack Engineer',
     },
   }
 }

@@ -11,12 +11,12 @@ export const projectsMessages = {
 // #endregion Messages
 
 // #region Content
-export const projects = [
+const projectRecords = [
   {
     id         : 'proj-tmip-scheduler',
     name       : {
-      en : 'TMIP Scheduler: Industrial Data Orchestration',
-      fr : 'TMIP Scheduler: Orchestration de données industrielles',
+      en : 'TMIP Scheduler: Aerospace Data Orchestration',
+      fr : 'TMIP Scheduler: Orchestration de données aéronautiques',
     } satisfies Localized,
     org        : {
       en : 'Maser Engineering for Airbus',
@@ -25,15 +25,16 @@ export const projects = [
     period     : '2025 – present',
     summary    : {
       en :
-        'Central orchestration service for Airbus smart-cabinet operations, synchronizing ' +
+        'Central orchestration service for aerospace smart-cabinet operations, synchronizing ' +
         'Nexess cabinet servers, Google Workspace, Skywise datasets, and internal management ' +
         'tools while modernizing an undocumented, untyped legacy Python codebase into typed, observable, ' +
-        'production-grade infrastructure.',
+        'production-grade infrastructure for 16 Airbus assembly plants.',
       fr :
-        'Service central d\u2019orchestration pour les opérations d\u2019armoires connectées Airbus, ' +
+        'Service central d\u2019orchestration pour les opérations aéronautiques d\u2019armoires connectées, ' +
         'synchronisant les serveurs Nexess, Google Workspace, les datasets Skywise et les ' +
         'outils de gestion internes tout en modernisant une base Python legacy non documentée ' +
-        'et non typée vers une infrastructure typée, observable et exploitable en production.',
+        'et non typée vers une infrastructure typée, observable et exploitable en production ' +
+        'pour 16 usines d\u2019assemblage Airbus.',
     } satisfies Localized,
     highlights : [
       {
@@ -41,12 +42,12 @@ export const projects = [
         fr : '30K+ jobs/jour',
       },
       {
-        en : '3-100 web-service calls/job',
-        fr : '3-100 appels web-service/job',
+        en : '3-100 calls/job',
+        fr : '3-100 appels/job',
       },
       {
-        en : '16 Airbus assembly plants',
-        fr : '16 usines d\u2019assemblage Airbus',
+        en : '16 plants',
+        fr : '16 usines',
       },
       {
         en : '~1,000 users',
@@ -54,7 +55,7 @@ export const projects = [
       },
     ] satisfies Localized[],
     stack      : [
-      'Python 3.12',
+      'Python',
       'FastAPI',
       'aiohttp',
       'Pydantic',
@@ -62,10 +63,10 @@ export const projects = [
       'uv',
       'Ruff',
       'Pyright',
-      'Windows Server 2022',
+      'Windows Server',
       'Skywise',
       'Google Workspace',
-      'Vue.js',
+      'VueJS',
     ],
   },
   {
@@ -81,18 +82,18 @@ export const projects = [
     period     : '2026 – present',
     summary    : {
       en :
-        'Portable skill system for AI coding agents, structured as a full operating model ' +
-        'for quality, workflow, governance, authoring, and specialist ' +
-        'implementation guidance. It adapts Agile, Scrum, Kanban, Shape Up, and AI-evaluation ideas ' +
-        'into practical agent controls: lane selection, durable artifacts, WIP limits, readiness gates, ' +
-        'bounded exceptions, evidence routing, docs synchronization, and deterministic validation scripts.',
+        'Portable skill system for AI coding agents, structured as a human-owned delivery model ' +
+        'for quality, workflow, governance, authoring, and specialist implementation guidance. ' +
+        'It turns Agile, Scrum, Kanban, Shape Up, and AI-evaluation ideas into practical controls: ' +
+        'lane selection, durable artifacts, WIP limits, readiness gates, bounded exceptions, ' +
+        'evidence routing, docs synchronization, and deterministic validation scripts.',
       fr :
-        'Système de skills portable pour agents de code IA, structuré comme un modèle opérationnel ' +
-        'complet pour qualité, workflow, gouvernance, authoring et spécialistes ' +
-        'd\u2019implémentation. Il adapte Agile, Scrum, Kanban, Shape Up et les pratiques d\u2019évaluation IA ' +
-        'en contrôles agentiques concrets : choix de lane, artefacts durables, limites WIP, gates de ' +
-        'readiness, exceptions bornées, routage d\u2019évidence, synchronisation documentaire et scripts ' +
-        'de validation déterministes.',
+        'Système de skills portable pour agents de code IA, structuré comme un modèle de livraison ' +
+        'contrôlé humainement pour qualité, workflow, gouvernance, authoring et guidage spécialiste ' +
+        'd\u2019implémentation. Il transforme Agile, Scrum, Kanban, Shape Up et les pratiques ' +
+        'd\u2019évaluation IA en contrôles concrets : choix de lane, artefacts durables, limites WIP, ' +
+        'gates de readiness, exceptions bornées, routage d\u2019évidence, synchronisation documentaire ' +
+        'et scripts de validation déterministes.',
     } satisfies Localized,
     highlights : [
       {
@@ -125,7 +126,7 @@ export const projects = [
       'GitHub Actions',
       'Mermaid',
       'Markdown',
-      'AI Workflows',
+      'AI-Directed Delivery',
     ],
     links      : [
       {
@@ -152,11 +153,11 @@ export const projects = [
     summary    : {
       en :
         'Structured logging and observability layer for TMIP operations, turning raw job ' +
-        'events into searchable SQLite records, a Vue.js inspection UI, Skywise dashboard ' +
+        'events into searchable SQLite records, a VueJS inspection UI, Skywise dashboard ' +
         'feeds, and automated alerts for error spikes, job health, and plant-level impact.',
       fr :
         'Couche de logging structuré et d\u2019observabilité pour les opérations TMIP, transformant ' +
-        'les événements bruts des jobs en enregistrements SQLite consultables, interface Vue.js, ' +
+        'les événements bruts des jobs en enregistrements SQLite consultables, interface VueJS, ' +
         'flux dashboard Skywise et alertes automatisées sur les pics d\u2019erreurs, la santé des ' +
         'jobs et l\u2019impact par usine.',
     } satisfies Localized,
@@ -180,7 +181,7 @@ export const projects = [
     ] satisfies Localized[],
     stack      : [
       'Python',
-      'Vue.js',
+      'VueJS',
       'SQLite',
       'CSV',
       'Skywise',
@@ -264,8 +265,8 @@ export const projects = [
     id         : 'proj-desktop-portfolio',
     imageId    : 6,
     name       : {
-      en : 'i-technology.net: AI-Built Desktop Portfolio',
-      fr : 'i-technology.net: Portfolio desktop construit avec l\u2019IA',
+      en : 'i-technology.net: AI-Directed Desktop Portfolio',
+      fr : 'i-technology.net: Portfolio desktop piloté par IA',
     } satisfies Localized,
     org        : {
       en : 'Independent',
@@ -274,28 +275,29 @@ export const projects = [
     period     : '2026 – present',
     summary    : {
       en :
-        'Recruiter-facing portfolio and AI-workflow case study that turns a resume into an ' +
-        'interactive desktop product. Built through AI-driven engineering workflows, it combines a ' +
-        'macOS-style shell, typed app registry, draggable and resizable window manager, async-loaded mini ' +
-        'apps, bilingual content, mobile shell, prerendered SEO, structured metadata, and ' +
-        'measured Google PageSpeed scores for fast, accessible first impressions.',
+        'Recruiter-facing portfolio and AI-directed delivery case study that turns a resume into ' +
+        'an interactive desktop product. Product direction, architecture, acceptance criteria, review, ' +
+        'tests, documentation sync, and quality gates stayed human-owned while agents provided ' +
+        'implementation throughput across the macOS-style shell, typed app registry, window manager, ' +
+        'async-loaded mini apps, bilingual content, mobile shell, prerendered SEO, structured metadata, ' +
+        'and measured Google PageSpeed scores.',
       fr :
-        'Portfolio orienté recruteurs et cas d\u2019étude de workflow IA transformant un CV en ' +
-        'produit interactif style desktop. Construit via des workflows d\u2019ingénierie pilotés ' +
-        'par l\u2019IA, il combine shell style macOS, registre d\u2019apps typé, gestionnaire de ' +
-        'fenêtres déplaçables et ' +
-        'redimensionnables, mini-apps chargées en async, contenu bilingue, shell mobile, SEO ' +
-        'prérendu, données structurées et scores Google PageSpeed mesurés pour une première ' +
-        'impression rapide et accessible.',
+        'Portfolio orienté recruteurs et cas d\u2019étude de livraison pilotée par IA transformant un ' +
+        'CV en produit interactif style desktop. Direction produit, architecture, critères ' +
+        'd\u2019acceptation, revue, tests, synchronisation documentaire et quality gates restaient ' +
+        'contrôlés humainement pendant que les agents apportaient du débit d\u2019implémentation ' +
+        'sur le shell style macOS, le registre d\u2019apps typé, le gestionnaire de fenêtres, les ' +
+        'mini-apps async, le contenu bilingue, le shell mobile, le SEO prérendu, les données ' +
+        'structurées et les scores Google PageSpeed mesurés.',
     } satisfies Localized,
     highlights : [
       {
-        en : 'AI-assisted product case study',
-        fr : 'Cas produit assisté par IA',
+        en : 'AI-directed case study',
+        fr : 'Cas de livraison pilotée par IA',
       },
       {
-        en : 'Desktop UX + mobile candidate flow',
-        fr : 'UX desktop + parcours mobile candidat',
+        en : 'Desktop + mobile UX',
+        fr : 'UX desktop + mobile',
       },
       {
         en : 'Google PageSpeed 100/99',
@@ -307,14 +309,14 @@ export const projects = [
       },
     ] satisfies Localized[],
     stack      : [
-      'Vue 3',
-      'TypeScript 6',
-      'Vite 8',
-      'Tailwind CSS v4',
+      'VueJS',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS',
       'Three.js',
       'vite-prerender-plugin',
       'Sharp',
-      'AI Workflows',
+      'AI-Directed Delivery',
     ],
     links      : [
       {
@@ -335,8 +337,8 @@ export const projects = [
     id         : 'proj-parallax-designer',
     imageId    : 7,
     name       : {
-      en : 'Parallax Designer: AI-Built Visual Builder',
-      fr : 'Parallax Designer: Builder visuel construit avec l\u2019IA',
+      en : 'Parallax Designer: AI-Directed Visual Builder',
+      fr : 'Parallax Designer: Builder visuel piloté par IA',
     } satisfies Localized,
     org        : {
       en : 'Independent',
@@ -348,18 +350,18 @@ export const projects = [
         'Browser-based visual editor for designing multi-layer parallax scenes like the ' +
         'portfolio background system. It provides real-time preview, layer geometry and motion ' +
         'controls, local asset storage, presets, schema validation, standalone runtime HTML export, ' +
-        'and an AI-driven documentation pipeline syncing app, user, and API docs into a VitePress site.',
+        'and an AI-directed documentation pipeline syncing app, user, and API docs into a VitePress site.',
       fr :
         'Éditeur visuel navigateur pour concevoir des scènes parallax multi-couches comme le ' +
         'système de fond du portfolio. Il propose preview temps réel, contrôles géométrie et ' +
         'mouvement par couche, stockage local d\u2019assets, presets, validation de schéma, export ' +
-        'HTML runtime autonome et pipeline documentaire IA synchronisant app, docs utilisateur ' +
+        'HTML runtime autonome et pipeline documentaire piloté par IA synchronisant app, docs utilisateur ' +
         'et API vers un site VitePress.',
     } satisfies Localized,
     highlights : [
       {
-        en : '100% AI-built',
-        fr : '100% construit avec l\u2019IA',
+        en : 'AI-directed build',
+        fr : 'Build piloté par IA',
       },
       {
         en : 'Real-time parallax editor',
@@ -386,7 +388,7 @@ export const projects = [
       'Playwright',
       'VitePress',
       'GitHub Actions',
-      'AI Workflows',
+      'AI-Directed Delivery',
     ],
     links      : [
       { label : 'Live app', href : 'https://robert-hoffmann.github.io/parallax-designer/' },
@@ -431,13 +433,13 @@ export const projects = [
         fr : 'Application tablette hors ligne',
       },
       {
-        en : '10 Airtable content contributors',
-        fr : '10 contributeurs contenu Airtable',
+        en : '10 Airtable contributors',
+        fr : '10 contributeurs Airtable',
       },
     ] satisfies Localized[],
     stack      : [
       'Quasar',
-      'Vue.js',
+      'VueJS',
       'Airtable',
       'MySQL',
       'C#',
@@ -459,44 +461,39 @@ export const projects = [
     period     : '2004 – 2013',
     summary    : {
       en :
-        'Senior full-stack C# work across the tchatche.com main site, user blog platform, ' +
-        'and dedicated/white-label chat apps inside a broader media ecosystem that also included ' +
-        'a magazine, satellite music TV program, email, games, people news, horoscope/interviews, ' +
-        'and iOS/Android apps. My scope included responsive versions, Facebook integration, ' +
-        'moderation, picture albums, location search, Google Maps, social sharing, and ' +
-        '13-language i18n.',
+        'Lead developer and technical owner for high-traffic white-label real-time chat products ' +
+        'inside the broader tchatche.com media ecosystem, spanning frontend architecture, backend ' +
+        'APIs, caching, moderation, browser compatibility, performance, responsive versions, ' +
+        'Facebook integration, location features, social sharing, and 13-language i18n across ' +
+        'the main site, user blogs, and dedicated chat apps.',
       fr :
-        'Travail full-stack C# senior sur le site principal tchatche.com, la plateforme de blogs ' +
-        'utilisateurs et les apps chat dédiées / marque blanche au sein d’un écosystème média ' +
-        'plus large incluant magazine, émission musicale satellite, email, jeux, people news, ' +
-        'horoscope/interviews et apps iOS/Android. Mon périmètre incluait versions responsive, ' +
-        'intégration Facebook, modération, albums photo, recherche géolocalisée, Google Maps, ' +
-        'partage social et i18n en 13 langues.',
+        'Lead developer et responsable technique de produits de chat temps réel marque blanche ' +
+        'à fort trafic au sein de l\u2019écosystème média tchatche.com, couvrant architecture ' +
+        'frontend, APIs backend, cache, modération, compatibilité navigateur, performance, ' +
+        'versions responsive, intégration Facebook, fonctions géolocalisées, partage social ' +
+        'et i18n en 13 langues sur le site principal, les blogs utilisateurs et les apps chat ' +
+        'dédiées.',
     } satisfies Localized,
     highlights : [
       {
-        en : '600M page views/month',
-        fr : '600M pages vues/mois',
+        en : '600M views/mo',
+        fr : '600M vues/mois',
       },
       {
-        en : '400M requests/day',
-        fr : '400M requêtes/jour',
-      },
-      {
-        en : '$300K/month revenue peak',
-        fr : 'Pic à 300K$/mois',
-      },
-      {
-        en : 'Main site + blog + chat apps',
-        fr : 'Site principal + blogs + apps chat',
-      },
-      {
-        en : 'Responsive + Facebook integration',
-        fr : 'Responsive + intégration Facebook',
-      },
-      {
-        en : '13-language i18n',
+        en : '13-lang i18n',
         fr : 'i18n en 13 langues',
+      },
+      {
+        en : '$300K/mo',
+        fr : '300K$/mois',
+      },
+      {
+        en : '400M req/day sites',
+        fr : '400M req/jour sites',
+      },
+      {
+        en : '~125K req/s chat',
+        fr : '~125K req/s chat',
       },
     ] satisfies Localized[],
     stack      : [
@@ -537,20 +534,20 @@ export const projects = [
     } satisfies Localized,
     highlights : [
       {
-        en : '3B+ ads served/month',
-        fr : '3Md+ pubs servies/mois',
+        en : '3B+ ads/mo',
+        fr : '3Md+ pubs/mois',
       },
       {
         en : '+20% ad revenue',
         fr : '+20% revenus publicitaires',
       },
       {
-        en : '+30% click-through rate',
+        en : '+30% CTR',
         fr : '+30% taux de clic',
       },
       {
-        en : '~5% CPU on 2 servers',
-        fr : '~5% CPU sur 2 serveurs',
+        en : '~5% CPU',
+        fr : '~5% CPU',
       },
     ] satisfies Localized[],
     stack      : [
@@ -722,7 +719,7 @@ export const projects = [
       'MariaDB',
       'REST API',
       'Quasar',
-      'Vue.js',
+      'VueJS',
       'Dexie',
       'IndexedDB',
       'Google Maps',
@@ -777,7 +774,7 @@ export const projects = [
       },
     ] satisfies Localized[],
     stack      : [
-      'Vue.js',
+      'VueJS',
       'Symfony',
       'Live Components',
       'Bootstrap',
@@ -1027,7 +1024,7 @@ export const projects = [
     } satisfies Localized,
     highlights : [
       {
-        en : 'Bug resolution from days to minutes',
+        en : 'Days-to-minutes fixes',
         fr : 'Résolution de jours à minutes',
       },
       {
@@ -1035,8 +1032,8 @@ export const projects = [
         fr : 'Erreurs SQL/IIS/.NET/client',
       },
       {
-        en : 'Aggregated stack-trace back office',
-        fr : 'Back-office stack traces agrégé',
+        en : 'Stack-trace back office',
+        fr : 'Back-office stack traces',
       },
     ] satisfies Localized[],
     stack      : [
@@ -1071,12 +1068,12 @@ export const projects = [
     } satisfies Localized,
     highlights : [
       {
-        en : 'Production tchatche.com chat traffic',
-        fr : 'Trafic chat tchatche.com en production',
+        en : 'Production chat traffic',
+        fr : 'Trafic chat en production',
       },
       {
-        en : '43-51% smaller sample payloads',
-        fr : 'Payloads exemples réduits de 43-51%',
+        en : '43-51% smaller payloads',
+        fr : 'Payloads réduits de 43-51%',
       },
       {
         en : 'Schema-aware key elision',
@@ -1121,8 +1118,8 @@ export const projects = [
     } satisfies Localized,
     highlights : [
       {
-        en : 'Archived Chrome + Edge extension',
-        fr : 'Extension Chrome + Edge archivée',
+        en : 'Chrome + Edge extension',
+        fr : 'Extension Chrome + Edge',
       },
       {
         en : 'Search-page GPT injection',
@@ -1182,7 +1179,7 @@ export const projects = [
       },
     ] satisfies Localized[],
     stack      : [
-      'Vue.js',
+      'VueJS',
       'Cordova',
       'AngularJS',
       'Bootstrap',
@@ -1253,8 +1250,8 @@ export const projects = [
     } satisfies Localized,
     highlights : [
       {
-        en : 'Local and remote page rendering',
-        fr : 'Rendu pages locales et distantes',
+        en : 'Local/remote rendering',
+        fr : 'Rendu local/distant',
       },
       {
         en : 'PDF and image output',
@@ -1320,6 +1317,42 @@ export const projects = [
   },
 ] as const
 
-export type Project = (typeof projects)[number]
+export type Project = (typeof projectRecords)[number]
 export type ProjectId = Project['id']
+
+const projectDisplayOrder = [
+  'proj-chatapp',
+  'proj-adproxy',
+  'proj-tmip-scheduler',
+  'proj-tmip-logger',
+  'proj-uncle-bob',
+  'proj-desktop-portfolio',
+  'proj-parallax-designer',
+  'proj-hutchinson-work-instructions',
+  'proj-sbm-compliance',
+  'proj-headjs',
+  'proj-t4resx',
+  'proj-findunused',
+  'proj-wind-maintenance',
+  'proj-attendance-billing',
+  'proj-maser-academy-inventory',
+  'proj-roland-garros-navigation',
+  'proj-public-health-analytics',
+  'proj-healthmon',
+  'proj-jsonr',
+  'proj-powertoys',
+  'proj-microcoil',
+  'proj-webmonitor',
+  'proj-phantomui',
+  'proj-mario',
+] satisfies readonly ProjectId[]
+
+const projectOrder = new Map<ProjectId, number>(
+  projectDisplayOrder.map((id, index) => [id, index] as const),
+)
+
+export const projects = [...projectRecords].sort(
+  (left, right) => (projectOrder.get(left.id) ?? projectRecords.length) -
+    (projectOrder.get(right.id) ?? projectRecords.length),
+)
 // #endregion Content

@@ -9,8 +9,8 @@ export const experience = [
       fr : 'Maser Engineering',
     } satisfies Localized,
     role     : {
-      en : 'Consultant - Industrial Software & Operations Platforms',
-      fr : 'Consultant - Logiciels industriels & plateformes opérationnelles',
+      en : 'Consultant - Product, Full-Stack & Operational Software',
+      fr : 'Consultant - Produit, full-stack & logiciels opérationnels',
     } satisfies Localized,
     period   : 'Mar 2022 – Present',
     location : {
@@ -23,22 +23,23 @@ export const experience = [
     } satisfies Localized,
     summary  : {
       en :
-        'Building production software for industrial, aerospace, energy, training, and ' +
-        'compliance operations: data orchestration, offline field apps, planning back offices, ' +
-        'certification workflows, inventory systems, observability tooling, and AI-assisted ' +
-        'delivery workflows for clients including Airbus, Hutchinson, SBM, Teréga, CRIT, Nexess, ' +
-        'and Maser Academy.',
+        'Building product-minded full-stack software for aerospace, industrial, energy, training, ' +
+        'and compliance operations. The common thread is production robustness: offline apps, ' +
+        'planning back offices, data orchestration, structured logging, observability, certification ' +
+        'workflows, inventory systems, and AI-directed delivery workflows for clients including ' +
+        'Airbus, Hutchinson, SBM, Teréga, CRIT, Nexess, and Maser Academy.',
       fr :
-        'Conception et livraison de logiciels de production pour les opérations industrielles, ' +
-        'aéronautiques, énergie, formation et conformité : orchestration de données, apps terrain ' +
-        'hors ligne, back-offices de planification, workflows de certification, systèmes ' +
-        'd\u2019inventaire, observabilité et workflows de livraison assistés par IA pour des clients ' +
-        'dont Airbus, Hutchinson, SBM, Teréga, CRIT, Nexess et Maser Academy.',
+        'Conception et livraison de logiciels full-stack orientés produit pour les opérations ' +
+        'aéronautiques, industrielles, énergie, formation et conformité. Le fil rouge est la ' +
+        'robustesse en production : apps hors ligne, back-offices de planification, orchestration ' +
+        'de données, logging structuré, observabilité, workflows de certification, systèmes ' +
+        'd\u2019inventaire et livraison pilotée par IA pour des clients dont Airbus, Hutchinson, SBM, ' +
+        'Teréga, CRIT, Nexess et Maser Academy.',
     } satisfies Localized,
     bullets  : [
       {
-        en : 'Delivered full-stack operational platforms across Symfony, Vue, Quasar, Python, Airtable, MariaDB, SQLite, and REST APIs',
-        fr : 'Livraison de plateformes opérationnelles full-stack avec Symfony, Vue, Quasar, Python, Airtable, MariaDB, SQLite et APIs REST',
+        en : 'Delivered full-stack operational platforms across Symfony, VueJS, Quasar, Python, Airtable, MariaDB, SQLite, and REST APIs',
+        fr : 'Livraison de plateformes opérationnelles full-stack avec Symfony, VueJS, Quasar, Python, Airtable, MariaDB, SQLite et APIs REST',
       },
       {
         en : 'Built offline-capable field and tablet apps for wind-turbine maintenance, training attendance, and manufacturing work instructions',
@@ -53,22 +54,21 @@ export const experience = [
         fr : 'Intégration d\u2019armoires connectées, Google Workspace, Skywise / Foundry, Airtable, PDFs, exports CSV et outils back-office internes',
       },
       {
-        en : 'Introduced AI-assisted engineering workflows, quality gates, documentation sync, and repeatable delivery practices',
-        fr : 'Introduction de workflows d\u2019ingénierie assistés par IA, quality gates, synchronisation documentaire et pratiques de livraison répétables',
+        en : 'Introduced AI-directed delivery workflows, quality gates, documentation sync, and repeatable validation practices',
+        fr : 'Introduction de workflows de livraison pilotés par IA, quality gates, synchronisation documentaire et pratiques de validation répétables',
       },
     ] satisfies Localized[],
     stack    : [
       'Python',
       'PHP',
       'Symfony',
-      'Vue.js',
+      'VueJS',
       'Quasar',
       'Airtable',
-      'MariaDB',
-      'SQLite',
+      'SQL',
       'REST APIs',
       'Skywise / Foundry',
-      'AI Workflows',
+      'AI-Directed Delivery',
     ],
   },
   {
@@ -78,8 +78,8 @@ export const experience = [
       fr : 'Indépendant',
     } satisfies Localized,
     role     : {
-      en : 'Digital & Technological Consultant',
-      fr : 'Consultant digital & technologique',
+      en : 'Product / Full-Stack / AI Workflow Consultant',
+      fr : 'Consultant produit / full-stack / workflows IA',
     } satisfies Localized,
     period   : '2019 – Present',
     location : {
@@ -92,12 +92,12 @@ export const experience = [
     } satisfies Localized,
     summary  : {
       en :
-        'Helping entrepreneurs, start-ups, and SMEs analyze and realize their potential through ' +
-        'marketing, technology, automation, and industrialization.',
+        'Helping entrepreneurs, start-ups, SMEs, and technical teams turn product, operational, ' +
+        'and automation problems into working software and repeatable delivery systems.',
       fr :
-        'Accompagnement d\u2019entrepreneurs, de start-ups et de PME dans l\u2019analyse et la ' +
-        'réalisation de leur potentiel grâce au marketing, à la technologie, à l\u2019automatisation ' +
-        'et à l\u2019industrialisation.',
+        'Accompagnement d\u2019entrepreneurs, de start-ups, de PME et d\u2019équipes techniques pour ' +
+        'transformer des problèmes produit, opérationnels et d\u2019automatisation en logiciels utiles ' +
+        'et en systèmes de livraison répétables.',
     } satisfies Localized,
     bullets  : [
       {
@@ -105,20 +105,20 @@ export const experience = [
         fr : 'Gestion de l\u2019innovation, études de faisabilité, et analyses de marché & concurrentielles',
       },
       {
-        en : 'Full-stack delivery - front-end, back-office, web, mobile, and service architecture',
-        fr : 'Livraison full-stack - front-end, back-office, web, mobile et architecture de services',
+        en : 'Full-stack delivery across frontend, backend, back-office, web, mobile, and service architecture',
+        fr : 'Livraison full-stack sur frontend, backend, back-office, web, mobile et architecture de services',
       },
       {
-        en : 'DevOps automation, CI/CD, error & project management',
-        fr : 'Automatisation DevOps, CI/CD, gestion des erreurs & de projets',
+        en : 'AI-directed delivery workflows for planning, implementation, review, testing, documentation sync, and quality gates',
+        fr : 'Workflows de livraison pilotés par IA pour planning, implémentation, revue, tests, synchronisation documentaire et quality gates',
       },
       {
         en : 'Digital strategy, growth hacking, SEO/SEA, and user acquisition & retention',
         fr : 'Stratégie digitale, growth hacking, SEO/SEA, et acquisition & rétention utilisateurs',
       },
       {
-        en : 'ROI, cost, risk, and technical-debt analysis using Scrum, Kanban, and Lean',
-        fr : 'Analyse de ROI, coûts, risques et dette technique avec Scrum, Kanban et Lean',
+        en : 'ROI, cost, risk, technical-debt, user-acquisition, retention, and automation analysis',
+        fr : 'Analyse de ROI, coûts, risques, dette technique, acquisition, rétention et opportunités d\u2019automatisation',
       },
     ] satisfies Localized[],
     stack    : ['Agile Coach', 'Product Owner', 'Scrum', 'Kanban'],
@@ -313,17 +313,31 @@ export const experience = [
       fr : 'CDI · ~6 ans',
     } satisfies Localized,
     summary   : {
-      en : 'Collaborated across design, development, IT, and marketing on high-traffic community products.',
-      fr : 'Collaboration transversale entre design, développement, IT et marketing sur des produits communautaires à fort trafic.',
+      en :
+        'Technical lead across high-traffic media, community, chat, ad-serving, and white-label ' +
+        'web products.',
+      fr :
+        'Tech lead sur produits web média, communautaires, chat, ad-serving et marque blanche ' +
+        'à fort trafic.',
     } satisfies Localized,
     highlight : {
-      en : '6M uniques/mo · 400M req/day',
-      fr : '6M visiteurs uniques/mois · 400M req/jour',
+      en : '6M uniques/mo · 400M req/day network',
+      fr : '6M visiteurs uniques/mois · 400M req/jour réseau',
     } satisfies Localized,
     bullets   : [
       {
-        en : 'Maintained and evolved chat rooms, web apps, and multimedia portals - 6M unique visitors/month',
-        fr : 'Maintenance et évolution de salons de chat, applications web et portails multimédias - 6M visiteurs uniques/mois',
+        en : 'Owned technical delivery for white-label tchatche.com chat apps: frontend architecture, browser compatibility, i18n, performance, moderation, and client/server interaction patterns',
+        fr : 'Responsable technique des apps chat tchatche.com marque blanche : architecture frontend, compatibilité navigateur, i18n, performance, modération et interactions client/serveur',
+      },
+      {
+        en :
+          'Operated under high-scale constraints: 600M page views/month and 400M requests/day ' +
+          'across the managed media network; chat-cluster peaks reached ~125K requests/sec ' +
+          'across 5 load-balanced servers',
+        fr :
+          'Travail sous contraintes très fort trafic : 600M pages vues/mois et 400M requêtes/jour ' +
+          'sur le réseau média géré ; pics cluster chat à ~125K requêtes/sec sur 5 serveurs ' +
+          'load-balancés',
       },
       {
         en : 'Designed a generic ad-proxy server - +20\u202F% ad revenue, zero developer intervention',
@@ -338,11 +352,11 @@ export const experience = [
         fr : 'Création d\u2019un outil de suivi d\u2019erreurs réduisant la résolution de bugs de jours à minutes - 5× moins d\u2019erreurs',
       },
       {
-        en : 'Elaborated social media strategy with SSO and social sharing - +50\u202F% revenue in 6 months',
-        fr : 'Élaboration d\u2019une stratégie réseaux sociaux avec SSO et partage social - +50\u202F% de revenus en 6 mois',
+        en : 'Delivered responsive, internationalized, social, location-aware, and monetized community features across main site, blogs, chats, and white-label products',
+        fr : 'Livraison de fonctionnalités communautaires responsive, internationalisées, sociales, géolocalisées et monétisées sur site principal, blogs, chats et produits marque blanche',
       },
     ] satisfies Localized[],
-    stack     : ['C#', '.NET', 'JavaScript', 'SEO', 'Google Analytics'],
+    stack     : ['C#', 'ASP.NET MVC', 'Razor', 'WebAPI', 'JavaScript', 'jQuery', 'HeadJS', 'SQL Server'],
   },
   {
     id       : 'exp-celad',
@@ -364,8 +378,8 @@ export const experience = [
       fr : 'Contrat · 1 an',
     } satisfies Localized,
     summary  : {
-      en : 'Led the technical and design restructuring of internationalized white-label web chats.',
-      fr : 'Direction de la restructuration technique et design de chats web en marque blanche internationalisés.',
+      en : 'Led technical and design restructuring of internationalized white-label web chat products.',
+      fr : 'Direction de la restructuration technique et design de produits chat web en marque blanche internationalisés.',
     } satisfies Localized,
     bullets  : [
       {
@@ -377,8 +391,8 @@ export const experience = [
         fr : 'Réduction de moitié du temps de déploiement en marque blanche avec un produit moderne et traduisible',
       },
       {
-        en : 'Designed a custom JSON protocol (JsonRaw) - 30–40\u202F% bandwidth savings',
-        fr : 'Conception d\u2019un protocole JSON personnalisé (JsonRaw) - 30–40\u202F% d\u2019économie de bande passante',
+        en : 'Designed a custom compact JSON protocol (JsonRaw) to reduce bandwidth on high-volume chat/Ajax traffic',
+        fr : 'Conception d\u2019un protocole JSON compact personnalisé (JsonRaw) pour réduire la bande passante du trafic chat/Ajax à fort volume',
       },
     ] satisfies Localized[],
     stack    : ['C#', '.NET', 'jQuery', 'JavaScript', 'CSS'],
@@ -404,11 +418,11 @@ export const experience = [
     } satisfies Localized,
     summary  : {
       en :
-        'Built and managed community products (B2B/B2C) - chats, blogs, and portals - under ' +
-        'own label, white label, and affiliation models.',
+        'Built B2B/B2C community products, white-label portals, monetized chat/blog systems, ' +
+        'CMS-style back offices, and affiliate/reseller integrations.',
       fr :
-        'Développement et gestion de produits communautaires (B2B/B2C) - chats, blogs et ' +
-        'portails - en marque propre, marque blanche et modèles d\u2019affiliation.',
+        'Développement de produits communautaires B2B/B2C, portails marque blanche, systèmes ' +
+        'chat/blog monétisés, back-offices type CMS et intégrations affiliation / revente.',
     } satisfies Localized,
     bullets  : [
       {
@@ -420,8 +434,8 @@ export const experience = [
         fr : 'Intégration de services de monétisation - régies publicitaires, carte bancaire, SMS, micro-paiement, paywall',
       },
       {
-        en : 'Customized products for TF1, Skyrock, NRJ Group, M6, SFR, Orange, Microsoft, Pepsi, and more',
-        fr : 'Personnalisation de produits pour TF1, Skyrock, NRJ Group, M6, SFR, Orange, Microsoft, Pepsi, et plus',
+        en : 'Customized white-label products for TF1, Skyrock, NRJ Group, M6, SFR, Orange, Microsoft, Pepsi, and more',
+        fr : 'Personnalisation de produits marque blanche pour TF1, Skyrock, NRJ Group, M6, SFR, Orange, Microsoft, Pepsi, et plus',
       },
     ] satisfies Localized[],
     stack    : ['C#', '.NET', 'JavaScript', 'CSS', 'HTML'],

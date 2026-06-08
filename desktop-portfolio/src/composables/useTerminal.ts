@@ -217,16 +217,16 @@ export function useTerminal(options: TerminalOptions) {
             'VITE_AUTHOR=Robert Hoffmann',
             'SECRET_KEY=nice_try_😏',
           ],
-          'resume.txt' : [
-            'Robert Hoffmann',
-            '═══════════════════════════════════════',
-            'Full-Stack Engineer · Consultant',
-            '25+ years in tech',
-            '',
-            'Expertise: .NET, TypeScript, Vue, Python',
-            'Industries: Aerospace, Telecom, Media',
-            'Certifications: PSM, PSPO, Lean Six Sigma',
-          ],
+            'resume.txt' : [
+              'Robert Hoffmann',
+              '═══════════════════════════════════════',
+              'Senior Full-Stack Engineer · Frontend/Platform Lead',
+              '25+ years in tech',
+              '',
+              'Expertise: .NET, TypeScript, VueJS, Python',
+              'Industries: Aerospace, Telecom, Media',
+              'Certifications: PSM, PSPO, Lean Six Sigma',
+            ],
         }
 
         const content = files[file]

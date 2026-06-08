@@ -4,20 +4,20 @@ import type { MessageCatalog } from '../interface'
 // #region Messages
 export const aboutMessages = {
   'about.certifications' : {
-    en : 'Certifications',
-    fr : 'Certifications',
+    en : 'Process literacy / Certifications',
+    fr : 'Culture process / Certifications',
   },
 } satisfies MessageCatalog
 // #endregion Messages
 
 // #region Content
 export const about = {
-  name     : 'Robert Hoffmann',
-  tagline  : {
-    en : 'Full-Stack Consultant · Industrial Software · AI Workflows',
-    fr : 'Consultant Full-Stack · Logiciels industriels · Workflows IA',
+  name        : 'Robert Hoffmann',
+  tagline     : {
+    en : 'Senior Product-Minded Full-Stack Engineer · Frontend & Platform Lead',
+    fr : 'Ingénieur full-stack senior orienté produit · Lead frontend & plateforme',
   } satisfies Localized,
-  photo    : `${import.meta.env.BASE_URL}profile-avatar-80.avif`,
+  photo       : `${import.meta.env.BASE_URL}profile-avatar-80.avif`,
   photoSrcSet : [
     `${import.meta.env.BASE_URL}profile-avatar-80.avif 1x`,
     `${import.meta.env.BASE_URL}profile-avatar-160.avif 2x`,
@@ -26,42 +26,76 @@ export const about = {
 
   aiCallout : {
     en :
-      'I use AI agents as part of the engineering workflow, not just as autocomplete: ' +
-      'research, specs, code review, implementation, documentation sync, quality gates, ' +
-      'and repeatable delivery systems. The goal is not novelty; it is faster, clearer, ' +
-      'more controlled software delivery.',
+      'I use AI agents for implementation throughput inside an AI-directed, human-owned ' +
+      'delivery system. Product direction, architecture, acceptance criteria, review, tests, ' +
+      'docs sync, and quality gates stay under my control.',
     fr :
-      'J\u2019utilise les agents IA comme partie intégrante du workflow d\u2019ingénierie, pas ' +
-      'seulement comme autocomplétion : recherche, specs, revue de code, implémentation, ' +
-      'synchronisation documentaire, quality gates et systèmes de livraison répétables. ' +
-      'Le but n\u2019est pas la nouveauté ; c\u2019est une livraison logicielle plus rapide, plus ' +
-      'claire et mieux contrôlée.',
+      'J\u2019utilise les agents IA pour accélérer l\u2019implémentation dans un système de livraison ' +
+      'piloté par IA et contrôlé humainement. Direction produit, architecture, critères ' +
+      'd\u2019acceptation, revue, tests, sync docs et quality gates restent sous mon contrôle.',
   } satisfies Localized,
 
   summary : {
     en :
-      'I\u2019ve spent 25+ years building software that has to survive real traffic, real ' +
-      'operations, and real users: white-label chat platforms handling 400M requests/day, ' +
-      'ad systems serving 3B+ impressions/month, offline field apps for industrial teams, ' +
-      'and data orchestration systems running 30K+ jobs/day. Today I focus on industrial ' +
-      'software, operational platforms, observability, and AI-assisted engineering workflows.',
+      'I\u2019ve spent 25+ years building production software that has to survive real traffic, ' +
+      'real users, and real operational constraints. I am frontend-led, not frontend-limited: ' +
+      'my work spans ~125K req/s chat-cluster peaks, a 400M req/day managed media network, ' +
+      '3B+ impressions/month ad systems, backend APIs, databases, caching, observability, ' +
+      'offline field apps, and developer tooling.',
     fr :
-      'En 25+ ans, j\u2019ai construit des logiciels qui doivent tenir face au vrai trafic, ' +
-      'aux vraies opérations et aux vrais utilisateurs : plateformes de chat en marque ' +
-      'blanche traitant 400M de requêtes/jour, régies publicitaires servant 3Md+ ' +
-      'd\u2019impressions/mois, apps terrain hors ligne pour équipes industrielles et systèmes ' +
-      'd\u2019orchestration de données exécutant 30K+ jobs/jour. Aujourd\u2019hui, je me concentre ' +
-      'sur les logiciels industriels, plateformes opérationnelles, l\u2019observabilité et les ' +
-      'workflows d\u2019ingénierie assistés par IA.',
+      'En 25+ ans, j\u2019ai construit des logiciels de production qui doivent tenir face au ' +
+      'vrai trafic, aux vrais utilisateurs et aux vraies contraintes opérationnelles. Je suis ' +
+      'frontend-led, pas frontend-limited : mon travail couvre des pics cluster chat à ' +
+      '~125K req/s, un réseau média géré à 400M req/jour, des systèmes publicitaires à ' +
+      '3Md+ impressions/mois, APIs backend, bases de données, cache, observabilité, apps ' +
+      'terrain hors ligne et outils développeurs.',
   } satisfies Localized,
 
   expertise : [
-    { en : 'AI Workflows & Agents',          fr : 'Workflows IA & Agents' },
-    { en : 'Industrial Software',            fr : 'Logiciels industriels' },
-    { en : 'Offline Field Apps',             fr : 'Apps terrain hors ligne' },
-    { en : 'Data Orchestration',             fr : 'Orchestration de données' },
-    { en : 'Vue · Python · Symfony · .NET',  fr : 'Vue · Python · Symfony · .NET' },
-    { en : 'Observability & Traceability',   fr : 'Observabilité & traçabilité' },
+    {
+      en : 'Product Architecture',
+      fr : 'Architecture produit',
+    },
+    {
+      en : 'Product Engineering',
+      fr : 'Ingénierie produit',
+    },
+    {
+      en : 'High-Traffic Applications',
+      fr : 'Applications à fort trafic',
+    },
+    {
+      en : 'Backend APIs',
+      fr : 'APIs backend',
+    },
+    {
+      en : 'Databases',
+      fr : 'Bases de données',
+    },
+    {
+      en : 'Observability & Traceability',
+      fr : 'Observabilité & traçabilité',
+    },
+    {
+      en : 'AI-Directed Delivery',
+      fr : 'Livraison pilotée par IA',
+    },
+    {
+      en : 'VueJS',
+      fr : 'VueJS',
+    },
+    {
+      en : 'TypeScript',
+      fr : 'TypeScript',
+    },
+    {
+      en : 'Python',
+      fr : 'Python',
+    },
+    {
+      en : '.NET',
+      fr : '.NET',
+    },
   ] satisfies Localized[],
 
   certifications : [

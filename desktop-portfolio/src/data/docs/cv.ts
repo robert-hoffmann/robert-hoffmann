@@ -191,10 +191,10 @@ export const cvDocument = {
     avatarSrc : 'profile_400x400.jpg',
     bannerSrc : 'x-banner-1500x500.jpeg',
   },
-  topbarKicker : 'Industrial software / AI-assisted delivery',
+  topbarKicker : 'Product-minded full-stack / frontend platform lead',
   role         :
-    'Industrial Full-Stack Consultant for operational platforms, data orchestration, offline ' +
-    'field apps, observability, and controlled AI-assisted software delivery.',
+    'Senior product-minded full-stack engineer and frontend/platform lead for complex web ' +
+    'products, operational systems, developer tooling, and AI-directed delivery workflows.',
 
   contacts : [
     {
@@ -222,16 +222,16 @@ export const cvDocument = {
   metrics : [
     {
       value : '25+ yrs',
-      label : 'production software across web, industrial, media and operations',
+      label : 'production web software across product, media, operations and tooling',
     },
     {
       value            : '30K+ / day',
-      label            : 'industrial orchestration jobs for Airbus smart-cabinet operations',
+      label            : 'aerospace orchestration jobs for Airbus smart-cabinet operations',
       sourceProjectIds : [tmipSchedulerProject.id],
     },
     {
       value            : '400M / day',
-      label            : 'requests handled by high-scale white-label chat platforms',
+      label            : 'requests handled across the managed media network',
       sourceProjectIds : [chatProject.id],
     },
     {
@@ -241,17 +241,18 @@ export const cvDocument = {
     },
     {
       value            : '100 / 99',
-      label            : 'Lighthouse desktop / mobile score on AI-built portfolio',
+      label            : 'Lighthouse desktop / mobile score on AI-directed portfolio',
       sourceProjectIds : [portfolioProject.id],
     },
   ],
 
   profile : {
-    lead : 'I turn messy operations into reliable software.',
+    lead : 'Frontend-led, not frontend-limited.',
     body :
-      'Current focus: industrial data flows, traceability, field work, offline sync, ' +
-      'dashboards, alerting, and engineering workflows where AI agents are used as controlled ' +
-      'delivery infrastructure, not just autocomplete.',
+      'I build production web products where browser UX, backend APIs, databases, caching, ' +
+      'observability, offline workflows, and delivery automation have to work together. AI agents ' +
+      'provide implementation throughput; architecture, review, tests, docs sync, and quality gates ' +
+      'stay human-owned.',
   },
 
   coreStack : [
@@ -267,15 +268,13 @@ export const cvDocument = {
     'Tailwind',
     'Symfony',
     'Quasar',
-    'MariaDB',
-    'SQLite',
+    'SQL',
     'Airtable',
     'Skywise',
-    'Google Workspace',
   ],
 
   deliveryReliability : [
-    'AI Workflows',
+    'AI-Directed Delivery',
     'Quality Gates',
     'Observability',
     'Structured Logging',
@@ -315,24 +314,22 @@ export const cvDocument = {
     title           : 'i-technology.net desktop portfolio',
     href            : getProjectLink(portfolioProject, 'Live site') ?? portfolioHref,
     body            :
-      '100% AI-built web app turning a resume into a desktop simulator: window manager, ' +
-      'mini apps, bilingual content, mobile shell, Three.js game, prerendered SEO, optimized ' +
-      'assets, and persistent state.',
+      'AI-directed web app turning a resume into a desktop simulator: human-owned product ' +
+      'direction, architecture, review, tests, docs sync, and quality gates, with agent-assisted ' +
+      'implementation across mini apps, mobile shell, prerendered SEO, optimized assets, and state.',
     sourceProjectId : portfolioProject.id,
   },
 
   operatingMode : [
-    'Outside-in delivery: clarify users, failure modes, data flows, and acceptance evidence before polishing UI.',
-    'Modernize legacy systems through typing, logging, repeatable checks, and production-friendly migration steps.',
-    'Use agent workflows for research, specs, reviews, implementation, docs sync, and quality gates.',
-    'Build operational visibility into products with structured logs, health signals, error classification, alerts, and dashboard feeds.',
-    'Treat quality as runtime evidence: typed contracts, repeatable checks, production telemetry, and fast diagnosis loops.',
+    'Clarify users, failure modes, data flows, and acceptance evidence before implementation.',
+    'Modernize legacy systems through typing, logging, repeatable checks, and production-friendly steps.',
+    'Use AI-directed workflows for specs, implementation, review, docs sync, tests, and quality gates.',
   ],
 
   currentValue :
-    'Best fit: industrial, aerospace, energy, compliance, training, or operational teams that ' +
-    'need a senior full-stack builder who can connect systems, reduce manual work, make data ' +
-    'traceable, and ship usable internal tools without losing engineering control.',
+    'Best fit: autonomous product teams, startups, scale-ups, SaaS companies, software publishers, ' +
+    'or expert operational teams that need a senior builder who can own delivery from product ' +
+    'problem to production without losing engineering control.',
 
   selectedExperience : [
     {
@@ -342,7 +339,7 @@ export const cvDocument = {
       bullets   : [
         'Delivered production software for Airbus, Hutchinson, SBM, Terega, CRIT, Nexess, Maser Academy, and renewable-energy teams.',
         'Built data orchestration, offline field apps, planning back offices, certification workflows, inventory systems, and observability tooling.',
-        'Introduced AI-assisted engineering workflows, documentation sync, quality gates, and repeatable delivery practices.',
+        'Introduced AI-directed delivery workflows, documentation sync, quality gates, and repeatable validation practices.',
       ],
       sourceIds : [maserExperience.id],
     },
@@ -351,7 +348,7 @@ export const cvDocument = {
       role      : english(independentExperience.role),
       company   : `${english(independentExperience.company)} - ${english(independentExperience.location)}`,
       bullets   : [
-        'Advises entrepreneurs, startups, and SMEs on product strategy, automation, technical risk, ROI, and full-stack delivery.',
+        'Advises entrepreneurs, startups, SMEs, and technical teams on product strategy, automation, technical risk, ROI, and full-stack delivery.',
       ],
       sourceIds : [independentExperience.id],
     },
@@ -369,13 +366,27 @@ export const cvDocument = {
       role      : english(indexExperience.role),
       company   : '123 Multimedia / Index Multimedia',
       bullets   : [
-        'Built and evolved high-traffic community, chat, ad-tech, localization, and error-tracking systems for major French media brands.',
+        'Led and evolved high-traffic community, real-time chat, ad-tech, localization, and error-tracking systems for major French media brands.',
       ],
       sourceIds : [mmExperience.id, indexExperience.id],
     },
   ],
 
   impactProjects : [
+    {
+      title            : 'High-scale real-time web and ad-serving systems',
+      body             :
+        'Lead developer and technical owner for white-label chat and ad-serving products ' +
+        'covering frontend architecture, backend APIs, caching, moderation, performance, ' +
+        'campaign routing, targeting, and branded portals.',
+      metrics          : [
+        '600M views/month',
+        '3B+ ads/month',
+        '~125K req/s chat-cluster peaks',
+      ],
+      sourceProjectIds : [chatProject.id, adProxyProject.id],
+      hasGalleryImage  : projectHasGalleryImage(chatProject.id),
+    },
     {
       title            : 'TMIP Scheduler - Airbus data orchestration',
       body             :
@@ -443,19 +454,6 @@ export const cvDocument = {
       sourceProjectIds : [windProject.id, sbmProject.id, hutchinsonProject.id],
       hasGalleryImage  : projectHasGalleryImage(sbmProject.id),
     },
-    {
-      title            : 'High-scale web and ad-serving systems',
-      body             :
-        'White-label chat and ad-serving infrastructure for major French media brands, ' +
-        'covering real-time community traffic, campaign routing, targeting, and branded portals.',
-      metrics          : [
-        '600M views/month',
-        '400M req/day',
-        '3B+ ads/month',
-      ],
-      sourceProjectIds : [chatProject.id, adProxyProject.id],
-      hasGalleryImage  : projectHasGalleryImage(chatProject.id),
-    },
   ],
 
   footer : {
@@ -477,7 +475,7 @@ export const cvDocument = {
         href  : xHref,
       },
     ],
-    text : `${about.name} - Industrial Full-Stack Consultant`,
+    text : `${about.name} - Senior Product-Minded Full-Stack Engineer`,
   },
 
   visualEvidence : galleryImages.map(image => ({

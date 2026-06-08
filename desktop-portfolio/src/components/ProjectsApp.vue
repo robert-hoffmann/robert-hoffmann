@@ -328,4 +328,11 @@ onBeforeUnmount(() => {
   gap              : var(--space-1);
   margin-block-end : var(--space-3);
 }
+
+.project-highlights .content-highlight {
+  padding-inline : var(--space-2);
+  font-size      : var(--text-xs);
+  line-height    : var(--leading-tight);
+  white-space    : nowrap;
+}
 </style>

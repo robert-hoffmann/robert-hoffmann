@@ -285,6 +285,7 @@ onUnmounted(() => {
   display         : flex;
   flex-direction  : column;
   gap             : var(--space-5);
+  container       : about-content / inline-size;
   inline-size     : 100%;
   block-size      : 100%;
   min-block-size  : 0;
@@ -454,15 +455,18 @@ onUnmounted(() => {
 
 /* ---- Expertise pills ---- */
 .about-pills {
-  display               : grid;
-  grid-template-columns : repeat(auto-fill, minmax(10rem, 1fr));
-  gap                   : var(--space-2);
+  display     : flex;
+  flex-wrap   : wrap;
+  align-items : flex-start;
+  gap         : var(--space-2);
 }
 
 .about-pill {
   display         : inline-flex;
   align-items     : center;
   justify-content : center;
+  flex            : 0 1 auto;
+  max-inline-size : 100%;
   padding-inline  : var(--space-3);
   padding-block   : var(--space-1);
   border-radius   : var(--radius-full);
@@ -494,15 +498,17 @@ onUnmounted(() => {
 
 /* ---- Section title ---- */
 .about-section-title {
-  font-size      : var(--text-sm);
-  font-weight    : 600;
-  text-transform : uppercase;
-  letter-spacing : 0.05em;
-  color          : var(--text-meta);
+  font-size        : var(--text-sm);
+  font-weight      : 600;
+  text-transform   : uppercase;
+  letter-spacing   : 0.05em;
+  color            : var(--text-meta);
   margin-block-end : var(--space-2);
 }
 
 .about-pill--cert {
+  flex            : 0 1 auto;
+  min-inline-size : 0;
   gap             : 0.36rem;
   background      : transparent;
   border-color    : var(--border-default);
@@ -521,15 +527,43 @@ onUnmounted(() => {
   -webkit-mask            : var(--cert-icon-url) center / contain no-repeat;
 }
 
-/* ---- Responsive: stack stats 2×2 in narrow windows ---- */
-@container (max-width: 420px) {
-  .about-stats {
-    grid-template-columns : repeat(2, 1fr);
+/* ---- Responsive: compact narrow About windows ---- */
+@container about-content (max-width: 420px) {
+  .about-header {
+    gap : var(--space-3);
   }
 
-  .about-header {
-    flex-direction : column;
-    text-align     : center;
+  .about-photo {
+    inline-size : 64px;
+    block-size  : 64px;
+  }
+
+  .about-name {
+    font-size : var(--text-xl);
+  }
+
+  .about-tagline {
+    font-size      : var(--text-xs);
+    letter-spacing : 0.02em;
+  }
+
+  .about-ai-callout {
+    padding : var(--space-3);
+  }
+
+  .about-pills {
+    gap : var(--space-2) var(--space-1);
+  }
+
+  .about-pill {
+    padding-inline : var(--space-2);
+    font-size      : var(--text-xs);
+    letter-spacing : 0;
+  }
+
+  .about-pill--cert {
+    flex            : 0 1 auto;
+    min-inline-size : 0;
   }
 }
 

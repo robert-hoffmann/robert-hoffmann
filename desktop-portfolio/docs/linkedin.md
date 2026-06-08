@@ -9,35 +9,35 @@ facts manually into `src/data/apps/about.ts`, `src/data/apps/resume.ts`,
 
 Recommended:
 
-Industrial Full-Stack Consultant | Data Orchestration, Offline Apps & Observability | AI-Assisted Delivery | 25+ yrs: Python, Vue, Symfony, .NET
+Senior Product-Minded Full-Stack Engineer | Frontend & Platform Lead | High-Traffic Web, Observability, Developer Tooling & AI-Directed Delivery
 
 Alternatives:
 
-- Industrial Full-Stack Consultant | Operational Platforms, Data Workflows & AI-Assisted Delivery | Python · Vue · Symfony · .NET
-- Full-Stack Consultant for Industrial Operations | Data Orchestration, Field Apps, Observability & AI Workflows
-- Industrial Software Consultant | Turning Complex Operations into Reliable Platforms, Data Workflows & Field Apps
-- Senior Full-Stack Consultant | Industrial Software, Data Orchestration, Observability & Product/R&D Delivery
-- Product-Minded Full-Stack Consultant | Industrial Platforms, Data Workflows, Offline Apps & AI-Assisted Engineering
+- Senior Full-Stack Engineer | Frontend Platform Lead | Product, Web Performance, APIs & Observability
+- Product-Minded Technical Lead | Frontend-Led Full-Stack | High-Traffic Web, Tooling & AI-Directed Delivery
+- Senior Full-Stack / Frontend Lead | Product Teams, SaaS, Software Publishers & Operational Platforms
+- Frontend-Led Full-Stack Engineer | Real-Time Web, Backend APIs, Offline Apps & Developer Tooling
+- Senior Product Engineer | Complex Web Products, Observability, Automation & AI-Directed Workflows
 
 ## Profile Headline - FR
 
 Recommandé :
 
-Consultant Full-Stack industriel | Orchestration de données, apps offline & observabilité | Livraison assistée par IA | 25+ ans : Python, Vue, Symfony, .NET
+Ingénieur full-stack senior orienté produit | Lead frontend & plateforme | Web à fort trafic, observabilité, tooling & livraison pilotée par IA
 
 Alternatives :
 
-- Consultant Full-Stack industriel | Plateformes opérationnelles, workflows data & livraison assistée par IA | Python · Vue · Symfony · .NET
-- Consultant Full-Stack pour opérations industrielles | Orchestration de données, apps terrain, observabilité & workflows IA
-- Consultant logiciel industriel | Transformer des opérations complexes en plateformes, données et apps terrain fiables
-- Consultant Full-Stack senior | Logiciels industriels, orchestration data, observabilité & delivery Produit/R&D
-- Consultant Full-Stack orienté produit | Plateformes industrielles, workflows data, apps offline & ingénierie assistée par IA
+- Ingénieur full-stack senior | Lead frontend/platform | Produit, performance web, APIs & observabilité
+- Tech lead orienté produit | Full-stack frontend-led | Web à fort trafic, tooling & livraison pilotée par IA
+- Lead full-stack / frontend | Équipes produit, SaaS, éditeurs de logiciels & plateformes opérationnelles
+- Ingénieur full-stack frontend-led | Web temps réel, APIs backend, apps offline & tooling développeur
+- Product engineer senior | Produits web complexes, observabilité, automatisation & workflows IA
 
 ## Featured Links - EN
 
-### i-technology.net - AI-Built Desktop Portfolio
+### i-technology.net - AI-Directed Desktop Portfolio
 
-100% AI-built, architected through agent workflows: 25+ years of frontend, UI/UX, and performance craft distilled into a web app.
+AI-directed, human-owned portfolio product: desktop shell, mini apps, mobile flow, prerendered SEO, performance-focused assets, and high Lighthouse scores.
 
 https://i-technology.net/
 
@@ -49,9 +49,9 @@ https://github.com/robert-hoffmann/uncle-bob
 
 ## Featured Links - FR
 
-### i-technology.net - Portfolio desktop construit avec l’IA
+### i-technology.net - Portfolio desktop piloté par IA
 
-100% construit avec l’IA et architecturé via workflows agents : 25+ ans de frontend, UI/UX et performance distillés dans une web app.
+Portfolio produit piloté par IA et contrôlé humainement : shell desktop, mini-apps, parcours mobile, SEO prérendu, assets optimisés et hauts scores Lighthouse.
 
 https://i-technology.net/
 
@@ -63,33 +63,59 @@ https://github.com/robert-hoffmann/uncle-bob
 
 ## About - EN
 
-I build production software for industrial operations: data orchestration, offline field apps, observability tooling, compliance workflows, and full-stack platforms that people actually use.
+I’m a senior product-minded full-stack engineer, frontend/platform lead, and technical lead based in Toulouse, France.
 
-Over the last 25+ years, I’ve worked on a pretty wide range of systems: high-traffic web platforms, telecom/media products, aerospace, energy, training, and industrial operations. Some of that work ran at serious scale: 400M requests/day, 3B+ ads/month, offline apps for field and factory teams, and current industrial workflows running 30K+ jobs/day.
+I’ve been building production web software since 1998: early PHP CMSs, high-traffic real-time chat platforms, ad-distribution systems, developer tools, offline-first apps, industrial and aerospace operations software, observability systems, and AI-directed delivery workflows.
 
-These days, I like working where things are messy enough to be interesting: connecting systems, modernizing legacy workflows, making data traceable, building dashboards and alerts, and turning manual processes into tools that are easier to trust and operate.
+I am frontend-led, not frontend-limited. My work usually includes backend APIs, databases, web services, caching, logging, health monitoring, deployment constraints, and production support.
 
-I also use AI agents in my day-to-day engineering workflow, not just for autocomplete. I use them for research, specs, code review, implementation, documentation sync, quality gates, and repeatable delivery systems. For me the point is practical: move faster, see problems earlier, and keep more control over the work.
+My strongest fit is an autonomous product team, startup, scale-up, SaaS company, or software publisher / éditeur de logiciels that needs a senior builder who can own technical delivery from product problem to production.
 
-I enjoy making complex systems feel simpler and more actionable, especially with teams that care about reliability as much as delivery.
+Selected proof points:
+
+- Lead developer and technical owner for white-label tchatche.com chat applications.
+- High-traffic media ecosystem: 600M page views/month and 400M requests/day across the managed site network.
+- Real-time chat cluster: ~125K requests/sec peaks across 5 load-balanced servers.
+- Built ad-distribution infrastructure serving 3B+ ads/month.
+- Main maintainer of HeadJS, a 4K+ star JavaScript library.
+- Created T4ResX and FindUnusedFiles developer tools used by thousands of developers.
+- Recent aerospace and industrial systems: offline field apps, data orchestration, observability, and 30K+ jobs/day scheduler operations.
+- Creator of Uncle Bob, a portable AI-agent skill/governance system for repeatable AI-directed development.
+
+These days I write less code manually and spend more time on architecture, functionality, decomposition, acceptance criteria, testing strategy, review, quality gates, documentation sync, and automation. I use AI agents as implementation accelerators inside a human-owned engineering process.
+
+Not my primary positioning: ML model engineering, Kubernetes/SRE specialization, pure security engineering, or process-heavy roles detached from product and production.
 
 ## About - FR
 
-Je construis des logiciels de production pour les opérations industrielles : orchestration de données, applications terrain hors ligne, observabilité, workflows de conformité et plateformes full-stack réellement utilisées sur le terrain.
+Je suis ingénieur full-stack senior orienté produit, lead frontend/platform et tech lead basé à Toulouse.
 
-En 25+ ans, j’ai travaillé sur des systèmes très variés : plateformes web à fort trafic, produits télécom/média, aéronautique, énergie, formation et opérations industrielles. Certains projets tournaient à vraie échelle : 400M de requêtes/jour, 3Md+ de publicités/mois, apps hors ligne pour équipes terrain ou atelier, et aujourd’hui des workflows industriels exécutant 30K+ jobs/jour.
+Je construis des logiciels web de production depuis 1998 : CMS PHP historiques, plateformes de chat temps réel à fort trafic, systèmes de distribution publicitaire, outillage développeur, apps offline-first, logiciels opérationnels industriels et aéronautiques, observabilité et workflows de livraison pilotés par IA.
 
-Aujourd’hui, j’aime intervenir là où les choses sont assez complexes pour être intéressantes : connecter des systèmes, moderniser des workflows legacy, rendre les données traçables, construire des dashboards et alertes, et transformer des processus manuels en outils fiables et exploitables.
+Je suis frontend-led, pas frontend-limited. Mes projets incluent généralement APIs backend, bases de données, web services, cache, logs, health monitoring, contraintes de déploiement et support production.
 
-J’utilise aussi les agents IA dans mon workflow d’ingénierie au quotidien, pas seulement comme autocomplétion. Recherche, specs, revue de code, implémentation, synchronisation documentaire, quality gates et systèmes de livraison répétables. Le but est très concret : avancer plus vite, voir les problèmes plus tôt et garder plus de contrôle sur la qualité du travail.
+Mon meilleur fit : équipes produit autonomes, startups, scale-ups, SaaS, éditeurs de logiciels ou petites équipes expertes qui ont besoin d’un senior builder capable de porter la livraison technique du problème produit jusqu’à la production.
 
-J’aime rendre les systèmes complexes plus simples et actionnables, surtout avec des équipes qui prennent la fiabilité aussi au sérieux que la livraison.
+Preuves sélectionnées :
+
+- Lead developer et responsable technique des applications chat tchatche.com en marque blanche.
+- Écosystème média à fort trafic : 600M pages vues/mois et 400M requêtes/jour sur le réseau de sites géré.
+- Cluster chat temps réel : pics à ~125K requêtes/sec sur 5 serveurs load-balancés.
+- Construction d’une infrastructure publicitaire servant 3Md+ publicités/mois.
+- Mainteneur principal de HeadJS, bibliothèque JavaScript à 4K+ étoiles GitHub.
+- Créateur de T4ResX et FindUnusedFiles, outils développeur utilisés par des milliers de développeurs.
+- Systèmes industriels et aéronautiques récents : apps terrain hors ligne, orchestration de données, observabilité et opérations scheduler à 30K+ jobs/jour.
+- Créateur d’Uncle Bob, système portable de skills/gouvernance pour agents IA et développement piloté par IA répétable.
+
+Aujourd’hui, j’écris moins de code manuellement et je passe plus de temps sur architecture, fonctionnalité, découpage, critères d’acceptation, stratégie de tests, revue, quality gates, synchronisation documentaire et automatisation. J’utilise les agents IA comme accélérateurs d’implémentation dans un processus d’ingénierie contrôlé humainement.
+
+Pas mon positionnement principal : ingénierie ML/modèles, spécialisation Kubernetes/SRE, sécurité pure ou rôles process détachés du produit et de la production.
 
 ## Maser Engineering - EN
 
-Consultant - Industrial Software & Operations Platforms
+Consultant - Product, Full-Stack & Operational Software
 
-I design and build operational software for industrial teams: systems that move data between platforms, support field work offline, improve traceability, and replace fragile manual workflows with reliable tools.
+I design and build product-minded full-stack software for aerospace, industrial, energy, training, and compliance operations. The common thread is production robustness: offline use, traceability, observability, real operators, legacy integrations, and production constraints.
 
 - Built industrial data workflows for Airbus operations, integrating smart cabinets, scheduled jobs, Google Workspace, Skywise / Foundry, internal management tools, and monitoring outputs.
 - Helped scale and stabilize a job-orchestration system processing 30K+ jobs/day across 16 assembly plants.
@@ -99,13 +125,13 @@ I design and build operational software for industrial teams: systems that move 
 - Built compliance and onboarding platforms for SBM and Teréga, supporting certification workflows, document tracking, expiry automation, and high-risk site access verification.
 - Delivered training and manufacturing support tools: student attendance and billing workflows, Hutchinson digital work instructions, and Maser Academy inventory planning.
 
-Stack: Python, Symfony/PHP, Vue, Quasar, Airtable, MariaDB, SQLite, REST APIs, Skywise / Foundry, Google Workspace, AI-assisted delivery workflows.
+Stack: Python, Symfony/PHP, VueJS, Quasar, Airtable, SQL, REST APIs, Skywise / Foundry, AI-directed delivery workflows.
 
 ## Maser Engineering - FR
 
-Consultant - Logiciels industriels & plateformes opérationnelles
+Consultant - Produit, full-stack & logiciels opérationnels
 
-Je conçois et construis des logiciels opérationnels pour équipes industrielles : systèmes qui font circuler les données entre plateformes, soutiennent le travail terrain hors ligne, améliorent la traçabilité et remplacent des workflows manuels fragiles par des outils fiables.
+Je conçois et construis des logiciels full-stack orientés produit pour opérations aéronautiques, industrielles, énergie, formation et conformité. Le fil rouge est la robustesse en production : usage offline, traçabilité, observabilité, vrais opérateurs, intégrations legacy et contraintes de production.
 
 - Création de workflows de données industriels pour les opérations Airbus, intégrant armoires connectées, jobs planifiés, Google Workspace, Skywise / Foundry, outils de gestion internes et sorties de monitoring.
 - Contribution à la montée en charge et à la stabilisation d’un système d’orchestration traitant 30K+ jobs/jour sur 16 usines d’assemblage.
@@ -115,4 +141,4 @@ Je conçois et construis des logiciels opérationnels pour équipes industrielle
 - Construction de plateformes conformité et onboarding pour SBM et Teréga, couvrant workflows de certification, suivi documentaire, automatisation des expirations et vérification d’accès à sites à risque.
 - Livraison d’outils support formation et fabrication : pointage et facturation stagiaires, instructions de travail digitales Hutchinson, et planification d’inventaire Maser Academy.
 
-Stack : Python, Symfony/PHP, Vue, Quasar, Airtable, MariaDB, SQLite, APIs REST, Skywise / Foundry, Google Workspace, workflows de livraison assistés par IA.
+Stack : Python, Symfony/PHP, VueJS, Quasar, Airtable, SQL, APIs REST, Skywise / Foundry, workflows de livraison pilotés par IA.

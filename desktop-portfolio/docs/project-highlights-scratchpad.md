@@ -13,7 +13,7 @@ Goal: turn the current `Projects` window into `Project Highlights`: fewer, stron
 - Section style: curated highlights, not a long archive.
 - Highlights: use multiple impact chips per card.
 - Company/client label: show employer and client when different, for example `Maser Engineering for Airbus`; show only employer when the work was directly for the employer.
-- The portfolio site itself is a valid highlight because it demonstrates AI-assisted delivery, interactive product design, performance work, and tool/workflow building.
+- The portfolio site itself is a valid highlight because it demonstrates AI-directed delivery, interactive product design, performance work, and tool/workflow building.
 
 ## Current Implementation Notes
 
@@ -28,7 +28,7 @@ Goal: turn the current `Projects` window into `Project Highlights`: fewer, stron
 - The data model now uses `highlights: Localized[]`.
 - The window title now says `Project Highlights`.
 - CSS now supports wrapped metric chips through `.project-highlights`.
-- Current ordering is intentionally extensive and impact-ranked. It starts with TMIP Scheduler, Uncle Bob, TMIP Logger, SBM / Teréga, the AI-built portfolio, Parallax Designer, Hutchinson, tchatche.com, and Ad Proxy, then continues through public tooling, industrial apps, dashboards, and older experiments.
+- Current ordering is intentionally extensive and impact-ranked. It starts with high-traffic product proof (`tchatche.com`, Ad Proxy), then production robustness (`TMIP Scheduler`, TMIP Logger), AI-directed delivery systems, public tooling, industrial apps, dashboards, and older experiments.
 - `registry.ts` separates the mobile/desktop shortcut label `Projects` from the window title `Project Highlights`.
 - The mobile Projects icon has a short three-cycle pulse on the minimized mobile home screen so users notice the main portfolio content when no window is open.
 
@@ -65,7 +65,7 @@ Potential sharper angle:
   responsive versions and Facebook integration.
 - High-scale real-time chat platform.
 - White-label deployments for major French media brands.
-- Strong performance constraints: 600M page views/month, 400M requests/day, 200 KB UI, PageSpeed 97/100, IE support.
+- Strong performance constraints: 600M page views/month and 400M requests/day across the managed site network; ~125K req/s chat-cluster peaks across 5 load-balanced servers; 200 KB UI, PageSpeed 97/100, IE support.
 - Can name major white-label brands: SFR, Bouygues, Orange, TF1, NRJ, Chérie FM, and others.
 - Role framing: senior full-stack C# architect across 123 Multimedia and Index Multimedia history.
 - Business context: white-label chat/community platforms were one of the company's biggest business lines.
@@ -75,10 +75,11 @@ Potential sharper angle:
 
 Candidate highlights:
 
-- `600M page views/month`
-- `400M requests/day`
+- `600M views/mo`
+- `400M req/day network`
+- `~125K req/s chat cluster`
 - `$300K/month revenue peak`
-- `13-language internationalization`
+- `13-lang i18n`
 - `Major French media white labels`
 - `Senior full-stack C# architect`
 - `Moderation + social + location features`
@@ -87,7 +88,7 @@ Candidate highlights:
 Remaining questions:
 
 - Any billing, SSO, mobile, or localization complexity worth naming?
-- Was the 400M daily request figure all chat/API traffic or total platform traffic?
+- 400M daily requests were broader managed site-network traffic, not the same measurement as chat-cluster peak req/sec.
 
 ### Ad Proxy - Ad-Distribution Server
 
@@ -106,9 +107,9 @@ Potential sharper angle:
 
 Candidate highlights:
 
-- `3B+ ads served/month`
+- `3B+ ads/mo`
 - `+20% ad revenue`
-- `+30% click-through rate`
+- `+30% CTR`
 - `Single entry point for ad managers`
 - `Demographic and performance targeting`
 
@@ -265,13 +266,13 @@ Source links:
 
 ## New Project Candidates
 
-### i-technology.net - AI-Built Desktop Portfolio
+### i-technology.net - AI-Directed Desktop Portfolio
 
 Raw facts:
 
 - Online portfolio site: https://i-technology.net/
 - Built in 2026 and actively maintained.
-- Built 100% through AI-driven workflows and prompt systems.
+- Built through AI-directed workflows and prompt systems, with product direction, architecture, review, tests, documentation structure, and quality gates owned by Robert.
 - Used as a testbed for AI workflows that can build practical tools.
 - Site model: desktop simulator with mini apps, dock, top bar, icon grid, and window manager.
 - Source-code facts:
@@ -290,11 +291,11 @@ Raw facts:
   - Lighthouse desktop score: 100.
   - Lighthouse mobile score: 99.
 - Related workflow angle:
-  - `ub-quality` and `ub-workflow` were built for the same class of AI-assisted engineering work used on TMIP and this portfolio.
+  - `ub-quality` and `ub-workflow` were built for the same class of AI-directed engineering work used on TMIP and this portfolio.
 
 Candidate highlights:
 
-- `100% AI-built`
+- `AI-directed delivery case study`
 - `Desktop simulator + mini apps`
 - `Lighthouse 100 desktop`
 - `Lighthouse 99 mobile`
@@ -307,11 +308,11 @@ Possible positioning:
 
 Remaining questions:
 
-- Should this card mention `ub-quality` / `ub-workflow` by name, or keep the wording public-facing as `AI Workflows`?
+- Should this card mention `ub-quality` / `ub-workflow` by name, or keep the wording public-facing as `AI-Directed Delivery`?
 - Should we add a source-code/GitHub link if the repository is public?
 - Do we want to verify the Lighthouse scores locally and archive the report as evidence?
 
-### Parallax Designer - AI-Built Visual Builder
+### Parallax Designer - AI-Directed Visual Builder
 
 Source links:
 
@@ -323,7 +324,7 @@ Raw facts:
 
 - Built in 2026 and actively maintained.
 - Public GitHub repository.
-- Built 100% with AI-driven workflows.
+- Built through AI-directed workflows, with product direction, architecture, review, tests, documentation structure, and quality gates owned by Robert.
 - Tool was created to build/fine-tune the parallax background effect used by the portfolio.
 - Browser-based visual editor for multi-layer parallax scenes.
 - Uses real-time preview and HTML export.
@@ -350,7 +351,7 @@ Raw facts:
 
 Candidate highlights:
 
-- `100% AI-built`
+- `AI-directed build`
 - `Real-time parallax editor`
 - `Standalone HTML export`
 - `Automated VitePress docs`
@@ -387,7 +388,7 @@ Raw facts:
   - `ub-workflow`,
   - `ub-governance`,
   - `ub-customizations`,
-  - plus specialist skills for Python, TypeScript, Vue, Nuxt, CSS, and Tailwind.
+  - plus specialist skills for Python, TypeScript, VueJS, Nuxt, CSS, and Tailwind.
 - The strong story is the operating model around portable skills, workflow artifacts, governance gates, docs sync, and deterministic validation scripts.
 - Validation/tooling surfaces inspected:
   - `plugin.json` exposes `.agents/skills/` and `.github/agents/`,
@@ -484,7 +485,7 @@ Raw facts:
 - Uses Pyright typing, uv, Ruff, Pydantic, dataclasses, glom, structured logging with database projections, and Skywise integration.
 - Includes automated email alerts for error spikes, expiring SSL certificates, and daily error summaries.
 - Employer/client label: Maser Engineering for Airbus, working with Nexess as smart-cabinet supplier.
-- Stack: Python 3.12, Windows Server 2022 VM, Ruff, uv, Pyright, Pydantic, aiohttp, glom, FastAPI, Vue.js.
+- Stack: Python, Windows Server VM, Ruff, uv, Pyright, Pydantic, aiohttp, glom, FastAPI, VueJS.
 - Runtime/system concepts: multiprocessing, job orchestration, web services, data transformation jobs, Windows Scheduler, timezone-aware Cronier scheduling with DST handling.
 - Scale: 16 assembly plants and around 1,000 users.
 - Impact themes: performance, modern standards, error logging, traceability, accountability.
@@ -527,13 +528,13 @@ Raw facts:
 - Color-coded CLI logs in dev mode.
 - CSV dumps for error modes with file rotation.
 - Moves logs to SQLite for inspection.
-- Vue.js app filters logs and application lifecycle.
+- VueJS app filters logs and application lifecycle.
 - Filters by assembly plant, job ID, error type, and more.
 - Logs rotated to Skywise every 4 hours for dashboard analysis.
 - Jobs send automated emails for error spikes, error types, and summaries.
 - Tracks affected plant, affected job, error source, error type, and trend progression.
 - Context: 16 assembly plants and almost 300 jobs.
-- Includes an API layer to serve SQLite-backed log data to the Vue.js UI.
+- Includes an API layer to serve SQLite-backed log data to the VueJS UI.
 - Impact: 10x error reduction, 5x faster bug resolution, and 5x more scheduled jobs since takeover.
 
 Candidate highlights:
@@ -567,7 +568,7 @@ English title options:
 Raw facts:
 
 - Built in 2023.
-- Vue.js/Symfony application.
+- VueJS/Symfony application.
 - Used by Maser Engineering training center for aerospace cabling and related training.
 - Replaced paper attendance sheets.
 - Teachers collected digital student signatures.
@@ -665,7 +666,7 @@ Raw facts:
 - User confirmed protective equipment, raw materials, and tools.
 - App guided the worker step by step, sometimes 40+ steps, with image, blueprint, video, and help support.
 - Domain: composite materials for Airbus and military.
-- Stack: Quasar Framework, Vue.js, Airtable, MySQL, C#, PHP.
+- Stack: Quasar Framework, VueJS, Airtable, MySQL, C#, PHP.
 - Airtable-backed authoring interface enabled around 10 non-technical people to enter data, images, and content.
 - Delivery used a MySQL database.
 - Built C# automation to pull Airtable data, map it to the production database structure, and update JavaScript fetch web services.
@@ -765,7 +766,7 @@ Raw facts:
 - Inventory includes wind turbines, machine specs, machine numbers, maintenance documents, and related technical information.
 - Planning mode lets managers plan field interventions for multiple teams on specific dates.
 - Planning captures which team goes to which wind turbine and what work must be done.
-- Companion field app is built with Quasar and Vue.js.
+- Companion field app is built with Quasar and VueJS.
 - Field app is fully offline capable.
 - Offline sync uses IndexedDB through Dexie for complex local persistence.
 - App uses a queue system and syncs queued work when connectivity returns.
@@ -820,22 +821,22 @@ Direction: keep a very extensive list, ordered by impact. The top should feel co
 
 Current order:
 
-1. TMIP Scheduler - Industrial Data Orchestration
-2. Uncle Bob - Agentic AI Workflow System
-3. TMIP Logger - QoS & KPI Observability
-4. SBM / Teréga - Onboarding & Certification Tracking
-5. i-technology.net - AI-Built Desktop Portfolio
-6. Parallax Designer - AI-Built Visual Builder
-7. Hutchinson - Digital Work Instructions
-8. tchatche.com - White-Label Chat Platform
-9. Ad Proxy - Ad-Distribution Server
-10. T4ResX - Localization Tooling
-11. HeadJS - Open-Source JS Library
-12. Wind Turbine Maintenance Operations Platform
-13. Student Attendance & Invoicing System
-14. Maser Academy - Course Inventory Planning
-15. Roland-Garros - Staff Navigation PWA
-16. FindUnusedFiles - Visual Studio Extension
+1. tchatche.com - White-Label Chat Platform
+2. Ad Proxy - Ad-Distribution Server
+3. TMIP Scheduler - Aerospace Data Orchestration
+4. TMIP Logger - QoS & KPI Observability
+5. Uncle Bob - Agentic AI Workflow System
+6. i-technology.net - AI-Directed Desktop Portfolio
+7. Parallax Designer - AI-Directed Visual Builder
+8. Hutchinson - Digital Work Instructions
+9. SBM / Teréga - Onboarding & Certification Tracking
+10. HeadJS - Open-Source JS Library
+11. T4ResX - Localization Tooling
+12. FindUnusedFiles - Visual Studio Extension
+13. Wind Turbine Maintenance Operations Platform
+14. Student Attendance & Invoicing System
+15. Maser Academy - Course Inventory Planning
+16. Roland-Garros - Staff Navigation PWA
 17. Public Health Analytics Dashboards
 18. HealthMonitoring - Error Tracking
 19. JsonRaw - Lightweight JSON Protocol
@@ -845,7 +846,7 @@ Current order:
 23. PhantomUI - Web-to-PDF Converter
 24. jQuery Mario - Mobile Web Game POC
 
-Future additions should be inserted into this order by signal strength: production/business-critical impact first, then high-scale public/web systems, then builder/toolmaker projects, then narrower utilities and older experiments.
+Future additions should be inserted into this order by signal strength: high-scale product/web systems first, then production/business-critical robustness, then AI-directed delivery systems, public tooling, narrower utilities, and older experiments.
 
 ## Future Project Interview Template
 

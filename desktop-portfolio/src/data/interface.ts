@@ -290,8 +290,8 @@ export const interfaceMessages = {
     fr : 'Zone de bureau',
   },
   'desktop.srTitle'                   : {
-    en : 'Robert Hoffmann - Industrial Full-Stack Consultant',
-    fr : 'Robert Hoffmann - Consultant Full-Stack industriel',
+    en : 'Robert Hoffmann - Senior Product-Minded Full-Stack Engineer',
+    fr : 'Robert Hoffmann - Ingénieur full-stack senior orienté produit',
   },
   'mobile.timeAndDate'                : {
     en : 'Time and date',
@@ -402,8 +402,8 @@ export const interfaceMessages = {
     fr : 'Version 1.0',
   },
   'aboutModal.description'            : {
-    en : 'A macOS-inspired interactive portfolio built with Vue, TypeScript & Vite.',
-    fr : 'Un portfolio interactif inspiré de macOS, développé avec Vue, TypeScript & Vite.',
+    en : 'A macOS-inspired interactive portfolio built with VueJS, TypeScript & Vite.',
+    fr : 'Un portfolio interactif inspiré de macOS, développé avec VueJS, TypeScript & Vite.',
   },
   'aboutModal.author'                 : {
     en : 'Created by Robert Hoffmann',
