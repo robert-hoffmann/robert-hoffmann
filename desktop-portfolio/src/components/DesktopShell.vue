@@ -7,7 +7,7 @@ import DesktopIcon from './DesktopIcon.vue'
 import NotificationStack from './NotificationStack.vue'
 import AboutSiteModal from './AboutSiteModal.vue'
 import DesktopBackgroundStack from './DesktopBackgroundStack.vue'
-import type { WindowResizeHandle } from '../types/desktop'
+import type { WindowResizeHandle, WindowResizeInputMode } from '../types/desktop'
 import { useWindowManager } from '../composables/useWindowManager'
 import { useDesktopIcons } from '../composables/useDesktopIcons'
 import { useTheme } from '../composables/useTheme'
@@ -37,7 +37,7 @@ import {
 const theme = useTheme()
 const toast = useToast()
 const { t, locale } = useLocale()
-const { isMobile } = useViewMode()
+const { isMobile, isPhoneViewport } = useViewMode()
 const { hasCoarsePointer, hasFinePointer } = usePointerCapabilities()
 
 /* ---- desktop-only composables ---- */
@@ -80,8 +80,11 @@ const desktopNotificationTimerIds: number[] = []
 let previousWorkAreaRect: ReturnType<typeof wm.getWorkAreaRect> | null = null
 let lastDesktopBridgedToastMessage = ''
 
-const isTouchDesktopMode = computed(() =>
-  !isMobile.value && hasCoarsePointer.value && !hasFinePointer.value,
+const isTouchDesktopMode    = computed(() =>
+  !isMobile.value && !isPhoneViewport.value && hasCoarsePointer.value && !hasFinePointer.value,
+)
+const windowResizeInputMode = computed<WindowResizeInputMode>(() =>
+  isTouchDesktopMode.value ? 'touch' : 'pointer',
 )
 
 /* ---- helpers ---- */
@@ -494,7 +497,8 @@ watch(
       :is-focused="wm.state.focusedWindowId === ws.id"
       :can-minimize="wm.getWindowCapabilities(ws.id).canMinimize"
       :can-maximize="wm.getWindowCapabilities(ws.id).canMaximize"
-      :can-resize="wm.getWindowCapabilities(ws.id).canResize && !isTouchDesktopMode"
+      :can-resize="wm.getWindowCapabilities(ws.id).canResize"
+      :resize-input-mode="windowResizeInputMode"
       :can-move="wm.getWindowCapabilities(ws.id).canMove"
       @close="wm.closeWindow"
       @minimize="onWindowMinimize"

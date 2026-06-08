@@ -27,6 +27,7 @@ const MOBILE_QUERY = `${MOBILE_PHONE_QUERY}, ${MOBILE_TABLET_PORTRAIT_TOUCH_QUER
 
 /* Module-level singleton - shared across all consumers */
 const viewportIsMobile = ref(false)
+const viewportIsPhone  = ref(false)
 const viewOverride     = ref<ViewMode | null>(null)
 
 let listenerAttached = false
@@ -37,16 +38,23 @@ function ensureListener() {
   listenerAttached = true
 
   const mobileMql = window.matchMedia(MOBILE_QUERY)
-  viewportIsMobile.value = mobileMql.matches
+  const phoneMql  = window.matchMedia(MOBILE_PHONE_QUERY)
 
-  const handler = (e: MediaQueryListEvent) => {
-    viewportIsMobile.value = e.matches
+  const syncViewportMatches = () => {
+    viewportIsMobile.value = mobileMql.matches
+    viewportIsPhone.value  = phoneMql.matches
+  }
+
+  const handler = () => {
+    syncViewportMatches()
     /* Reset override when viewport changes - prevents being stuck
        in desktop mode on a phone/tablet after rotation, for example */
     viewOverride.value = null
   }
 
+  syncViewportMatches()
   mobileMql.addEventListener('change', handler)
+  phoneMql.addEventListener('change', handler)
 
   /* Cleanup is intentionally omitted - singleton lives for the
      duration of the SPA. If this composable is ever used in
@@ -66,6 +74,9 @@ export function useViewMode() {
   /** Current effective view mode */
   const viewMode = computed<ViewMode>(() => isMobile.value ? 'mobile' : 'desktop')
 
+  /** True when the physical viewport is phone-sized, regardless of preview override */
+  const isPhoneViewport = computed(() => viewportIsPhone.value)
+
   /** True when a desktop viewport is previewing the mobile layout */
   const isPreview = computed(() =>
     !viewportIsMobile.value && viewMode.value === 'mobile',
@@ -83,6 +94,7 @@ export function useViewMode() {
 
   return {
     isMobile,
+    isPhoneViewport,
     isPreview,
     viewMode,
     viewOverride,

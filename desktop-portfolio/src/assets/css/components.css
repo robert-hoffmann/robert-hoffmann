@@ -718,6 +718,7 @@
 .app-window-resize-zone--se {
   inset-block-end  : 0;
   inset-inline-end : 0;
+  margin           : 0 5px 5px 0;
   cursor           : nwse-resize;
 
   &::after {
@@ -725,18 +726,24 @@
     position           : absolute;
     inset-block-end    : 4px;
     inset-inline-end   : 4px;
-    inline-size        : 8px;
-    block-size         : 8px;
+    inline-size        : 9px;
+    block-size         : 9px;
     border-inline-end  : 2px solid var(--text-muted);
     border-block-end   : 2px solid var(--text-muted);
-    opacity            : 0.4;
+    opacity            : 0.55;
     transition         : opacity var(--dur-fast) var(--ease-out);
     pointer-events     : none;
   }
 
   &:hover::after {
-    opacity : 0.8;
+    opacity : 0.85;
   }
+}
+
+.app-window-shell--touch-resize .app-window-resize-zone--se {
+  inline-size  : 2.75rem;
+  block-size   : 2.75rem;
+  touch-action : none;
 }
 
 .app-window-header {

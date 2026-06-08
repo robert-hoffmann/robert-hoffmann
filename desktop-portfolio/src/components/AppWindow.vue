@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, provide, ref, shallowRef, toRef } from 'vue'
-import type { WindowResizeHandle, WindowState } from '../types/desktop'
+import type { WindowResizeHandle, WindowResizeInputMode, WindowState } from '../types/desktop'
 import { windowRegistry } from '../data/registry'
 import { useLocale } from '../composables/useLocale'
 
 const { t } = useLocale()
 
 const props = defineProps<{
-  windowState  : WindowState
-  isFocused    : boolean
-  canMinimize  : boolean
-  canMaximize  : boolean
-  canResize    : boolean
-  canMove      : boolean
+  windowState     : WindowState
+  isFocused       : boolean
+  canMinimize     : boolean
+  canMaximize     : boolean
+  canResize       : boolean
+  resizeInputMode : WindowResizeInputMode
+  canMove         : boolean
 }>()
 
 const emit = defineEmits<{
@@ -37,11 +38,13 @@ const shellStyle = computed(() => ({
 }))
 
 const hoverResizeHandle = ref<WindowResizeHandle | null>(null)
-const shellClass        = computed(() =>
+const isTouchResizeMode = computed(() => props.resizeInputMode === 'touch')
+const shellClass        = computed(() => [
   hoverResizeHandle.value
     ? `app-window-shell--resize-${hoverResizeHandle.value}`
     : null,
-)
+  { 'app-window-shell--touch-resize': isTouchResizeMode.value },
+])
 
 /*
  * Resolve the async component exactly once from the registry.
@@ -78,8 +81,15 @@ const nopeAnimationKey = ref(0)
 const RESIZE_HANDLES                = [
   'n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw',
 ] as const satisfies readonly WindowResizeHandle[]
+const TOUCH_RESIZE_HANDLES          = [
+  'se',
+] as const satisfies readonly WindowResizeHandle[]
 const RESIZE_CURSOR_EDGE_INSET_PX   = 8
 const RESIZE_CURSOR_CORNER_INSET_PX = 14
+
+const activeResizeHandles = computed<readonly WindowResizeHandle[]>(() =>
+  isTouchResizeMode.value ? TOUCH_RESIZE_HANDLES : RESIZE_HANDLES,
+)
 
 function isTitleBarControlTarget(target: EventTarget | null) {
   return target instanceof Element && target.closest('.traffic-lights') !== null
@@ -121,6 +131,8 @@ function onNopeAnimationEnd() {
 
 function onResizeZonePointerDown(event: PointerEvent, handle: WindowResizeHandle) {
   if (!props.canResize) return
+  if (!event.isPrimary) return
+  if (event.pointerType === 'mouse' && event.button !== 0) return
   emit('focus', props.windowState.id)
   emit('resizeStart', event, props.windowState.id, handle)
 }
@@ -228,7 +240,7 @@ function onShellPointerLeave() {
       <!-- Resize zones (invisible hit targets) + visible SE corner grip -->
       <template v-if="canResize">
         <div
-          v-for="handle in RESIZE_HANDLES"
+          v-for="handle in activeResizeHandles"
           :key="`resize-${windowState.id}-${handle}`"
           class="app-window-resize-zone"
           :class="`app-window-resize-zone--${handle}`"

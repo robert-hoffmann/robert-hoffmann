@@ -317,6 +317,7 @@ onUnmounted(() => {
   display     : flex;
   align-items : center;
   gap         : var(--space-3, 8px);
+  margin-right: var(--space-3, 8px);
 }
 
 .tmux-session {
