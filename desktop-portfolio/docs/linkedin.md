@@ -69,7 +69,9 @@ I’ve been building production web software since 1998: early PHP CMSs, high-tr
 
 I am frontend-led, not frontend-limited. My work usually includes backend APIs, databases, web services, caching, logging, health monitoring, deployment constraints, and production support.
 
-My strongest fit is an autonomous product team, startup, scale-up, SaaS company, or software publisher / éditeur de logiciels that needs a senior builder who can own technical delivery from product problem to production.
+My strongest fit is an autonomous product team, startup, scale-up, SaaS company, software product company, or small expert team that needs a senior builder who can own technical delivery from product problem to production.
+
+I’m selectively exploring my next senior role: product-minded full-stack engineering, frontend/platform leadership, or technical ownership in an autonomous team with strong engineering standards, clear ownership, and a pragmatic AI delivery strategy.
 
 Selected proof points:
 
@@ -95,6 +97,8 @@ Je construis des logiciels web de production depuis 1998 : CMS PHP historiques, 
 Je suis frontend-led, pas frontend-limited. Mes projets incluent généralement APIs backend, bases de données, web services, cache, logs, health monitoring, contraintes de déploiement et support production.
 
 Mon meilleur fit : équipes produit autonomes, startups, scale-ups, SaaS, éditeurs de logiciels ou petites équipes expertes qui ont besoin d’un senior builder capable de porter la livraison technique du problème produit jusqu’à la production.
+
+J’étudie sélectivement mon prochain rôle senior : full-stack orienté produit, lead frontend/platform ou ownership technique dans une équipe autonome avec des standards d’ingénierie solides, un ownership clair et une stratégie IA pragmatique.
 
 Preuves sélectionnées :
 

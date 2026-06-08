@@ -14,6 +14,10 @@ Best fit: autonomous product teams, startups, scale-ups, SaaS companies,
 software product companies, and small expert teams that need senior technical
 ownership from product problem to production.
 
+I'm selectively exploring my next senior role: product-minded full-stack,
+frontend/platform lead, or technical owner in a serious product team with
+strong engineering standards and a pragmatic AI delivery strategy.
+
 **Portfolio:** [i-technology.net](https://i-technology.net)
 
 ---
