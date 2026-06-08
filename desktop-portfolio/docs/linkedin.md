@@ -82,7 +82,7 @@ Selected proof points:
 - Recent aerospace and industrial systems: offline field apps, data orchestration, observability, and 30K+ jobs/day scheduler operations.
 - Creator of Uncle Bob, a portable AI-agent skill/governance system for repeatable AI-directed development.
 
-These days I write less code manually and spend more time on architecture, functionality, decomposition, acceptance criteria, testing strategy, review, quality gates, documentation sync, and automation. I use AI agents as implementation accelerators inside a human-owned engineering process.
+These days I write less code manually and spend more time on architecture, functionality, decomposition, acceptance criteria, testing strategy, review, quality gates, documentation sync, and automations. I use AI agents as implementation accelerators inside a human-owned engineering process.
 
 Not my primary positioning: ML model engineering, Kubernetes/SRE specialization, pure security engineering, or process-heavy roles detached from product and production.
 
@@ -107,7 +107,7 @@ Preuves sélectionnées :
 - Systèmes industriels et aéronautiques récents : apps terrain hors ligne, orchestration de données, observabilité et opérations scheduler à 30K+ jobs/jour.
 - Créateur d’Uncle Bob, système portable de skills/gouvernance pour agents IA et développement piloté par IA répétable.
 
-Aujourd’hui, j’écris moins de code manuellement et je passe plus de temps sur architecture, fonctionnalité, découpage, critères d’acceptation, stratégie de tests, revue, quality gates, synchronisation documentaire et automatisation. J’utilise les agents IA comme accélérateurs d’implémentation dans un processus d’ingénierie contrôlé humainement.
+Aujourd’hui, j’écris moins de code manuellement et je passe plus de temps sur architecture, fonctionnalité, découpage, critères d’acceptation, stratégie de tests, revue, quality gates, synchronisation documentaire et automatisations. J’utilise les agents IA comme accélérateurs d’implémentation dans un processus d’ingénierie contrôlé humainement.
 
 Pas mon positionnement principal : ingénierie ML/modèles, spécialisation Kubernetes/SRE, sécurité pure ou rôles process détachés du produit et de la production.
 
@@ -119,7 +119,7 @@ I design and build product-minded full-stack software for aerospace, industrial,
 
 - Built industrial data workflows for Airbus operations, integrating smart cabinets, scheduled jobs, Google Workspace, Skywise / Foundry, internal management tools, and monitoring outputs.
 - Helped scale and stabilize a job-orchestration system processing 30K+ jobs/day across 16 assembly plants.
-- Reworked legacy Python services into typed, observable, production-grade tooling using Python 3.12, FastAPI, aiohttp, Pydantic, uv, Ruff, Pyright, structured logging, and Vue-based internal tools.
+- Reworked legacy Python services into typed, observable, production-grade tooling using modern Python, FastAPI, aiohttp, Pydantic, uv, Ruff, Pyright, structured logging, and Vue-based internal tools.
 - Built observability tooling for job health, plant-level impact, error classification, alerting, SQLite inspection, and analytical dashboard feeds.
 - Delivered offline-first field applications for wind-turbine maintenance, including planning, checklists, photos, signatures, timestamps, reports, machine status, downtime tracking, and queued sync.
 - Built compliance and onboarding platforms for SBM and Teréga, supporting certification workflows, document tracking, expiry automation, and high-risk site access verification.
@@ -135,7 +135,7 @@ Je conçois et construis des logiciels full-stack orientés produit pour opérat
 
 - Création de workflows de données industriels pour les opérations Airbus, intégrant armoires connectées, jobs planifiés, Google Workspace, Skywise / Foundry, outils de gestion internes et sorties de monitoring.
 - Contribution à la montée en charge et à la stabilisation d’un système d’orchestration traitant 30K+ jobs/jour sur 16 usines d’assemblage.
-- Refonte de services Python legacy en outils typés, observables et exploitables en production avec Python 3.12, FastAPI, aiohttp, Pydantic, uv, Ruff, Pyright, logging structuré et outils internes Vue.
+- Refonte de services Python legacy en outils typés, observables et exploitables en production avec Python moderne, FastAPI, aiohttp, Pydantic, uv, Ruff, Pyright, logging structuré et outils internes Vue.
 - Construction d’outillage d’observabilité pour santé des jobs, impact par usine, classification d’erreurs, alerting, inspection SQLite et flux vers dashboards analytiques.
 - Livraison d’applications terrain offline-first pour la maintenance d’éoliennes : planning, checklists, photos, signatures, horodatages, rapports, statut machine, suivi des arrêts et synchronisation en file d’attente.
 - Construction de plateformes conformité et onboarding pour SBM et Teréga, couvrant workflows de certification, suivi documentaire, automatisation des expirations et vérification d’accès à sites à risque.
