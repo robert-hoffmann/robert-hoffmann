@@ -38,7 +38,7 @@ const theme = useTheme()
 const toast = useToast()
 const { t, locale } = useLocale()
 const { isMobile } = useViewMode()
-const { hasCoarsePointer } = usePointerCapabilities()
+const { hasCoarsePointer, hasFinePointer } = usePointerCapabilities()
 
 /* ---- desktop-only composables ---- */
 const wm    = useWindowManager()
@@ -81,7 +81,7 @@ let previousWorkAreaRect: ReturnType<typeof wm.getWorkAreaRect> | null = null
 let lastDesktopBridgedToastMessage = ''
 
 const isTouchDesktopMode = computed(() =>
-  !isMobile.value && hasCoarsePointer.value,
+  !isMobile.value && hasCoarsePointer.value && !hasFinePointer.value,
 )
 
 /* ---- helpers ---- */
