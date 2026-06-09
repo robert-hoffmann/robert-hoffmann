@@ -81,7 +81,7 @@
   z-index          : var(--z-bg-lqip);
   opacity          : 1;
   transform        : translate3d(0, 0, 0) scale(1.05);
-  background-image : url('/parallax/mobile/wallpaper-lqip.webp'),
+  background-image : url('/parallax/mobile/wallpaper-lqip.webp?v=__PUBLIC_ASSET_VERSION__'),
                      linear-gradient(135deg, #1a0a35, #9964ac);
   filter           : blur(18px) saturate(1.12);
 }
@@ -93,7 +93,7 @@
   opacity          : 0;
   transform        : translate3d(0, 0, 0) scale(1.03);
   background-image : var(--mobile-wallpaper-image),
-                     url('/parallax/mobile/wallpaper-lqip.webp'),
+                     url('/parallax/mobile/wallpaper-lqip.webp?v=__PUBLIC_ASSET_VERSION__'),
                      linear-gradient(135deg, #1a0a35, #9964ac);
 }
 

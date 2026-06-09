@@ -3,6 +3,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
 import type { CSSProperties } from 'vue'
 import type { MobileBackgroundWidthBucket } from '../types/parallax'
 import { resolveMobileBackgroundWidthBucket } from '../types/parallax'
+import { publicAssetUrl } from '../utils/publicAssets'
 
 const LQIP_HIDE_OVERLAP_MS = 180
 
@@ -26,7 +27,7 @@ const wallpaperLayerStyle = computed<CSSProperties>(() => ({
 }))
 
 function wallpaperImageUrlForBucket(width: MobileBackgroundWidthBucket) {
-  return `${import.meta.env.BASE_URL}parallax/mobile/wallpaper-${width}.webp`
+  return publicAssetUrl(`parallax/mobile/wallpaper-${width}.webp`)
 }
 
 function preloadImage(url: string): Promise<boolean> {

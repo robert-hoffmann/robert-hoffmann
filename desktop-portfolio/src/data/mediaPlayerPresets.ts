@@ -1,7 +1,6 @@
 import type { MediaPresetConfig } from '../types/media'
+import { publicAssetUrl } from '../utils/publicAssets'
 import { VIDEO_POSTER_SOURCES } from './videoPosterSources'
-
-const baseUrl = import.meta.env.BASE_URL
 
 const MOBILE_SHARED_LAYOUT = {
   showMetadata      : true,
@@ -25,7 +24,7 @@ export const MEDIA_PLAYER_PRESETS = {
     metadata : {
       title      : 'Rockstar',
       subtitle   : 'Post Malone ft. 21 Savage',
-      artworkSrc : `${baseUrl}rockstar-cover_1000x1000.jpg`,
+      artworkSrc : publicAssetUrl('rockstar-cover_1000x1000.jpg'),
       artworkAlt : 'Rockstar album artwork placeholder',
     },
     layout : MUSIC_LAYOUT,

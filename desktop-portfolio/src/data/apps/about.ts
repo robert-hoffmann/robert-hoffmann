@@ -1,4 +1,5 @@
 import type { Localized } from '../../types/desktop'
+import { publicAssetUrl } from '../../utils/publicAssets'
 import type { MessageCatalog } from '../interface'
 
 // #region Messages
@@ -17,11 +18,11 @@ export const about = {
     en : 'Senior Product-Minded Full-Stack Engineer · Frontend & Platform Lead',
     fr : 'Ingénieur full-stack senior orienté produit · Lead frontend & plateforme',
   } satisfies Localized,
-  photo       : `${import.meta.env.BASE_URL}profile-avatar-80.avif`,
+  photo       : publicAssetUrl('profile-avatar-80.avif'),
   photoSrcSet : [
-    `${import.meta.env.BASE_URL}profile-avatar-80.avif 1x`,
-    `${import.meta.env.BASE_URL}profile-avatar-160.avif 2x`,
-    `${import.meta.env.BASE_URL}profile-avatar-240.avif 3x`,
+    `${publicAssetUrl('profile-avatar-80.avif')} 1x`,
+    `${publicAssetUrl('profile-avatar-160.avif')} 2x`,
+    `${publicAssetUrl('profile-avatar-240.avif')} 3x`,
   ].join(', '),
 
   aiCallout : {

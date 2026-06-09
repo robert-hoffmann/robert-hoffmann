@@ -10,6 +10,7 @@ import {
   VIDEO_POSTER_WEBP_SRCSET,
 } from '../data/videoPosterSources'
 import { videoMessages } from '../data/apps/video'
+import { publicAssetUrl } from '../utils/publicAssets'
 
 const { t } = useLocale(videoMessages)
 
@@ -21,7 +22,7 @@ const PLAYLIST_ID = 'PLLBhCscredzYvSwHG3PJm4w-LIC4xwYaJ'
 const VIDEO_POSTER_FALLBACK =
   VIDEO_POSTER_SOURCES.webp ??
   VIDEO_POSTER_SOURCES.avif ??
-  `${import.meta.env.BASE_URL}video-poster.webp`
+  publicAssetUrl('video-poster.webp')
 
 /** Standard embed host - improves signed-in playback compatibility in iframe context. */
 const YT_EMBED_HOST = 'https://www.youtube.com'

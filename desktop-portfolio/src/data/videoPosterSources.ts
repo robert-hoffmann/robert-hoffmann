@@ -1,6 +1,5 @@
 import type { MediaPosterSources } from '../types/media'
-
-const baseUrl = import.meta.env.BASE_URL
+import { publicAssetUrl } from '../utils/publicAssets'
 
 const VIDEO_POSTER_VARIANTS = [
   { suffix : '-640', width : 640 },
@@ -10,7 +9,7 @@ const VIDEO_POSTER_VARIANTS = [
 
 function buildVideoPosterSrcset(format: 'avif' | 'webp') {
   return VIDEO_POSTER_VARIANTS
-    .map(({ suffix, width }) => `${baseUrl}video-poster${suffix}.${format} ${width}w`)
+    .map(({ suffix, width }) => `${publicAssetUrl(`video-poster${suffix}.${format}`)} ${width}w`)
     .join(', ')
 }
 
@@ -21,8 +20,8 @@ export const VIDEO_POSTER_AVIF_SRCSET = buildVideoPosterSrcset('avif')
 export const VIDEO_POSTER_WEBP_SRCSET = buildVideoPosterSrcset('webp')
 
 export const VIDEO_POSTER_SOURCES = {
-  avif       : `${baseUrl}video-poster-960.avif`,
-  webp       : `${baseUrl}video-poster-960.webp`,
+  avif       : publicAssetUrl('video-poster-960.avif'),
+  webp       : publicAssetUrl('video-poster-960.webp'),
   avifSrcset : VIDEO_POSTER_AVIF_SRCSET,
   webpSrcset : VIDEO_POSTER_WEBP_SRCSET,
   sizes      : VIDEO_POSTER_SIZES,

@@ -3,9 +3,9 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { about, aboutMessages } from '../data/apps/about'
 import { windowRegistry } from '../data/registry'
 import { useLocale } from '../composables/useLocale'
+import { publicAssetCssUrl } from '../utils/publicAssets'
 
 const { l, t } = useLocale(aboutMessages)
-const baseUrl  = import.meta.env.BASE_URL
 const cvPdf    = windowRegistry['cv-pdf']
 
 if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url) {
@@ -252,7 +252,7 @@ onUnmounted(() => {
           class="about-pill about-pill--cert"
           :title="`${cert.label} - ${cert.issuer}`"
           :aria-label="`${cert.label} - ${cert.issuer}`"
-          :style="{ '--cert-icon-url': `url('${baseUrl}icons/${cert.icon}.svg')` }"
+          :style="{ '--cert-icon-url': publicAssetCssUrl(`icons/${cert.icon}.svg`) }"
         >
           <span class="about-cert-icon" aria-hidden="true"></span>
           <span>{{ cert.label }}</span>

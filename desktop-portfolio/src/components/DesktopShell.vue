@@ -34,6 +34,7 @@ import {
   SOCIAL_TOAST_DELAY_X_MS,
   SOCIAL_TOAST_DURATION_MS,
 } from '../constants/notificationTimings'
+import { publicAssetCssUrl } from '../utils/publicAssets'
 
 /* ---- shared composables (used in both views) ---- */
 const theme = useTheme()
@@ -55,7 +56,7 @@ const session         = useSessionPersistence(icons.items)
 /* ---- constants ---- */
 const OWNER_NAME = 'Robert Hoffmann'
 const desktopRootStyle = {
-  '--desktop-sprite-url' : 'url("/icons/desktop-profile-icons-runtime.webp")',
+  '--desktop-sprite-url' : publicAssetCssUrl('icons/desktop-profile-icons-runtime.webp'),
 }
 
 const showAboutSite = ref(false)

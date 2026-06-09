@@ -1,4 +1,5 @@
 import type { Localized } from '../../types/desktop'
+import { publicAssetUrl } from '../../utils/publicAssets'
 import type { MessageCatalog } from '../interface'
 import type { ProjectId } from './projects'
 
@@ -263,9 +264,7 @@ export interface ImageViewerSlide {
   accent    : string
 }
 
-const baseUrl        = import.meta.env.BASE_URL
-const galleryBaseUrl = `${baseUrl}image-gallery`
-const sampleAccents  = [
+const sampleAccents = [
   'oklch(62% 0.17 255)',
   'oklch(64% 0.16 155)',
   'oklch(62% 0.19 25)',
@@ -291,13 +290,13 @@ function createGallerySlide(content: GalleryImageContent): ImageViewerSlide {
     title     : content.title,
     summary   : content.summary,
     image     : {
-      src    : `${galleryBaseUrl}/images/${paddedIndex}.webp`,
+      src    : publicAssetUrl(`image-gallery/images/${paddedIndex}.webp`),
       width  : 1600,
       height : 1000,
       alt    : content.alt,
     },
     thumbnail : {
-      src    : `${galleryBaseUrl}/thumbs/${paddedIndex}.webp`,
+      src    : publicAssetUrl(`image-gallery/thumbs/${paddedIndex}.webp`),
       width  : 360,
       height : 360,
     },

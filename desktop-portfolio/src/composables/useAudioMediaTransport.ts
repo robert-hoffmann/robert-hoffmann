@@ -1,9 +1,10 @@
 import { reactive, ref, shallowRef, triggerRef, watch, onUnmounted } from 'vue'
 import type { AudioMediaTransport, MediaTransportCapabilities } from '../types/media'
+import { publicAssetUrl } from '../utils/publicAssets'
 
 const EQ_BARS   = 16
 const FFT_SIZE  = 64
-const TRACK_URL = `${import.meta.env.BASE_URL}music.mp3`
+const TRACK_URL = publicAssetUrl('music.mp3')
 
 function clamp01(value: number) {
   return Math.max(0, Math.min(1, value))

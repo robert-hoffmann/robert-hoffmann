@@ -14,6 +14,7 @@ import {
   DEFAULT_PARALLAX_SCENE_CONFIG,
   resolveParallaxWidthBucket,
 } from '../types/parallax'
+import { publicAssetUrl } from '../utils/publicAssets'
 
 const props = withDefaults(defineProps<{
   sceneUrl? : string
@@ -53,24 +54,20 @@ const sharpLayerStyle = computed<CSSProperties>(() => ({
 
 function toBaseUrl(pathname: string) {
   const trimmed = pathname.trim()
-  if (!trimmed) return `${import.meta.env.BASE_URL}parallax/desktop.scene.json`
+  if (!trimmed) return publicAssetUrl('parallax/desktop.scene.json')
 
   const isAbsolute = /^(https?:|data:|blob:)/i.test(trimmed)
   if (isAbsolute) return trimmed
 
-  if (trimmed.startsWith('/')) {
-    return `${import.meta.env.BASE_URL}${trimmed.slice(1)}`
-  }
-
-  return `${import.meta.env.BASE_URL}${trimmed}`
+  return publicAssetUrl(trimmed)
 }
 
 function layerImageUrl(layerId: string, width: ParallaxWidthBucket) {
-  return `${import.meta.env.BASE_URL}parallax/desktop/${layerId}-${width}.webp`
+  return publicAssetUrl(`parallax/desktop/${layerId}-${width}.webp`)
 }
 
 function sharpImageUrlForBucket(width: ParallaxWidthBucket) {
-  return `${import.meta.env.BASE_URL}parallax/desktop/layer-bg-${width}.webp`
+  return publicAssetUrl(`parallax/desktop/layer-bg-${width}.webp`)
 }
 
 function uniqueImageUrls(urls: string[]) {

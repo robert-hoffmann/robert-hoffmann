@@ -5,12 +5,13 @@ import type { MusicPlayerState } from '../types/desktop'
 import { useLocale } from '../composables/useLocale'
 import { useSeekBar } from '../composables/useSeekBar'
 import { musicMessages } from '../data/apps/music'
+import { publicAssetUrl } from '../utils/publicAssets'
 
 const { t } = useLocale(musicMessages)
 
 const EQ_BARS   = 16
 const FFT_SIZE  = 64  /* smallest power-of-2 ≥ 2×EQ_BARS → 32 bins */
-const TRACK_URL = `${import.meta.env.BASE_URL}music.mp3`
+const TRACK_URL = publicAssetUrl('music.mp3')
 
 const audioRef = useTemplateRef<HTMLAudioElement>('audio')
 

@@ -7,6 +7,7 @@
 
 import { defineAsyncComponent } from 'vue'
 import type { DesktopItem, Locale, WindowAppDefinition } from '../types/desktop'
+import { publicAssetUrl } from '../utils/publicAssets'
 import { resolveInterfaceMessage } from './interface'
 
 /** Resolve a registry entry's title for the given locale */
@@ -35,7 +36,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     id            : 'about',
     titleKey      : 'registry.about.title',
     icon          : '👤',
-    iconUrl       : `${import.meta.env.BASE_URL}profile-icon.webp`,
+    iconUrl       : publicAssetUrl('profile-icon.webp'),
     iconSprite    : 'profile',
     type          : 'file',
     defaultCol    : 1,
@@ -88,7 +89,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     id            : 'twitter',
     titleKey      : 'registry.twitter.title',
     icon          : '𝕏',
-    iconUrl       : `${import.meta.env.BASE_URL}icons/x.svg`,
+    iconUrl       : publicAssetUrl('icons/x.svg'),
     iconSprite    : 'social-x',
     type          : 'link',
     defaultCol    : 14,
@@ -99,7 +100,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     id            : 'linkedin',
     titleKey      : 'registry.linkedin.title',
     icon          : '💼',
-    iconUrl       : `${import.meta.env.BASE_URL}icons/linkedin.svg`,
+    iconUrl       : publicAssetUrl('icons/linkedin.svg'),
     iconSprite    : 'social-linkedin',
     type          : 'link',
     defaultCol    : 14,
@@ -110,7 +111,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     id            : 'github',
     titleKey      : 'registry.github.title',
     icon          : '🐙',
-    iconUrl       : `${import.meta.env.BASE_URL}icons/github.svg`,
+    iconUrl       : publicAssetUrl('icons/github.svg'),
     iconSprite    : 'social-github',
     type          : 'link',
     defaultCol    : 14,
@@ -191,7 +192,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     id            : 'terminal',
     titleKey      : 'registry.terminal.title',
     icon          : '>_',
-    iconUrl       : `${import.meta.env.BASE_URL}icons/terminal.svg`,
+    iconUrl       : publicAssetUrl('icons/terminal.svg'),
     iconSprite    : 'terminal',
     type          : 'app',
     defaultCol    : 1,
@@ -238,7 +239,7 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     type          : 'link',
     defaultCol    : 14,
     defaultRow    : 3,
-    url           : `${import.meta.env.BASE_URL}docs/robert-hoffmann-cv.pdf`,
+    url           : publicAssetUrl('docs/robert-hoffmann-cv.pdf'),
   },
 }
 
