@@ -27,14 +27,14 @@ const highlightedProjectId = ref<string | null>(null)
 const projectElements      = new Map<string, HTMLElement>()
 const cvPdf                = windowRegistry['cv-pdf']
 
-if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url || !cvPdf.iconUrl) {
+if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url || cvPdf.iconSprite !== 'cv-pdf') {
   throw new Error(
-    'The cv-pdf registry entry must define a PDF link URL and icon URL.',
+    'The cv-pdf registry entry must define a PDF link URL and sprite key.',
   )
 }
 
 const cvPdfUrl     = cvPdf.url
-const cvPdfIconUrl = cvPdf.iconUrl
+const cvPdfSprite  = cvPdf.iconSprite
 
 let highlightTimer: number | null = null
 
@@ -146,12 +146,9 @@ onBeforeUnmount(() => {
         :aria-label="t('cvDownload.label')"
         :title="t('cvDownload.label')"
       >
-        <img
-          class="project-availability__download-icon"
-          :src="cvPdfIconUrl"
-          alt=""
-          width="48"
-          height="46"
+        <span
+          class="icon-sprite project-availability__download-icon"
+          :class="`icon-sprite--${cvPdfSprite}`"
           aria-hidden="true"
         />
       </a>
@@ -353,10 +350,9 @@ onBeforeUnmount(() => {
 }
 
 .project-availability__download-icon {
-  inline-size : 1.8rem;
-  block-size  : 1.72rem;
-  object-fit  : contain;
-  filter      : drop-shadow(0 1px 2px oklch(0% 0 0 / 0.2));
+  --sprite-target-w : 1.8rem;
+
+  filter : drop-shadow(0 1px 2px oklch(0% 0 0 / 0.2));
 }
 
 .project-header {
@@ -462,8 +458,7 @@ onBeforeUnmount(() => {
   }
 
   .project-availability__download-icon {
-    inline-size : 1.62rem;
-    block-size  : 1.55rem;
+    --sprite-target-w : 1.62rem;
   }
 }
 </style>

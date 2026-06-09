@@ -36,7 +36,7 @@
 
 /* Row 1 */
 .icon.profile{ background-position: calc(-0 * var(--cell-w) - var(--pad)) calc(-1 * var(--cell-h) - var(--pad)); }
-.icon.trashcan{ background-position: calc(-1 * var(--cell-w) - var(--pad)) calc(-1 * var(--cell-h) - var(--pad)); }
+.icon.cv-pdf{ background-position: calc(-1 * var(--cell-w) - var(--pad)) calc(-1 * var(--cell-h) - var(--pad)); }
 .icon.projects{ background-position: calc(-2 * var(--cell-w) - var(--pad)) calc(-1 * var(--cell-h) - var(--pad)); }
 .icon.social-x{ background-position: calc(-3 * var(--cell-w) - var(--pad)) calc(-1 * var(--cell-h) - var(--pad)); }
 
@@ -44,6 +44,7 @@
 .icon.music{ background-position: calc(-0 * var(--cell-w) - var(--pad)) calc(-2 * var(--cell-h) - var(--pad)); }
 .icon.social-linkedin{ background-position: calc(-1 * var(--cell-w) - var(--pad)) calc(-2 * var(--cell-h) - var(--pad)); }
 .icon.resume{ background-position: calc(-2 * var(--cell-w) - var(--pad)) calc(-2 * var(--cell-h) - var(--pad)); }
+.icon.gallery{ background-position: calc(-3 * var(--cell-w) - var(--pad)) calc(-2 * var(--cell-h) - var(--pad)); }
 
 /* Example usage:
    <span class="icon joystick"></span>

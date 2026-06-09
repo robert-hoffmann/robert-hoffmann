@@ -14,14 +14,14 @@ const props = withDefaults(defineProps<{
 const { t } = useLocale()
 const cvPdf = windowRegistry['cv-pdf']
 
-if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url || !cvPdf.iconUrl) {
+if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url || cvPdf.iconSprite !== 'cv-pdf') {
   throw new Error(
-    'The cv-pdf registry entry must define a PDF link URL and icon URL.',
+    'The cv-pdf registry entry must define a PDF link URL and sprite key.',
   )
 }
 
 const cvPdfUrl      = cvPdf.url
-const cvPdfIconUrl  = cvPdf.iconUrl
+const cvPdfSprite   = cvPdf.iconSprite
 const downloadLabel = computed(() => t('cvDownload.label'))
 </script>
 
@@ -35,12 +35,9 @@ const downloadLabel = computed(() => t('cvDownload.label'))
     :aria-label="downloadLabel"
   >
     <span class="cv-download-link__label">{{ downloadLabel }}</span>
-    <img
-      class="cv-download-link__icon"
-      :src="cvPdfIconUrl"
-      alt=""
-      width="48"
-      height="46"
+    <span
+      class="icon-sprite cv-download-link__icon"
+      :class="`icon-sprite--${cvPdfSprite}`"
       aria-hidden="true"
     />
   </a>
@@ -102,10 +99,9 @@ const downloadLabel = computed(() => t('cvDownload.label'))
 }
 
 .cv-download-link__icon {
-  flex        : 0 0 auto;
-  object-fit  : contain;
-  filter      : drop-shadow(0 1px 2px oklch(0% 0 0 / 0.18));
-  inline-size : 2rem;
-  block-size  : 1.9rem;
+  --sprite-target-w : 2rem;
+
+  flex   : 0 0 auto;
+  filter : drop-shadow(0 1px 2px oklch(0% 0 0 / 0.18));
 }
 </style>

@@ -8,12 +8,13 @@ export type DesktopSpriteKey =
   | 'terminal'
   | 'social-github'
   | 'profile'
-  | 'trashcan'
+  | 'cv-pdf'
   | 'projects'
   | 'social-x'
   | 'music'
   | 'social-linkedin'
   | 'resume'
+  | 'gallery'
 
 /** Desktop icon definition (file, folder, app, or external link) */
 export interface DesktopItem {

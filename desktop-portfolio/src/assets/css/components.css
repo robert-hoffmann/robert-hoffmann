@@ -492,7 +492,7 @@
   --sprite-row : 1;
 }
 
-.icon-sprite--trashcan {
+.icon-sprite--cv-pdf {
   --sprite-col : 1;
   --sprite-row : 1;
 }
@@ -522,6 +522,11 @@
   --sprite-row : 2;
 }
 
+.icon-sprite--gallery {
+  --sprite-col : 3;
+  --sprite-row : 2;
+}
+
 /* Fallback-only path when no sprite class is mapped. */
 .desktop-icon-img {
   inline-size   : 48px;
@@ -545,17 +550,6 @@
   padding    : 0;
   background : transparent;
   box-shadow : none;
-}
-
-.desktop-icon-img[src*="gallery.webp"],
-.desktop-icon-img[src*="cv-pdf.webp"],
-.dock-icon-img[src*="gallery.webp"],
-.dock-icon-img[src*="cv-pdf.webp"] {
-  inline-size : 48px;
-  block-size  : 45.62px;
-  padding     : 0;
-  background  : transparent;
-  box-shadow  : none;
 }
 
 .dock-icon-img[src*="profile"] {
