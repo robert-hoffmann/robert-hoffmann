@@ -42,9 +42,9 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     defaultRow    : 1,
     window        : {
       size : {
-        default : { w : 497, h : 794 },
-        min     : { w : 455, h : 520 },
-        max     : { w : 720, h : 980 },
+        default : { w : 500, h : 795 },
+        min     : { w : 400, h : 440 },
+        max     : { w : 720, h : 880 },
       },
     },
     component     : () => import('../components/AboutApp.vue'),
@@ -60,9 +60,9 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     defaultRow    : 2,
     window        : {
       size : {
-        default : { w : 469, h : 691 },
-        min     : { w : 430, h : 420 },
-        max     : { w : 755, h : 1100 },
+        default : { w : 470, h : 690 },
+        min     : { w : 400, h : 440 },
+        max     : { w : 720, h : 880 },
       },
     },
     component     : () => import('../components/ProjectsApp.vue'),
@@ -77,9 +77,9 @@ export const windowRegistry: Record<string, WindowAppDefinition> = {
     defaultRow    : 2,
     window        : {
       size : {
-        default : { w : 546, h : 760 },
-        min     : { w : 480, h : 540 },
-        max     : { w : 830, h : 1100 },
+        default : { w : 545, h : 760 },
+        min     : { w : 440, h : 440 },
+        max     : { w : 720, h : 880 },
       },
     },
     component     : () => import('../components/ResumeApp.vue'),

@@ -48,11 +48,8 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
    * We override sizes only where needed; other windows inherit registry defaults.
    */
   small : [
-    { itemId : 'projects', x : 110, y : 32 , zIndex : 100, size : { w : 440, h : 596 } },
-    { itemId : 'about'   , x : 556, y : 32 , zIndex : 101, size : { w : 455, h : 596 } },
-    { itemId : 'video'   , x : 810, y : 285, zIndex : 102, size : { w : 460, h : 340 } },
-    { itemId : 'music'   , x : 581, y : 440, zIndex : 103 },
-    //{ itemId : 'resume'  , x : 840, y : 56 , zIndex : 104, size : { w : 480, h : 612 } },
+    { itemId : 'projects', x : 114, y : 32, zIndex : 100, size : { w : 438, h : 519 } },
+    { itemId : 'about',    x : 590, y : 32, zIndex : 101, size : { w : 401, h : 440 } },
   ],
   /*
    * `medium` targets good laptop desktop areas.
@@ -63,11 +60,10 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
    * Width-matching but short-height variants downgrade to `small`.
    */
   medium : [
-    { itemId : 'projects', x : 108,  y : 65,  zIndex : 100, size : { w : 480, h : 612 } },
-    { itemId : 'about',    x : 549,  y : 32,  zIndex : 101, size : { w : 497, h : 686 } },
-    { itemId : 'video',    x : 866,  y : 301, zIndex : 102, size : { w : 466, h : 393 } },
-    { itemId : 'music',    x : 676,  y : 529, zIndex : 103 },
-    // { itemId : 'resume',   x : 1260, y : 64,  zIndex : 104 },
+    { itemId : 'projects', x : 103,  y : 35,  zIndex : 100, size : { w : 452, h : 585 } },
+    { itemId : 'about',    x : 531,  y : 56,  zIndex : 101, size : { w : 427, h : 662 } },
+    { itemId : 'video',    x : 1076, y : 322, zIndex : 102, size : { w : 460, h : 362 } },
+    { itemId : 'music',    x : 922,  y : 515, zIndex : 103, size : { w : 388, h : 203 } },
   ],
   /*
    * `large` targets external FHD and roomier desktop areas.
@@ -77,11 +73,11 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
    * - 2560x1440 and larger roomy viewports
    */
   large : [
-    { itemId : 'projects', x : 150,  y : 90,  zIndex : 100 },
-    { itemId : 'about',    x : 558,  y : 37,  zIndex : 101 },
-    { itemId : 'video',    x : 886,  y : 403, zIndex : 102 },
-    { itemId : 'music',    x : 721,  y : 650, zIndex : 103 },
-    { itemId : 'resume',   x : 1433, y : 69,  zIndex : 104 },
+    { itemId : 'resume',   x : 1403, y : 69,  zIndex : 100, size : { w : 517, h : 789 } },
+    { itemId : 'projects', x : 117,  y : 83,  zIndex : 101, size : { w : 482, h : 705 } },
+    { itemId : 'about',    x : 557,  y : 44,  zIndex : 102, size : { w : 575, h : 796 } },
+    { itemId : 'video',    x : 1218, y : 544, zIndex : 103, size : { w : 466, h : 393 } },
+    { itemId : 'music',    x : 941,  y : 663, zIndex : 104, size : { w : 388, h : 203 } },
   ],
 }
 

@@ -233,6 +233,10 @@ export const interfaceMessages = {
     en : 'Page URL copied',
     fr : 'URL de la page copiée',
   },
+  'toast.layoutSnapshotCopied'        : {
+    en : 'Layout snapshot copied',
+    fr : 'Instantané de disposition copié',
+  },
   'toast.copyFailed'                  : {
     en : 'Copy failed - use browser address bar',
     fr : 'Échec de la copie - utilisez la barre d’adresse',

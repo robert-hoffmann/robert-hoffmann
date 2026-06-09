@@ -26,6 +26,8 @@ import {
 import { getRegistryTitle, windowRegistry } from '../data/registry'
 import { getStartupIconLayoutsForViewport } from '../data/iconLayouts'
 import { getStartupWindowLayoutsForViewport } from '../data/windowLayouts'
+import { resolveDesktopIconGridMetrics } from '../data/desktopGrid'
+import { resolveStartupProfileIdForUsableArea } from '../data/desktopProfiles'
 import {
   BRIDGED_TOAST_DURATION_MS,
   SOCIAL_TOAST_DELAY_LINKEDIN_MS,
@@ -252,6 +254,83 @@ function resetDesktop() {
   toast.show(t('toast.desktopReset'))
 }
 
+function quoteSnapshotValue(value: string) {
+  return JSON.stringify(value)
+}
+
+function roundedSnapshotValue(value: number) {
+  return Math.round(value)
+}
+
+function formatIconLayoutsForSnapshot() {
+  const lines = icons.items.map(item => [
+    '    {',
+    `      itemId : ${quoteSnapshotValue(item.id)},`,
+    `      col    : ${roundedSnapshotValue(item.col)},`,
+    `      row    : ${roundedSnapshotValue(item.row)},`,
+    '    },',
+  ].join('\n'))
+
+  return [
+    '  iconLayouts : [',
+    ...lines,
+    '  ],',
+  ].join('\n')
+}
+
+function formatWindowLayoutsForSnapshot() {
+  const lines = [...wm.state.windows]
+    .sort((a, b) => a.zIndex - b.zIndex)
+    .map(win => [
+      '    {',
+      `      itemId : ${quoteSnapshotValue(win.itemId)},`,
+      `      x      : ${roundedSnapshotValue(win.x)},`,
+      `      y      : ${roundedSnapshotValue(win.y)},`,
+      `      zIndex : ${roundedSnapshotValue(win.zIndex)},`,
+      `      size   : { w : ${roundedSnapshotValue(win.w)}, h : ${roundedSnapshotValue(win.h)} },`,
+      '    },',
+    ].join('\n'))
+
+  return [
+    '  windowLayouts : [',
+    ...lines,
+    '  ],',
+  ].join('\n')
+}
+
+function formatDesktopLayoutSnapshot() {
+  const desktopArea = currentDesktopLayoutSize()
+  const workArea = wm.getWorkAreaRect()
+  const grid = resolveDesktopIconGridMetrics(desktopArea)
+  const detectedProfile = resolveStartupProfileIdForUsableArea(desktopArea)
+
+  return [
+    'const desktopLayoutSnapshot = {',
+    `  detectedProfile : ${quoteSnapshotValue(detectedProfile)},`,
+    `  viewport        : { w : ${roundedSnapshotValue(window.innerWidth)}, h : ${roundedSnapshotValue(window.innerHeight)} },`,
+    `  desktopArea     : { w : ${roundedSnapshotValue(desktopArea.w)}, h : ${roundedSnapshotValue(desktopArea.h)} },`,
+    `  workArea        : { x : ${roundedSnapshotValue(workArea.x)}, y : ${roundedSnapshotValue(workArea.y)}, w : ${roundedSnapshotValue(workArea.w)}, h : ${roundedSnapshotValue(workArea.h)} },`,
+    `  iconGrid        : { cols : ${grid.colCount}, rows : ${grid.rowCount} },`,
+    formatWindowLayoutsForSnapshot(),
+    formatIconLayoutsForSnapshot(),
+    '} as const',
+  ].join('\n')
+}
+
+function copyLayoutSnapshot() {
+  const snapshot = formatDesktopLayoutSnapshot()
+  const writeClipboard = navigator.clipboard?.writeText
+
+  if (!writeClipboard) {
+    toast.show(t('toast.copyFailed'))
+    return
+  }
+
+  void writeClipboard.call(navigator.clipboard, snapshot)
+    .then(() => toast.show(t('toast.layoutSnapshotCopied')))
+    .catch(() => toast.show(t('toast.copyFailed')))
+}
+
 /* ---- menu actions ---- */
 function onMenuAction(action: string) {
   if (!action) return
@@ -476,6 +555,7 @@ watch(
       @menu-action="onMenuAction"
       @toggle-theme="theme.toggle()"
       @reset="resetDesktop"
+      @copy-layout-snapshot="copyLayoutSnapshot"
     />
 
     <main

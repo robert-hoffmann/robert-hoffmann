@@ -29,9 +29,10 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  menuAction  : [action: string]
-  toggleTheme : []
-  reset       : []
+  menuAction          : [action: string]
+  toggleTheme         : []
+  reset               : []
+  copyLayoutSnapshot  : []
 }>()
 
 /* ---- menu definitions (reactive to locale) ---- */
@@ -193,7 +194,10 @@ onUnmounted(() => {
     </div>
 
     <div class="topbar-center" aria-live="polite">
-      <span class="topbar-context">{{ focusedWindowTitle || t('topbar.desktop') }}</span>
+      <span
+        class="topbar-context"
+        @dblclick="emit('copyLayoutSnapshot')"
+      >{{ focusedWindowTitle || t('topbar.desktop') }}</span>
     </div>
 
     <div class="topbar-group topbar-group--right">
