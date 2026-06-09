@@ -1,18 +1,21 @@
 /* ============================================================
-   Startup Window Layout Profiles - Width-only desktop selection
+   Startup Window Layout Profiles - Desktop size selection
    ============================================================
-   Uses raw viewport width to classify the screen into one of
-   three canonical startup layout profiles (`small`, `medium`,
-   `large`).
+   Uses actual usable desktop area to classify the screen into
+   one of three canonical startup layout profiles (`small`,
+   `medium`, `large`).
 
-   Height is intentionally ignored here. The window manager still
-   clamps final geometry against the desktop work area, so startup
-   layouts remain usable on short/tall viewport variants.
+   The window manager still clamps final geometry against the
+   desktop work area, so startup layouts remain usable on odd
+   viewport variants.
    ============================================================ */
 
 import type { WindowSize } from '../types/desktop'
-
-export type CanonicalStartupProfileId = 'small' | 'medium' | 'large'
+import {
+  resolveStartupProfileIdForUsableArea,
+  type CanonicalStartupProfileId,
+} from './desktopProfiles'
+import type { DesktopLayoutSize } from './desktopGrid'
 
 export interface StartupWindowLayout {
   itemId  : string
@@ -22,28 +25,24 @@ export interface StartupWindowLayout {
   size?   : Partial<WindowSize>
 }
 
-interface ViewportSize {
-  w : number
-}
-
 /*
- * Viewport thresholds (raw viewport width, not work area):
- * - `small`  : widths below 1440 (1280/1366 classes)
- * - `medium` : widths from 1440 through 1920 (1440/1536/1600/1920 classes)
- * - `large`  : widths above 1920 (2560+ classes; ultrawide falls into this
- *              bucket by design and may show extra side breathing room)
+ * Profile thresholds:
+ * - `small`  : usable widths below 1400, or fewer than 6 icon-grid rows
+ * - `medium` : usable widths from 1400 through 1799, with at least 6 rows
+ * - `large`  : usable widths from 1800 upward, with at least 8 rows
+ *
+ * Width gives the design family. Grid-row capacity downgrades the profile
+ * for corporate laptop/browser-chrome cases where width alone overstates
+ * available layout space.
  *
  * The window manager still clamps final geometry to the WORK AREA.
  */
-const WIDTH_SMALL_MAX_EXCLUSIVE = 1440
-const WIDTH_LARGE_MIN_EXCLUSIVE = 1920
-
 const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> = {
   /*
-   * `small` targets compact 16:9 desktop classes.
-   * Typical desktop classes this bucket is tuned for:
-   * - 1280x720
-   * - 1366x768
+   * `small` targets corporate laptop and cramped browser classes.
+   * Typical usable-area classes this bucket is tuned for:
+   * - 1280x551 / 1280x561
+   * - 1366-class compact desktop areas
    *
    * Final geometry still goes through window-manager clamping.
    * We override sizes only where needed; other windows inherit registry defaults.
@@ -56,12 +55,12 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
     //{ itemId : 'resume'  , x : 840, y : 56 , zIndex : 104, size : { w : 480, h : 612 } },
   ],
   /*
-   * `medium` targets mainstream 16:9 desktop classes.
-   * Typical classes this bucket is tuned for:
-   * - 1440x810 / 1440x900
-   * - 1536x864
-   * - 1600x900
-   * - 1920x1080
+   * `medium` targets good laptop desktop areas.
+   * Typical usable-area classes this bucket is tuned for:
+   * - 1400..1799 usable widths with 6+ icon-grid rows
+   * - 1536x791 measured corporate laptop class
+   *
+   * Width-matching but short-height variants downgrade to `small`.
    */
   medium : [
     { itemId : 'projects', x : 108,  y : 65,  zIndex : 100, size : { w : 480, h : 612 } },
@@ -71,10 +70,11 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
     // { itemId : 'resume',   x : 1260, y : 64,  zIndex : 104 },
   ],
   /*
-   * `large` targets roomy desktop classes.
-   * Typical desktop classes this bucket is tuned for:
-   * - 2560x1440
-   * - larger widths (including ultrawide fallback)
+   * `large` targets external FHD and roomier desktop areas.
+   * Typical usable-area classes this bucket is tuned for:
+   * - 1800+ usable widths with 8+ icon-grid rows
+   * - 1920x911 measured external monitor class
+   * - 2560x1440 and larger roomy viewports
    */
   large : [
     { itemId : 'projects', x : 150,  y : 90,  zIndex : 100 },
@@ -85,15 +85,8 @@ const STARTUP_LAYOUTS: Record<CanonicalStartupProfileId, StartupWindowLayout[]> 
   ],
 }
 
-export function resolveStartupProfileIdForWidth(viewportWidth: number): CanonicalStartupProfileId {
-  const width = Math.max(1, viewportWidth)
-  if (width > WIDTH_LARGE_MIN_EXCLUSIVE) return 'large'
-  if (width >= WIDTH_SMALL_MAX_EXCLUSIVE) return 'medium'
-  return 'small'
-}
-
-export function getStartupWindowLayoutsForViewport(viewport: ViewportSize): StartupWindowLayout[] {
-  const profile = resolveStartupProfileIdForWidth(viewport.w)
+export function getStartupWindowLayoutsForViewport(viewport: DesktopLayoutSize): StartupWindowLayout[] {
+  const profile = resolveStartupProfileIdForUsableArea(viewport)
 
   return STARTUP_LAYOUTS[profile].map(layout => ({
     ...layout,

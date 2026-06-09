@@ -6,52 +6,118 @@ import { ref, reactive } from 'vue'
 import type { DesktopItem, Locale } from '../types/desktop'
 import { getDefaultDesktopItems, getRegistryIconTitle } from '../data/registry'
 import { applyStartupIconLayout, type StartupIconLayout } from '../data/iconLayouts'
+import {
+  DESKTOP_ICON_GRID,
+  resolveDesktopIconGridMetrics,
+  type DesktopIconGridMetrics,
+  type DesktopLayoutSize,
+} from '../data/desktopGrid'
 
 const selectedIconId = ref<string | null>(null)
 const items          = reactive<DesktopItem[]>(getDefaultDesktopItems())
+const iconGridTick   = ref(0)
 
-const ICON_GRID_COL_STEP_PX = 100
-const ICON_GRID_COL_OFFSET_PX = 24
-const ICON_GRID_ROW_COUNT = 9
-const ICON_GRID_ROW_TOP_OFFSET_PX = 24
-const ICON_GRID_ROW_BOTTOM_OFFSET_PX = 28
+interface IconGridPosition {
+  col : number
+  row : number
+}
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
 }
 
-function getDesktopAreaHeight() {
-  if (typeof window === 'undefined' || typeof document === 'undefined') return 900
+function getDesktopAreaSize(): DesktopLayoutSize {
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return { w : 1440, h : 900 }
+  }
 
   const area = document.querySelector<HTMLElement>('.desktop-area')
-  if (area) return Math.max(area.clientHeight, 1)
+  if (area) {
+    return {
+      w : Math.max(area.clientWidth, 1),
+      h : Math.max(area.clientHeight, 1),
+    }
+  }
 
-  return Math.max(window.innerHeight, 1)
+  return {
+    w : Math.max(window.innerWidth, 1),
+    h : Math.max(window.innerHeight, 1),
+  }
 }
 
-function getIconRowStepPx() {
-  const usableHeight = Math.max(
-    1,
-    getDesktopAreaHeight() - ICON_GRID_ROW_TOP_OFFSET_PX - ICON_GRID_ROW_BOTTOM_OFFSET_PX,
-  )
-  return ICON_GRID_ROW_COUNT > 1
-    ? usableHeight / (ICON_GRID_ROW_COUNT - 1)
-    : 0
+function getIconGridMetrics(): DesktopIconGridMetrics {
+  return resolveDesktopIconGridMetrics(getDesktopAreaSize())
 }
 
-function resolveIconTopPx(row: number, rowStepPx: number) {
-  const normalizedRow = clamp(row, 1, ICON_GRID_ROW_COUNT)
-  return ICON_GRID_ROW_TOP_OFFSET_PX + (normalizedRow - 1) * rowStepPx
+function resolveIconLeftPx(col: number) {
+  return (col - 1) * DESKTOP_ICON_GRID.colStepPx + DESKTOP_ICON_GRID.colOffsetPx
 }
 
-function resolveRowFromTopPx(topPx: number, rowStepPx: number) {
-  if (rowStepPx <= 0) return 1
-  const rawRow = Math.round((topPx - ICON_GRID_ROW_TOP_OFFSET_PX) / rowStepPx) + 1
-  return clamp(rawRow, 1, ICON_GRID_ROW_COUNT)
+function resolveIconTopPx(row: number) {
+  return DESKTOP_ICON_GRID.rowTopOffsetPx + (row - 1) * DESKTOP_ICON_GRID.rowStepPx
 }
 
-function resolveColFromLeftPx(leftPx: number) {
-  return Math.max(1, Math.round((leftPx - ICON_GRID_COL_OFFSET_PX) / ICON_GRID_COL_STEP_PX) + 1)
+function clampGridPosition(
+  position : IconGridPosition,
+  metrics  : DesktopIconGridMetrics,
+): IconGridPosition {
+  return {
+    col : clamp(position.col, 1, metrics.colCount),
+    row : clamp(position.row, 1, metrics.rowCount),
+  }
+}
+
+function gridKey(position: IconGridPosition) {
+  return `${position.col}:${position.row}`
+}
+
+function resolveNearestAvailablePosition(
+  desired  : IconGridPosition,
+  metrics  : DesktopIconGridMetrics,
+  occupied : Set<string>,
+): IconGridPosition {
+  const clamped = clampGridPosition(desired, metrics)
+  if (!occupied.has(gridKey(clamped))) return clamped
+
+  let best: IconGridPosition | null = null
+  let bestScore = Number.POSITIVE_INFINITY
+
+  for (let row = 1; row <= metrics.rowCount; row++) {
+    for (let col = 1; col <= metrics.colCount; col++) {
+      const candidate = { col, row }
+      if (occupied.has(gridKey(candidate))) continue
+
+      const rowDelta = Math.abs(row - clamped.row)
+      const colDelta = Math.abs(col - clamped.col)
+      const score    = rowDelta + colDelta
+
+      if (
+        score < bestScore ||
+        (
+          score === bestScore &&
+          best &&
+          (rowDelta < Math.abs(best.row - clamped.row) ||
+            (rowDelta === Math.abs(best.row - clamped.row) && col < best.col))
+        )
+      ) {
+        best = candidate
+        bestScore = score
+      }
+    }
+  }
+
+  return best ?? clamped
+}
+
+function resolveGridPositionFromPoint(
+  leftPx  : number,
+  topPx   : number,
+  metrics : DesktopIconGridMetrics,
+): IconGridPosition {
+  return clampGridPosition({
+    col : Math.round((leftPx - DESKTOP_ICON_GRID.colOffsetPx) / DESKTOP_ICON_GRID.colStepPx) + 1,
+    row : Math.round((topPx - DESKTOP_ICON_GRID.rowTopOffsetPx) / DESKTOP_ICON_GRID.rowStepPx) + 1,
+  }, metrics)
 }
 
 export function useDesktopIcons() {
@@ -70,11 +136,37 @@ export function useDesktopIcons() {
   }
 
   function iconStyle(item: DesktopItem) {
-    const rowStepPx = getIconRowStepPx()
+    void iconGridTick.value
+    const position = getProjectedIconPositions().get(item.id) ?? clampGridPosition(
+      { col : item.col, row : item.row },
+      getIconGridMetrics(),
+    )
+
     return {
-      top  : `${Math.round(resolveIconTopPx(item.row, rowStepPx))}px`,
-      left : `${Math.round((item.col - 1) * ICON_GRID_COL_STEP_PX + ICON_GRID_COL_OFFSET_PX)}px`,
+      top  : `${Math.round(resolveIconTopPx(position.row))}px`,
+      left : `${Math.round(resolveIconLeftPx(position.col))}px`,
     }
+  }
+
+  function getProjectedIconPositions(excludeId?: string) {
+    const metrics = getIconGridMetrics()
+    const occupied = new Set<string>()
+    const projected = new Map<string, IconGridPosition>()
+
+    for (const item of items) {
+      if (item.id === excludeId) continue
+
+      const position = resolveNearestAvailablePosition(
+        { col : item.col, row : item.row },
+        metrics,
+        occupied,
+      )
+
+      occupied.add(gridKey(position))
+      projected.set(item.id, position)
+    }
+
+    return projected
   }
 
   function navigateIcons(key: string) {
@@ -84,8 +176,10 @@ export function useDesktopIcons() {
       return
     }
 
-    let targetCol = current.col
-    let targetRow = current.row
+    const projected = getProjectedIconPositions()
+    const currentPosition = projected.get(current.id) ?? { col : current.col, row : current.row }
+    let targetCol = currentPosition.col
+    let targetRow = currentPosition.row
 
     switch (key) {
       case 'ArrowUp'    : targetRow--; break
@@ -94,7 +188,10 @@ export function useDesktopIcons() {
       case 'ArrowRight' : targetCol++; break
     }
 
-    const target = items.find(i => i.col === targetCol && i.row === targetRow)
+    const target = items.find(i => {
+      const position = projected.get(i.id)
+      return position?.col === targetCol && position.row === targetRow
+    })
     if (target) selectedIconId.value = target.id
   }
 
@@ -113,6 +210,10 @@ export function useDesktopIcons() {
     selectedIconId.value = null
   }
 
+  function refreshViewportGrid() {
+    iconGridTick.value++
+  }
+
   function onIconPointerDown(ev: PointerEvent, iconId: string) {
     if (!isPrimaryPointerActivation(ev)) return
 
@@ -123,9 +224,14 @@ export function useDesktopIcons() {
 
     const startX   = ev.clientX
     const startY   = ev.clientY
-    const rowStepPx = getIconRowStepPx()
-    const origLeft = (item.col - 1) * ICON_GRID_COL_STEP_PX + ICON_GRID_COL_OFFSET_PX
-    const origTop  = resolveIconTopPx(item.row, rowStepPx)
+    const metrics  = getIconGridMetrics()
+    const projected = getProjectedIconPositions()
+    const startPosition = projected.get(iconId) ?? clampGridPosition(
+      { col : item.col, row : item.row },
+      metrics,
+    )
+    const origLeft = resolveIconLeftPx(startPosition.col)
+    const origTop  = resolveIconTopPx(startPosition.row)
     let moved      = false
 
     const onMove = (e: PointerEvent) => {
@@ -133,8 +239,19 @@ export function useDesktopIcons() {
       const dy = e.clientY - startY
       if (!moved && Math.abs(dx) < 5 && Math.abs(dy) < 5) return
       moved = true
-      item.col = resolveColFromLeftPx(origLeft + dx)
-      item.row = resolveRowFromTopPx(origTop + dy, rowStepPx)
+
+      const nextMetrics = getIconGridMetrics()
+      const occupied = new Set(
+        [...getProjectedIconPositions(iconId).values()].map(position => gridKey(position)),
+      )
+      const nextPosition = resolveNearestAvailablePosition(
+        resolveGridPositionFromPoint(origLeft + dx, origTop + dy, nextMetrics),
+        nextMetrics,
+        occupied,
+      )
+
+      item.col = nextPosition.col
+      item.row = nextPosition.row
     }
 
     const onUp = () => {
@@ -156,6 +273,7 @@ export function useDesktopIcons() {
     iconStyle,
     navigateIcons,
     onIconPointerDown,
+    refreshViewportGrid,
     updateTitlesForLocale,
     resetToDefaults,
   }

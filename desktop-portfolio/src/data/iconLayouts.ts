@@ -1,16 +1,17 @@
 /* ============================================================
    Startup Icon Layout Profiles - Separate Desktop Icon Defaults
    ============================================================
-   Uses the same width-only startup profile selection as window
+   Uses the same desktop-size startup profile selection as window
    layouts, while keeping icon-grid defaults in a dedicated module
    for clean separation of responsibilities.
    ============================================================ */
 
 import type { DesktopItem } from '../types/desktop'
 import {
-  resolveStartupProfileIdForWidth,
+  resolveStartupProfileIdForUsableArea,
   type CanonicalStartupProfileId,
-} from './windowLayouts'
+} from './desktopProfiles'
+import type { DesktopLayoutSize } from './desktopGrid'
 
 export interface StartupIconLayout {
   itemId : string
@@ -18,37 +19,30 @@ export interface StartupIconLayout {
   row    : number
 }
 
-interface ViewportSize {
-  w : number
-}
-
 /*
  * Initial icon profiles mirror current registry defaults.
  * Keep these separate from the registry so each desktop profile
  * can evolve independently without changing canonical metadata.
  *
- * These use the SAME width-only profile mapping as `windowLayouts.ts`:
- * - `small`  : widths below 1440
- * - `medium` : widths from 1440 through 1920
- * - `large`  : widths above 1920
+ * These use the SAME usable-area profile mapping as `windowLayouts.ts`.
  */
 const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[]> = {
-  /* `small` icon grid tuning bucket (< 1440 viewport width) */
+  /* `small` icon grid tuning bucket (compact or short desktop area) */
   small : [
     { itemId : 'about',    col : 1,  row : 1 },
     { itemId : 'projects', col : 1,  row : 2 },
-    { itemId : 'gallery',  col : 3,  row : 8 },
+    { itemId : 'gallery',  col : 3,  row : 6 },
     { itemId : 'resume',   col : 11, row : 2 },
     { itemId : 'cv-pdf',   col : 11, row : 3 },
-    { itemId : 'twitter',  col : 14, row : 4 },
+    { itemId : 'twitter',  col : 11, row : 4 },
     { itemId : 'linkedin', col : 11, row : 5 },
     { itemId : 'github',   col : 11, row : 6 },
-    { itemId : 'extras',   col : 1,  row : 5 },
-    { itemId : 'music',    col : 1,  row : 8 },
-    { itemId : 'video',    col : 1,  row : 7 },
-    { itemId : 'terminal', col : 1,  row : 4 },
+    { itemId : 'extras',   col : 1,  row : 4 },
+    { itemId : 'music',    col : 1,  row : 6 },
+    { itemId : 'video',    col : 1,  row : 5 },
+    { itemId : 'terminal', col : 1,  row : 3 },
   ],
-  /* `medium` icon grid tuning bucket (1440..1920 viewport width) */
+  /* `medium` icon grid tuning bucket (medium width plus enough usable height) */
   medium : [
     { itemId : 'about',    col : 1,  row : 1 },
     { itemId : 'projects', col : 1,  row : 2 },
@@ -63,7 +57,7 @@ const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[
     { itemId : 'video',    col : 1,  row : 7 },
     { itemId : 'terminal', col : 1,  row : 4 },
   ],
-  /* `large` icon grid tuning bucket (> 1920 viewport width) */
+  /* `large` icon grid tuning bucket (large width plus roomy usable height) */
   large : [
     { itemId : 'about',    col : 1,  row : 1 },
     { itemId : 'projects', col : 1,  row : 2 },
@@ -80,8 +74,8 @@ const STARTUP_ICON_LAYOUTS: Record<CanonicalStartupProfileId, StartupIconLayout[
   ],
 }
 
-export function getStartupIconLayoutsForViewport(viewport: ViewportSize): StartupIconLayout[] {
-  const profile = resolveStartupProfileIdForWidth(viewport.w)
+export function getStartupIconLayoutsForViewport(viewport: DesktopLayoutSize): StartupIconLayout[] {
+  const profile = resolveStartupProfileIdForUsableArea(viewport)
 
   return STARTUP_ICON_LAYOUTS[profile].map(layout => ({ ...layout }))
 }

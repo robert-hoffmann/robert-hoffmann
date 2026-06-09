@@ -150,7 +150,15 @@ function scheduleDesktopNotifications() {
 }
 
 /* Keep default desktop layout deterministic while deferring heavy mounts. */
-function currentViewportSize() {
+function currentDesktopLayoutSize() {
+  const desktopArea = document.querySelector<HTMLElement>('.desktop-area')
+  if (desktopArea) {
+    return {
+      w : Math.max(desktopArea.clientWidth, 1),
+      h : Math.max(desktopArea.clientHeight, 1),
+    }
+  }
+
   return {
     w : Math.max(window.innerWidth, 1),
     h : Math.max(window.innerHeight, 1),
@@ -169,14 +177,14 @@ function applyWindowLayout(def: ReturnType<typeof getStartupWindowLayoutsForView
 }
 
 function resetDesktopIconsForCurrentViewport() {
-  const viewport = currentViewportSize()
+  const viewport = currentDesktopLayoutSize()
   const iconLayouts = getStartupIconLayoutsForViewport(viewport)
   icons.resetToDefaults(locale.value, iconLayouts)
 }
 
 function openDefaultWindowsStaggered() {
   clearStartupSchedule()
-  const viewport = currentViewportSize()
+  const viewport = currentDesktopLayoutSize()
   const layouts = getStartupWindowLayoutsForViewport(viewport)
   const deferredLayouts = layouts.slice(STARTUP_INITIAL_BATCH)
 
@@ -378,6 +386,7 @@ function onViewportResize() {
   const nextWorkArea = wm.getWorkAreaRect()
   const prevWorkArea = previousWorkAreaRect
   previousWorkAreaRect = nextWorkArea
+  icons.refreshViewportGrid()
   if (!prevWorkArea) return
 
   wm.autoFitInaccessibleWindowsForViewportChange(prevWorkArea, nextWorkArea)
@@ -426,6 +435,7 @@ watch(isMobile, (mobile) => {
   }
 
   previousWorkAreaRect = mobile ? null : wm.getWorkAreaRect()
+  if (!mobile) icons.refreshViewportGrid()
 })
 
 watch(
