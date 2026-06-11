@@ -597,6 +597,7 @@ watch(
       @focus="wm.focusWindow"
       @drag-start="onDragStart"
       @resize-start="onResizeStart"
+      @content-state-patch="wm.patchWindowContentState"
     />
 
     <Dock

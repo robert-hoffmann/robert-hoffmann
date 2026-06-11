@@ -43,6 +43,7 @@ export function useSessionPersistence(desktopItems: DesktopItem[]) {
         mode          : w.mode,
         restoreBounds : w.restoreBounds,
         restoreMode   : w.restoreMode,
+        contentState  : w.contentState,
       })),
     }
 

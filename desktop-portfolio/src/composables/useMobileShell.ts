@@ -95,8 +95,9 @@ export function useMobileShell() {
       h            : Math.max(1, baseSize.h),
       zIndex       : MOBILE_SURFACE_Z_INDEX,
       mode         : currentWindowMode.value,
-      restoreBounds: null,
-      restoreMode  : null,
+      restoreBounds : null,
+      restoreMode   : null,
+      contentState  : null,
     }
   })
 

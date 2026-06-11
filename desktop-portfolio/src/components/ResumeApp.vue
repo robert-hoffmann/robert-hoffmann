@@ -1,13 +1,18 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue'
 import CvDownloadLink from './CvDownloadLink.vue'
 import { experience } from '../data/apps/resume'
 import { useLocale } from '../composables/useLocale'
+import { usePersistedWindowScroll } from '../composables/usePersistedWindowScroll'
 
-const { l } = useLocale()
+const { l }     = useLocale()
+const scrollRef = useTemplateRef<HTMLElement>('resumeScroll')
+
+usePersistedWindowScroll(scrollRef)
 </script>
 
 <template>
-  <div class="resume-timeline">
+  <div ref="resumeScroll" class="resume-timeline">
     <CvDownloadLink placement="sticky" />
 
     <div class="resume-timeline-list">

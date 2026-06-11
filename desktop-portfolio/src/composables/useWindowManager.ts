@@ -10,14 +10,20 @@ import { computed, reactive } from 'vue'
 import type {
   Locale,
   ResolvedWindowPolicy,
+  WindowContentState,
   WindowMode,
   WindowPoint,
   WindowPolicyConfig,
   WindowRect,
   WindowResizeHandle,
+  WindowScrollState,
   WindowSize,
   WindowState,
 } from '../types/desktop'
+import {
+  galleryImageDisplayOrder,
+  type GalleryImageId,
+} from '../data/apps/gallery'
 import { windowRegistry, getRegistryTitle } from '../data/registry'
 import { clamp, uid } from '../utils'
 
@@ -30,6 +36,7 @@ const DOCK_SAFE_MARGIN_FALLBACK_PX = 60
 const TITLEBAR_HEIGHT_PX = 40
 const TITLEBAR_REACHABLE_WIDTH_PX = 140
 const RESIZE_HANDLE_SIZE_PX = 18
+const GALLERY_IMAGE_IDS = new Set<string>(galleryImageDisplayOrder)
 
 interface WindowManagerState {
   windows         : WindowState[]
@@ -88,6 +95,10 @@ function isFiniteNumber(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value)
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null
+}
+
 function parseWindowMode(value: unknown): WindowMode {
   return value === 'minimized' || value === 'maximized' ? value : 'normal'
 }
@@ -103,6 +114,51 @@ function toWindowRect(value: Partial<WindowRect> | null | undefined): WindowRect
     return null
   }
   return { x, y, w, h }
+}
+
+function parseWindowScrollState(value: unknown): WindowScrollState | null {
+  if (!isRecord(value)) return null
+  if (!isFiniteNumber(value.x) || !isFiniteNumber(value.y)) return null
+
+  return {
+    x : value.x,
+    y : value.y,
+  }
+}
+
+function parseGalleryImageId(value: unknown): GalleryImageId | null {
+  if (typeof value !== 'string') return null
+  if (!GALLERY_IMAGE_IDS.has(value)) return null
+
+  return value as GalleryImageId
+}
+
+function parseWindowContentState(value: unknown): WindowContentState | null {
+  if (!isRecord(value)) return null
+
+  const scroll  = parseWindowScrollState(value.scroll)
+  const imageId = isRecord(value.gallery)
+    ? parseGalleryImageId(value.gallery.imageId)
+    : null
+
+  if (!scroll && !imageId) return null
+
+  return {
+    ...(scroll ? { scroll } : {}),
+    ...(imageId ? { gallery : { imageId } } : {}),
+  }
+}
+
+function composeWindowContentState(
+  scroll  : WindowScrollState | null,
+  gallery : WindowContentState['gallery'] | null,
+): WindowContentState | null {
+  if (!scroll && !gallery) return null
+
+  return {
+    ...(scroll ? { scroll } : {}),
+    ...(gallery ? { gallery } : {}),
+  }
 }
 
 function currentViewport() {
@@ -529,17 +585,18 @@ function normalizeRestoredWindow(saved: WindowState): WindowState | null {
   const restoreMode = parseRestoreMode(saved.restoreMode)
 
   const normalized: WindowState = {
-    id           : typeof saved.id === 'string' && saved.id ? saved.id : uid(),
-    itemId       : saved.itemId,
-    title        : getRegistryTitle(saved.itemId, 'en'),
-    x            : savedRect.x,
-    y            : savedRect.y,
-    w            : savedRect.w,
-    h            : savedRect.h,
-    zIndex       : isFiniteNumber(saved.zIndex) ? saved.zIndex : state.nextZIndex++,
+    id            : typeof saved.id === 'string' && saved.id ? saved.id : uid(),
+    itemId        : saved.itemId,
+    title         : getRegistryTitle(saved.itemId, 'en'),
+    x             : savedRect.x,
+    y             : savedRect.y,
+    w             : savedRect.w,
+    h             : savedRect.h,
+    zIndex        : isFiniteNumber(saved.zIndex) ? saved.zIndex : state.nextZIndex++,
     mode,
-    restoreBounds: normalizedRestoreBounds,
-    restoreMode  : restoreMode,
+    restoreBounds : normalizedRestoreBounds,
+    restoreMode   : restoreMode,
+    contentState  : parseWindowContentState(saved.contentState),
   }
 
   if (!policy.behavior.maximizable && normalized.mode === 'maximized') {
@@ -629,17 +686,18 @@ export function useWindowManager() {
 
     const openRect = resolveOpenRect(itemId, state.windows.length)
     const newWindow: WindowState = {
-      id           : uid(),
-      itemId       : def.id,
-      title        : getRegistryTitle(def.id, locale),
-      x            : openRect.x,
-      y            : openRect.y,
-      w            : openRect.w,
-      h            : openRect.h,
-      zIndex       : isFiniteNumber(options.zIndex) ? options.zIndex : state.nextZIndex,
-      mode         : 'normal',
-      restoreBounds: null,
-      restoreMode  : null,
+      id            : uid(),
+      itemId        : def.id,
+      title         : getRegistryTitle(def.id, locale),
+      x             : openRect.x,
+      y             : openRect.y,
+      w             : openRect.w,
+      h             : openRect.h,
+      zIndex        : isFiniteNumber(options.zIndex) ? options.zIndex : state.nextZIndex,
+      mode          : 'normal',
+      restoreBounds : null,
+      restoreMode   : null,
+      contentState  : null,
     }
 
     if (options.rect) {
@@ -920,6 +978,22 @@ export function useWindowManager() {
     rebaseWindowZOrder(state.focusedWindowId ?? undefined)
   }
 
+  function patchWindowContentState(id: string, patch: Partial<WindowContentState>) {
+    const win = state.windows.find(w => w.id === id)
+    if (!win) return
+
+    const hasScrollPatch  = Object.prototype.hasOwnProperty.call(patch, 'scroll')
+    const hasGalleryPatch = Object.prototype.hasOwnProperty.call(patch, 'gallery')
+    const scroll          = hasScrollPatch
+      ? patch.scroll ?? null
+      : win.contentState?.scroll ?? null
+    const gallery         = hasGalleryPatch
+      ? patch.gallery ?? null
+      : win.contentState?.gallery ?? null
+
+    win.contentState = composeWindowContentState(scroll, gallery)
+  }
+
   function updateTitlesForLocale(locale: Locale) {
     for (const win of state.windows) {
       win.title = getRegistryTitle(win.itemId, locale)
@@ -951,6 +1025,7 @@ export function useWindowManager() {
     setWindows,
     setFocusedId,
     setNextZIndex,
+    patchWindowContentState,
     updateTitlesForLocale,
   }
 }

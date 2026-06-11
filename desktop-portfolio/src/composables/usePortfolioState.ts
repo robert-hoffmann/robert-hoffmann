@@ -16,7 +16,7 @@ import type {
 } from '../types/desktop'
 import { safeParse } from '../utils'
 
-export const PORTFOLIO_STATE_VERSION = 1
+export const PORTFOLIO_STATE_VERSION = 2
 export const PORTFOLIO_STATE_KEY     = `portfolio-state-${PORTFOLIO_STATE_VERSION}`
 
 const DEFAULT_SHARED_STATE: PortfolioSharedState = {

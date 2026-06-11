@@ -37,6 +37,7 @@ import {
 import { preloadGalleryImage } from '../composables/useGalleryImagePreload'
 import { useElementImageSizes } from '../composables/useElementImageSizes'
 import { useViewMode } from '../composables/useViewMode'
+import { useWindowContentState } from '../composables/useWindowContentState'
 
 const ImageViewerLightbox = defineAsyncComponent(() => import('./ImageViewerLightbox.vue'))
 
@@ -48,10 +49,22 @@ const {
 } = usePortfolioNavigation()
 
 const { isMobile } = useViewMode()
+const windowContentState = useWindowContentState()
 
-const selectedIndex = ref(0)
-const captionIndex  = ref(0)
-const slideCount    = imageViewerSlides.length
+const slideCount = imageViewerSlides.length
+
+function getInitialSelectedIndex() {
+  const imageId = windowContentState?.state.value?.gallery?.imageId
+  if (!imageId) return 0
+
+  const imageIndex = imageViewerSlides.findIndex(slide => slide.galleryImageId === imageId)
+
+  return imageIndex >= 0 ? imageIndex : 0
+}
+
+const initialSelectedIndex = getInitialSelectedIndex()
+const selectedIndex        = ref(initialSelectedIndex)
+const captionIndex         = ref(initialSelectedIndex)
 
 const FILMSTRIP_REPEAT_COUNT          = 2
 const MOUSE_DRAG_THRESHOLD_PX         = 4
@@ -188,10 +201,23 @@ function trackIndexToLogicalIndex(index: number) {
   return getLogicalIndexForTrack(index, slideCount)
 }
 
+function persistGalleryImageIndex(index: number) {
+  const slide = imageViewerSlides[normalizeIndex(index)]
+
+  if (!slide) return
+
+  windowContentState?.patch({
+    gallery : {
+      imageId : slide.galleryImageId,
+    },
+  })
+}
+
 function setSelectedIndex(index: number, updateCaption = lockedCaptionIndex.value === null) {
   const normalizedIndex = normalizeIndex(index)
 
   selectedIndex.value = normalizedIndex
+  persistGalleryImageIndex(normalizedIndex)
 
   if (updateCaption) {
     captionIndex.value = normalizedIndex

@@ -2,6 +2,8 @@
    Desktop Portfolio - Core Type Definitions
    ============================================================ */
 
+import type { GalleryImageId } from '../data/apps/gallery'
+
 export type DesktopSpriteKey =
   | 'joystick'
   | 'video'
@@ -46,6 +48,20 @@ export interface WindowPoint {
 export interface WindowRect extends WindowPoint, WindowSize {}
 
 export type WindowOpenStrategy = 'cascade' | 'fixed' | 'center'
+
+export interface WindowScrollState {
+  x : number
+  y : number
+}
+
+export interface GalleryWindowState {
+  imageId : GalleryImageId
+}
+
+export interface WindowContentState {
+  scroll?  : WindowScrollState
+  gallery? : GalleryWindowState
+}
 
 export interface WindowSizePolicyConfig {
   default? : WindowSize
@@ -97,17 +113,18 @@ export interface ResolvedWindowPolicy {
 
 /** Runtime window state managed by the window manager */
 export interface WindowState {
-  id          : string
-  itemId      : string
-  title       : string
-  x           : number
-  y           : number
-  w           : number
-  h           : number
-  zIndex      : number
-  mode        : WindowMode
-  restoreBounds : WindowRect | null
-  restoreMode   : Exclude<WindowMode, 'minimized'> | null
+  id           : string
+  itemId       : string
+  title        : string
+  x            : number
+  y            : number
+  w            : number
+  h            : number
+  zIndex       : number
+  mode         : WindowMode
+  restoreBounds: WindowRect | null
+  restoreMode  : Exclude<WindowMode, 'minimized'> | null
+  contentState : WindowContentState | null
 }
 
 /** Definition for a window-app in the typed registry */

@@ -4,6 +4,7 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
+  useTemplateRef,
   watch,
   type ComponentPublicInstance,
 } from 'vue'
@@ -14,6 +15,7 @@ import {
   type OpenPortfolioAppEventDetail,
   usePortfolioNavigation,
 } from '../composables/usePortfolioNavigation'
+import { usePersistedWindowScroll } from '../composables/usePersistedWindowScroll'
 import type { GalleryImageId } from '../data/apps/gallery'
 import { windowRegistry } from '../data/registry'
 
@@ -24,9 +26,15 @@ const {
   showGalleryImage,
 } = usePortfolioNavigation()
 
-const highlightedProjectId = ref<string | null>(null)
-const projectElements      = new Map<string, HTMLElement>()
-const cvPdf                = windowRegistry['cv-pdf']
+const highlightedProjectId        = ref<string | null>(null)
+const skipPersistedScrollRestore  = ref(Boolean(projectInfoRequest.value))
+const scrollRef                   = useTemplateRef<HTMLElement>('projectsScroll')
+const projectElements             = new Map<string, HTMLElement>()
+const cvPdf                       = windowRegistry['cv-pdf']
+
+usePersistedWindowScroll(scrollRef, {
+  shouldRestore : () => !skipPersistedScrollRestore.value,
+})
 
 if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url || cvPdf.iconSprite !== 'cv-pdf') {
   throw new Error(
@@ -92,6 +100,7 @@ function scrollToProject(projectId: string) {
 }
 
 async function scrollToRequestedProject(projectId: string) {
+  skipPersistedScrollRestore.value = true
   await nextTick()
   scrollToProject(projectId)
 }
@@ -134,7 +143,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="projects-grid">
+  <div ref="projectsScroll" class="projects-grid">
     <aside
       class="project-availability"
       aria-labelledby="project-availability-title"

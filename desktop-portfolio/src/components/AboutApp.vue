@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
 import { about, aboutMessages } from '../data/apps/about'
 import { windowRegistry } from '../data/registry'
 import { useLocale } from '../composables/useLocale'
+import { usePersistedWindowScroll } from '../composables/usePersistedWindowScroll'
 import { publicAssetCssUrl } from '../utils/publicAssets'
 
 const { l, t } = useLocale(aboutMessages)
@@ -29,8 +30,11 @@ const EPSILON                    = 0.002
 const RING_ALIGNMENT_OFFSET      = 32.5
 
 const photoWrapRef  = ref<HTMLElement | null>(null)
+const scrollRef     = useTemplateRef<HTMLElement>('aboutScroll')
 const isPhotoActive = ref(false)
 const effectEnabled = ref(false)
+
+usePersistedWindowScroll(scrollRef)
 
 let interactionMedia: MediaQueryList | null = null
 let reducedMotionMedia: MediaQueryList | null = null
@@ -198,7 +202,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="about-content">
+  <div ref="aboutScroll" class="about-content">
     <!-- ---- Header: photo + name + tagline ---- -->
     <div class="about-header">
       <div

@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, provide, ref, shallowRef, toRef } from 'vue'
-import type { WindowResizeHandle, WindowResizeInputMode, WindowState } from '../types/desktop'
+import type {
+  WindowContentState,
+  WindowResizeHandle,
+  WindowResizeInputMode,
+  WindowState,
+} from '../types/desktop'
 import { windowRegistry } from '../data/registry'
 import { useLocale } from '../composables/useLocale'
+import { windowContentStateKey } from '../composables/useWindowContentState'
 
 const { t } = useLocale()
 
@@ -17,17 +23,24 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  close          : [id: string]
-  minimize       : [id: string]
-  toggleMaximize : [id: string]
-  focus          : [id: string]
-  dragStart      : [event: PointerEvent, id: string]
-  resizeStart    : [event: PointerEvent, id: string, handle: WindowResizeHandle]
+  close                 : [id: string]
+  minimize              : [id: string]
+  toggleMaximize        : [id: string]
+  focus                 : [id: string]
+  dragStart             : [event: PointerEvent, id: string]
+  resizeStart           : [event: PointerEvent, id: string, handle: WindowResizeHandle]
+  'content-state-patch' : [id: string, patch: Partial<WindowContentState>]
 }>()
 
 /** Expose window context to dynamically loaded content components */
 provide('windowFocused', toRef(props, 'isFocused'))
 provide('closeWindow', () => emit('close', props.windowState.id))
+provide(windowContentStateKey, {
+  state : computed(() => props.windowState.contentState),
+  patch : (patch: Partial<WindowContentState>) => {
+    emit('content-state-patch', props.windowState.id, patch)
+  },
+})
 
 const shellStyle = computed(() => ({
   left   : `${props.windowState.x}px`,
