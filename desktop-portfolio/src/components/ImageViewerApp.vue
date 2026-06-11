@@ -12,6 +12,7 @@ import {
 import {
   galleryMessages,
   imageViewerSlides,
+  type GalleryImageId,
   type ImageViewerSlide,
 } from '../data/apps/gallery'
 import { useLocale } from '../composables/useLocale'
@@ -242,12 +243,15 @@ function selectSlide(index: number, behavior: ScrollBehavior = 'smooth') {
   })
 }
 
-function findSlideIndexByImageId(imageId: number) {
-  return imageViewerSlides.findIndex(slide => slide.imageId === imageId)
+function findSlideIndexByGalleryImageId(galleryImageId: GalleryImageId) {
+  return imageViewerSlides.findIndex(slide => slide.galleryImageId === galleryImageId)
 }
 
-function selectImageById(imageId: number, behavior: ScrollBehavior = 'smooth') {
-  const slideIndex = findSlideIndexByImageId(imageId)
+function selectGalleryImageById(
+  galleryImageId : GalleryImageId,
+  behavior       : ScrollBehavior = 'smooth',
+) {
+  const slideIndex = findSlideIndexByGalleryImageId(galleryImageId)
 
   if (slideIndex < 0) return
 
@@ -337,9 +341,9 @@ function openProjectInfo() {
 function onOpenPortfolioApp(event: Event) {
   const detail = (event as CustomEvent<OpenPortfolioAppEventDetail>).detail
 
-  if (detail?.itemId !== 'gallery' || typeof detail.imageId !== 'number') return
+  if (detail?.itemId !== 'gallery' || typeof detail.galleryImageId !== 'string') return
 
-  selectImageById(detail.imageId)
+  selectGalleryImageById(detail.galleryImageId)
 }
 
 function resetEmbeddedGestureState() {
@@ -890,7 +894,7 @@ watch(
   (request) => {
     if (!request) return
 
-    selectImageById(request.imageId)
+    selectGalleryImageById(request.galleryImageId)
     clearGalleryImageRequest(request.requestId)
   },
   { immediate : true },

@@ -1,4 +1,5 @@
 import { readonly, ref } from 'vue'
+import type { GalleryImageId } from '../data/apps/gallery'
 
 export type PortfolioNavigableAppId = 'projects' | 'gallery'
 
@@ -11,13 +12,13 @@ export interface ProjectInfoRequest extends PortfolioNavigationRequest {
 }
 
 export interface GalleryImageRequest extends PortfolioNavigationRequest {
-  imageId : number
+  galleryImageId : GalleryImageId
 }
 
 export interface OpenPortfolioAppEventDetail {
-  itemId    : PortfolioNavigableAppId
-  imageId?  : number
-  projectId?: string
+  itemId          : PortfolioNavigableAppId
+  galleryImageId? : GalleryImageId
+  projectId?      : string
 }
 
 export const OPEN_PORTFOLIO_APP_EVENT = 'portfolio:open-app'
@@ -65,14 +66,14 @@ export function usePortfolioNavigation() {
     })
   }
 
-  function showGalleryImage(imageId: number) {
+  function showGalleryImage(galleryImageId: GalleryImageId) {
     galleryImageRequest.value = {
-      requestId : createRequestId(),
-      imageId,
+      requestId      : createRequestId(),
+      galleryImageId : galleryImageId,
     }
     requestOpenApp({
-      itemId  : 'gallery',
-      imageId : imageId,
+      itemId         : 'gallery',
+      galleryImageId : galleryImageId,
     })
   }
 

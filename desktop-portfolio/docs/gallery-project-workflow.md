@@ -31,14 +31,14 @@ Key files:
 ### Data Contract
 
 `projects.ts` owns project cards. Each project has an `id`, localized content,
-stack data, optional links, and optionally one `imageId`.
+stack data, optional links, and optionally one `galleryImageId`.
 
-The `imageId` in `projects.ts` is the representative slide opened from the
-project card. It should point to the best gallery slide for that project.
+The `galleryImageId` in `projects.ts` is the representative slide opened from
+the project card. It should point to the best gallery slide for that project.
 
-`gallery.ts` owns gallery slides. Each slide has an `imageId`, a `projectId`,
-localized title/summary/alt text, image metadata, thumbnail metadata, and any
-slide-level presentation data.
+`gallery.ts` owns gallery slide content and display order. Each slide has a
+stable `galleryImageId`, a `projectId`, localized title/summary/alt text,
+image metadata, thumbnail metadata, and any slide-level presentation data.
 
 The `projectId` in `gallery.ts` must match an `id` from `projects.ts`.
 Multiple gallery slides may share the same `projectId`.
@@ -47,13 +47,13 @@ Example relationship:
 
 ```text
 projects.ts
-  proj-chatapp -> imageId 1
+  proj-chatapp -> galleryImageId proj-chatapp-1
 
 gallery.ts
-  imageId 1 -> projectId proj-chatapp
-  imageId 2 -> projectId proj-chatapp
-  imageId 3 -> projectId proj-chatapp
-  imageId 4 -> projectId proj-chatapp
+  galleryImageDisplayOrder -> proj-chatapp-1, proj-chatapp-2, ...
+  proj-chatapp-1 -> projectId proj-chatapp
+  proj-chatapp-2 -> projectId proj-chatapp
+  proj-chatapp-3 -> projectId proj-chatapp
 ```
 
 This means:
@@ -62,19 +62,20 @@ This means:
 - Gallery  -> Projects always opens the matching project card.
 - Gallery can show multiple screenshots for one project without duplicating
   project cards.
+- Gallery order is controlled by `galleryImageDisplayOrder`, not by file names.
 
 ### Navigation Flow
 
 Projects to Gallery:
 
-1. `ProjectsApp.vue` renders an image button only when a project has numeric
-   `imageId`.
-2. The click handler calls `showGalleryImage(imageId)`.
+1. `ProjectsApp.vue` renders an image button only when a project has
+   `galleryImageId`.
+2. The click handler calls `showGalleryImage(galleryImageId)`.
 3. `usePortfolioNavigation.ts` stores `galleryImageRequest` and dispatches the
    `portfolio:open-app` event with `itemId: 'gallery'`.
 4. The desktop/mobile shell opens or focuses the Gallery app.
-5. `ImageViewerApp.vue` consumes the request, finds the slide by `imageId`, and
-   scrolls/selects it.
+5. `ImageViewerApp.vue` consumes the request, finds the slide by
+   `galleryImageId`, and scrolls/selects it.
 
 Gallery to Projects:
 
@@ -87,8 +88,8 @@ Gallery to Projects:
    highlights it briefly.
 
 The event opens/focuses the target app. The reactive request lets the target
-component consume the requested `imageId` or `projectId`, including when the
-component mounts after the event is dispatched.
+component consume the requested `galleryImageId` or `projectId`, including when
+the component mounts after the event is dispatched.
 
 ## Asset Contract
 
@@ -99,18 +100,18 @@ public/image-gallery/images/
 public/image-gallery/thumbs/
 ```
 
-The runtime file names are numeric and zero-padded:
+Runtime file names match the stable `galleryImageId`:
 
 ```text
-public/image-gallery/images/01.webp
-public/image-gallery/thumbs/01.webp
+public/image-gallery/images/proj-chatapp-1.webp
+public/image-gallery/thumbs/proj-chatapp-1.webp
 ```
 
-`gallery.ts` derives these URLs from `imageId`:
+`gallery.ts` derives these URLs from `galleryImageId`:
 
 ```text
-imageId 1  -> images/01.webp and thumbs/01.webp
-imageId 12 -> images/12.webp and thumbs/12.webp
+galleryImageId proj-chatapp-1
+  -> images/proj-chatapp-1.webp and thumbs/proj-chatapp-1.webp
 ```
 
 Current runtime dimensions:
@@ -132,55 +133,56 @@ public/image-gallery/src/
 Use this naming convention:
 
 ```text
-<gallery-position>-<projectId>.<ext>
+<projectId>-<local-image-number>.<ext>
 ```
 
 Examples:
 
 ```text
-1-proj-chatapp.jpg
-2-proj-chatapp.jpg
-5-proj-desktop-portfolio.png
+proj-chatapp-1.jpg
+proj-chatapp-2.jpg
+proj-desktop-portfolio-1.png
 ```
 
 Rules:
 
-- `gallery-position` is the numeric slide position and becomes `imageId`.
 - `projectId` must match a project `id` in `projects.ts`.
+- `local-image-number` is a stable project-scoped suffix, not the gallery
+  display order.
 - Several files may use the same `projectId`.
 - The extension may be `.jpg`, `.jpeg`, `.png`, `.webp`, or `.avif`.
 - Source images may have mixed dimensions and aspect ratios.
 - Keep source images in this directory after publishing. They are the reusable
   inputs for future regeneration.
-- When inserting a slide before existing slides, renumber source files into the
-  final `1..n` order before publishing. A temporary `0-<projectId>.*` source is
-  fine while staging, but it should be promoted to `1-<projectId>.*` and the
-  existing files shifted before runtime assets and `gallery.ts` are updated.
+- Reorder the gallery by editing `galleryImageDisplayOrder`; do not rename
+  assets just to move prettier or more representative images earlier.
 
 ## Adding Or Replacing A Source Image
 
 To add a new gallery slide:
 
-1. Pick the next available numeric `gallery-position`.
-2. Save the screenshot as `public/image-gallery/src/<gallery-position>-<projectId>.<ext>`.
+1. Pick the next available `local-image-number` for that `projectId`.
+2. Save the screenshot as
+   `public/image-gallery/src/<projectId>-<local-image-number>.<ext>`.
 3. Run the test generator.
 4. Review the generated `blur-card` result.
 5. Publish the matching full image and thumbnail.
-6. Add one matching `gallery.ts` slide.
+6. Add one matching `gallery.ts` content entry and include its ID in
+   `galleryImageDisplayOrder`.
 7. Update `projects.ts` only when this new slide should become the project's
    representative image.
 
 To replace an existing slide:
 
-1. Keep the same `gallery-position` and `projectId` in the source file name.
+1. Keep the same `galleryImageId` in the source file name.
 2. Replace the source screenshot in `public/image-gallery/src/`.
-3. Regenerate and republish the same numbered runtime image and thumbnail.
+3. Regenerate and republish the same runtime image and thumbnail.
 4. Update `gallery.ts` copy only when the title, summary, alt text, or project
    relationship changed.
 
-Do not add an `imageId` to a project just because a gallery slide exists for
-that project. `projects.ts` should expose only the best representative slide
-for that project card.
+Do not add a `galleryImageId` to a project just because a gallery slide exists
+for that project. `projects.ts` should expose only the best representative
+slide for that project card.
 
 <!-- #endregion Runtime System -->
 
@@ -267,15 +269,16 @@ script intentionally leaves runtime `images/` and `thumbs/` untouched.
 Generated test output is temporary and should be removed after publishing or
 reviewing.
 
-The manifest preserves the mapping from numeric output file to `projectId`:
+The manifest preserves the mapping from generated output file to source ID:
 
 ```json
 [
   {
-    "fileName"   : "01.webp",
-    "position"   : 1,
-    "projectId"  : "proj-chatapp",
-    "sourceFile" : "1-proj-chatapp.jpg"
+    "fileName"         : "proj-chatapp-1.webp",
+    "galleryImageId"   : "proj-chatapp-1",
+    "localImageNumber" : 1,
+    "projectId"        : "proj-chatapp",
+    "sourceFile"       : "proj-chatapp-1.jpg"
   }
 ]
 ```
@@ -295,16 +298,16 @@ public/image-gallery/_test-normalized/images/blur-card/
 public/image-gallery/_test-normalized/thumbs/blur-card/
 ```
 
-1. For a single new or replaced slide, copy only the matching numbered pair:
+1. For a single new or replaced slide, copy only the matching ID pair:
 
    ```sh
-   SLIDE=08
+   GALLERY_IMAGE_ID=proj-chatapp-1
    cp \
-     "public/image-gallery/_test-normalized/images/blur-card/${SLIDE}.webp" \
-     "public/image-gallery/images/${SLIDE}.webp"
+     "public/image-gallery/_test-normalized/images/blur-card/${GALLERY_IMAGE_ID}.webp" \
+     "public/image-gallery/images/${GALLERY_IMAGE_ID}.webp"
    cp \
-     "public/image-gallery/_test-normalized/thumbs/blur-card/${SLIDE}.webp" \
-     "public/image-gallery/thumbs/${SLIDE}.webp"
+     "public/image-gallery/_test-normalized/thumbs/blur-card/${GALLERY_IMAGE_ID}.webp" \
+     "public/image-gallery/thumbs/${GALLERY_IMAGE_ID}.webp"
    ```
 
    For a full refresh, copy the entire approved `blur-card` set:
@@ -319,16 +322,19 @@ public/image-gallery/_test-normalized/thumbs/blur-card/
 
 2. Update `src/data/apps/gallery.ts` so each slide matches the manifest:
 
-   - `imageId`   : numeric gallery position
-   - `projectId` : matching project ID from `projects.ts`
-   - `title`     : localized slide title
-   - `summary`   : localized slide summary
-   - `alt`       : localized image alt text
+   - `galleryImageId` : stable project-scoped image ID
+   - `projectId`      : matching project ID from `projects.ts`
+   - `title`          : localized slide title
+   - `summary`        : localized slide summary
+   - `alt`            : localized image alt text
+
+   Reorder gallery UX by changing `galleryImageDisplayOrder`. Do not rename
+   files for display-order changes.
 
 3. Update `src/data/apps/projects.ts` only when a project's representative
    gallery slide should change.
 
-4. Keep only one `imageId` per project in `projects.ts`.
+4. Keep only one `galleryImageId` per project in `projects.ts`.
 
 5. Allow many `gallery.ts` slides to point to the same `projectId`.
 
@@ -354,15 +360,15 @@ public/image-gallery/_test-normalized/thumbs/blur-card/
 
 Before committing gallery changes:
 
-- Every source file follows `<gallery-position>-<projectId>.<ext>`.
+- Every source file follows `<projectId>-<local-image-number>.<ext>`.
 - Every `projectId` exists in `projects.ts`.
 - Every generated full image is `1600x1000`.
 - Every generated thumbnail is `360x360`.
 - `blur-card` preserves important UI details.
 - Thumbnails are recognizable enough for filmstrip navigation.
-- The manifest order matches intended gallery order.
+- `galleryImageDisplayOrder` matches intended gallery order.
 - `gallery.ts` has one slide per published image.
-- `projects.ts` has only one representative `imageId` per project.
+- `projects.ts` has only one representative `galleryImageId` per project.
 - Runtime `images/` and `thumbs/` contain only published slide pairs.
 - `public/image-gallery/_test-normalized/` is removed before commit.
 - The selected project card opens the intended representative slide.

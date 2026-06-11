@@ -14,6 +14,7 @@ import {
   type OpenPortfolioAppEventDetail,
   usePortfolioNavigation,
 } from '../composables/usePortfolioNavigation'
+import type { GalleryImageId } from '../data/apps/gallery'
 import { windowRegistry } from '../data/registry'
 
 const { l, t } = useLocale(projectsMessages)
@@ -38,9 +39,9 @@ const cvPdfSprite  = cvPdf.iconSprite
 
 let highlightTimer: number | null = null
 
-function getProjectImageId(project: Project) {
-  if ('imageId' in project && typeof project.imageId === 'number') {
-    return project.imageId
+function getProjectGalleryImageId(project: Project): GalleryImageId | null {
+  if ('galleryImageId' in project && typeof project.galleryImageId === 'string') {
+    return project.galleryImageId as GalleryImageId
   }
 
   return null
@@ -104,11 +105,11 @@ function onOpenPortfolioApp(event: Event) {
 }
 
 function openProjectImage(project: Project) {
-  const imageId = getProjectImageId(project)
+  const galleryImageId = getProjectGalleryImageId(project)
 
-  if (imageId === null) return
+  if (galleryImageId === null) return
 
-  showGalleryImage(imageId)
+  showGalleryImage(galleryImageId)
 }
 
 watch(
@@ -180,7 +181,7 @@ onBeforeUnmount(() => {
         <span class="project-org">{{ l(project.org) }}</span>
 
         <button
-          v-if="getProjectImageId(project) !== null"
+          v-if="getProjectGalleryImageId(project) !== null"
           class="project-gallery-button"
           type="button"
           :aria-label="t('projects.openGalleryImage', { title: l(project.name) })"

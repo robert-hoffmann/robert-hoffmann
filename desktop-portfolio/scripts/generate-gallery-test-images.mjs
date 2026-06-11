@@ -3,7 +3,7 @@
  * Generate visual test outputs for project-gallery source images.
  *
  * Input naming:
- *   public/image-gallery/src/<gallery-position>-<projectId>.*
+ *   public/image-gallery/src/<projectId>-<local-image-number>.*
  *
  * Test output:
  *   public/image-gallery/_test-normalized/index.html
@@ -61,22 +61,19 @@ function parseSourceName(fileName) {
   if (!ACCEPTED_EXTENSIONS.has(extension)) return null
 
   const stem  = basename(fileName, extension)
-  const match = stem.match(/^(\d+)-(.+)$/)
+  const match = stem.match(/^(.+)-(\d+)$/)
   if (!match) return null
 
   return {
     fileName,
-    position  : Number(match[1]),
-    projectId : match[2],
+    galleryImageId   : stem,
+    localImageNumber : Number(match[2]),
+    projectId        : match[1],
   }
 }
 
-function paddedPosition(position) {
-  return String(position).padStart(2, '0')
-}
-
 function outputFileName(entry) {
-  return `${paddedPosition(entry.position)}.webp`
+  return `${entry.galleryImageId}.webp`
 }
 
 function gradientSvg(width, height) {
@@ -317,8 +314,8 @@ function buildPreviewHtml(entries) {
     return `
       <tr>
         <td>
-          <strong>${paddedPosition(entry.position)}</strong>
-          <code>${htmlEscape(entry.projectId)}</code>
+          <strong>${htmlEscape(entry.galleryImageId)}</strong>
+          <code>${htmlEscape(entry.projectId)} #${entry.localImageNumber}</code>
           <a href="${sourceHref}">
             <img class="source" src="${sourceHref}" alt="Source ${htmlEscape(entry.fileName)}"/>
           </a>
@@ -440,7 +437,11 @@ async function main() {
   const entries = files
     .map(parseSourceName)
     .filter(Boolean)
-    .sort((a, b) => a.position - b.position || a.fileName.localeCompare(b.fileName))
+    .sort((a, b) =>
+      a.projectId.localeCompare(b.projectId) ||
+      a.localImageNumber - b.localImageNumber ||
+      a.fileName.localeCompare(b.fileName),
+    )
 
   if (entries.length === 0) {
     throw new Error(`No source images found in ${SOURCE_DIR}`)
@@ -470,10 +471,11 @@ async function main() {
   await writeFile(
     join(OUTPUT_DIR, 'manifest.json'),
     `${JSON.stringify(entries.map(entry => ({
-      fileName   : outputFileName(entry),
-      position   : entry.position,
-      projectId  : entry.projectId,
-      sourceFile : entry.fileName,
+      fileName         : outputFileName(entry),
+      galleryImageId   : entry.galleryImageId,
+      localImageNumber : entry.localImageNumber,
+      projectId        : entry.projectId,
+      sourceFile       : entry.fileName,
     })), null, 2)}\n`,
   )
 

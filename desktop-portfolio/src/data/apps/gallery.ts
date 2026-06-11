@@ -45,17 +45,35 @@ export const galleryMessages = {
 // #endregion Messages
 
 // #region Content
-export interface GalleryImageContent {
-  imageId   : number
+export type ProjectScopedGalleryImageId = `${ProjectId}-${number}`
+
+export const galleryImageDisplayOrder = [
+  'proj-chatapp-1',
+  'proj-chatapp-2',
+  'proj-chatapp-3',
+  'proj-chatapp-4',
+  'proj-chatapp-5',
+  'proj-desktop-portfolio-1',
+  'proj-parallax-designer-1',
+  'proj-parallax-designer-2',
+  'proj-sbm-compliance-1',
+] satisfies readonly [ProjectScopedGalleryImageId, ...ProjectScopedGalleryImageId[]]
+
+export type GalleryImageId = (typeof galleryImageDisplayOrder)[number]
+
+interface GalleryImageContentEntry {
   projectId : ProjectId
   title     : Localized
   summary   : Localized
   alt       : Localized
 }
 
-export const galleryImages = [
-  {
-    imageId   : 1,
+export interface GalleryImageContent extends GalleryImageContentEntry {
+  galleryImageId : GalleryImageId
+}
+
+const galleryImageContentById = {
+  'proj-chatapp-1'              : {
     projectId : 'proj-chatapp',
     title     : {
       en : 'TchaTche: Magazine',
@@ -80,8 +98,7 @@ export const galleryImages = [
         'mobile, sport et bonus SMS',
     } satisfies Localized,
   },
-  {
-    imageId   : 2,
+  'proj-chatapp-2'              : {
     projectId : 'proj-chatapp',
     title     : {
       en : 'TchaTche: Gallery (chat)',
@@ -100,8 +117,7 @@ export const galleryImages = [
       fr : 'Interface carte tchatche.com avec galerie photo au-dessus de listes utilisateurs',
     } satisfies Localized,
   },
-  {
-    imageId   : 3,
+  'proj-chatapp-3'              : {
     projectId : 'proj-chatapp',
     title     : {
       en : 'TchaTche: GeoLocalization (chat)',
@@ -120,8 +136,7 @@ export const galleryImages = [
       fr : 'Écran de recherche carte tchatche.com avec popover profil et liste membres',
     } satisfies Localized,
   },
-  {
-    imageId   : 4,
+  'proj-chatapp-4'              : {
     projectId : 'proj-chatapp',
     title     : {
       en : 'TchaTche: NRJ (white label)',
@@ -140,8 +155,7 @@ export const galleryImages = [
       fr : 'Page de recherche chat NRJ avec filtres régionaux et liste utilisateurs',
     } satisfies Localized,
   },
-  {
-    imageId   : 5,
+  'proj-chatapp-5'              : {
     projectId : 'proj-chatapp',
     title     : {
       en : 'TchaTche: Blogs',
@@ -160,8 +174,7 @@ export const galleryImages = [
       fr : 'Portail communautaire TchatcheBlog avec classements blogs et widgets membres',
     } satisfies Localized,
   },
-  {
-    imageId   : 6,
+  'proj-desktop-portfolio-1'    : {
     projectId : 'proj-desktop-portfolio',
     title     : {
       en : 'Work Portfolio',
@@ -180,8 +193,7 @@ export const galleryImages = [
       fr : 'Interface portfolio desktop avec plusieurs fenêtres superposées et icônes de dock',
     } satisfies Localized,
   },
-  {
-    imageId   : 7,
+  'proj-parallax-designer-1'    : {
     projectId : 'proj-parallax-designer',
     title     : {
       en : 'Parallax Designer (interface)',
@@ -200,8 +212,7 @@ export const galleryImages = [
       fr : 'Éditeur Parallax Designer avec preview canvas, pile de calques et contrôles géométrie',
     } satisfies Localized,
   },
-  {
-    imageId   : 8,
+  'proj-parallax-designer-2'    : {
     projectId : 'proj-parallax-designer',
     title     : {
       en : 'Parallax Designer (documentation)',
@@ -220,8 +231,7 @@ export const galleryImages = [
       fr : 'Page de documentation Parallax Designer avec diagrammes de flux et hiérarchie',
     } satisfies Localized,
   },
-  {
-    imageId   : 9,
+  'proj-sbm-compliance-1'       : {
     projectId : 'proj-sbm-compliance',
     title     : {
       en : 'SBM: Compliance Dashboard',
@@ -240,28 +250,42 @@ export const galleryImages = [
       fr : 'Dashboard conformité SBM avec cartes d’administration et menu latéral profil',
     } satisfies Localized,
   },
+} satisfies Record<GalleryImageId, GalleryImageContentEntry>
+
+function createGalleryImage(galleryImageId: GalleryImageId): GalleryImageContent {
+  const content = galleryImageContentById[galleryImageId]
+
+  return {
+    galleryImageId : galleryImageId,
+    ...content,
+  }
+}
+
+export const galleryImages = [
+  createGalleryImage(galleryImageDisplayOrder[0]),
+  ...galleryImageDisplayOrder.slice(1).map(createGalleryImage),
 ] satisfies readonly [GalleryImageContent, ...GalleryImageContent[]]
 // #endregion Content
 
 // #region Slides
 export interface ImageViewerSlide {
-  id        : string
-  imageId   : number
-  projectId : ProjectId
-  title     : Localized
-  summary   : Localized
-  image     : {
+  id             : GalleryImageId
+  galleryImageId : GalleryImageId
+  projectId      : ProjectId
+  title          : Localized
+  summary        : Localized
+  image          : {
     src    : string
     width  : number
     height : number
     alt    : Localized
   }
-  thumbnail : {
+  thumbnail      : {
     src    : string
     width  : number
     height : number
   }
-  accent    : string
+  accent         : string
 }
 
 const sampleAccents = [
@@ -276,38 +300,35 @@ const sampleAccents = [
   'oklch(66% 0.17 40)',
 ] satisfies readonly [string, ...string[]]
 
-function padGalleryIndex(index: number) {
-  return String(index).padStart(2, '0')
-}
-
-function createGallerySlide(content: GalleryImageContent): ImageViewerSlide {
-  const paddedIndex = padGalleryIndex(content.imageId)
-
+function createGallerySlide(
+  content : GalleryImageContent,
+  index   : number,
+): ImageViewerSlide {
   return {
-    id        : `gallery-${paddedIndex}`,
-    imageId   : content.imageId,
-    projectId : content.projectId,
-    title     : content.title,
-    summary   : content.summary,
-    image     : {
-      src    : publicAssetUrl(`image-gallery/images/${paddedIndex}.webp`),
+    id             : content.galleryImageId,
+    galleryImageId : content.galleryImageId,
+    projectId      : content.projectId,
+    title          : content.title,
+    summary        : content.summary,
+    image          : {
+      src    : publicAssetUrl(`image-gallery/images/${content.galleryImageId}.webp`),
       width  : 1600,
       height : 1000,
       alt    : content.alt,
     },
-    thumbnail : {
-      src    : publicAssetUrl(`image-gallery/thumbs/${paddedIndex}.webp`),
+    thumbnail      : {
+      src    : publicAssetUrl(`image-gallery/thumbs/${content.galleryImageId}.webp`),
       width  : 360,
       height : 360,
     },
-    accent    : sampleAccents[content.imageId - 1] ?? sampleAccents[0],
+    accent         : sampleAccents[index] ?? sampleAccents[0],
   }
 }
 
 const [firstGalleryImage, ...remainingGalleryImages] = galleryImages
 
 export const imageViewerSlides = [
-  createGallerySlide(firstGalleryImage),
-  ...remainingGalleryImages.map(createGallerySlide),
+  createGallerySlide(firstGalleryImage, 0),
+  ...remainingGalleryImages.map((content, index) => createGallerySlide(content, index + 1)),
 ] satisfies readonly [ImageViewerSlide, ...ImageViewerSlide[]]
 // #endregion Slides

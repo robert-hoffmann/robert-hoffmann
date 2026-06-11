@@ -1,6 +1,6 @@
 import type { Localized } from '../../types/desktop'
 import { about } from '../apps/about'
-import { galleryImages } from '../apps/gallery'
+import { galleryImages, type GalleryImageId } from '../apps/gallery'
 import { projects, type Project, type ProjectId } from '../apps/projects'
 import { experience } from '../apps/resume'
 
@@ -56,8 +56,8 @@ interface CvImpactProject {
 }
 
 interface CvVisualEvidence {
-  imageId   : number
-  projectId : ProjectId
+  galleryImageId : GalleryImageId
+  projectId      : ProjectId
 }
 
 interface CvIdentity {
@@ -479,8 +479,8 @@ export const cvDocument = {
   },
 
   visualEvidence : galleryImages.map(image => ({
-    imageId   : image.imageId,
-    projectId : image.projectId,
+    galleryImageId : image.galleryImageId,
+    projectId      : image.projectId,
   })),
 } satisfies CvDocument
 // #endregion Document

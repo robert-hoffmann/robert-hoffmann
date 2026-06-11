@@ -204,18 +204,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-sbm-compliance',
-    imageId    : 9,
-    name       : {
+    id             : 'proj-sbm-compliance',
+    galleryImageId : 'proj-sbm-compliance-1',
+    name           : {
       en : 'SBM / Ter\u00e9ga: Onboarding & Certification Tracking',
       fr : 'SBM / Ter\u00e9ga: Suivi onboarding & certifications',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Maser Engineering for SBM Company and Ter\u00e9ga',
       fr : 'Maser Engineering pour SBM Company et Ter\u00e9ga',
     } satisfies Localized,
-    period     : '2025',
-    summary    : {
+    period         : '2025',
+    summary        : {
       en :
         'Compliance onboarding platform for high-risk work sites, combining SCORM training, ' +
         'document collection, certification expiry tracking, subcontractor delegation, and ' +
@@ -230,7 +230,7 @@ const projectRecords = [
         'onboarding et certification avec gestion documentaire et délégation de rôles avancée ' +
         'désactivées.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : 'SBM: 117 companies',
         fr : 'SBM : 117 entreprises',
@@ -256,7 +256,7 @@ const projectRecords = [
         fr : 'Version marque blanche',
       },
     ] satisfies Localized[],
-    stack      : [
+    stack          : [
       'PHP',
       'Symfony',
       'Live Components',
@@ -264,7 +264,7 @@ const projectRecords = [
       'MariaDB',
       'SCORM',
     ],
-    links      : [
+    links          : [
       {
         label : 'SBM Company',
         href  : 'https://sbm-company.com/',
@@ -276,18 +276,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-desktop-portfolio',
-    imageId    : 6,
-    name       : {
+    id             : 'proj-desktop-portfolio',
+    galleryImageId : 'proj-desktop-portfolio-1',
+    name           : {
       en : 'i-technology.net: AI-Directed Desktop Portfolio',
       fr : 'i-technology.net: Portfolio desktop piloté par IA',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Independent',
       fr : 'Indépendant',
     } satisfies Localized,
-    period     : '2026 – present',
-    summary    : {
+    period         : '2026 – present',
+    summary        : {
       en :
         'Recruiter-facing portfolio and AI-directed delivery case study that turns a resume into ' +
         'an interactive desktop product. Product direction, architecture, acceptance criteria, review, ' +
@@ -304,7 +304,7 @@ const projectRecords = [
         'mini-apps async, le contenu bilingue, le shell mobile, le SEO prérendu, les données ' +
         'structurées et les scores Google PageSpeed mesurés.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : 'AI-directed case study',
         fr : 'Cas de livraison pilotée par IA',
@@ -322,7 +322,7 @@ const projectRecords = [
         fr : '100 Accessibilité + SEO',
       },
     ] satisfies Localized[],
-    stack      : [
+    stack          : [
       'VueJS',
       'TypeScript',
       'Vite',
@@ -332,7 +332,7 @@ const projectRecords = [
       'Sharp',
       'AI-Directed Delivery',
     ],
-    links      : [
+    links          : [
       {
         label : 'Live site',
         href  : 'https://i-technology.net/',
@@ -348,18 +348,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-parallax-designer',
-    imageId    : 7,
-    name       : {
+    id             : 'proj-parallax-designer',
+    galleryImageId : 'proj-parallax-designer-1',
+    name           : {
       en : 'Parallax Designer: AI-Directed Visual Builder',
       fr : 'Parallax Designer: Builder visuel piloté par IA',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Independent',
       fr : 'Indépendant',
     } satisfies Localized,
-    period     : '2026 – present',
-    summary    : {
+    period         : '2026 – present',
+    summary        : {
       en :
         'Browser-based visual editor for designing multi-layer parallax scenes like the ' +
         'portfolio background system. It provides real-time preview, layer geometry and motion ' +
@@ -372,7 +372,7 @@ const projectRecords = [
         'HTML runtime autonome et pipeline documentaire piloté par IA synchronisant app, docs utilisateur ' +
         'et API vers un site VitePress.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : 'AI-directed build',
         fr : 'Build piloté par IA',
@@ -390,7 +390,7 @@ const projectRecords = [
         fr : 'Docs VitePress automatisées',
       },
     ] satisfies Localized[],
-    stack      : [
+    stack          : [
       'Vue 3',
       'TypeScript',
       'Vite',
@@ -404,7 +404,7 @@ const projectRecords = [
       'GitHub Actions',
       'AI-Directed Delivery',
     ],
-    links      : [
+    links          : [
       { label : 'Live app', href : 'https://robert-hoffmann.github.io/parallax-designer/' },
       { label : 'Docs',     href : 'https://robert-hoffmann.github.io/parallax-designer/docs/' },
       { label : 'GitHub',   href : 'https://github.com/robert-hoffmann/parallax-designer' },
@@ -462,18 +462,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-chatapp',
-    imageId    : 1,
-    name       : {
+    id             : 'proj-chatapp',
+    galleryImageId : 'proj-chatapp-1',
+    name           : {
       en : 'tchatche.com: Media & Community Ecosystem',
       fr : 'tchatche.com: Écosystème média & communautaire',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : '123 Multimedia / Index Multimedia',
       fr : '123 Multimedia / Index Multimedia',
     } satisfies Localized,
-    period     : '2004 – 2013',
-    summary    : {
+    period         : '2004 – 2013',
+    summary        : {
       en :
         'Lead developer and technical owner for high-traffic white-label real-time chat products ' +
         'inside the broader tchatche.com media ecosystem, spanning frontend architecture, backend ' +
@@ -488,7 +488,7 @@ const projectRecords = [
         'et i18n en 13 langues sur le site principal, les blogs utilisateurs et les apps chat ' +
         'dédiées.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : '600M views/mo',
         fr : '600M vues/mois',
@@ -510,7 +510,7 @@ const projectRecords = [
         fr : '~125K req/s chat',
       },
     ] satisfies Localized[],
-    stack      : [
+    stack          : [
       '.NET MVC5',
       'WebAPI 2',
       '.NET 4.5',
