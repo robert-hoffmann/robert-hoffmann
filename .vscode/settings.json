@@ -15,5 +15,6 @@
     "github.copilot.chat.languageContext.fix.typescript.enabled": true,
     "github.copilot.chat.notebook.enhancedNextEditSuggestions.enabled": true,
     "chat.useAgentSkills": true,
-    "js/ts.experimental.useTsgo": true
+    "js/ts.experimental.useTsgo": true,
+    "todo-tree.ripgrep.ripgrep": "/opt/homebrew/bin/rg"
 }
