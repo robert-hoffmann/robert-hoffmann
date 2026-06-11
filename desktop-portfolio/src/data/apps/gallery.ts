@@ -268,25 +268,49 @@ export const galleryImages = [
 // #endregion Content
 
 // #region Slides
+interface GalleryResponsiveSource {
+  avifSrc    : string
+  avifSrcset : string
+  src        : string
+  webpSrcset : string
+  width      : number
+  height     : number
+}
+
 export interface ImageViewerSlide {
   id             : GalleryImageId
   galleryImageId : GalleryImageId
   projectId      : ProjectId
   title          : Localized
   summary        : Localized
-  image          : {
-    src    : string
-    width  : number
-    height : number
-    alt    : Localized
+  image          : GalleryResponsiveSource & {
+    alt : Localized
   }
   thumbnail      : {
+    src    : string
+    srcset : string
+    width  : number
+    height : number
+  }
+  preview        : {
     src    : string
     width  : number
     height : number
   }
   accent         : string
 }
+
+const galleryImageWidths = [
+  480,
+  800,
+  1200,
+  1600,
+] as const
+
+const galleryThumbnailWidths = [
+  180,
+  360,
+] as const
 
 const sampleAccents = [
   'oklch(62% 0.17 255)',
@@ -300,6 +324,60 @@ const sampleAccents = [
   'oklch(66% 0.17 40)',
 ] satisfies readonly [string, ...string[]]
 
+function galleryResponsiveImageName(
+  galleryImageId : GalleryImageId,
+  width          : number,
+  format         : 'avif' | 'webp',
+) {
+  const suffix = width === 1600 ? '' : `-${width}`
+
+  return `image-gallery/images/${galleryImageId}${suffix}.${format}`
+}
+
+function galleryThumbnailName(galleryImageId: GalleryImageId, width: number) {
+  const suffix = width === 360 ? '' : `-${width}`
+
+  return `image-gallery/thumbs/${galleryImageId}${suffix}.webp`
+}
+
+function createSrcset<const TWidth extends readonly number[]>(
+  widths      : TWidth,
+  createPath  : (width: TWidth[number]) => string,
+) {
+  return widths
+    .map(width => `${publicAssetUrl(createPath(width))} ${width}w`)
+    .join(', ')
+}
+
+function createGalleryImageSource(galleryImageId: GalleryImageId): GalleryResponsiveSource {
+  return {
+    avifSrc    : publicAssetUrl(galleryResponsiveImageName(galleryImageId, 1600, 'avif')),
+    avifSrcset : createSrcset(
+      galleryImageWidths,
+      width => galleryResponsiveImageName(galleryImageId, width, 'avif'),
+    ),
+    src        : publicAssetUrl(galleryResponsiveImageName(galleryImageId, 1600, 'webp')),
+    webpSrcset : createSrcset(
+      galleryImageWidths,
+      width => galleryResponsiveImageName(galleryImageId, width, 'webp'),
+    ),
+    width      : 1600,
+    height     : 1000,
+  }
+}
+
+function createGalleryThumbnailSource(galleryImageId: GalleryImageId) {
+  return {
+    src    : publicAssetUrl(galleryThumbnailName(galleryImageId, 360)),
+    srcset : createSrcset(
+      galleryThumbnailWidths,
+      width => galleryThumbnailName(galleryImageId, width),
+    ),
+    width  : 360,
+    height : 360,
+  }
+}
+
 function createGallerySlide(
   content : GalleryImageContent,
   index   : number,
@@ -311,15 +389,14 @@ function createGallerySlide(
     title          : content.title,
     summary        : content.summary,
     image          : {
-      src    : publicAssetUrl(`image-gallery/images/${content.galleryImageId}.webp`),
-      width  : 1600,
-      height : 1000,
-      alt    : content.alt,
+      ...createGalleryImageSource(content.galleryImageId),
+      alt : content.alt,
     },
-    thumbnail      : {
-      src    : publicAssetUrl(`image-gallery/thumbs/${content.galleryImageId}.webp`),
-      width  : 360,
-      height : 360,
+    thumbnail      : createGalleryThumbnailSource(content.galleryImageId),
+    preview        : {
+      src    : publicAssetUrl(`image-gallery/previews/${content.galleryImageId}.webp`),
+      width  : 160,
+      height : 100,
     },
     accent         : sampleAccents[index] ?? sampleAccents[0],
   }

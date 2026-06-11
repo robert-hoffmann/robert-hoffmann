@@ -7,6 +7,7 @@ import {
   onMounted,
   ref,
   watch,
+  type ComponentPublicInstance,
   type Ref,
 } from 'vue'
 import {
@@ -31,7 +32,10 @@ import {
   setTrackElementFreeDrag,
   snapTrackElementToNearestSlide,
   trackIndexToLogicalIndex as getLogicalIndexForTrack,
+  type CarouselSlide,
 } from '../composables/useCarouselSnapTrack'
+import { preloadGalleryImage } from '../composables/useGalleryImagePreload'
+import { useElementImageSizes } from '../composables/useElementImageSizes'
 import { useViewMode } from '../composables/useViewMode'
 
 const ImageViewerLightbox = defineAsyncComponent(() => import('./ImageViewerLightbox.vue'))
@@ -64,6 +68,8 @@ interface FilmstripSlide {
   slide      : ImageViewerSlide
   slideIndex : number
 }
+
+type ImageViewerCarouselSlide = CarouselSlide<ImageViewerSlide>
 
 interface PointerScrollDragState {
   pointerId  : number | null
@@ -101,14 +107,18 @@ const isMouseDragging      = ref(false)
 const isFilmstripDragging  = ref(false)
 const isFullscreenOpen     = ref(false)
 const lockedCaptionIndex   = ref<number | null>(null)
+const loadedImageIds       = ref<Set<GalleryImageId>>(new Set())
 let trackResizeObserver        : ResizeObserver | null = null
 let filmstripPointerSlideIndex : number | null          = null
 let filmstripMomentumFrame     : number | null          = null
 let filmstripFollowFrame       : number | null          = null
 let programmaticScrollTarget   : number | null          = null
 let programmaticScrollTrack    : number | null          = null
+let adjacentImagePreloadFrame  : number | null          = null
 
 let suppressFilmstripClick = false
+
+const mainImageSizes = useElementImageSizes(trackEl, 960)
 
 const embeddedPointers = new Map<number, GesturePoint>()
 
@@ -334,8 +344,105 @@ function slideAlt(slide: ImageViewerSlide) {
   return l(slide.image.alt)
 }
 
+function getSlideAtIndex(index: number) {
+  return imageViewerSlides[normalizeIndex(index)] ?? imageViewerSlides[0]
+}
+
+function isSelectedCarouselSlide(entry: ImageViewerCarouselSlide) {
+  return entry.slideIndex === selectedIndex.value && !entry.isClone
+}
+
+function slideLoading(entry: ImageViewerCarouselSlide) {
+  return isSelectedCarouselSlide(entry) ? 'eager' : 'lazy'
+}
+
+function slideFetchPriority(entry: ImageViewerCarouselSlide) {
+  return isSelectedCarouselSlide(entry) ? 'high' : 'low'
+}
+
+function carouselSlideAlt(entry: ImageViewerCarouselSlide) {
+  return isSelectedCarouselSlide(entry) ? slideAlt(entry.slide) : ''
+}
+
+function isSlideImageLoaded(slide: ImageViewerSlide) {
+  return loadedImageIds.value.has(slide.galleryImageId)
+}
+
+function markSlideImageLoaded(slide: ImageViewerSlide) {
+  if (isSlideImageLoaded(slide)) return
+
+  const nextLoadedImageIds = new Set(loadedImageIds.value)
+  nextLoadedImageIds.add(slide.galleryImageId)
+  loadedImageIds.value = nextLoadedImageIds
+}
+
+function maybeMarkSlideImageElementLoaded(
+  slide   : ImageViewerSlide,
+  element : Element | ComponentPublicInstance | null,
+) {
+  const imageElement = element instanceof HTMLImageElement
+    ? element
+    : element instanceof Element && element.tagName === 'IMG'
+      ? element as HTMLImageElement
+      : null
+
+  if (!imageElement?.complete || imageElement.naturalWidth <= 0) return
+
+  markSlideImageLoaded(slide)
+}
+
+function setSlideImageElement(
+  slide   : ImageViewerSlide,
+  element : Element | ComponentPublicInstance | null,
+) {
+  maybeMarkSlideImageElementLoaded(slide, element)
+
+  if (typeof window === 'undefined') return
+
+  window.requestAnimationFrame(() => {
+    maybeMarkSlideImageElementLoaded(slide, element)
+  })
+}
+
+function imageViewerPreviewStyle(slide: ImageViewerSlide) {
+  return {
+    '--image-viewer-preview': `url("${slide.preview.src}")`,
+  }
+}
+
 function openProjectInfo() {
   showProjectInfo(activeSlide.value.projectId)
+}
+
+function cancelAdjacentImagePreload() {
+  if (adjacentImagePreloadFrame !== null) {
+    cancelAnimationFrame(adjacentImagePreloadFrame)
+    adjacentImagePreloadFrame = null
+  }
+}
+
+function preloadAdjacentGalleryImages() {
+  if (slideCount <= 1) return
+
+  const nextSlide     = getSlideAtIndex(selectedIndex.value + 1)
+  const previousSlide = getSlideAtIndex(selectedIndex.value - 1)
+
+  preloadGalleryImage(nextSlide.image, mainImageSizes.value, 'low')
+
+  if (previousSlide.galleryImageId !== nextSlide.galleryImageId) {
+    preloadGalleryImage(previousSlide.image, mainImageSizes.value, 'low')
+  }
+}
+
+function scheduleAdjacentImagePreload() {
+  if (typeof window === 'undefined') return
+
+  cancelAdjacentImagePreload()
+
+  adjacentImagePreloadFrame = window.requestAnimationFrame(() => {
+    adjacentImagePreloadFrame = null
+    preloadAdjacentGalleryImages()
+  })
 }
 
 function onOpenPortfolioApp(event: Event) {
@@ -904,6 +1011,20 @@ watch(selectedIndex, () => {
   scheduleActiveThumbnailIntoView(isMouseDragging.value ? 'auto' : 'smooth')
 })
 
+watch(
+  [
+    selectedIndex,
+    mainImageSizes,
+  ],
+  () => {
+    scheduleAdjacentImagePreload()
+  },
+  {
+    flush     : 'post',
+    immediate : true,
+  },
+)
+
 watch(isMobile, (mobile) => {
   if (!mobile && isFullscreenOpen.value) {
     closeFullscreen()
@@ -928,6 +1049,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  cancelAdjacentImagePreload()
   cancelFilmstripFollow()
   cancelFilmstripMomentum()
   window.removeEventListener(OPEN_PORTFOLIO_APP_EVENT, onOpenPortfolioApp)
@@ -982,20 +1104,12 @@ onBeforeUnmount(() => {
                 class="image-viewer-slide"
                 :aria-hidden="entry.slideIndex === selectedIndex && !entry.isClone ? undefined : 'true'"
               >
-                <img
-                  class="image-viewer-image image-viewer-image--backdrop"
-                  :src="entry.slide.image.src"
-                  :width="entry.slide.image.width"
-                  :height="entry.slide.image.height"
-                  alt=""
-                  aria-hidden="true"
-                  :loading="entry.slideIndex === selectedIndex ? 'eager' : 'lazy'"
-                  decoding="async"
-                  draggable="false"
-                />
-
                 <div
                   class="image-viewer-image-stage"
+                  :class="{
+                    'image-viewer-image-stage--loaded': isSlideImageLoaded(entry.slide),
+                  }"
+                  :style="imageViewerPreviewStyle(entry.slide)"
                   @pointerdown="onEmbeddedImagePointerDown"
                   @pointermove="onEmbeddedImagePointerMove"
                   @pointerup="onEmbeddedImagePointerUp"
@@ -1005,12 +1119,18 @@ onBeforeUnmount(() => {
                   <img
                     class="image-viewer-image image-viewer-image--foreground"
                     :src="entry.slide.image.src"
+                    :srcset="entry.slide.image.webpSrcset"
+                    :sizes="mainImageSizes"
                     :width="entry.slide.image.width"
                     :height="entry.slide.image.height"
-                    :alt="slideAlt(entry.slide)"
-                    :loading="entry.slideIndex === selectedIndex ? 'eager' : 'lazy'"
+                    :alt="carouselSlideAlt(entry)"
+                    :aria-hidden="isSelectedCarouselSlide(entry) ? undefined : 'true'"
+                    :loading="slideLoading(entry)"
                     decoding="async"
                     draggable="false"
+                    :fetchpriority="slideFetchPriority(entry)"
+                    :ref="element => setSlideImageElement(entry.slide, element)"
+                    @load="markSlideImageLoaded(entry.slide)"
                   />
                 </div>
               </div>
@@ -1092,12 +1212,15 @@ onBeforeUnmount(() => {
           <img
             class="image-viewer-thumb-image"
             :src="entry.slide.thumbnail.src"
+            :srcset="entry.slide.thumbnail.srcset"
+            sizes="(max-width: 42rem) 88px, 116px"
             :width="entry.slide.thumbnail.width"
             :height="entry.slide.thumbnail.height"
             :alt="slideAlt(entry.slide)"
-            loading="lazy"
+            :loading="entry.slideIndex === selectedIndex ? 'eager' : 'lazy'"
             decoding="async"
             draggable="false"
+            fetchpriority="low"
           />
         </button>
       </aside>
@@ -1255,27 +1378,34 @@ onBeforeUnmount(() => {
 .image-viewer-image-stage {
   position     : relative;
   z-index      : 2;
-  display      : grid;
-  place-items  : center;
   inline-size  : 100%;
   block-size   : 100%;
   overflow     : hidden;
+  background   : var(--image-viewer-frame-bg);
+  isolation    : isolate;
   touch-action : pan-x pan-y;
 }
 
-.image-viewer-image--backdrop {
-  position    : absolute;
-  inset       : -1rem;
-  z-index     : 1;
-  inline-size : calc(100% + 2rem);
-  block-size  : calc(100% + 2rem);
-  object-fit  : cover;
-  filter      : blur(18px) saturate(0.95) brightness(0.62);
-  opacity     : 0;
-  transform   : scale(1.05);
+.image-viewer-image-stage::before {
+  content        : '';
+  position       : absolute;
+  inset          : -0.75rem;
+  z-index        : 1;
+  background     : var(--image-viewer-preview) center / cover no-repeat;
+  opacity        : 1;
+  filter         : blur(8px) saturate(0.9) brightness(0.86);
+  transform      : scale(1.03);
+  transition     : opacity var(--dur-fast) var(--ease-out);
+  pointer-events : none;
+}
+
+.image-viewer-image-stage--loaded::before {
+  opacity : 0;
 }
 
 .image-viewer-image--foreground {
+  position    : relative;
+  z-index     : 2;
   inline-size : 100%;
   block-size  : 100%;
   object-fit  : cover;
@@ -1529,10 +1659,6 @@ onBeforeUnmount(() => {
     grid-template-rows    : minmax(0, 1fr) auto;
     gap                   : var(--space-3);
     padding               : var(--space-3);
-  }
-
-  .image-viewer-image--backdrop {
-    opacity : 1;
   }
 
   .image-viewer-image--foreground {

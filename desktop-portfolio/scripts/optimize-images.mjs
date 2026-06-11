@@ -7,13 +7,14 @@
  *    favicon-32.png, favicon-16.png) from public/profile.jpg.
  * 3. Generates a 64×64 circular desktop-icon thumbnail (profile-icon.webp).
  * 4. Generates local video poster assets (video-poster.webp / .avif).
- * 5. Generates desktop parallax LQIP assets from tmp/background.
- * 6. Generates desktop parallax layers and flattened mobile wallpapers.
+ * 5. Generates responsive gallery images, thumbnails, and LQIP previews.
+ * 6. Generates desktop parallax LQIP assets from tmp/background.
+ * 7. Generates desktop parallax layers and flattened mobile wallpapers.
  *
  * Usage:  node scripts/optimize-images.mjs
  */
 
-import { readdir, stat, access, readFile, mkdir } from 'node:fs/promises'
+import { readdir, stat, access, readFile, writeFile, mkdir, rm } from 'node:fs/promises'
 import { join, extname, basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
@@ -24,6 +25,44 @@ const QUALITY  = { webp : 80, avif : 55 }
 const EXTS     = new Set(['.jpg', '.jpeg', '.png'])
 const SKIP     = new Set(['favicon-16.png', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'])
 
+const GALLERY_DIR                 = join(PUBLIC, 'image-gallery')
+const GALLERY_SOURCE_DIR          = join(GALLERY_DIR, 'src')
+const GALLERY_IMAGE_OUTPUT_DIR    = join(GALLERY_DIR, 'images')
+const GALLERY_THUMB_OUTPUT_DIR    = join(GALLERY_DIR, 'thumbs')
+const GALLERY_PREVIEW_OUTPUT_DIR  = join(GALLERY_DIR, 'previews')
+const GALLERY_ACCEPTED_EXTENSIONS = new Set(['.avif', '.jpeg', '.jpg', '.png', '.webp'])
+const GALLERY_FULL_SIZE = {
+  width  : 1600,
+  height : 1000,
+}
+const GALLERY_PREVIEW_SIZE = {
+  width  : 160,
+  height : 100,
+}
+const GALLERY_FULL_WIDTHS = [
+  480,
+  800,
+  1200,
+  1600,
+]
+const GALLERY_THUMB_WIDTHS = [
+  180,
+  360,
+]
+const GALLERY_FULL_QUALITY = {
+  avif : {
+    480  : 39,
+    800  : 43,
+    1200 : 48,
+    1600 : 52,
+  },
+  webp : {
+    480  : 70,
+    800  : 76,
+    1200 : 82,
+    1600 : 86,
+  },
+}
 const DESKTOP_PARALLAX_WIDTHS               = [1280, 1920, 2560]
 const MOBILE_BACKGROUND_WIDTHS              = [480, 768, 1024]
 const MOBILE_BACKGROUND_ASPECT_RATIO        = 16 / 9
@@ -61,6 +100,276 @@ async function exists(pathname) {
     return true
   } catch {
     return false
+  }
+}
+
+function parseGallerySourceName(fileName) {
+  const extension = extname(fileName).toLowerCase()
+  if (!GALLERY_ACCEPTED_EXTENSIONS.has(extension)) return null
+
+  const stem = basename(fileName, extension)
+  if (!/^.+-\d+$/.test(stem)) return null
+
+  return {
+    fileName       : fileName,
+    galleryImageId : stem,
+  }
+}
+
+function galleryResponsiveFileName(galleryImageId, width, format) {
+  const suffix = width === GALLERY_FULL_SIZE.width ? '' : `-${width}`
+
+  return `${galleryImageId}${suffix}.${format}`
+}
+
+function galleryThumbnailFileName(galleryImageId, width) {
+  const suffix = width === Math.max(...GALLERY_THUMB_WIDTHS) ? '' : `-${width}`
+
+  return `${galleryImageId}${suffix}.webp`
+}
+
+function vignetteSvg(width, height) {
+  return Buffer.from(`
+    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="v" cx="50%" cy="45%" r="72%">
+          <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+          <stop offset="72%" stop-color="#000000" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#000000" stop-opacity="0.42"/>
+        </radialGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#v)"/>
+    </svg>
+  `)
+}
+
+function shadowSvg(canvasWidth, canvasHeight, cardWidth, cardHeight, left, top, radius) {
+  return Buffer.from(`
+    <svg width="${canvasWidth}" height="${canvasHeight}" viewBox="0 0 ${canvasWidth} ${canvasHeight}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="shadow" x="-35%" y="-35%" width="170%" height="170%">
+          <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000000" flood-opacity="0.44"/>
+        </filter>
+      </defs>
+      <rect x="${left}" y="${top}" width="${cardWidth}" height="${cardHeight}" rx="${radius}" fill="#000000" filter="url(#shadow)"/>
+    </svg>
+  `)
+}
+
+async function createGalleryBackground(sourcePath) {
+  return sharp(sourcePath)
+    .rotate()
+    .resize(GALLERY_FULL_SIZE.width, GALLERY_FULL_SIZE.height, {
+      fit      : 'cover',
+      position : 'centre',
+    })
+    .blur(30)
+    .modulate({
+      brightness : 0.68,
+      saturation : 0.88,
+    })
+    .toBuffer()
+}
+
+async function createGalleryForeground(sourcePath) {
+  const maxWidth  = Math.round(GALLERY_FULL_SIZE.width * 0.88)
+  const maxHeight = Math.round(GALLERY_FULL_SIZE.height * 0.88)
+
+  return sharp(sourcePath)
+    .rotate()
+    .resize(maxWidth, maxHeight, {
+      fit      : 'inside',
+      position : 'centre',
+    })
+    .extend({
+      top        : 2,
+      right      : 2,
+      bottom     : 2,
+      left       : 2,
+      background : 'rgba(255, 255, 255, 0.72)',
+    })
+    .png()
+    .toBuffer()
+}
+
+async function createGalleryCanvas(sourcePath) {
+  const background         = await createGalleryBackground(sourcePath)
+  const foreground         = await createGalleryForeground(sourcePath)
+  const foregroundMetadata = await sharp(foreground).metadata()
+  const foregroundWidth    = foregroundMetadata.width ?? GALLERY_FULL_SIZE.width
+  const foregroundHeight   = foregroundMetadata.height ?? GALLERY_FULL_SIZE.height
+  const left               = Math.round((GALLERY_FULL_SIZE.width - foregroundWidth) / 2)
+  const top                = Math.round((GALLERY_FULL_SIZE.height - foregroundHeight) / 2)
+  const shadow             = shadowSvg(
+    GALLERY_FULL_SIZE.width,
+    GALLERY_FULL_SIZE.height,
+    foregroundWidth,
+    foregroundHeight,
+    left,
+    top,
+    8,
+  )
+
+  return sharp(background)
+    .composite([
+      {
+        input : vignetteSvg(GALLERY_FULL_SIZE.width, GALLERY_FULL_SIZE.height),
+        blend : 'over',
+      },
+      {
+        input : shadow,
+        blend : 'over',
+      },
+      {
+        input : foreground,
+        left  : left,
+        top   : top,
+      },
+    ])
+    .png()
+    .toBuffer()
+}
+
+async function createGalleryThumbnail(fullImageBuffer, size) {
+  const background = await sharp(fullImageBuffer)
+    .resize(size, size, {
+      fit      : 'cover',
+      position : 'centre',
+    })
+    .blur(16)
+    .modulate({
+      brightness : 0.7,
+      saturation : 0.86,
+    })
+    .toBuffer()
+  const foreground = await sharp(fullImageBuffer)
+    .resize(
+      Math.round(size * 0.9),
+      Math.round(size * 0.72),
+      {
+        fit      : 'inside',
+        position : 'centre',
+      },
+    )
+    .extend({
+      top        : 1,
+      right      : 1,
+      bottom     : 1,
+      left       : 1,
+      background : 'rgba(255, 255, 255, 0.68)',
+    })
+    .png()
+    .toBuffer()
+  const foregroundMetadata = await sharp(foreground).metadata()
+  const foregroundWidth    = foregroundMetadata.width ?? size
+  const foregroundHeight   = foregroundMetadata.height ?? size
+  const left               = Math.round((size - foregroundWidth) / 2)
+  const top                = Math.round((size - foregroundHeight) / 2)
+
+  return sharp(background)
+    .composite([
+      {
+        input : foreground,
+        left  : left,
+        top   : top,
+      },
+    ])
+    .webp({
+      effort  : 6,
+      quality : size <= 180 ? 72 : 82,
+    })
+    .toBuffer()
+}
+
+async function writeGalleryRuntimeAssets() {
+  if (!(await exists(GALLERY_SOURCE_DIR))) {
+    console.log('⚠ No image-gallery/src directory found - skipping gallery runtime assets')
+    return
+  }
+
+  const entries = (await readdir(GALLERY_SOURCE_DIR))
+    .map(parseGallerySourceName)
+    .filter(Boolean)
+    .sort((a, b) => a.galleryImageId.localeCompare(b.galleryImageId))
+
+  if (entries.length === 0) {
+    console.log('⚠ No gallery source images found - skipping gallery runtime assets')
+    return
+  }
+
+  await Promise.all([
+    rm(GALLERY_IMAGE_OUTPUT_DIR, { force : true, recursive : true }),
+    rm(GALLERY_THUMB_OUTPUT_DIR, { force : true, recursive : true }),
+    rm(GALLERY_PREVIEW_OUTPUT_DIR, { force : true, recursive : true }),
+  ])
+  await Promise.all([
+    mkdir(GALLERY_IMAGE_OUTPUT_DIR, { recursive : true }),
+    mkdir(GALLERY_THUMB_OUTPUT_DIR, { recursive : true }),
+    mkdir(GALLERY_PREVIEW_OUTPUT_DIR, { recursive : true }),
+  ])
+
+  for (const entry of entries) {
+    const sourcePath = join(GALLERY_SOURCE_DIR, entry.fileName)
+    const canvas     = await createGalleryCanvas(sourcePath)
+
+    await Promise.all([
+      ...GALLERY_FULL_WIDTHS.flatMap((width) => {
+        const resized = sharp(canvas).resize({
+          width              : width,
+          withoutEnlargement : true,
+        })
+        const webpOutput = join(
+          GALLERY_IMAGE_OUTPUT_DIR,
+          galleryResponsiveFileName(entry.galleryImageId, width, 'webp'),
+        )
+        const avifOutput = join(
+          GALLERY_IMAGE_OUTPUT_DIR,
+          galleryResponsiveFileName(entry.galleryImageId, width, 'avif'),
+        )
+
+        return [
+          resized
+            .clone()
+            .webp({
+              effort  : 6,
+              quality : GALLERY_FULL_QUALITY.webp[width],
+            })
+            .toFile(webpOutput),
+          resized
+            .clone()
+            .avif({
+              effort  : 6,
+              quality : GALLERY_FULL_QUALITY.avif[width],
+            })
+            .toFile(avifOutput),
+        ]
+      }),
+      ...GALLERY_THUMB_WIDTHS.map(async (width) => {
+        const thumbnail = await createGalleryThumbnail(canvas, width)
+
+        await writeFile(
+          join(GALLERY_THUMB_OUTPUT_DIR, galleryThumbnailFileName(entry.galleryImageId, width)),
+          thumbnail,
+        )
+      }),
+      sharp(canvas)
+        .resize(GALLERY_PREVIEW_SIZE.width, GALLERY_PREVIEW_SIZE.height, {
+          fit      : 'cover',
+          position : 'centre',
+        })
+        .blur(2)
+        .webp({
+          effort  : 6,
+          quality : 34,
+        })
+        .toFile(join(GALLERY_PREVIEW_OUTPUT_DIR, `${entry.galleryImageId}.webp`)),
+    ])
+
+    console.log(
+      `✓ Gallery ${entry.galleryImageId} → ` +
+      `${GALLERY_FULL_WIDTHS.length} full widths, ` +
+      `${GALLERY_THUMB_WIDTHS.length} thumbs, 1 preview`,
+    )
   }
 }
 
@@ -267,7 +576,10 @@ if (videoPosterSrc) {
   console.log('⚠ No source found for video poster generation')
 }
 
-/* ---- 6. Desktop LQIP output (single source) ---- */
+/* ---- 6. Responsive gallery runtime assets ---- */
+await writeGalleryRuntimeAssets()
+
+/* ---- 7. Desktop LQIP output (single source) ---- */
 const backgroundSourceCandidates = [
   join(TMP, 'background.png'),
   join(TMP, 'background.jpg'),
@@ -300,7 +612,7 @@ if (backgroundSource) {
   console.log('⚠ No tmp/background source found (png/jpg/webp) - skipping desktop LQIP generation')
 }
 
-/* ---- 7. Desktop icon sprite runtime optimization ---- */
+/* ---- 8. Desktop icon sprite runtime optimization ---- */
 const desktopSpriteSource = join(PUBLIC, 'icons', 'desktop-profile-icons.webp')
 const desktopSpriteRuntime = join(PUBLIC, 'icons', 'desktop-profile-icons-runtime.webp')
 
@@ -329,7 +641,7 @@ if (await exists(desktopSpriteSource)) {
   console.log('⚠ No desktop-profile-icons.webp found - skipping runtime sprite optimization')
 }
 
-/* ---- 8. Desktop parallax layers + mobile wallpapers (tmp -> public/parallax) ---- */
+/* ---- 9. Desktop parallax layers + mobile wallpapers (tmp -> public/parallax) ---- */
 const desktopParallaxLayerOutputDir = join(PUBLIC, 'parallax', 'desktop')
 const mobileBackgroundOutputDir      = join(PUBLIC, 'parallax', 'mobile')
 const hasParallaxSources = await Promise.all(

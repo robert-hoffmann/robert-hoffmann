@@ -8,7 +8,10 @@ import {
   watch,
   type ComponentPublicInstance,
 } from 'vue'
-import type { ImageViewerSlide } from '../data/apps/gallery'
+import type {
+  GalleryImageId,
+  ImageViewerSlide,
+} from '../data/apps/gallery'
 import {
   buildCarouselSlides,
   handleCarouselTrackScrollEnd,
@@ -17,7 +20,10 @@ import {
   scrollElementToTrackIndex,
   setTrackElementFreeDrag,
   snapTrackElementToNearestSlide,
+  type CarouselSlide,
 } from '../composables/useCarouselSnapTrack'
+import { preloadGalleryImage } from '../composables/useGalleryImagePreload'
+import { useElementImageSizes } from '../composables/useElementImageSizes'
 
 const FULLSCREEN_MIN_SCALE        = 1
 const FULLSCREEN_MAX_SCALE        = 4
@@ -35,6 +41,8 @@ const DOUBLE_TAP_MAX_DELAY_MS     = 300
 const DOUBLE_TAP_MAX_DISTANCE_PX  = 30
 
 type FullscreenGestureMode = 'idle' | 'pan' | 'pinch' | 'swipe' | 'close'
+
+type FullscreenCarouselSlide = CarouselSlide<ImageViewerSlide>
 
 interface GesturePoint {
   pointerId : number
@@ -84,15 +92,17 @@ const emit = defineEmits<{
   'update:selectedIndex' : [index: number]
 }>()
 
-const fullscreenOverlayEl  = ref<HTMLElement | null>(null)
-const fullscreenStageEl    = ref<HTMLElement | null>(null)
-const fullscreenTrackEl    = ref<HTMLElement | null>(null)
-const fullscreenImageEl    = ref<HTMLImageElement | null>(null)
-const fullscreenScale      = ref(FULLSCREEN_MIN_SCALE)
-const fullscreenTranslateX = ref(0)
-const fullscreenTranslateY = ref(0)
-const fullscreenDismissY   = ref(0)
+const fullscreenOverlayEl   = ref<HTMLElement | null>(null)
+const fullscreenStageEl     = ref<HTMLElement | null>(null)
+const fullscreenTrackEl     = ref<HTMLElement | null>(null)
+const fullscreenImageEl     = ref<HTMLImageElement | null>(null)
+const fullscreenScale       = ref(FULLSCREEN_MIN_SCALE)
+const fullscreenTranslateX  = ref(0)
+const fullscreenTranslateY  = ref(0)
+const fullscreenDismissY    = ref(0)
 const fullscreenGestureMode = ref<FullscreenGestureMode>('idle')
+const loadedImageIds        = ref<Set<GalleryImageId>>(new Set())
+const fullscreenImageSizes  = useElementImageSizes(fullscreenStageEl, 960)
 
 const fullscreenPointers = new Map<number, GesturePoint>()
 
@@ -124,6 +134,7 @@ const fullscreenGestureState: FullscreenGestureState = {
 }
 
 let fullscreenSwipeFrame: number | null = null
+let fullscreenAdjacentImagePreloadFrame: number | null = null
 
 const slideCount = computed(() => props.slides.length)
 const fullscreenSlide = computed<ImageViewerSlide>(() =>
@@ -165,6 +176,72 @@ function setSelectedIndex(index: number) {
   emit('update:selectedIndex', normalizeIndex(index))
 }
 
+function getSlideAtIndex(index: number) {
+  return props.slides[normalizeIndex(index)] ?? props.slides[0]
+}
+
+function isSelectedFullscreenSlide(entry: FullscreenCarouselSlide) {
+  return entry.slideIndex === props.selectedIndex && !entry.isClone
+}
+
+function fullscreenSlideLoading(entry: FullscreenCarouselSlide) {
+  return isSelectedFullscreenSlide(entry) ? 'eager' : 'lazy'
+}
+
+function fullscreenSlideFetchPriority(entry: FullscreenCarouselSlide) {
+  return isSelectedFullscreenSlide(entry) ? 'high' : 'low'
+}
+
+function fullscreenSlideAlt(entry: FullscreenCarouselSlide) {
+  return isSelectedFullscreenSlide(entry) ? props.slideAlt(entry.slide) : ''
+}
+
+function isSlideImageLoaded(slide: ImageViewerSlide) {
+  return loadedImageIds.value.has(slide.galleryImageId)
+}
+
+function markSlideImageLoaded(slide: ImageViewerSlide) {
+  if (isSlideImageLoaded(slide)) return
+
+  const nextLoadedImageIds = new Set(loadedImageIds.value)
+  nextLoadedImageIds.add(slide.galleryImageId)
+  loadedImageIds.value = nextLoadedImageIds
+}
+
+function maybeMarkSlideImageElementLoaded(
+  slide   : ImageViewerSlide,
+  element : Element | ComponentPublicInstance | null,
+) {
+  const imageElement = element instanceof HTMLImageElement
+    ? element
+    : element instanceof Element && element.tagName === 'IMG'
+      ? element as HTMLImageElement
+      : null
+
+  if (!imageElement?.complete || imageElement.naturalWidth <= 0) return
+
+  markSlideImageLoaded(slide)
+}
+
+function setSlideImageElement(
+  slide   : ImageViewerSlide,
+  element : Element | ComponentPublicInstance | null,
+) {
+  maybeMarkSlideImageElementLoaded(slide, element)
+
+  if (typeof window === 'undefined') return
+
+  window.requestAnimationFrame(() => {
+    maybeMarkSlideImageElementLoaded(slide, element)
+  })
+}
+
+function imageViewerPreviewStyle(slide: ImageViewerSlide) {
+  return {
+    '--image-viewer-preview': `url("${slide.preview.src}")`,
+  }
+}
+
 function scrollFullscreenTrackToTrackIndex(
   trackIndex: number,
   behavior: ScrollBehavior,
@@ -185,6 +262,37 @@ function cancelFullscreenSwipeMomentum() {
     cancelAnimationFrame(fullscreenSwipeFrame)
     fullscreenSwipeFrame = null
   }
+}
+
+function cancelFullscreenAdjacentImagePreload() {
+  if (fullscreenAdjacentImagePreloadFrame !== null) {
+    cancelAnimationFrame(fullscreenAdjacentImagePreloadFrame)
+    fullscreenAdjacentImagePreloadFrame = null
+  }
+}
+
+function preloadFullscreenAdjacentGalleryImages() {
+  if (slideCount.value <= 1) return
+
+  const nextSlide     = getSlideAtIndex(props.selectedIndex + 1)
+  const previousSlide = getSlideAtIndex(props.selectedIndex - 1)
+
+  preloadGalleryImage(nextSlide.image, fullscreenImageSizes.value, 'low')
+
+  if (previousSlide.galleryImageId !== nextSlide.galleryImageId) {
+    preloadGalleryImage(previousSlide.image, fullscreenImageSizes.value, 'low')
+  }
+}
+
+function scheduleFullscreenAdjacentImagePreload() {
+  if (typeof window === 'undefined') return
+
+  cancelFullscreenAdjacentImagePreload()
+
+  fullscreenAdjacentImagePreloadFrame = window.requestAnimationFrame(() => {
+    fullscreenAdjacentImagePreloadFrame = null
+    preloadFullscreenAdjacentGalleryImages()
+  })
 }
 
 function shouldSkipFullscreenSwipeMomentum(velocityX: number) {
@@ -495,6 +603,17 @@ function setFullscreenImageRef(element: Element | ComponentPublicInstance | null
   fullscreenImageEl.value = element instanceof HTMLImageElement ? element : null
 }
 
+function setFullscreenSlideImageElement(
+  entry   : FullscreenCarouselSlide,
+  element : Element | ComponentPublicInstance | null,
+) {
+  if (isSelectedFullscreenSlide(entry)) {
+    setFullscreenImageRef(element)
+  }
+
+  setSlideImageElement(entry.slide, element)
+}
+
 function isPointInsideFullscreenImage(clientX: number, clientY: number) {
   const image = fullscreenImageEl.value
 
@@ -774,6 +893,20 @@ watch(
   },
 )
 
+watch(
+  [
+    () => props.selectedIndex,
+    fullscreenImageSizes,
+  ],
+  () => {
+    scheduleFullscreenAdjacentImagePreload()
+  },
+  {
+    flush     : 'post',
+    immediate : true,
+  },
+)
+
 onMounted(() => {
   window.addEventListener('keydown', onFullscreenKeydown)
   window.addEventListener('resize', onWindowResize, { passive : true })
@@ -787,6 +920,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', onFullscreenKeydown)
   window.removeEventListener('resize', onWindowResize)
+  cancelFullscreenAdjacentImagePreload()
   resetFullscreenGestureState()
   resetFullscreenZoom()
 })
@@ -845,16 +979,6 @@ onBeforeUnmount(() => {
         @pointercancel="onFullscreenPointerCancel"
         @lostpointercapture="onFullscreenPointerCancel"
       >
-        <img
-          class="image-viewer-lightbox-backdrop"
-          :src="fullscreenSlide.image.src"
-          :width="fullscreenSlide.image.width"
-          :height="fullscreenSlide.image.height"
-          alt=""
-          aria-hidden="true"
-          draggable="false"
-        />
-
         <div
           ref="fullscreenTrackEl"
           class="image-viewer-lightbox-track"
@@ -867,7 +991,9 @@ onBeforeUnmount(() => {
             :class="{
               'image-viewer-lightbox-panel--active':
                 entry.slideIndex === selectedIndex && !entry.isClone,
+              'image-viewer-lightbox-panel--loaded': isSlideImageLoaded(entry.slide),
             }"
+            :style="imageViewerPreviewStyle(entry.slide)"
             :aria-hidden="entry.slideIndex === selectedIndex && !entry.isClone ? undefined : 'true'"
           >
             <img
@@ -876,20 +1002,22 @@ onBeforeUnmount(() => {
                 'image-viewer-lightbox-image--adjacent':
                   entry.slideIndex !== selectedIndex || entry.isClone,
               }"
-              :ref="entry.slideIndex === selectedIndex && !entry.isClone
-                ? setFullscreenImageRef
-                : undefined"
+              :ref="element => setFullscreenSlideImageElement(entry, element)"
               :src="entry.slide.image.src"
+              :srcset="entry.slide.image.webpSrcset"
+              :sizes="fullscreenImageSizes"
               :width="entry.slide.image.width"
               :height="entry.slide.image.height"
-              :alt="entry.slideIndex === selectedIndex && !entry.isClone ? slideAlt(entry.slide) : ''"
-              :aria-hidden="entry.slideIndex === selectedIndex && !entry.isClone ? undefined : 'true'"
-              :loading="entry.slideIndex === selectedIndex ? 'eager' : 'lazy'"
+              :alt="fullscreenSlideAlt(entry)"
+              :aria-hidden="isSelectedFullscreenSlide(entry) ? undefined : 'true'"
+              :loading="fullscreenSlideLoading(entry)"
               decoding="async"
               draggable="false"
-              :style="entry.slideIndex === selectedIndex && !entry.isClone
+              :fetchpriority="fullscreenSlideFetchPriority(entry)"
+              :style="isSelectedFullscreenSlide(entry)
                 ? fullscreenImageStyle
                 : undefined"
+              @load="markSlideImageLoaded(entry.slide)"
             />
           </div>
         </div>
@@ -1054,26 +1182,9 @@ onBeforeUnmount(() => {
   cursor : grabbing;
 }
 
-.image-viewer-lightbox-backdrop {
-  position              : absolute;
-  inset                 : -2rem;
-  z-index               : 1;
-  inline-size           : calc(100% + 4rem);
-  block-size            : calc(100% + 4rem);
-  object-fit            : cover;
-  filter                : blur(24px) saturate(0.92) brightness(0.46);
-  opacity               : 0.56;
-  transform             : scale(1.05);
-  transform-origin      : center;
-  user-select           : none;
-  pointer-events        : none;
-  -webkit-user-drag     : none;
-  -webkit-user-select   : none;
-}
-
 .image-viewer-lightbox-track {
   position                   : relative;
-  z-index                    : 2;
+  z-index                    : 1;
   display                    : flex;
   inline-size                : 100%;
   block-size                 : 100%;
@@ -1093,6 +1204,7 @@ onBeforeUnmount(() => {
 }
 
 .image-viewer-lightbox-panel {
+  position          : relative;
   display           : grid;
   place-items       : center;
   flex              : 0 0 100%;
@@ -1100,8 +1212,26 @@ onBeforeUnmount(() => {
   block-size        : 100%;
   min-inline-size   : 100%;
   min-block-size    : 0;
+  overflow          : hidden;
   scroll-snap-align : start;
   scroll-snap-stop  : normal;
+}
+
+.image-viewer-lightbox-panel::before {
+  content               : '';
+  position              : absolute;
+  inset                 : -2rem;
+  z-index               : 1;
+  background            : var(--image-viewer-preview) center / cover no-repeat;
+  opacity               : 1;
+  filter                : blur(24px) saturate(0.92) brightness(0.46);
+  transform             : scale(1.05);
+  transition            : opacity var(--dur-fast) var(--ease-out);
+  pointer-events        : none;
+}
+
+.image-viewer-lightbox-panel--loaded::before {
+  opacity : 0;
 }
 
 .image-viewer-lightbox-image {
