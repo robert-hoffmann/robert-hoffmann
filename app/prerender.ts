@@ -143,7 +143,7 @@ export function prerender() {
     html,
     head: {
       lang  : 'en',
-      title : 'Robert Hoffmann - Senior Product-Minded Full-Stack Engineer',
+      title : 'Robert Hoffmann - Senior Product-Minded Full-Stack Engineer in Toulouse',
     },
   }
 }

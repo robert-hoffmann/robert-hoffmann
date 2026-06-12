@@ -5,6 +5,8 @@
 Robert Hoffmann is a senior product-minded full-stack engineer, frontend/platform
 lead, and technical owner for complex web products.
 
+Robert is based in Toulouse, France, and works at Maser Engineering.
+
 He is frontend-led, not frontend-limited. His strongest work combines browser
 and product UX with backend APIs, databases, caching, web services, logging,
 health monitoring, observability, deployment constraints, and production support.
