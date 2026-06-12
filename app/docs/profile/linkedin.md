@@ -5,6 +5,10 @@ file is not canonical app data and is not parsed by generators. Promote reusable
 facts manually into `src/data/apps/about.ts`, `src/data/apps/resume.ts`,
 `src/data/apps/projects.ts`, or `src/data/docs/cv.ts` when needed.
 
+Use `docs/profile/positioning-guide.md` for durable positioning rules and
+`docs/profile/project-evidence.md` for project claims, proof boundaries, and
+volatile metrics. Keep this file focused on LinkedIn-ready channel copy.
+
 ## Profile Headline - EN
 
 Recommended:

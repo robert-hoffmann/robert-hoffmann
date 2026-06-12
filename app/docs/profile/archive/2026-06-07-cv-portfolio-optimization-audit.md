@@ -1,5 +1,10 @@
 # Robert Hoffmann - CV & Portfolio Optimization Guide
 
+Archive note: this is a dated strategic audit from 2026-06-07. It is useful
+historical reasoning, not living source truth. For current guidance, start with
+`docs/profile/positioning-guide.md`, `docs/profile/project-evidence.md`, and
+`docs/profile/linkedin.md`.
+
 **Version:** 2026-06-07<br>
 **Purpose:** Self-contained working document for updating `i-technology.net`, GitHub profile, Markdown CV pages, downloadable CVs, and AI-agent-facing hiring material.<br>
 **Primary goal:** Improve how human recruiters, technical hiring managers, and AI research agents classify Robert Hoffmann for technical roles.
@@ -30,7 +35,7 @@ This document is based on:
 
 1. Robert's current public portfolio: `https://i-technology.net/`
 2. Robert's public project scratchpad:
-   `https://github.com/robert-hoffmann/robert-hoffmann/blob/main/app/docs/profile/project-highlights-scratchpad.md`
+   `https://github.com/robert-hoffmann/robert-hoffmann/blob/main/app/docs/profile/project-evidence.md`
 3. Robert's GitHub profile: `https://github.com/robert-hoffmann`
 4. Uncle Bob repository: `https://github.com/robert-hoffmann/uncle-bob`
 5. Parallax Designer repository: `https://github.com/robert-hoffmann/parallax-designer`

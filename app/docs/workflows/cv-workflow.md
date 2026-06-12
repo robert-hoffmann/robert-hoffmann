@@ -39,8 +39,8 @@ Document selection is owned by:
 
 Freeform research and channel-copy notes stay human-owned:
 
-- `docs/profile/project-highlights-scratchpad.md` : evidence, rough notes, and project-claim research.
-- `docs/profile/linkedin.md`                      : LinkedIn-specific profile/channel copy.
+- `docs/profile/project-evidence.md` : evidence, rough notes, claim ledger, and project-claim research.
+- `docs/profile/linkedin.md`         : LinkedIn-specific profile/channel copy.
 
 Do not parse the Markdown notes automatically. Promote stable claims manually into
 the canonical app modules or into `src/data/docs/cv.ts`, depending on whether the

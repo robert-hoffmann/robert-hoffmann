@@ -46,12 +46,15 @@ For non-trivial work in `app/docs/`:
   source screenshot, test generation, and publishing workflow.
 - `workflows/media-source-contract.md`                         : boundary contract for
   `public/` runtime files versus `design/` source and review media.
+- `profile/positioning-guide.md`                               : durable target narrative,
+  role fit, environment fit, AI framing, and claim-safety guidance.
+- `profile/project-evidence.md`                                : project-claim evidence,
+  claim ledger, ordering, interview prompts, and rough content research.
 - `profile/linkedin.md`                                        : LinkedIn-specific headline,
   featured-link, About, and experience copy drafts.
-- `profile/project-highlights-scratchpad.md`                   : project-claim evidence,
-  ordering, interview prompts, and rough content research.
-- `profile/robert-hoffmann-cv-portfolio-optimization-guide.md` : dated
-  strategic audit for CV, portfolio, AI-agent, and profile positioning.
+- `profile/archive/`                                           : dated historical
+  audits. Current archive file:
+  `2026-06-07-cv-portfolio-optimization-audit.md`.
 
 ## Common Change Routes
 
@@ -65,12 +68,17 @@ For non-trivial work in `app/docs/`:
 - Change media ownership policy    : start with
   `workflows/media-source-contract.md`, then inspect `app/design/AGENTS.md`,
   `app/scripts/AGENTS.md`, and the generator that owns the output.
-- Change public profile copy       : start with the relevant `profile/` note,
-  then manually promote stable facts into `src/data/apps/` or
-  `src/data/docs/cv.ts` when they become app or CV source truth.
-- Reduce profile-doc duplication   : compare the three `profile/` docs against
-  current app data first. Extract durable positioning only after preserving
-  active claims, evidence, and workflow-independent notes.
+- Change public profile copy       : start with `profile/positioning-guide.md`
+  and the relevant channel note, then manually promote stable facts into
+  `src/data/apps/`, `src/data/docs/cv.ts`, `public/hiring-brief.md`, or
+  `public/llms.txt` when they become source truth.
+- Change project claims            : start with `profile/project-evidence.md`,
+  then verify current app data, public links, private/self-attested boundaries,
+  and CV/public-brief usage.
+- Read historical strategy         : use
+  `profile/archive/2026-06-07-cv-portfolio-optimization-audit.md` only for
+  dated reasoning. Promote any still-active guidance into living profile docs
+  before using it for app changes.
 
 ## Maintenance
 

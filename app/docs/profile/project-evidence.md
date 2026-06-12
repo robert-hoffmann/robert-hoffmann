@@ -1,12 +1,106 @@
-# Project Highlights Scratchpad
+# Project Evidence
 
-Purpose: evidence and research scratchpad for project claims. This file is not
-parsed by generators. Promote stable claims manually into `src/data/apps/projects.ts`
-or `src/data/docs/cv.ts` when they become app or CV source material.
+Purpose: living evidence and claim ledger for profile-facing project claims.
+This file is not parsed by generators. Promote stable claims manually into
+`src/data/apps/projects.ts`, `src/data/apps/gallery.ts`, `src/data/docs/cv.ts`,
+`public/hiring-brief.md`, or `public/llms.txt` when they become app, CV, public
+brief, or AI-agent source material.
 
-Working note for revising `src/data/content.ts` and `src/components/ProjectsApp.vue`.
+Use `docs/profile/positioning-guide.md` for durable positioning rules and
+`docs/profile/linkedin.md` for LinkedIn-specific copy.
 
-Goal: turn the current `Projects` window into `Project Highlights`: fewer, stronger project cards with title, period, company/client, impact highlights, description, and technologies.
+## Claim Ledger
+
+Use this ledger to decide which claims can be public, which need qualification,
+and which should be supported by references or screenshots.
+
+`25+ years in tech`
+- Public + self-attested. Evidence: GitHub profile and current portfolio.
+  Wording: "25+ years building production web software." Stable and credible.
+
+`Frontend since 1998`
+- Self-attested. Evidence target: CV/GitHub when added. Wording: "Frontend and
+  web product engineering since 1998." Strong differentiator.
+
+`tchatche.com 600M pv/month`
+- Self-attested/current portfolio. Wording: "around 600M page views/month."
+  Keep "around" unless audited.
+
+`tchatche.com 400M requests/day`
+- Self-attested/current portfolio. Wording: "around 400M requests/day."
+  Strong, but should stay reference-checkable.
+
+`tchatche.com ~125K req/sec chat-cluster peaks`
+- Self-attested through Robert clarification. Wording: "~125K requests/sec
+  peaks across 5 load-balanced servers (~25K/server)." Add only if comfortable
+  defending.
+
+`Technical owner for white-label tchatche chat`
+- Self-attested through Robert clarification. Wording: "Lead developer and
+  technical owner." Important correction; add prominently.
+
+`Ad Proxy 3B+ ads/month`
+- Current portfolio. Wording: "3B+ ads served/month." Strong proof of backend
+  scale.
+
+`Ad Proxy +20% revenue / +30% CTR`
+- Current portfolio. Wording: "increased ad revenue by roughly 20% and CTR by
+  roughly 30%." Use "roughly" unless audited.
+
+`HeadJS main maintainer`
+- Public + current portfolio. Evidence: GitHub repo, docs, and current
+  portfolio. Wording: "Main maintainer." Good public proof.
+
+`HeadJS 4K+ stars`
+- Public. Evidence: GitHub. Wording: "4K+ GitHub stars." Use current value
+  from GitHub when updating.
+
+`T4ResX downloads`
+- Public. Evidence: NuGet. Wording: "15.9K NuGet downloads." Update
+  periodically.
+
+`T4ResX VS Marketplace installs`
+- Public. Evidence: Visual Studio Marketplace. Wording: "2.3K+ installs."
+  Update periodically.
+
+`FindUnusedFiles installs`
+- Public. Evidence: Visual Studio Marketplace. Wording: "15K+ installs."
+  Update periodically.
+
+`TMIP 30K+ jobs/day`
+- Private client/current portfolio. Wording: "30K+ jobs/day." Private;
+  references or a sanitized walkthrough would help.
+
+`TMIP 16 Airbus assembly plants`
+- Private client/current portfolio. Wording: "16 Airbus assembly plants."
+  Private; keep public-safe.
+
+`Uncle Bob used in production aerospace`
+- Public README + private context. Evidence: Uncle Bob README. Wording: "used
+  in corporate production environment for aerospace supply-chain work." Avoid
+  over-selling adoption.
+
+`Parallax Designer AI-directed`
+- Public repo. Evidence: GitHub. Wording: "AI-directed / human-owned workflow."
+  Avoid naked "100% AI-built."
+
+`e-Xoops creator`
+- Historical self-attested. Not enough in current CV source set. Exclude for
+  now; could be added later with an evidence page.
+
+`PHPRPC`
+- Public SourceForge project exists. Exclude for now; interesting but not
+  needed for target positioning.
+
+## Working Context
+
+Working note for revising `src/data/apps/projects.ts`,
+`src/data/apps/gallery.ts`, `src/data/docs/cv.ts`, `public/hiring-brief.md`,
+and `public/llms.txt`.
+
+Operating goal: keep the `Project Highlights` window focused on fewer,
+stronger project cards with title, period, company/client, impact highlights,
+description, and technologies.
 
 ## Confirmed Direction
 
@@ -32,7 +126,7 @@ Goal: turn the current `Projects` window into `Project Highlights`: fewer, stron
 - `registry.ts` separates the mobile/desktop shortcut label `Projects` from the window title `Project Highlights`.
 - The mobile Projects icon has a short three-cycle pulse on the minimized mobile home screen so users notice the main portfolio content when no window is open.
 
-## Data Model Options
+## Historical Data Model Decision
 
 `Option A: keep current shape`
 
@@ -868,4 +962,7 @@ Use this template when adding more project highlights later:
 
 - The reusable interview template above is the standard path for adding more project highlights later.
 - Keep public claims grounded in known facts, public links, or user-confirmed numbers.
-- When new highlights are added, update `content.ts`, prerender output expectations, SEO fallback copy if needed, and this ordering note.
+- When new highlights are added, update `src/data/apps/projects.ts`,
+  `src/data/apps/gallery.ts` when visual evidence changes, `src/data/docs/cv.ts`
+  when CV selection changes, prerender output expectations, SEO fallback copy if
+  needed, and this ordering note.
