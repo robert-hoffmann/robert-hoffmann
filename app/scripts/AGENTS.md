@@ -73,25 +73,26 @@ calls for it.
 ## Adjacent Truth
 
 - Design media ownership      : `app/design/AGENTS.md`.
-- Gallery workflow            : `app/docs/gallery-project-workflow.md`.
-- CV generation workflow      : `app/docs/cv-workflow.md`.
-- Source/runtime media policy : `app/docs/media-source-contract.md`.
+- Gallery workflow            : `app/docs/workflows/gallery-project-workflow.md`.
+- CV generation workflow      : `app/docs/workflows/cv-workflow.md`.
+- Source/runtime media policy : `app/docs/workflows/media-source-contract.md`.
 - Npm command wiring          : `app/package.json`.
 
 ## Common Change Routes
 
 - Change runtime media generation   : start with `optimize-images.mjs`, then
-  inspect `app/design/AGENTS.md`, `app/docs/media-source-contract.md`, source
-  media under `design/`, and the relevant `public/` output layout; after
-  regeneration, verify expected runtime assets.
+  inspect `app/design/AGENTS.md`,
+  `app/docs/workflows/media-source-contract.md`, source media under `design/`,
+  and the relevant `public/` output layout; after regeneration, verify expected
+  runtime assets.
 - Change gallery review generation  : start with
   `generate-gallery-test-images.mjs`, then inspect
-  `app/docs/gallery-project-workflow.md` and `design/gallery/`.
+  `app/docs/workflows/gallery-project-workflow.md` and `design/gallery/`.
 - Change OG image output            : start with `generate-og-image.mjs`, then
   inspect `app/index.html` metadata; after regeneration, verify
   `public/og-image.png` exists and matches the intended social preview.
 - Change CV docs generation         : start with `generate-cv-docs.mjs`, then
-  inspect `app/docs/cv-workflow.md`, `src/data/docs/cv.ts`,
+  inspect `app/docs/workflows/cv-workflow.md`, `src/data/docs/cv.ts`,
   `design/identity/` source and review paths; after regeneration, verify
   `public/docs/robert-hoffmann-cv.pdf` exists, opens, and matches the intended
   CV output.

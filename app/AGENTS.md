@@ -23,8 +23,8 @@ For non-trivial work in `app/`:
 
 1. Read the repository root `AGENTS.md`.
 2. Read this `app/AGENTS.md`.
-3. Read the deeper local guide when the work is under `src/`, `scripts/`, or
-   `design/`.
+3. Read the deeper local guide when the work is under `src/`, `scripts/`,
+   `design/`, or `docs/`.
 4. Read `package.json` for command wiring and dependency context.
 5. Inspect the relevant app config, workflow doc, source file, or generated
    output boundary before editing.
@@ -37,6 +37,8 @@ For non-trivial work in `app/`:
   read/write targets, and generated artifact rules.
 - `design/AGENTS.md`  : source and review media ownership for image, icon,
   parallax, video, music, identity, gallery, and CV assets.
+- `docs/AGENTS.md`    : workflow docs, profile notes, content guidance, and
+  source/output documentation boundaries.
 
 ## App Shape
 
@@ -134,9 +136,9 @@ output.
   `tsconfig.json`, `tsconfig.app.json`, and `tsconfig.node.json`.
 - Change package commands           : start with `package.json`, then update
   this guide and any affected deeper guide or workflow doc in the same change.
-- Change CV or gallery workflows    : start with the matching doc under
-  `docs/`, then inspect the related data, design media, script, and generated
-  output boundary.
+- Change CV or gallery workflows    : start with `docs/AGENTS.md` and the
+  matching doc under `docs/workflows/`, then inspect the related data, design
+  media, script, and generated output boundary.
 
 ## Commit Scope Reminder
 

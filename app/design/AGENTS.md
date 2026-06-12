@@ -29,7 +29,8 @@ For non-trivial work in `app/design/`:
 2. Read `app/AGENTS.md`.
 3. Read this `app/design/AGENTS.md`.
 4. Read `app/scripts/AGENTS.md` when generator inputs or outputs are involved.
-5. Inspect the related workflow doc and source media before changing behavior.
+5. Read `app/docs/AGENTS.md` when workflow docs or media contracts are involved.
+6. Inspect the related workflow doc and source media before changing behavior.
 
 ## Folder TOC
 

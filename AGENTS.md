@@ -7,7 +7,8 @@
 - App package       : read `app/AGENTS.md` before changing anything under
   `app/`.
 - App subtrees      : then read the local guide for the active area:
-  `app/src/AGENTS.md`, `app/scripts/AGENTS.md`, or `app/design/AGENTS.md`.
+  `app/src/AGENTS.md`, `app/scripts/AGENTS.md`, `app/design/AGENTS.md`, or
+  `app/docs/AGENTS.md`.
 
 ## Global Skill Invocation Policy
 

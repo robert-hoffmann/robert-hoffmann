@@ -1,7 +1,7 @@
 # Robert Hoffmann - CV & Portfolio Optimization Guide
 
-**Version:** 2026-06-07  
-**Purpose:** Self-contained working document for updating `i-technology.net`, GitHub profile, Markdown CV pages, downloadable CVs, and AI-agent-facing hiring material.  
+**Version:** 2026-06-07<br>
+**Purpose:** Self-contained working document for updating `i-technology.net`, GitHub profile, Markdown CV pages, downloadable CVs, and AI-agent-facing hiring material.<br>
 **Primary goal:** Improve how human recruiters, technical hiring managers, and AI research agents classify Robert Hoffmann for technical roles.
 
 ---
@@ -30,7 +30,7 @@ This document is based on:
 
 1. Robert's current public portfolio: `https://i-technology.net/`
 2. Robert's public project scratchpad:
-   `https://github.com/robert-hoffmann/robert-hoffmann/blob/main/app/docs/project-highlights-scratchpad.md`
+   `https://github.com/robert-hoffmann/robert-hoffmann/blob/main/app/docs/profile/project-highlights-scratchpad.md`
 3. Robert's GitHub profile: `https://github.com/robert-hoffmann`
 4. Uncle Bob repository: `https://github.com/robert-hoffmann/uncle-bob`
 5. Parallax Designer repository: `https://github.com/robert-hoffmann/parallax-designer`
@@ -2725,7 +2725,7 @@ Topics:
 ```markdown
 # Robert Hoffmann
 
-Senior Product-Minded Full-Stack Engineer · Frontend & Platform Lead  
+Senior Product-Minded Full-Stack Engineer · Frontend & Platform Lead
 Toulouse, France · https://i-technology.net/ · GitHub · LinkedIn
 
 ## Summary
@@ -2765,9 +2765,9 @@ Senior product-minded full-stack engineer, frontend/platform lead, and technical
 
 ## Skills
 
-Frontend: Vue, Quasar, TypeScript, JavaScript, HTML, CSS, Tailwind, Bootstrap, jQuery, HeadJS, responsive UI, offline UX, browser compatibility, i18n.  
-Backend: C#/.NET, ASP.NET MVC, Razor, WebAPI, PHP, Symfony, Python, FastAPI, REST APIs, SQL Server, MariaDB, SQLite, MySQL, caching.  
-Production: structured logging, health monitoring, observability, job orchestration, error tracking, dashboards, alerts, PDF/CSV exports.  
+Frontend: Vue, Quasar, TypeScript, JavaScript, HTML, CSS, Tailwind, Bootstrap, jQuery, HeadJS, responsive UI, offline UX, browser compatibility, i18n.
+Backend: C#/.NET, ASP.NET MVC, Razor, WebAPI, PHP, Symfony, Python, FastAPI, REST APIs, SQL Server, MariaDB, SQLite, MySQL, caching.
+Production: structured logging, health monitoring, observability, job orchestration, error tracking, dashboards, alerts, PDF/CSV exports.
 AI-directed delivery: Copilot, Codex, Claude Code, reusable skills, workflow artifacts, quality gates, docs sync, validation.
 
 ## Not Primary Focus
