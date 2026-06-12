@@ -26,6 +26,7 @@ Key files:
 - `src/components/ImageViewerApp.vue`
 - `src/composables/usePortfolioNavigation.ts`
 - `public/image-gallery/images/`
+- `public/image-gallery/previews/`
 - `public/image-gallery/thumbs/`
 
 ### Data Contract
@@ -105,23 +106,38 @@ Runtime file names match the stable `galleryImageId`:
 
 ```text
 public/image-gallery/images/proj-chatapp-1.webp
+public/image-gallery/images/proj-chatapp-1-800.webp
+public/image-gallery/images/proj-chatapp-1.avif
 public/image-gallery/thumbs/proj-chatapp-1.webp
+public/image-gallery/thumbs/proj-chatapp-1-180.webp
+public/image-gallery/previews/proj-chatapp-1.webp
 ```
 
-`gallery.ts` derives these URLs from `galleryImageId`:
+`gallery.ts` derives the full responsive image, thumbnail, and preview URLs
+from `galleryImageId`:
 
 ```text
 galleryImageId proj-chatapp-1
-  -> images/proj-chatapp-1.webp and thumbs/proj-chatapp-1.webp
+  -> images/proj-chatapp-1[-480|-800|-1200].webp
+  -> images/proj-chatapp-1[-480|-800|-1200].avif
+  -> thumbs/proj-chatapp-1[-180].webp
+  -> previews/proj-chatapp-1.webp
 ```
 
 Current runtime dimensions:
 
-- Full image : `1600x1000`
-- Thumbnail  : `360x360`
+- Full canvas         : `1600x1000`
+- Full image variants : `480`, `800`, `1200`, and `1600` widths as WebP and AVIF
+- Thumbnail variants  : `180x180` and `360x360` WebP
+- Preview image       : `160x100` WebP
 
-Do not publish a full image without the matching thumbnail. Do not publish
-either asset without a matching `gallery.ts` slide.
+Do not publish a slide without its complete runtime variant set: full images,
+thumbnails, preview, and matching `gallery.ts` slide.
+
+`gallery.ts` models both WebP and AVIF full-image sources. Current image
+viewer components render the WebP `src`/`srcset`; wiring AVIF into `<picture>`
+or preload behavior is a source behavior change, not just a workflow-doc
+update.
 
 ## Source Image Contract
 
@@ -268,9 +284,12 @@ design/gallery/_test-normalized/manifest.json
 ```
 
 Review `index.html` in a browser or inspect individual WebP files. The test
-script intentionally leaves runtime `images/` and `thumbs/` untouched.
-Generated test output is temporary and should be removed after publishing or
-reviewing.
+script intentionally leaves runtime `images/`, `previews/`, and `thumbs/`
+untouched. Generated test output is ignored temporary review output; remove it
+when local review is complete.
+
+Treat the test output as visual comparison material. `scripts/optimize-images.mjs`
+owns the exact published runtime transform.
 
 The manifest preserves the mapping from generated output file to source ID:
 
@@ -324,15 +343,15 @@ public/image-gallery/thumbs/
 
 4. Allow many `gallery.ts` slides to point to the same `projectId`.
 
-5. Remove generated test output:
+5. Remove generated test output when local review is complete:
 
    ```sh
    rm -rf design/gallery/_test-normalized
    ```
 
 6. Remove obsolete runtime assets when no `gallery.ts` slide references them.
-   Runtime `images/` and `thumbs/` should contain only published gallery slide
-   pairs.
+   Runtime `images/`, `previews/`, and `thumbs/` should contain only published
+   gallery slide variant sets.
 
 7. Run validation:
 
@@ -348,15 +367,20 @@ Before committing gallery changes:
 
 - Every source file follows `<projectId>-<local-image-number>.<ext>`.
 - Every `projectId` exists in `projects.ts`.
-- Every generated full image is `1600x1000`.
-- Every generated thumbnail is `360x360`.
+- Every generated full image is derived from the `1600x1000` normalized canvas.
+- Every generated full image variant exists for `480`, `800`, `1200`, and
+  `1600` widths in WebP and AVIF.
+- Every generated thumbnail variant exists for `180x180` and `360x360` WebP.
+- Every generated preview exists as `160x100` WebP.
 - `blur-card` preserves important UI details.
 - Thumbnails are recognizable enough for filmstrip navigation.
 - `galleryImageDisplayOrder` matches intended gallery order.
 - `gallery.ts` has one slide per published image.
 - `projects.ts` has only one representative `galleryImageId` per project.
-- Runtime `images/` and `thumbs/` contain only published slide pairs.
-- `design/gallery/_test-normalized/` is removed before commit.
+- Runtime `images/`, `previews/`, and `thumbs/` contain only published slide
+  variant sets.
+- `design/gallery/_test-normalized/` remains ignored and is removed when no
+  longer needed.
 - The selected project card opens the intended representative slide.
 - Each gallery slide's Project Info button returns to the right project.
 
@@ -364,6 +388,7 @@ Useful checks:
 
 ```sh
 file public/image-gallery/images/*.webp
+file public/image-gallery/previews/*.webp
 file public/image-gallery/thumbs/*.webp
 npm run build
 ```
@@ -380,11 +405,13 @@ Use generated imagery only when the asset is an illustration, texture, or
 non-evidentiary visual. Do not use AI-generated backgrounds for product or UI
 screenshots unless the goal explicitly changes.
 
-If the gallery design changes its runtime aspect ratio, update these together:
+If the gallery design changes its runtime aspect ratio, output variants, or
+formats, update these together:
 
 - `scripts/generate-gallery-test-images.mjs`
 - `src/data/apps/gallery.ts` image dimensions
 - `public/image-gallery/images/`
+- `public/image-gallery/previews/`
 - `public/image-gallery/thumbs/`
 - this document
 

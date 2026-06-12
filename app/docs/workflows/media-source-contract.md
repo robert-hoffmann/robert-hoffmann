@@ -21,6 +21,9 @@ Keep only these categories in `public/`:
 - Generated runtime media written by `scripts/optimize-images.mjs`.
 - Final generated CV PDF written by `scripts/generate-cv-docs.mjs`.
 - Generated social preview output written by `scripts/generate-og-image.mjs`.
+- Hand-owned runtime assets that are intentionally served from `public/`, such
+  as `404.html`, `fonts/`, `music.mp3`, `nope-penguin.gif`, and
+  `parallax/desktop.scene.json`.
 - Static deploy files such as `CNAME`, `.nojekyll`, `robots.txt`,
   `sitemap.xml`, `site.webmanifest`, `llms.txt`, and `hiring-brief.md`.
 
@@ -28,7 +31,8 @@ Keep only these categories in `public/`:
 
 Keep source and review media under logical `design/` folders:
 
-- `design/gallery/` for gallery screenshots.
+- `design/gallery/` for gallery screenshots, plus ignored temporary review
+  output under `design/gallery/_test-normalized/`.
 - `design/identity/` for profile and banner identity sources, plus generated
   CV HTML, preview PNG, and flattened hero used to produce the public PDF.
 - `design/parallax/` for parallax source layers.

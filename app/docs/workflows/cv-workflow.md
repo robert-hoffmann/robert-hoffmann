@@ -62,9 +62,12 @@ npm run docs:cv
 
 The generator:
 
-1. Loads `src/data/docs/cv.ts` through Vite SSR so TS data and `import.meta.env.BASE_URL` resolve like the app.
-2. Validates `design/identity/profile_400x400.jpg` and `design/identity/x-banner-1500x500.jpeg`.
-3. Uses Sharp to generate `design/identity/robert-hoffmann-cv-hero.jpeg` from `design/identity/x-banner-1500x500.jpeg` with the configured overlay blend.
+1. Loads `src/data/docs/cv.ts` through Vite SSR so TS data and
+   `import.meta.env.BASE_URL` resolve like the app.
+2. Checks `design/identity/profile_400x400.jpg` and
+   `design/identity/x-banner-1500x500.jpeg` are readable and non-empty.
+3. Uses Sharp to generate `design/identity/robert-hoffmann-cv-hero.jpeg` from
+   `design/identity/x-banner-1500x500.jpeg` with the configured overlay blend.
 4. Writes the one-page A4 HTML to `design/identity/robert-hoffmann-cv.html`.
 5. Uses Playwright Chromium to render `public/docs/robert-hoffmann-cv.pdf`.
 6. Uses Playwright Chromium to screenshot the `.sheet` preview to `design/identity/robert-hoffmann-cv.png`.
@@ -78,19 +81,23 @@ The PDF shortcut is a normal registry `link` item:
 - title             : `CV PDF`
 - URL               : `${BASE_URL}docs/robert-hoffmann-cv.pdf`
 - desktop placement : near the existing `Resume` icon
-- mobile placement  : after `Resume`
+- mobile placement  : after `Gallery` in the mobile home grid
 
 The existing `Resume` item remains the interactive in-app resume window. `CV PDF`
 opens the generated PDF in a new browser tab through the same link behavior used
-by social shortcuts.
+by social shortcuts. The same PDF URL is also used by in-app download links in
+About, Resume, and Projects surfaces.
 
 ## Update Checklist
 
 When adding or revising CV content:
 
-1. Update canonical facts first in `about.ts`, `resume.ts`, `projects.ts`, or `gallery.ts` when the app should also show them.
+1. Update canonical facts first in `about.ts`, `resume.ts`, `projects.ts`, or
+   `gallery.ts` when the app should also show them.
 2. Update `src/data/docs/cv.ts` when the change is a one-page CV selection or wording decision.
-3. Update `design/identity/x-banner-1500x500.jpeg` or `design/identity/profile_400x400.jpg` only when the CV/X visual identity should change.
+3. Update `design/identity/x-banner-1500x500.jpeg` or
+   `design/identity/profile_400x400.jpg` only when the CV/X visual identity
+   should change.
 4. Run `npm run docs:cv`.
 5. Review `design/identity/robert-hoffmann-cv.png` visually for overflow, clipping, and one-page fit.
 6. Open `public/docs/robert-hoffmann-cv.pdf` and confirm it is one page.
@@ -98,6 +105,7 @@ When adding or revising CV content:
 8. Smoke-test desktop and mobile:
    - `Resume` opens the existing app window.
    - `CV PDF` opens `docs/robert-hoffmann-cv.pdf` in a new tab.
+   - In-app CV download links open the same generated PDF.
 
 ## Design Notes
 
