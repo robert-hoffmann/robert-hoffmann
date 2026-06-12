@@ -127,24 +127,39 @@
 
     <script>
       (function () {
+        var shared         = null;
+        var storageKey     = '__PORTFOLIO_STATE_KEY__';
+        var themeColorMeta = document.getElementById('app-theme-color-meta');
+
         try {
-          var themeColorMeta = document.getElementById('app-theme-color-meta');
-          var storageKey = 'portfolio-state-2';
-
-          function syncThemeColor(theme) {
-            if (!themeColorMeta) return;
-            themeColorMeta.setAttribute('content', theme === 'light' ? '#f5f1fa' : '#1a1a2e');
-          }
-
           var raw = localStorage.getItem(storageKey);
-          if (!raw) return;
-          var data = JSON.parse(raw);
-          var shared = data && data.shared;
-          if (shared && (shared.theme === 'dark' || shared.theme === 'light')) {
-            document.documentElement.setAttribute('data-theme', shared.theme);
-            syncThemeColor(shared.theme);
+          if (raw) {
+            var data = JSON.parse(raw);
+            shared = data && data.shared;
           }
         } catch (_) { /* noop */ }
+
+        function syncThemeColor(theme) {
+          if (!themeColorMeta) return;
+          themeColorMeta.setAttribute('content', theme === 'light' ? '#f5f1fa' : '#1a1a2e');
+        }
+
+        if (shared && (shared.theme === 'dark' || shared.theme === 'light')) {
+          document.documentElement.setAttribute('data-theme', shared.theme);
+          syncThemeColor(shared.theme);
+        }
+
+        var lang = 'en';
+        if (shared && (shared.locale === 'fr' || shared.locale === 'en')) {
+          lang = shared.locale;
+        } else {
+          var navLangs = navigator.languages || [navigator.language];
+          for (var i = 0; i < navLangs.length; i++) {
+            var nav = String(navLangs[i] || '').toLowerCase();
+            if (nav.indexOf('fr') === 0) { lang = 'fr'; break; }
+          }
+        }
+        document.documentElement.lang = lang;
       })();
     </script>
     <style>
@@ -185,34 +200,6 @@
     </style>
   </head>
   <body>
-    <!-- Locale: set lang attribute early to prevent FOUC -->
-    <script>
-      (function () {
-        try {
-          var lang = 'en';
-          var storageKey = 'portfolio-state-2';
-          var raw = localStorage.getItem(storageKey);
-          var hasSavedLocale = false;
-
-          if (raw) {
-            var data = JSON.parse(raw);
-            var shared = data && data.shared;
-            if (shared && (shared.locale === 'fr' || shared.locale === 'en')) {
-              lang = shared.locale;
-              hasSavedLocale = true;
-            }
-          }
-          if (!hasSavedLocale) {
-            var navLangs = navigator.languages || [navigator.language];
-            for (var i = 0; i < navLangs.length; i++) {
-              var nav = String(navLangs[i] || '').toLowerCase();
-              if (nav.indexOf('fr') === 0) { lang = 'fr'; break; }
-            }
-          }
-          document.documentElement.lang = lang;
-        } catch (_) { /* noop */ }
-      })();
-    </script>
     <div id="app"></div>
     <noscript>
       <div style="max-width:48rem;margin:2rem auto;padding:2rem;color:#e0e0e0;font-family:system-ui,sans-serif;line-height:1.6;">

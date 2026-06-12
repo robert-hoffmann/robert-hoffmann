@@ -14,10 +14,16 @@ import type {
   Theme,
   WindowState,
 } from '../types/desktop'
+import {
+  PORTFOLIO_STATE_KEY,
+  PORTFOLIO_STATE_VERSION,
+} from '../constants/portfolioState'
 import { safeParse } from '../utils'
 
-export const PORTFOLIO_STATE_VERSION = 2
-export const PORTFOLIO_STATE_KEY     = `portfolio-state-${PORTFOLIO_STATE_VERSION}`
+export {
+  PORTFOLIO_STATE_KEY,
+  PORTFOLIO_STATE_VERSION,
+}
 
 const DEFAULT_SHARED_STATE: PortfolioSharedState = {
   locale : 'en',

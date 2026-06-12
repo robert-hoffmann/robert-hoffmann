@@ -5,9 +5,12 @@ import { defineConfig, type Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 import { vitePrerenderPlugin } from 'vite-prerender-plugin'
+import { PORTFOLIO_STATE_KEY } from './src/constants/portfolioState'
 
-const PUBLIC_DIR = resolve(__dirname, 'public')
+const PUBLIC_DIR                 = resolve(__dirname, 'public')
 const PUBLIC_ASSET_VERSION_TOKEN = '__PUBLIC_ASSET_VERSION__'
+const PORTFOLIO_STATE_KEY_TOKEN  = '__PORTFOLIO_STATE_KEY__'
+
 const PUBLIC_ASSET_VERSIONED_EXTENSIONS = new Set([
   '.avif',
   '.jpeg',
@@ -115,6 +118,23 @@ function publicAssetVersionTokenPlugin(version: string): Plugin {
   }
 }
 
+function portfolioStateKeyTokenPlugin(): Plugin {
+  const replaceStateKeyToken = (value: string) => value.replaceAll(
+    PORTFOLIO_STATE_KEY_TOKEN,
+    PORTFOLIO_STATE_KEY,
+  )
+
+  return {
+    name : 'portfolio-state-key-token',
+    transformIndexHtml : {
+      order : 'post',
+      handler(html) {
+        return replaceStateKeyToken(html)
+      },
+    },
+  }
+}
+
 function deferEntryStylesheetPlugin(): Plugin {
   return {
     name  : 'defer-entry-stylesheet',
@@ -143,6 +163,7 @@ export default defineConfig({
     vue(),
     tailwindcss(),
     publicAssetVersionTokenPlugin(publicAssetVersion),
+    portfolioStateKeyTokenPlugin(),
     deferEntryStylesheetPlugin(),
     vitePrerenderPlugin({
       renderTarget    : '#app',

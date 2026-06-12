@@ -41,8 +41,8 @@ For non-trivial work in `app/src/`:
 - `composables/`       : shared Vue state and browser behavior: window
   management, mobile shell state, locale/theme, persistence, drag/resize,
   media transports, gallery helpers, terminal logic, and cross-app navigation.
-- `constants/`         : shared constants that are not app content, currently
-  notification timing values.
+- `constants/`         : shared constants that are not app content, including
+  notification timings and portfolio state storage keys.
 - `data/`              : typed app registry, interface messages, startup
   layouts, media presets, poster sources, desktop profiles, and icon/grid
   data.
@@ -64,6 +64,8 @@ For non-trivial work in `app/src/`:
 - Desktop state        : `composables/useWindowManager.ts`,
   `composables/useDesktopIcons.ts`.
 - Mobile state         : `composables/useMobileShell.ts`.
+- State persistence    : `constants/portfolioState.ts`,
+  `composables/usePortfolioState.ts`.
 - Cross-app navigation : `composables/usePortfolioNavigation.ts`.
 - Global copy/i18n     : `data/interface.ts`, `composables/useLocale.ts`.
 - Portfolio content    : `data/apps/projects.ts`, `data/apps/gallery.ts`,
