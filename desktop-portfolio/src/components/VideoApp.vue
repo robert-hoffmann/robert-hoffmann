@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { computed, reactive, ref, inject, onUnmounted, useTemplateRef } from 'vue'
+import {
+  computed,
+  inject,
+  onUnmounted,
+  reactive,
+  ref,
+  useTemplateRef,
+  type Ref,
+} from 'vue'
 import { formatTime } from '../utils'
 import { useLocale } from '../composables/useLocale'
 import { useSeekBar } from '../composables/useSeekBar'
@@ -15,7 +23,7 @@ import { publicAssetUrl } from '../utils/publicAssets'
 const { t } = useLocale(videoMessages)
 
 /** Injected from AppWindow - true when this window is front-most */
-const windowFocused = inject<Readonly<import('vue').Ref<boolean>>>('windowFocused', ref(true))
+const windowFocused = inject<Readonly<Ref<boolean>>>('windowFocused', ref(true))
 
 const PLAYLIST_ID = 'PLLBhCscredzYvSwHG3PJm4w-LIC4xwYaJ'
 /* Local poster avoids third-party handshake cost on initial desktop load. */

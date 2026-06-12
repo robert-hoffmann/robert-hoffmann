@@ -8,6 +8,10 @@
     "build"                   : "vue-tsc -b && vite build",
     "preview"                 : "vite preview",
     "prod"                    : "npm run build && npm run preview",
+    "lint"                    : "eslint . --max-warnings=0",
+    "lint:fix"                : "eslint . --fix",
+    "typecheck"               : "vue-tsc -b",
+    "check"                   : "npm run lint && npm run typecheck",
     "audit"                   : "npm audit --audit-level=moderate",
     "optimize-images"         : "node scripts/optimize-images.mjs",
     "generate-og-image"       : "node scripts/generate-og-image.mjs",
@@ -23,15 +27,20 @@
     "vue": "^3.5.38"
   },
   "devDependencies": {
-    "@types/node": "^25.9.1",
-    "@types/three": "^0.184.1",
-    "@vitejs/plugin-vue": "^6.0.7",
-    "@vue/tsconfig": "^0.9.1",
-    "playwright": "^1.60.0",
-    "sharp": "^0.34.5",
-    "typescript": "~6.0.3",
-    "vite": "^8.0.16",
+    "@eslint/js"          : "^10.0.1",
+    "@types/node"         : "^25.9.1",
+    "@types/three"        : "^0.184.1",
+    "@vitejs/plugin-vue"  : "^6.0.7",
+    "@vue/tsconfig"       : "^0.9.1",
+    "eslint"              : "^10.4.1",
+    "eslint-plugin-vue"   : "^10.9.2",
+    "globals"             : "^17.6.0",
+    "playwright"          : "^1.60.0",
+    "sharp"               : "^0.34.5",
+    "typescript"          : "~6.0.3",
+    "typescript-eslint"   : "^8.61.0",
+    "vite"                : "^8.0.16",
     "vite-prerender-plugin": "^0.5.13",
-    "vue-tsc": "^3.3.3"
+    "vue-tsc"             : "^3.3.3"
   }
 }

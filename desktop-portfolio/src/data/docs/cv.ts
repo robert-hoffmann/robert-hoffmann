@@ -23,7 +23,7 @@ interface CvTopMetric {
   sourceProjectIds?: readonly ProjectId[]
 }
 
-interface CvCertification extends CvLink {}
+type CvCertification = CvLink
 
 interface CvLanguage {
   flag  : string

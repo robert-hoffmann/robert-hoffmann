@@ -2,6 +2,7 @@
    Desktop Portfolio - Core Type Definitions
    ============================================================ */
 
+import type { Component } from 'vue'
 import type { GalleryImageId } from '../data/apps/gallery'
 
 export type DesktopSpriteKey =
@@ -141,14 +142,14 @@ export interface WindowAppDefinition {
   /** Window policy overrides (inherits manager defaults) */
   window?       : WindowPolicyConfig
   /** Lazy-loaded component for the window content (omit for links) */
-  component?     : () => Promise<{ default: import('vue').Component }>
+  component?     : () => Promise<{ default: Component }>
   /** Optional props forwarded to the content component */
   componentProps?: Record<string, unknown>
   /**
    * Optional mobile-only component override used by the mobile shell.
    * Desktop `AppWindow` continues to render `component`.
    */
-  mobileComponent?     : () => Promise<{ default: import('vue').Component }>
+  mobileComponent?     : () => Promise<{ default: Component }>
   /** Optional props forwarded only to the mobile override component */
   mobileComponentProps?: Record<string, unknown>
   /** External URL opened in a new tab (type === 'link') */

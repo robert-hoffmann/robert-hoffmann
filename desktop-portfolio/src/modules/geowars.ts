@@ -142,7 +142,6 @@ let canvasHost: HTMLElement | null       = null
 let interactionHost: HTMLElement | null  = null
 let raf: number | null                   = null
 let running                              = false
-let frameCount                           = 0
 let fireCooldown                         = 0
 let enemiesLeft                          = 0
 
@@ -661,22 +660,63 @@ function updateBullets() {
 /* ----------------------------------------------------------
    ENEMY POOL
    ---------------------------------------------------------- */
+function randomEnemySpawnPoint() {
+  const edge = Math.floor(Math.random() * 4)
+
+  switch (edge) {
+    case 0 : {
+      const t = (Math.random() - 0.5) * 2 * (GRID_HALF_X - 1)
+      return {
+        x : t,
+        y : GRID_HALF_Y - 1,
+      }
+    }
+    case 1 : {
+      const t = (Math.random() - 0.5) * 2 * (GRID_HALF_X - 1)
+      return {
+        x : t,
+        y : -GRID_HALF_Y + 1,
+      }
+    }
+    case 2 : {
+      const t = (Math.random() - 0.5) * 2 * (GRID_HALF_Y - 1)
+      return {
+        x : GRID_HALF_X - 1,
+        y : t,
+      }
+    }
+    default : {
+      const t = (Math.random() - 0.5) * 2 * (GRID_HALF_Y - 1)
+      return {
+        x : -GRID_HALF_X + 1,
+        y : t,
+      }
+    }
+  }
+}
+
+function resolveEnemySpawnPoint() {
+  let attempts = 0
+
+  while (true) {
+    const point = randomEnemySpawnPoint()
+    attempts += 1
+
+    const isOutsideSpawnMargin =
+      !player ||
+      Math.hypot(point.x - player.x, point.y - player.y) >= SPAWN_MARGIN
+
+    if (isOutsideSpawnMargin || attempts >= 20) {
+      return point
+    }
+  }
+}
+
 function spawnEnemy() {
   if (enemies.filter(e => e.alive).length >= MAX_ENEMIES) return
   const typeIdx = Math.floor(Math.random() * ENEMY_TYPES.length)
   const type    = ENEMY_TYPES[typeIdx]!
-
-  let ex = 0, ey = 0, attempts = 0
-  do {
-    const edge = Math.floor(Math.random() * 4)
-    switch (edge) {
-      case 0 : { const t = (Math.random() - 0.5) * 2 * (GRID_HALF_X - 1); ex = t; ey =  GRID_HALF_Y - 1; break }
-      case 1 : { const t = (Math.random() - 0.5) * 2 * (GRID_HALF_X - 1); ex = t; ey = -GRID_HALF_Y + 1; break }
-      case 2 : { const t = (Math.random() - 0.5) * 2 * (GRID_HALF_Y - 1); ex =  GRID_HALF_X - 1; ey = t; break }
-      default: { const t = (Math.random() - 0.5) * 2 * (GRID_HALF_Y - 1); ex = -GRID_HALF_X + 1; ey = t; break }
-    }
-    attempts++
-  } while (player && Math.hypot(ex - player.x, ey - player.y) < SPAWN_MARGIN && attempts < 20)
+  const { x: ex, y: ey } = resolveEnemySpawnPoint()
 
   let e = enemies.find(e => !e.alive)
   if (!e) {
@@ -986,7 +1026,6 @@ function tick() {
   if (!running) return
   raf = requestAnimationFrame(tick)
   if (state.paused || state.gameOver) { render(); return }
-  frameCount++
   updatePlayer()
   updateBullets()
   updateEnemies()
@@ -1009,7 +1048,9 @@ function resetGameState() {
   state.started = false
   state.score = 0; state.wave = 1; state.lives = 3
   state.paused = true; state.gameOver = false
-  frameCount = 0; fireCooldown = 0; playerVX = 0; playerVY = 0
+  fireCooldown = 0
+  playerVX = 0
+  playerVY = 0
   introPauseRequested = true
   manualPauseRequested = false
   autoPauseRequested = resolveAutoPauseFromPointer()

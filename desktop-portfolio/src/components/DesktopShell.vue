@@ -609,7 +609,12 @@ watch(
       @toggle-all-windows="onDockToggleAllWindows"
     />
 
-    <AboutSiteModal v-if="showAboutSite" @close="showAboutSite = false" />
+    <Transition name="about-modal">
+      <AboutSiteModal
+        v-if="showAboutSite"
+        @close="showAboutSite = false"
+      />
+    </Transition>
 
     <NotificationStack ref="desktopNotificationStackRef" variant="desktop" />
   </div>
