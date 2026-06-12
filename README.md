@@ -60,6 +60,6 @@ Full project list and interactive resume: [i-technology.net](https://i-technolog
 
 ### Connect
 
-<a href="https://www.linkedin.com/in/hoffmannrobert"><img src="desktop-portfolio/public/icons/linkedin-white.svg" width="28" height="28" alt="LinkedIn"></a>&ensp;
-<a href="https://x.com/itechnologynet"><img src="desktop-portfolio/public/icons/x-white.svg" width="28" height="28" alt="X"></a>&ensp;
-<a href="https://i-technology.net"><img src="desktop-portfolio/public/icons/globe-white.svg" width="28" height="28" alt="Website"></a>
+<a href="https://www.linkedin.com/in/hoffmannrobert"><img src=".github/assets/linkedin-white.svg" width="28" height="28" alt="LinkedIn"></a>&ensp;
+<a href="https://x.com/itechnologynet"><img src=".github/assets/x-white.svg" width="28" height="28" alt="X"></a>&ensp;
+<a href="https://i-technology.net"><img src=".github/assets/globe-white.svg" width="28" height="28" alt="Website"></a>

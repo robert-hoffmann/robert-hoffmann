@@ -29,21 +29,21 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: desktop-portfolio/package-lock.json
+          cache-dependency-path: app/package-lock.json
 
       - name: Install dependencies
         run: npm ci
-        working-directory: desktop-portfolio
+        working-directory: app
 
       - name: Build
         run: npm run build
-        working-directory: desktop-portfolio
+        working-directory: app
 
       - uses: actions/configure-pages@v6
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: desktop-portfolio/dist
+          path: app/dist
 
   deploy:
     needs: build
