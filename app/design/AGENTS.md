@@ -47,9 +47,10 @@ For non-trivial work in `app/design/`:
 - `identity/`                 : profile and banner identity sources plus CV
   review artifacts. `profile_400x400.jpg` and `x-banner-1500x500.jpeg` are
   source files.
-  `robert-hoffmann-cv.html`, `robert-hoffmann-cv.png`, and
-  `robert-hoffmann-cv-hero.jpeg` are generated review artifacts; the deployed
-  PDF belongs in `public/docs/robert-hoffmann-cv.pdf`.
+  `robert-hoffmann-cv.html`, `robert-hoffmann-cv-fr.html`,
+  `robert-hoffmann-cv.png`, `robert-hoffmann-cv-fr.png`, and
+  `robert-hoffmann-cv-hero.jpeg` are generated review artifacts; deployed PDFs
+  belong in `public/docs/`.
 - `music/`                    : music artwork source media.
   `rockstar-cover_1000x1000.jpg` generates the runtime artwork in `public/`.
 - `parallax/`                 : source parallax layers: `background.png`,
@@ -64,7 +65,7 @@ For non-trivial work in `app/design/`:
   `design/identity/`, `design/icons/`, `design/music/`, `design/parallax/`,
   and `design/video/`; writes runtime assets to `public/`.
 - `npm run docs:cv`               : reads `design/identity/`; writes CV review
-  artifacts to `design/identity/` and the deployed PDF to `public/docs/`.
+  artifacts to `design/identity/` and deployed EN/FR PDFs to `public/docs/`.
 - `npm run gallery:generate-test` : reads `design/gallery/`; writes temporary
   review output to `design/gallery/_test-normalized/`.
 - `npm run generate-og-image`     : writes `public/og-image.png`.

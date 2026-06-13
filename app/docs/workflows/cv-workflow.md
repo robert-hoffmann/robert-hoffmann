@@ -1,23 +1,29 @@
 # Repeatable CV / Resume PDF Workflow
 
-This workflow regenerates the public CV PDF and design-side review artifacts
-from curated repository data. Do not hand-edit generated files in
+This workflow regenerates the public EN/FR CV PDFs and design-side review
+artifacts from curated repository data. Do not hand-edit generated files in
 `public/docs/` or generated CV review files in `design/identity/`.
 
 ## Artifact Contract
 
-The generator owns this runtime output:
+The generator owns these runtime outputs:
 
 - `public/docs/robert-hoffmann-cv.pdf`
+- `public/docs/robert-hoffmann-cv-fr.pdf`
 
 The generator also owns these design-side review artifacts:
 
 - `design/identity/robert-hoffmann-cv-hero.jpeg`
 - `design/identity/robert-hoffmann-cv.html`
+- `design/identity/robert-hoffmann-cv-fr.html`
 - `design/identity/robert-hoffmann-cv.png`
+- `design/identity/robert-hoffmann-cv-fr.png`
 
 The HTML must contain a generated-file notice pointing back to
 `scripts/generate-cv-docs.mjs` and this workflow document.
+
+Keep `public/docs/robert-hoffmann-cv.pdf` as the English PDF. That URL is the
+stable external download path and must not change during build or deploy.
 
 ## Source Ownership
 
@@ -30,8 +36,10 @@ Runtime app modules own canonical facts used by the portfolio UI:
 
 Document selection is owned by:
 
-- `src/data/docs/cv.ts`                    : the one-page English CV selection,
-  wording, metrics, source ids, and visual identity asset references.
+- `src/data/docs/cv.ts`                    : the one-page EN/FR CV selections,
+  wording, metrics, source ids, labels, and visual identity asset references.
+  Keep translatable CV copy side-by-side as `{ en, fr }`, matching
+  `src/data/apps/*`, so both locales remain easy to compare and edit.
 - `design/identity/x-banner-1500x500.jpeg` : the compact CV hero background,
   shared with the X profile visual identity.
 - `design/identity/profile_400x400.jpg`    : the circular CV profile/avatar
@@ -68,10 +76,14 @@ The generator:
    `design/identity/x-banner-1500x500.jpeg` are readable and non-empty.
 3. Uses Sharp to generate `design/identity/robert-hoffmann-cv-hero.jpeg` from
    `design/identity/x-banner-1500x500.jpeg` with the configured overlay blend.
-4. Writes the one-page A4 HTML to `design/identity/robert-hoffmann-cv.html`.
-5. Uses Playwright Chromium to render `public/docs/robert-hoffmann-cv.pdf`.
-6. Uses Playwright Chromium to screenshot the `.sheet` preview to `design/identity/robert-hoffmann-cv.png`.
-7. Verifies the outputs are non-empty, the PDF starts with `%PDF`, and the PNG is `794x1123`.
+4. Writes one-page A4 HTML review files for English and French under
+   `design/identity/`.
+5. Uses Playwright Chromium to render the English and French PDFs under
+   `public/docs/`.
+6. Uses Playwright Chromium to screenshot each `.sheet` preview to
+   `design/identity/`.
+7. Verifies the outputs are non-empty, each HTML has the expected `lang`, each
+   PDF starts with `%PDF`, and each PNG is `794x1123`.
 
 ## App Shortcut
 
@@ -84,9 +96,12 @@ The PDF shortcut is a normal registry `link` item:
 - mobile placement  : after `Gallery` in the mobile home grid
 
 The existing `Resume` item remains the interactive in-app resume window. `CV PDF`
-opens the generated PDF in a new browser tab through the same link behavior used
-by social shortcuts. The same PDF URL is also used by in-app download links in
-About, Resume, and Projects surfaces.
+opens the generated English PDF in a new browser tab through the same link
+behavior used by social shortcuts.
+
+In-app download links in About, Resume, and Projects use
+`src/composables/useCvDownload.ts` to choose the English or French PDF from the
+current interface locale.
 
 ## Update Checklist
 
@@ -99,13 +114,16 @@ When adding or revising CV content:
    `design/identity/profile_400x400.jpg` only when the CV/X visual identity
    should change.
 4. Run `npm run docs:cv`.
-5. Review `design/identity/robert-hoffmann-cv.png` visually for overflow, clipping, and one-page fit.
-6. Open `public/docs/robert-hoffmann-cv.pdf` and confirm it is one page.
+5. Review `design/identity/robert-hoffmann-cv.png` and
+   `design/identity/robert-hoffmann-cv-fr.png` visually for overflow,
+   clipping, and one-page fit.
+6. Open `public/docs/robert-hoffmann-cv.pdf` and
+   `public/docs/robert-hoffmann-cv-fr.pdf` and confirm each is one page.
 7. Run `npm run build`.
 8. Smoke-test desktop and mobile:
    - `Resume` opens the existing app window.
    - `CV PDF` opens `docs/robert-hoffmann-cv.pdf` in a new tab.
-   - In-app CV download links open the same generated PDF.
+   - In-app CV download links open the PDF for the current interface locale.
 
 ## Design Notes
 
@@ -131,6 +149,5 @@ Tune the banner merge in `scripts/generate-cv-docs.mjs`:
 Keep the header compact enough to preserve one-page density; avoid expanding it
 into a full social-profile hero unless the body content is intentionally reduced.
 
-The CV stays English-only for now. If a French PDF is added later, prefer a
-second curated document object or an explicit locale field rather than deriving
-translated claims implicitly from the app.
+English and French CVs are curated explicitly in `src/data/docs/cv.ts`. Do not
+derive translated claims implicitly from the app or profile notes.

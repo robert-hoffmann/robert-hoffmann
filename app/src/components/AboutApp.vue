@@ -1,22 +1,16 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
-import { about, aboutMessages } from '../data/apps/about'
-import { windowRegistry } from '../data/registry'
+import { onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
+import { useCvDownload } from '../composables/useCvDownload'
 import { useLocale } from '../composables/useLocale'
 import { usePersistedWindowScroll } from '../composables/usePersistedWindowScroll'
+import { about, aboutMessages } from '../data/apps/about'
 import { publicAssetCssUrl } from '../utils/publicAssets'
 
 const { l, t } = useLocale(aboutMessages)
-const cvPdf    = windowRegistry['cv-pdf']
-
-if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url) {
-  throw new Error(
-    'The cv-pdf registry entry must define a PDF link URL.',
-  )
-}
-
-const cvPdfUrl   = cvPdf.url
-const cvPdfLabel = computed(() => t('cvDownload.label'))
+const {
+  cvPdfLabel,
+  cvPdfUrl,
+} = useCvDownload()
 
 const POINTER_MEDIA_QUERY        = '(hover: hover) and (pointer: fine)'
 const REDUCED_MOTION_MEDIA_QUERY = '(prefers-reduced-motion: reduce)'

@@ -8,7 +8,7 @@ import {
   watch,
   type ComponentPublicInstance,
 } from 'vue'
-import { projects, projectsMessages, type Project } from '../data/apps/projects'
+import { useCvDownload } from '../composables/useCvDownload'
 import { useLocale } from '../composables/useLocale'
 import {
   OPEN_PORTFOLIO_APP_EVENT,
@@ -17,9 +17,14 @@ import {
 } from '../composables/usePortfolioNavigation'
 import { usePersistedWindowScroll } from '../composables/usePersistedWindowScroll'
 import type { GalleryImageId } from '../data/apps/gallery'
-import { windowRegistry } from '../data/registry'
+import { projects, projectsMessages, type Project } from '../data/apps/projects'
 
 const { l, t } = useLocale(projectsMessages)
+const {
+  cvPdfLabel,
+  cvPdfSprite,
+  cvPdfUrl,
+} = useCvDownload()
 const {
   clearProjectInfoRequest,
   projectInfoRequest,
@@ -30,20 +35,10 @@ const highlightedProjectId        = ref<string | null>(null)
 const skipPersistedScrollRestore  = ref(Boolean(projectInfoRequest.value))
 const scrollRef                   = useTemplateRef<HTMLElement>('projectsScroll')
 const projectElements             = new Map<string, HTMLElement>()
-const cvPdf                       = windowRegistry['cv-pdf']
 
 usePersistedWindowScroll(scrollRef, {
   shouldRestore : () => !skipPersistedScrollRestore.value,
 })
-
-if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url || cvPdf.iconSprite !== 'cv-pdf') {
-  throw new Error(
-    'The cv-pdf registry entry must define a PDF link URL and sprite key.',
-  )
-}
-
-const cvPdfUrl     = cvPdf.url
-const cvPdfSprite  = cvPdf.iconSprite
 
 let highlightTimer: number | null = null
 
@@ -153,8 +148,8 @@ onBeforeUnmount(() => {
         :href="cvPdfUrl"
         target="_blank"
         rel="noopener noreferrer"
-        :aria-label="t('cvDownload.label')"
-        :title="t('cvDownload.label')"
+        :aria-label="cvPdfLabel"
+        :title="cvPdfLabel"
       >
         <span
           class="icon-sprite project-availability__download-icon"

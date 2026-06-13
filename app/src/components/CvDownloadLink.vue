@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useLocale } from '../composables/useLocale'
-import { windowRegistry } from '../data/registry'
+import { useCvDownload } from '../composables/useCvDownload'
 
 type CvDownloadLinkPlacement = 'inline' | 'sticky'
 
@@ -11,18 +9,11 @@ const props = withDefaults(defineProps<{
   placement : 'inline',
 })
 
-const { t } = useLocale()
-const cvPdf = windowRegistry['cv-pdf']
-
-if (!cvPdf || cvPdf.type !== 'link' || !cvPdf.url || cvPdf.iconSprite !== 'cv-pdf') {
-  throw new Error(
-    'The cv-pdf registry entry must define a PDF link URL and sprite key.',
-  )
-}
-
-const cvPdfUrl      = cvPdf.url
-const cvPdfSprite   = cvPdf.iconSprite
-const downloadLabel = computed(() => t('cvDownload.label'))
+const {
+  cvPdfLabel,
+  cvPdfSprite,
+  cvPdfUrl,
+} = useCvDownload()
 </script>
 
 <template>
@@ -32,9 +23,9 @@ const downloadLabel = computed(() => t('cvDownload.label'))
     :href="cvPdfUrl"
     target="_blank"
     rel="noopener noreferrer"
-    :aria-label="downloadLabel"
+    :aria-label="cvPdfLabel"
   >
-    <span class="cv-download-link__label">{{ downloadLabel }}</span>
+    <span class="cv-download-link__label">{{ cvPdfLabel }}</span>
     <span
       class="icon-sprite cv-download-link__icon"
       :class="`icon-sprite--${cvPdfSprite}`"

@@ -54,10 +54,10 @@ calls for it.
   deterministic generation, and generated artifact freshness.
 - `validate-dist-seo.mjs`            : validates prerendered canonical HTML
   routes in `dist/` after production build.
-- `generate-cv-docs.mjs`             : CV document generator. Loads
+- `generate-cv-docs.mjs`             : EN/FR CV document generator. Loads
   `src/data/docs/cv.ts` through Vite SSR, reads identity source assets, writes
-  generated review artifacts under `design/identity/`, and writes the deployed
-  PDF under `public/docs/`.
+  generated review artifacts under `design/identity/`, and writes deployed PDFs
+  under `public/docs/`.
 
 ## Generator Map
 
@@ -82,7 +82,7 @@ calls for it.
   ignored review output to `design/gallery/_test-normalized/`.
 - `npm run docs:cv`                  : runs `scripts/generate-cv-docs.mjs`; loads
   `src/data/docs/cv.ts`; reads `design/identity/`; writes generated CV review
-  artifacts to `design/identity/` and the deployed PDF to `public/docs/`.
+  artifacts to `design/identity/` and deployed EN/FR PDFs to `public/docs/`.
 - `npm run docs:cv:install-browsers` : installs Playwright Chromium for
   `docs:cv` when the local browser dependency is missing.
 - `npm run prebuild`                 : runs
@@ -118,8 +118,9 @@ calls for it.
 - Change CV docs generation         : start with `generate-cv-docs.mjs`, then
   inspect `app/docs/workflows/cv-workflow.md`, `src/data/docs/cv.ts`,
   `design/identity/` source and review paths; after regeneration, verify
-  `public/docs/robert-hoffmann-cv.pdf` exists, opens, and matches the intended
-  CV output.
+  `public/docs/robert-hoffmann-cv.pdf` and
+  `public/docs/robert-hoffmann-cv-fr.pdf` exist, open, and match the intended
+  CV outputs.
 - Change command wiring             : start with `app/package.json`, then
   update this guide and any related workflow docs in the same change.
 
