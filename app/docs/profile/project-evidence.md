@@ -3,8 +3,8 @@
 Purpose: living evidence and claim ledger for profile-facing project claims.
 This file is not parsed by generators. Promote stable claims manually into
 `src/data/apps/projects.ts`, `src/data/apps/gallery.ts`, `src/data/docs/cv.ts`,
-`public/hiring-brief.md`, or `public/llms.txt` when they become app, CV, public
-brief, or AI-agent source material.
+`src/data/portfolio/canonical.ts`, or `public/llms.txt` when they become app,
+CV, public brief, or AI-agent source material.
 
 Use `docs/profile/positioning-guide.md` for durable positioning rules and
 `docs/profile/linkedin.md` for LinkedIn-specific copy.
@@ -95,8 +95,8 @@ and which should be supported by references or screenshots.
 ## Working Context
 
 Working note for revising `src/data/apps/projects.ts`,
-`src/data/apps/gallery.ts`, `src/data/docs/cv.ts`, `public/hiring-brief.md`,
-and `public/llms.txt`.
+`src/data/apps/gallery.ts`, `src/data/docs/cv.ts`,
+`src/data/portfolio/canonical.ts`, and `public/llms.txt`.
 
 Operating goal: keep the `Project Highlights` window focused on fewer,
 stronger project cards with title, period, company/client, impact highlights,

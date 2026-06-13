@@ -47,6 +47,13 @@ calls for it.
   `design/gallery/_test-normalized/`.
 - `generate-og-image.mjs`            : social preview generator. Renders the
   embedded SVG card and writes the generated PNG to `public/og-image.png`.
+- `generate-content-artifacts.mjs`   : canonical retrieval generator. Loads
+  `src/data/portfolio/canonical.ts` through Vite SSR and writes committed
+  knowledge, sitemap, robots, and `llms.txt` artifacts under `public/`.
+- `validate-content-artifacts.mjs`   : validates canonical content contracts,
+  deterministic generation, and generated artifact freshness.
+- `validate-dist-seo.mjs`            : validates prerendered canonical HTML
+  routes in `dist/` after production build.
 - `generate-cv-docs.mjs`             : CV document generator. Loads
   `src/data/docs/cv.ts` through Vite SSR, reads identity source assets, writes
   generated review artifacts under `design/identity/`, and writes the deployed
@@ -59,6 +66,17 @@ calls for it.
   `design/parallax/`, and `design/video/`; writes runtime media to `public/`.
 - `npm run generate-og-image`        : runs `scripts/generate-og-image.mjs`;
   writes `public/og-image.png`.
+- `npm run content:generate`         : runs
+  `scripts/generate-content-artifacts.mjs`; reads canonical portfolio data;
+  writes `public/knowledge/*.json`, `public/llms.txt`,
+  `public/sitemap.xml`, and `public/robots.txt`.
+- `npm run content:validate`         : runs
+  `scripts/validate-content-artifacts.mjs`; validates canonical source data
+  and generated artifact freshness.
+- `npm run seo:validate`             : runs `scripts/validate-dist-seo.mjs`;
+  validates `dist/` after `npm run build`.
+- `npm run verify`                   : runs check, content validation, build,
+  and SEO validation.
 - `npm run gallery:generate-test`    : runs
   `scripts/generate-gallery-test-images.mjs`; reads `design/gallery/`; writes
   ignored review output to `design/gallery/_test-normalized/`.
@@ -67,7 +85,8 @@ calls for it.
   artifacts to `design/identity/` and the deployed PDF to `public/docs/`.
 - `npm run docs:cv:install-browsers` : installs Playwright Chromium for
   `docs:cv` when the local browser dependency is missing.
-- `npm run prebuild`                 : runs `scripts/optimize-images.mjs` and
+- `npm run prebuild`                 : runs
+  `scripts/generate-content-artifacts.mjs`, `scripts/optimize-images.mjs`, and
   `scripts/generate-og-image.mjs` directly before the production build.
 
 ## Adjacent Truth
@@ -91,6 +110,11 @@ calls for it.
 - Change OG image output            : start with `generate-og-image.mjs`, then
   inspect `app/index.html` metadata; after regeneration, verify
   `public/og-image.png` exists and matches the intended social preview.
+- Change canonical retrieval output : start with
+  `src/data/portfolio/canonical.ts`, `src/data/portfolio/projectRoutes.ts`,
+  `src/data/apps/projects.ts`, `generate-content-artifacts.mjs`,
+  `validate-content-artifacts.mjs`, and `validate-dist-seo.mjs`; after
+  regeneration, verify public artifacts and prerendered routes.
 - Change CV docs generation         : start with `generate-cv-docs.mjs`, then
   inspect `app/docs/workflows/cv-workflow.md`, `src/data/docs/cv.ts`,
   `design/identity/` source and review paths; after regeneration, verify

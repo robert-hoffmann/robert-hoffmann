@@ -59,14 +59,22 @@ For non-trivial work in `app/`:
 - `npm run dev`                      : start the Vite dev server.
 - `npm run build`                    : run `prebuild`, then `vue-tsc -b` and
   `vite build`.
-- `npm run prebuild`                 : regenerate runtime media and the OG
-  image before `build`.
+- `npm run prebuild`                 : regenerate canonical content artifacts,
+  runtime media, and the OG image before `build`.
 - `npm run preview`                  : preview the existing production build.
 - `npm run prod`                     : build, then preview production output.
 - `npm run check`                    : run lint and typecheck together.
 - `npm run lint`                     : run ESLint with zero warnings allowed.
 - `npm run lint:fix`                 : run ESLint autofix.
 - `npm run typecheck`                : run `vue-tsc -b`.
+- `npm run content:generate`         : generate canonical public knowledge,
+  `llms.txt`, sitemap, and robots artifacts.
+- `npm run content:validate`         : validate canonical content contracts and
+  generated artifact determinism/staleness.
+- `npm run seo:validate`             : validate prerendered canonical HTML in
+  `dist/` after a production build.
+- `npm run verify`                   : run check, content validation, build,
+  and SEO validation.
 - `npm run audit`                    : run `npm audit --audit-level=moderate`.
 - `npm run optimize-images`          : generate committed runtime media under
   `public/` from source media under `design/`.
@@ -88,10 +96,10 @@ or OG output matters; npm runs `prebuild` automatically before `build`.
 - `package-lock.json`  : npm lockfile; update together with dependency changes.
 - `vite.config.ts`     : Vite plugins for Vue, Tailwind, prerendering, public
   asset version tokens, and deferred entry stylesheet loading.
-- `prerender.ts`       : crawler/social static HTML renderer sourced from
-  English portfolio data in `src/data/apps/`.
-- `index.html`         : root HTML shell, SEO metadata, social metadata,
-  structured data, and public asset references.
+- `prerender.ts`       : route-aware crawler/social static HTML renderer
+  sourced from canonical portfolio data.
+- `index.html`         : root HTML shell, global boot metadata, boot script,
+  and public asset references. Route SEO is injected by prerendering.
 - `eslint.config.mjs`  : flat ESLint config for browser source files and Node
   tooling files.
 - `tsconfig.json`      : TypeScript project references for app and Node config.
@@ -109,6 +117,8 @@ the referenced TypeScript projects, currently `src/` and `vite.config.ts`.
   `design/AGENTS.md` before changing ownership or generator inputs.
 - `public/`                          : committed runtime static assets and
   metadata served by Vite and copied into production builds.
+- `public/knowledge/`                : generated canonical JSON artifacts for
+  person, projects, and portfolio retrieval.
 - `public/docs/`                     : deployed generated documents, currently
   the CV PDF.
 - `design/identity/`                 : identity sources plus generated CV review
@@ -130,8 +140,11 @@ output.
   path.
 - Change build behavior             : start with `package.json` and
   `vite.config.ts`; include `prerender.ts` when crawler/static HTML changes.
-- Change SEO or social previews     : start with `index.html`,
-  `vite.config.ts`, `prerender.ts`, and `scripts/generate-og-image.mjs`.
+- Change SEO, canonical retrieval, or social previews : start with
+  `src/data/portfolio/`, `src/data/apps/projects.ts`, `prerender.ts`,
+  `index.html`, `vite.config.ts`, `scripts/generate-content-artifacts.mjs`,
+  `scripts/validate-content-artifacts.mjs`,
+  `scripts/validate-dist-seo.mjs`, and `scripts/generate-og-image.mjs`.
 - Change lint or type policy        : start with `eslint.config.mjs`,
   `tsconfig.json`, `tsconfig.app.json`, and `tsconfig.node.json`.
 - Change package commands           : start with `package.json`, then update

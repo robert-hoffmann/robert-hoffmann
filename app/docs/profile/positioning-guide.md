@@ -17,7 +17,9 @@ copy before changing the app.
 - Resume history         : `src/data/apps/resume.ts`.
 - Generated CV selection : `src/data/docs/cv.ts`.
 - AI-agent summary       : `public/llms.txt`.
-- Recruiter brief        : `public/hiring-brief.md`.
+- Recruiter brief route  : `/hiring-brief/`, generated from
+  `src/data/portfolio/canonical.ts`.
+- Recruiter brief source : `docs/profile/hiring-brief.md`.
 - LinkedIn channel copy  : `docs/profile/linkedin.md`.
 
 Profile docs are not canonical app data. Promote stable facts manually into the

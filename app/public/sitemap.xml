@@ -1,15 +1,210 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://i-technology.net/</loc>
     <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/" />
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://i-technology.net/hiring-brief.md</loc>
+    <loc>https://i-technology.net/en/</loc>
     <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/" />
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/en/projects/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/en/projects/tchatche-media-community-ecosystem/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/tchatche-media-community-ecosystem/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/tchatche-media-community-ecosystem/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/tchatche-media-community-ecosystem/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/en/projects/ad-proxy-ad-distribution-server/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/ad-proxy-ad-distribution-server/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/ad-proxy-ad-distribution-server/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/ad-proxy-ad-distribution-server/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/en/projects/tmip-scheduler-aerospace-data-orchestration/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/tmip-scheduler-aerospace-data-orchestration/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/tmip-scheduler-aerospace-data-orchestration/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/tmip-scheduler-aerospace-data-orchestration/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/en/projects/tmip-logger-observability/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/tmip-logger-observability/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/tmip-logger-observability/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/tmip-logger-observability/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/en/projects/uncle-bob-agentic-ai-workflow-system/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/uncle-bob-agentic-ai-workflow-system/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/uncle-bob-agentic-ai-workflow-system/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/uncle-bob-agentic-ai-workflow-system/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/en/projects/i-technology-desktop-portfolio/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/i-technology-desktop-portfolio/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/i-technology-desktop-portfolio/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/i-technology-desktop-portfolio/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/en/projects/parallax-designer/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/parallax-designer/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/parallax-designer/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/parallax-designer/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/en/projects/headjs/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/headjs/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/headjs/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/headjs/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/en/hiring-brief/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/hiring-brief/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/hiring-brief/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/hiring-brief/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.76</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/projects/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/projects/tchatche-media-community-ecosystem/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/tchatche-media-community-ecosystem/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/tchatche-media-community-ecosystem/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/tchatche-media-community-ecosystem/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/projects/ad-proxy-ad-distribution-server/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/ad-proxy-ad-distribution-server/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/ad-proxy-ad-distribution-server/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/ad-proxy-ad-distribution-server/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/projects/tmip-scheduler-aerospace-data-orchestration/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/tmip-scheduler-aerospace-data-orchestration/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/tmip-scheduler-aerospace-data-orchestration/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/tmip-scheduler-aerospace-data-orchestration/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/projects/tmip-logger-observability/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/tmip-logger-observability/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/tmip-logger-observability/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/tmip-logger-observability/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/projects/uncle-bob-agentic-ai-workflow-system/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/uncle-bob-agentic-ai-workflow-system/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/uncle-bob-agentic-ai-workflow-system/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/uncle-bob-agentic-ai-workflow-system/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/projects/i-technology-desktop-portfolio/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/i-technology-desktop-portfolio/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/i-technology-desktop-portfolio/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/i-technology-desktop-portfolio/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/projects/parallax-designer/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/parallax-designer/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/parallax-designer/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/parallax-designer/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/projects/headjs/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/projects/headjs/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/projects/headjs/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/projects/headjs/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://i-technology.net/fr/hiring-brief/</loc>
+    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://i-technology.net/en/hiring-brief/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://i-technology.net/fr/hiring-brief/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://i-technology.net/en/hiring-brief/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.76</priority>
   </url>
 </urlset>

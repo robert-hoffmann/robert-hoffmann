@@ -1,0 +1,3151 @@
+{
+  "schemaVersion": 1,
+  "canonicalUrl": "https://i-technology.net/en/projects/",
+  "projects": [
+    {
+      "id": "proj-chatapp",
+      "name": {
+        "en": "tchatche.com: Media & Community Ecosystem",
+        "fr": "tchatche.com: Écosystème média & communautaire"
+      },
+      "organization": {
+        "en": "123 Multimedia / Index Multimedia",
+        "fr": "123 Multimedia / Index Multimedia"
+      },
+      "period": "2004 – 2013",
+      "summary": {
+        "en": "Lead developer and technical owner for high-traffic white-label real-time chat products inside the broader tchatche.com media ecosystem, spanning frontend architecture, backend APIs, caching, moderation, browser compatibility, performance, responsive versions, Facebook integration, location features, social sharing, and 13-language i18n across the main site, user blogs, and dedicated chat apps.",
+        "fr": "Lead developer et responsable technique de produits de chat temps réel marque blanche à fort trafic au sein de l’écosystème média tchatche.com, couvrant architecture frontend, APIs backend, cache, modération, compatibilité navigateur, performance, versions responsive, intégration Facebook, fonctions géolocalisées, partage social et i18n en 13 langues sur le site principal, les blogs utilisateurs et les apps chat dédiées."
+      },
+      "route": {
+        "slug": "tchatche-media-community-ecosystem",
+        "path": "/projects/tchatche-media-community-ecosystem/",
+        "title": {
+          "en": "tchatche.com media and community ecosystem | Robert Hoffmann",
+          "fr": "Ecosysteme media et communautaire tchatche.com | Robert Hoffmann"
+        },
+        "description": {
+          "en": "Technical ownership of high-traffic white-label real-time chat products, frontend architecture, APIs, caching, moderation, i18n, and production support.",
+          "fr": "Responsabilite technique de produits de chat temps reel marque blanche a fort trafic, architecture frontend, APIs, cache, moderation, i18n et support production."
+        },
+        "proofAngle": {
+          "en": "High-traffic real-time product ownership across browser UX, APIs, caching, moderation, and i18n.",
+          "fr": "Responsabilite produit temps reel a fort trafic, du navigateur aux APIs, cache, moderation et i18n."
+        },
+        "schemaKind": "CreativeWork",
+        "canonicalUrl": "https://i-technology.net/en/projects/tchatche-media-community-ecosystem/",
+        "includeInSitemap": true,
+        "sitemapPriority": 0.72,
+        "changeFrequency": "yearly",
+        "canonicalUrls": {
+          "en": "https://i-technology.net/en/projects/tchatche-media-community-ecosystem/",
+          "fr": "https://i-technology.net/fr/projects/tchatche-media-community-ecosystem/"
+        }
+      },
+      "evidenceLevel": "self-attested",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": true,
+        "hiringBrief": true,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "600M views/mo",
+            "fr": "600M vues/mois"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "13-lang i18n",
+            "fr": "i18n en 13 langues"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "$300K/mo",
+            "fr": "300K$/mois"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "400M req/day sites",
+            "fr": "400M req/jour sites"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "~125K req/s chat",
+            "fr": "~125K req/s chat"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        }
+      ],
+      "stack": [
+        ".NET MVC5",
+        "WebAPI 2",
+        ".NET 4.5",
+        "C#",
+        "CSS3",
+        "HTML5",
+        "LESS",
+        "jsRender",
+        "Google Maps"
+      ],
+      "links": []
+    },
+    {
+      "id": "proj-adproxy",
+      "name": {
+        "en": "Ad Proxy: Ad-Distribution Server",
+        "fr": "Ad Proxy: Serveur de distribution publicitaire"
+      },
+      "organization": {
+        "en": "Index Multimedia",
+        "fr": "Index Multimedia"
+      },
+      "period": "2010 – 2013",
+      "summary": {
+        "en": "Generic ad-distribution server that gave ad managers one scheduling and dispatch entry point across chat, news, blog, and white-label sites. It consolidated many ad-agency contracts and agency-specific systems behind demographic targeting, format detection, site routing, and performance-based delivery.",
+        "fr": "Serveur générique de distribution publicitaire donnant aux responsables pub un point d’entrée unique pour planifier et diffuser sur les sites chat, news, blog et marque blanche. Il consolidait de nombreux contrats régies et systèmes propres à chaque régie derrière ciblage démographique, détection de format, routage par site et diffusion basée sur la performance."
+      },
+      "route": {
+        "slug": "ad-proxy-ad-distribution-server",
+        "path": "/projects/ad-proxy-ad-distribution-server/",
+        "title": {
+          "en": "Ad Proxy ad-distribution server | Robert Hoffmann",
+          "fr": "Serveur de distribution publicitaire Ad Proxy | Robert Hoffmann"
+        },
+        "description": {
+          "en": "Ad-distribution infrastructure that consolidated scheduling, targeting, site routing, and performance delivery across media and white-label properties.",
+          "fr": "Infrastructure de distribution publicitaire consolidant planification, ciblage, routage site et performance sur des proprietes media et marque blanche."
+        },
+        "proofAngle": {
+          "en": "Revenue-critical backend infrastructure built for high-volume media operations.",
+          "fr": "Infrastructure backend critique pour le revenu et les operations media a volume eleve."
+        },
+        "schemaKind": "CreativeWork",
+        "canonicalUrl": "https://i-technology.net/en/projects/ad-proxy-ad-distribution-server/",
+        "includeInSitemap": true,
+        "sitemapPriority": 0.72,
+        "changeFrequency": "yearly",
+        "canonicalUrls": {
+          "en": "https://i-technology.net/en/projects/ad-proxy-ad-distribution-server/",
+          "fr": "https://i-technology.net/fr/projects/ad-proxy-ad-distribution-server/"
+        }
+      },
+      "evidenceLevel": "self-attested",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": true,
+        "hiringBrief": true,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "3B+ ads/mo",
+            "fr": "3Md+ pubs/mois"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "+20% ad revenue",
+            "fr": "+20% revenus publicitaires"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "+30% CTR",
+            "fr": "+30% taux de clic"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "~5% CPU",
+            "fr": "~5% CPU"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        }
+      ],
+      "stack": [
+        "ASP.NET 4",
+        "C#",
+        "Ad Serving",
+        "Targeting",
+        "Load Balancing"
+      ],
+      "links": []
+    },
+    {
+      "id": "proj-tmip-scheduler",
+      "name": {
+        "en": "TMIP Scheduler: Aerospace Data Orchestration",
+        "fr": "TMIP Scheduler: Orchestration de données aéronautiques"
+      },
+      "organization": {
+        "en": "Maser Engineering for Airbus",
+        "fr": "Maser Engineering pour Airbus"
+      },
+      "period": "2025 – present",
+      "summary": {
+        "en": "Central orchestration service for aerospace smart-cabinet operations, synchronizing Nexess cabinet servers, Google Workspace, Skywise datasets, and internal management tools while modernizing an undocumented, untyped legacy Python codebase into typed, observable, production-grade infrastructure for 16 Airbus assembly plants.",
+        "fr": "Service central d’orchestration pour les opérations aéronautiques d’armoires connectées, synchronisant les serveurs Nexess, Google Workspace, les datasets Skywise et les outils de gestion internes tout en modernisant une base Python legacy non documentée et non typée vers une infrastructure typée, observable et exploitable en production pour 16 usines d’assemblage Airbus."
+      },
+      "route": {
+        "slug": "tmip-scheduler-aerospace-data-orchestration",
+        "path": "/projects/tmip-scheduler-aerospace-data-orchestration/",
+        "title": {
+          "en": "TMIP Scheduler aerospace data orchestration | Robert Hoffmann",
+          "fr": "TMIP Scheduler orchestration de donnees aeronautiques | Robert Hoffmann"
+        },
+        "description": {
+          "en": "Aerospace smart-cabinet orchestration across Nexess servers, Google Workspace, Skywise datasets, internal tools, and typed observable Python infrastructure.",
+          "fr": "Orchestration aeronautique d armoires connectees entre serveurs Nexess, Google Workspace, datasets Skywise, outils internes et infrastructure Python typee et observable."
+        },
+        "proofAngle": {
+          "en": "Modernizing a legacy operational system into typed, observable production infrastructure.",
+          "fr": "Modernisation d un systeme operationnel legacy vers une infrastructure production typee et observable."
+        },
+        "schemaKind": "CreativeWork",
+        "canonicalUrl": "https://i-technology.net/en/projects/tmip-scheduler-aerospace-data-orchestration/",
+        "includeInSitemap": true,
+        "sitemapPriority": 0.72,
+        "changeFrequency": "yearly",
+        "canonicalUrls": {
+          "en": "https://i-technology.net/en/projects/tmip-scheduler-aerospace-data-orchestration/",
+          "fr": "https://i-technology.net/fr/projects/tmip-scheduler-aerospace-data-orchestration/"
+        }
+      },
+      "evidenceLevel": "private-client",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": true,
+        "hiringBrief": true,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "client-delivery"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "30K+ jobs/day",
+            "fr": "30K+ jobs/jour"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "3-100 calls/job",
+            "fr": "3-100 appels/job"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "16 plants",
+            "fr": "16 usines"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "~1,000 users",
+            "fr": "~1 000 utilisateurs"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        }
+      ],
+      "stack": [
+        "Python",
+        "FastAPI",
+        "aiohttp",
+        "Pydantic",
+        "glom",
+        "uv",
+        "Ruff",
+        "Pyright",
+        "Windows Server",
+        "Skywise",
+        "Google Workspace",
+        "VueJS"
+      ],
+      "links": []
+    },
+    {
+      "id": "proj-tmip-logger",
+      "name": {
+        "en": "TMIP Logger: QoS & KPI Observability",
+        "fr": "TMIP Logger: Observabilité QoS & KPI"
+      },
+      "organization": {
+        "en": "Maser Engineering for Airbus",
+        "fr": "Maser Engineering pour Airbus"
+      },
+      "period": "2025 – present",
+      "summary": {
+        "en": "Structured logging and observability layer for TMIP operations, turning raw job events into searchable SQLite records, a VueJS inspection UI, Skywise dashboard feeds, and automated alerts for error spikes, job health, and plant-level impact.",
+        "fr": "Couche de logging structuré et d’observabilité pour les opérations TMIP, transformant les événements bruts des jobs en enregistrements SQLite consultables, interface VueJS, flux dashboard Skywise et alertes automatisées sur les pics d’erreurs, la santé des jobs et l’impact par usine."
+      },
+      "route": {
+        "slug": "tmip-logger-observability",
+        "path": "/projects/tmip-logger-observability/",
+        "title": {
+          "en": "TMIP Logger observability and KPI platform | Robert Hoffmann",
+          "fr": "TMIP Logger plateforme observabilite et KPI | Robert Hoffmann"
+        },
+        "description": {
+          "en": "Structured logging and observability layer for TMIP operations, SQLite inspection, Vue UI, Skywise feeds, alerts, and plant-level diagnosis.",
+          "fr": "Couche de logging structure et d observabilite pour operations TMIP, inspection SQLite, UI Vue, flux Skywise, alertes et diagnostic par usine."
+        },
+        "proofAngle": {
+          "en": "Operational observability that turns raw job events into diagnosis, alerts, and KPI evidence.",
+          "fr": "Observabilite operationnelle transformant les evenements de jobs en diagnostic, alertes et preuves KPI."
+        },
+        "schemaKind": "CreativeWork",
+        "canonicalUrl": "https://i-technology.net/en/projects/tmip-logger-observability/",
+        "includeInSitemap": true,
+        "sitemapPriority": 0.72,
+        "changeFrequency": "yearly",
+        "canonicalUrls": {
+          "en": "https://i-technology.net/en/projects/tmip-logger-observability/",
+          "fr": "https://i-technology.net/fr/projects/tmip-logger-observability/"
+        }
+      },
+      "evidenceLevel": "private-client",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": true,
+        "hiringBrief": true,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "client-delivery"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "10x error reduction",
+            "fr": "10x moins d’erreurs"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "5x faster bug resolution",
+            "fr": "Résolution 5x plus rapide"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "5x job-volume scale-up",
+            "fr": "Volume de jobs multiplié par 5"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Nearly 300 scheduled jobs",
+            "fr": "Près de 300 jobs planifiés"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        }
+      ],
+      "stack": [
+        "Python",
+        "VueJS",
+        "SQLite",
+        "CSV",
+        "Skywise",
+        "Structured Logging",
+        "REST API"
+      ],
+      "links": []
+    },
+    {
+      "id": "proj-uncle-bob",
+      "name": {
+        "en": "Uncle Bob: Agentic AI Workflow System",
+        "fr": "Uncle Bob: Système de workflow IA agentique"
+      },
+      "organization": {
+        "en": "Independent",
+        "fr": "Indépendant"
+      },
+      "period": "2026 – present",
+      "summary": {
+        "en": "Portable skill system for AI coding agents, structured as a human-owned delivery model for quality, workflow, governance, authoring, and specialist implementation guidance. It turns Agile, Scrum, Kanban, Shape Up, and AI-evaluation ideas into practical controls: lane selection, durable artifacts, WIP limits, readiness gates, bounded exceptions, evidence routing, docs synchronization, and deterministic validation scripts.",
+        "fr": "Système de skills portable pour agents de code IA, structuré comme un modèle de livraison contrôlé humainement pour qualité, workflow, gouvernance, authoring et guidage spécialiste d’implémentation. Il transforme Agile, Scrum, Kanban, Shape Up et les pratiques d’évaluation IA en contrôles concrets : choix de lane, artefacts durables, limites WIP, gates de readiness, exceptions bornées, routage d’évidence, synchronisation documentaire et scripts de validation déterministes."
+      },
+      "route": {
+        "slug": "uncle-bob-agentic-ai-workflow-system",
+        "path": "/projects/uncle-bob-agentic-ai-workflow-system/",
+        "title": {
+          "en": "Uncle Bob agentic AI workflow system | Robert Hoffmann",
+          "fr": "Uncle Bob systeme de workflow IA agentique | Robert Hoffmann"
+        },
+        "description": {
+          "en": "Portable skill system for AI coding agents with quality, workflow, governance, authoring, evidence routing, docs sync, and deterministic validation controls.",
+          "fr": "Systeme de skills portable pour agents de code IA avec qualite, workflow, gouvernance, authoring, routage evidence, sync docs et validation deterministe."
+        },
+        "proofAngle": {
+          "en": "Human-owned AI delivery controls packaged as portable agent skills.",
+          "fr": "Controles de livraison IA sous responsabilite humaine, packages en skills agents portables."
+        },
+        "schemaKind": "SoftwareSourceCode",
+        "canonicalUrl": "https://i-technology.net/en/projects/uncle-bob-agentic-ai-workflow-system/",
+        "includeInSitemap": true,
+        "sitemapPriority": 0.72,
+        "changeFrequency": "yearly",
+        "canonicalUrls": {
+          "en": "https://i-technology.net/en/projects/uncle-bob-agentic-ai-workflow-system/",
+          "fr": "https://i-technology.net/fr/projects/uncle-bob-agentic-ai-workflow-system/"
+        }
+      },
+      "evidenceLevel": "public",
+      "confidence": "high",
+      "schemaKind": "SoftwareSourceCode",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": true,
+        "hiringBrief": true,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence",
+        "uncle-bob-docs",
+        "uncle-bob-github"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "11 portable AI skills",
+            "fr": "11 skills IA portables"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "uncle-bob-docs",
+            "uncle-bob-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Workflow + governance gates",
+            "fr": "Gates workflow + gouvernance"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "uncle-bob-docs",
+            "uncle-bob-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Docs-sync validation",
+            "fr": "Validation sync docs"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "uncle-bob-docs",
+            "uncle-bob-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Production aerospace use",
+            "fr": "Usage production aéronautique"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        }
+      ],
+      "stack": [
+        "Agent Skills",
+        "GitHub Copilot",
+        "Codex",
+        "Claude Code",
+        "VitePress",
+        "Python",
+        "uv",
+        "Ruff",
+        "Taskfile",
+        "GitHub Actions",
+        "Mermaid",
+        "Markdown",
+        "AI-Directed Delivery"
+      ],
+      "links": [
+        {
+          "label": "Docs",
+          "href": "https://robert-hoffmann.github.io/uncle-bob/"
+        },
+        {
+          "label": "GitHub",
+          "href": "https://github.com/robert-hoffmann/uncle-bob"
+        }
+      ]
+    },
+    {
+      "id": "proj-desktop-portfolio",
+      "name": {
+        "en": "i-technology.net: AI-Directed Desktop Portfolio",
+        "fr": "i-technology.net: Portfolio desktop piloté par IA"
+      },
+      "organization": {
+        "en": "Independent",
+        "fr": "Indépendant"
+      },
+      "period": "2026 – present",
+      "summary": {
+        "en": "Recruiter-facing portfolio and AI-directed delivery case study that turns a resume into an interactive desktop product. Product direction, architecture, acceptance criteria, review, tests, documentation sync, and quality gates stayed human-owned while agents provided implementation throughput across the macOS-style shell, typed app registry, window manager, async-loaded mini apps, bilingual content, mobile shell, prerendered SEO, structured metadata, and measured Google PageSpeed scores.",
+        "fr": "Portfolio orienté recruteurs et cas d’étude de livraison pilotée par IA transformant un CV en produit interactif style desktop. Direction produit, architecture, critères d’acceptation, revue, tests, synchronisation documentaire et quality gates restaient contrôlés humainement pendant que les agents apportaient du débit d’implémentation sur le shell style macOS, le registre d’apps typé, le gestionnaire de fenêtres, les mini-apps async, le contenu bilingue, le shell mobile, le SEO prérendu, les données structurées et les scores Google PageSpeed mesurés."
+      },
+      "route": {
+        "slug": "i-technology-desktop-portfolio",
+        "path": "/projects/i-technology-desktop-portfolio/",
+        "title": {
+          "en": "i-technology.net desktop portfolio case study | Robert Hoffmann",
+          "fr": "i-technology.net portfolio desktop case study | Robert Hoffmann"
+        },
+        "description": {
+          "en": "AI-directed desktop portfolio with Vue, TypeScript, mobile shell, prerendered SEO, structured metadata, generated assets, and measured PageSpeed scores.",
+          "fr": "Portfolio desktop pilote par IA avec Vue, TypeScript, shell mobile, SEO prerendu, donnees structurees, assets generes et scores PageSpeed mesures."
+        },
+        "proofAngle": {
+          "en": "A resume turned into a product surface with human-owned AI-directed delivery.",
+          "fr": "Un CV transforme en surface produit par livraison IA controlee humainement."
+        },
+        "schemaKind": "WebPage",
+        "canonicalUrl": "https://i-technology.net/en/projects/i-technology-desktop-portfolio/",
+        "includeInSitemap": true,
+        "sitemapPriority": 0.72,
+        "changeFrequency": "yearly",
+        "canonicalUrls": {
+          "en": "https://i-technology.net/en/projects/i-technology-desktop-portfolio/",
+          "fr": "https://i-technology.net/fr/projects/i-technology-desktop-portfolio/"
+        }
+      },
+      "evidenceLevel": "public",
+      "confidence": "high",
+      "schemaKind": "WebPage",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": true,
+        "hiringBrief": true,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence",
+        "portfolio-live",
+        "pagespeed-mobile",
+        "pagespeed-desktop"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "AI-directed case study",
+            "fr": "Cas de livraison pilotée par IA"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "portfolio-live",
+            "pagespeed-mobile",
+            "pagespeed-desktop"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Desktop + mobile UX",
+            "fr": "UX desktop + mobile"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "portfolio-live",
+            "pagespeed-mobile",
+            "pagespeed-desktop"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Google PageSpeed 100/99",
+            "fr": "Google PageSpeed 100/99"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "portfolio-live",
+            "pagespeed-mobile",
+            "pagespeed-desktop"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "100 Accessibility + SEO",
+            "fr": "100 Accessibilité + SEO"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "portfolio-live",
+            "pagespeed-mobile",
+            "pagespeed-desktop"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        }
+      ],
+      "stack": [
+        "VueJS",
+        "TypeScript",
+        "Vite",
+        "Tailwind CSS",
+        "Three.js",
+        "vite-prerender-plugin",
+        "Sharp",
+        "AI-Directed Delivery"
+      ],
+      "links": [
+        {
+          "label": "Live site",
+          "href": "https://i-technology.net/"
+        },
+        {
+          "label": "Mobile PageSpeed",
+          "href": "https://pagespeed.web.dev/analysis/https-i-technology-net/vahahakfk6?form_factor=mobile"
+        },
+        {
+          "label": "Desktop PageSpeed",
+          "href": "https://pagespeed.web.dev/analysis/https-i-technology-net/vahahakfk6?form_factor=desktop"
+        }
+      ]
+    },
+    {
+      "id": "proj-parallax-designer",
+      "name": {
+        "en": "Parallax Designer: AI-Directed Visual Builder",
+        "fr": "Parallax Designer: Builder visuel piloté par IA"
+      },
+      "organization": {
+        "en": "Independent",
+        "fr": "Indépendant"
+      },
+      "period": "2026 – present",
+      "summary": {
+        "en": "Browser-based visual editor for designing multi-layer parallax scenes like the portfolio background system. It provides real-time preview, layer geometry and motion controls, local asset storage, presets, schema validation, standalone runtime HTML export, and an AI-directed documentation pipeline syncing app, user, and API docs into a VitePress site.",
+        "fr": "Éditeur visuel navigateur pour concevoir des scènes parallax multi-couches comme le système de fond du portfolio. Il propose preview temps réel, contrôles géométrie et mouvement par couche, stockage local d’assets, presets, validation de schéma, export HTML runtime autonome et pipeline documentaire piloté par IA synchronisant app, docs utilisateur et API vers un site VitePress."
+      },
+      "route": {
+        "slug": "parallax-designer",
+        "path": "/projects/parallax-designer/",
+        "title": {
+          "en": "Parallax Designer visual builder | Robert Hoffmann",
+          "fr": "Parallax Designer builder visuel | Robert Hoffmann"
+        },
+        "description": {
+          "en": "Browser-based parallax scene editor with real-time preview, layer controls, local asset storage, runtime HTML export, schema validation, and VitePress docs.",
+          "fr": "Editeur navigateur de scenes parallax avec preview temps reel, controles de couches, assets locaux, export HTML runtime, validation schema et docs VitePress."
+        },
+        "proofAngle": {
+          "en": "A practical visual tooling product for designing and exporting layered web scenes.",
+          "fr": "Un outil visuel concret pour concevoir et exporter des scenes web multicouches."
+        },
+        "schemaKind": "SoftwareSourceCode",
+        "canonicalUrl": "https://i-technology.net/en/projects/parallax-designer/",
+        "includeInSitemap": true,
+        "sitemapPriority": 0.72,
+        "changeFrequency": "yearly",
+        "canonicalUrls": {
+          "en": "https://i-technology.net/en/projects/parallax-designer/",
+          "fr": "https://i-technology.net/fr/projects/parallax-designer/"
+        }
+      },
+      "evidenceLevel": "public",
+      "confidence": "high",
+      "schemaKind": "SoftwareSourceCode",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": true,
+        "hiringBrief": true,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence",
+        "parallax-live",
+        "parallax-docs",
+        "parallax-github"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "AI-directed build",
+            "fr": "Build piloté par IA"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "parallax-live",
+            "parallax-docs",
+            "parallax-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Real-time parallax editor",
+            "fr": "Éditeur parallax temps réel"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "parallax-live",
+            "parallax-docs",
+            "parallax-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Standalone HTML export",
+            "fr": "Export HTML autonome"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "parallax-live",
+            "parallax-docs",
+            "parallax-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Automated VitePress docs",
+            "fr": "Docs VitePress automatisées"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "parallax-live",
+            "parallax-docs",
+            "parallax-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        }
+      ],
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "Vite",
+        "Tailwind CSS v4",
+        "Dexie",
+        "IndexedDB",
+        "SortableJS",
+        "Vitest",
+        "Playwright",
+        "VitePress",
+        "GitHub Actions",
+        "AI-Directed Delivery"
+      ],
+      "links": [
+        {
+          "label": "Live app",
+          "href": "https://robert-hoffmann.github.io/parallax-designer/"
+        },
+        {
+          "label": "Docs",
+          "href": "https://robert-hoffmann.github.io/parallax-designer/docs/"
+        },
+        {
+          "label": "GitHub",
+          "href": "https://github.com/robert-hoffmann/parallax-designer"
+        }
+      ]
+    },
+    {
+      "id": "proj-hutchinson-work-instructions",
+      "name": {
+        "en": "Hutchinson: Digital Work Instructions",
+        "fr": "Hutchinson: Instructions de travail digitales"
+      },
+      "organization": {
+        "en": "Maser Engineering for Hutchinson",
+        "fr": "Maser Engineering pour Hutchinson"
+      },
+      "period": "2022 – 2023",
+      "summary": {
+        "en": "Tablet work-instruction platform for transferring composite-manufacturing know-how between factories. Operators used it with safety gloves at the workstation, with offline access to PDF plans, MP4 videos, annotated images, schemas, PPE checks, materials, tools, and step-by-step assembly guidance.",
+        "fr": "Plateforme tablette d’instructions de travail pour transférer le savoir-faire de fabrication composite entre usines. Les opérateurs l’utilisaient avec des gants de sécurité au poste, avec accès hors ligne aux plans PDF, vidéos MP4, images annotées, schémas, contrôles EPI, matériaux, outils et guidage d’assemblage étape par étape."
+      },
+      "evidenceLevel": "private-client",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "client-delivery"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "512 parts",
+            "fr": "512 pièces"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "10,202 assembly steps",
+            "fr": "10 202 étapes d’assemblage"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Offline tablet app",
+            "fr": "Application tablette hors ligne"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "10 Airtable contributors",
+            "fr": "10 contributeurs Airtable"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        }
+      ],
+      "stack": [
+        "Quasar",
+        "VueJS",
+        "Airtable",
+        "MySQL",
+        "C#",
+        "PHP",
+        "Offline UX"
+      ],
+      "links": []
+    },
+    {
+      "id": "proj-sbm-compliance",
+      "name": {
+        "en": "SBM / Teréga: Onboarding & Certification Tracking",
+        "fr": "SBM / Teréga: Suivi onboarding & certifications"
+      },
+      "organization": {
+        "en": "Maser Engineering for SBM Company and Teréga",
+        "fr": "Maser Engineering pour SBM Company et Teréga"
+      },
+      "period": "2025",
+      "summary": {
+        "en": "Compliance onboarding platform for high-risk work sites, combining SCORM training, document collection, certification expiry tracking, subcontractor delegation, and gate-access verification so site guards can confirm whether a worker is cleared before entry. A white-label Teréga version reused the onboarding and certification core with document management and advanced role delegation disabled.",
+        "fr": "Plateforme d’onboarding conformité pour sites à risque, combinant formations SCORM, collecte documentaire, suivi d’expiration des certifications, délégation aux sous-traitants et contrôle d’accès afin que les gardiens vérifient les habilitations avant l’entrée sur site. Une version marque blanche Teréga réutilisait le coeur onboarding et certification avec gestion documentaire et délégation de rôles avancée désactivées."
+      },
+      "evidenceLevel": "private-client",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "client-delivery"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "SBM: 117 companies",
+            "fr": "SBM : 117 entreprises"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "SBM: 595 users",
+            "fr": "SBM : 595 utilisateurs"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Teréga: 2,303 users",
+            "fr": "Teréga : 2 303 utilisateurs"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "SBM: 219 documents",
+            "fr": "SBM : 219 documents"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Expiry automation",
+            "fr": "Automatisation des expirations"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "White-label variant",
+            "fr": "Version marque blanche"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        }
+      ],
+      "stack": [
+        "PHP",
+        "Symfony",
+        "Live Components",
+        "Bootstrap",
+        "MariaDB",
+        "SCORM"
+      ],
+      "links": [
+        {
+          "label": "SBM Company",
+          "href": "https://sbm-company.com/"
+        },
+        {
+          "label": "Teréga",
+          "href": "https://www.terega.fr/en/"
+        }
+      ]
+    },
+    {
+      "id": "proj-headjs",
+      "name": {
+        "en": "HeadJS: Open-Source JS Library",
+        "fr": "HeadJS: Bibliothèque JS open source"
+      },
+      "organization": {
+        "en": "Open Source / Index Multimedia",
+        "fr": "Open source / Index Multimedia"
+      },
+      "period": "2011 – 2014",
+      "summary": {
+        "en": "Main maintainer of a popular JavaScript library for non-blocking script loading, resource management, responsive helpers, browser detection, feature detection, HTML5 enabling, and Modernizr-style shim support during the IE6+ and mobile-web era.",
+        "fr": "Mainteneur principal d’une bibliothèque JavaScript populaire pour chargement de scripts non bloquant, gestion de ressources, helpers responsive, détection navigateur, détection de fonctionnalités, activation HTML5 et support de shims type Modernizr à l’époque IE6+ et web mobile."
+      },
+      "route": {
+        "slug": "headjs",
+        "path": "/projects/headjs/",
+        "title": {
+          "en": "HeadJS open-source JavaScript library | Robert Hoffmann",
+          "fr": "HeadJS bibliotheque JavaScript open source | Robert Hoffmann"
+        },
+        "description": {
+          "en": "Open-source JavaScript library for non-blocking script loading, resource management, responsive helpers, feature detection, HTML5 enabling, and shims.",
+          "fr": "Bibliotheque JavaScript open source pour chargement non bloquant, gestion de ressources, helpers responsive, detection de fonctionnalites, HTML5 et shims."
+        },
+        "proofAngle": {
+          "en": "Public open-source maintenance of a widely used JavaScript loading and feature-detection library.",
+          "fr": "Maintenance open source publique d une bibliotheque JavaScript de chargement et detection largement utilisee."
+        },
+        "schemaKind": "SoftwareSourceCode",
+        "canonicalUrl": "https://i-technology.net/en/projects/headjs/",
+        "includeInSitemap": true,
+        "sitemapPriority": 0.72,
+        "changeFrequency": "yearly",
+        "canonicalUrls": {
+          "en": "https://i-technology.net/en/projects/headjs/",
+          "fr": "https://i-technology.net/fr/projects/headjs/"
+        }
+      },
+      "evidenceLevel": "public",
+      "confidence": "high",
+      "schemaKind": "SoftwareSourceCode",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": true,
+        "hiringBrief": true,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence",
+        "headjs-docs",
+        "headjs-github"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "Main maintainer",
+            "fr": "Mainteneur principal"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "headjs-docs",
+            "headjs-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "4K+ GitHub stars",
+            "fr": "4K+ étoiles GitHub"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "headjs-docs",
+            "headjs-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "400+ forks",
+            "fr": "400+ forks"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "headjs-docs",
+            "headjs-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Script loader + feature detection",
+            "fr": "Loader JS + feature detection"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "headjs-docs",
+            "headjs-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        }
+      ],
+      "stack": [
+        "JavaScript"
+      ],
+      "links": [
+        {
+          "label": "Docs",
+          "href": "https://headjs.github.io/"
+        },
+        {
+          "label": "GitHub",
+          "href": "https://github.com/headjs/headjs"
+        }
+      ]
+    },
+    {
+      "id": "proj-t4resx",
+      "name": {
+        "en": "T4ResX: Localization Tooling",
+        "fr": "T4ResX: Outillage de localisation"
+      },
+      "organization": {
+        "en": "Index Multimedia",
+        "fr": "Index Multimedia"
+      },
+      "period": "2012 – 2014",
+      "summary": {
+        "en": "Open-source Visual Studio T4 tooling distributed through NuGet and the Visual Studio Marketplace, transforming RESX files into strongly typed resource accessors for websites, class libraries, ViewModels, localized JavaScript exports, database-backed translations, and RESX-to-Excel translator workflows.",
+        "fr": "Outillage T4 Visual Studio open source distribué via NuGet et Visual Studio Marketplace, transformant les fichiers RESX en accesseurs de ressources fortement typés pour sites web, bibliothèques de classes, ViewModels, exports JavaScript localisés, traductions en base et workflows RESX-vers-Excel pour traducteurs."
+      },
+      "evidenceLevel": "public",
+      "confidence": "high",
+      "schemaKind": "SoftwareSourceCode",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence",
+        "t4resx-nuget",
+        "t4resx-marketplace",
+        "t4resx-github"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "14.5K NuGet downloads",
+            "fr": "14.5K téléchargements NuGet"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "t4resx-nuget",
+            "t4resx-marketplace",
+            "t4resx-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "2.3K VS Marketplace installs",
+            "fr": "2.3K installations VS Marketplace"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "t4resx-nuget",
+            "t4resx-marketplace",
+            "t4resx-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Strongly typed resources",
+            "fr": "Ressources fortement typées"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "t4resx-nuget",
+            "t4resx-marketplace",
+            "t4resx-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Localized JavaScript export",
+            "fr": "Export JavaScript localisé"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "t4resx-nuget",
+            "t4resx-marketplace",
+            "t4resx-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        }
+      ],
+      "stack": [
+        "C#",
+        "T4",
+        "Visual Studio",
+        "RESX"
+      ],
+      "links": [
+        {
+          "label": "NuGet",
+          "href": "https://www.nuget.org/packages/T4ResX"
+        },
+        {
+          "label": "VS Marketplace",
+          "href": "https://marketplace.visualstudio.com/items?itemName=RobertHoffmann.T4ResX"
+        },
+        {
+          "label": "GitHub",
+          "href": "https://github.com/itechnology/T4ResX"
+        }
+      ]
+    },
+    {
+      "id": "proj-findunused",
+      "name": {
+        "en": "FindUnusedFiles: Visual Studio Extension",
+        "fr": "FindUnusedFiles: Extension Visual Studio"
+      },
+      "organization": {
+        "en": "Index Multimedia",
+        "fr": "Index Multimedia"
+      },
+      "period": "2013 – 2015",
+      "summary": {
+        "en": "Visual Studio add-in and standalone developer tool that scanned VS solutions and website projects to surface unused images, scripts, stylesheets, and other resources, reducing dead assets in large web applications.",
+        "fr": "Add-in Visual Studio et outil développeur autonome analysant les solutions VS et projets web pour identifier images, scripts, feuilles de style et autres ressources inutilisées, réduisant les assets morts dans de grandes applications web."
+      },
+      "evidenceLevel": "public",
+      "confidence": "high",
+      "schemaKind": "SoftwareSourceCode",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence",
+        "findunused-marketplace"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "15K+ VS Marketplace installs",
+            "fr": "15K+ installations VS Marketplace"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "findunused-marketplace"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Solution and website scans",
+            "fr": "Scan solutions et sites web"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "findunused-marketplace"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Unused asset detection",
+            "fr": "Détection d’assets inutilisés"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "findunused-marketplace"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        }
+      ],
+      "stack": [
+        "C#",
+        "Visual Studio SDK",
+        ".NET"
+      ],
+      "links": [
+        {
+          "label": "Marketplace",
+          "href": "https://marketplace.visualstudio.com/items?itemName=RobertHoffmann.FindUnusedFiles"
+        }
+      ]
+    },
+    {
+      "id": "proj-wind-maintenance",
+      "name": {
+        "en": "Wind Turbine Maintenance Operations Platform",
+        "fr": "Plateforme d’opérations de maintenance éolienne"
+      },
+      "organization": {
+        "en": "Maser Engineering",
+        "fr": "Maser Engineering"
+      },
+      "period": "2022 – 2024",
+      "summary": {
+        "en": "Production maintenance operations platform for Maser Engineering’s renewable-energy field teams, combining a Symfony planning back office with an offline-capable Quasar companion app. Managers planned multi-team interventions across 10-20 wind parks and hundreds of turbines; field engineers downloaded site and job documents, captured checklists, photos, signatures, timestamps, work reports, machine status, and downtime, used Google Maps directions, and synced queued updates when connectivity returned.",
+        "fr": "Plateforme d’opérations de maintenance en production pour les équipes terrain énergie renouvelable de Maser Engineering, combinant back-office Symfony de planification et application compagnon Quasar utilisable hors ligne. Les managers planifiaient des interventions multi-équipes sur 10-20 parcs éoliens et des centaines d’éoliennes ; les techniciens téléchargeaient les documents site et job, saisissaient checklists, photos, signatures, horodatages, rapports de travaux, directions Google Maps, statut machine, temps d’arrêt et synchronisation en file d’attente au retour réseau."
+      },
+      "evidenceLevel": "private-client",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "client-delivery"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "Hundreds of turbines",
+            "fr": "Des centaines d’éoliennes"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "10-20 wind parks",
+            "fr": "10-20 parcs éoliens"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "20-30 field engineers",
+            "fr": "20-30 techniciens terrain"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Offline Dexie sync",
+            "fr": "Sync hors ligne Dexie"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        }
+      ],
+      "stack": [
+        "Symfony",
+        "Live Components",
+        "Bootstrap",
+        "MariaDB",
+        "REST API",
+        "Quasar",
+        "VueJS",
+        "Dexie",
+        "IndexedDB",
+        "Google Maps",
+        "PDF"
+      ],
+      "links": [
+        {
+          "label": "Maser Engineering: Pole Maintenance",
+          "href": "https://maser-engineering.com/specialite-maintenance/"
+        }
+      ]
+    },
+    {
+      "id": "proj-attendance-billing",
+      "name": {
+        "en": "Student Attendance & Invoicing System",
+        "fr": "Application de pointage & facturation"
+      },
+      "organization": {
+        "en": "Maser Engineering",
+        "fr": "Maser Engineering"
+      },
+      "period": "2023",
+      "summary": {
+        "en": "Digital attendance and billing workflow for an aerospace training center. Teachers collected student signatures digitally; HR used the back office to track presence, absences, hours, client associations, attendance PDFs, billing CSVs, and automatic invoicing data for companies sending students.",
+        "fr": "Workflow digital de pointage et facturation pour un centre de formation aéronautique. Les formateurs collectaient les signatures des stagiaires numériquement ; les RH suivaient présence, absences, heures, associations client, PDF d’émargement, exports CSV de facturation et données de facturation automatique pour les entreprises clientes."
+      },
+      "evidenceLevel": "private-client",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "client-delivery"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "Hundreds of students/year",
+            "fr": "Plusieurs centaines de stagiaires/an"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Paper attendance replaced",
+            "fr": "Pointage papier remplacé"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Attendance PDFs",
+            "fr": "PDF d’émargement"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Automated billing exports",
+            "fr": "Exports de facturation automatisés"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        }
+      ],
+      "stack": [
+        "VueJS",
+        "Symfony",
+        "Live Components",
+        "Bootstrap",
+        "MariaDB",
+        "PDF",
+        "CSV"
+      ],
+      "links": [
+        {
+          "label": "Maser Engineering: Pole Conseil",
+          "href": "https://maser-engineering.com/pole-conseil/"
+        }
+      ]
+    },
+    {
+      "id": "proj-maser-academy-inventory",
+      "name": {
+        "en": "Maser Academy: Course Inventory Planning",
+        "fr": "Maser Academy: Planification d’inventaire formation"
+      },
+      "organization": {
+        "en": "Maser Engineering for Maser Academy",
+        "fr": "Maser Engineering pour Maser Academy"
+      },
+      "period": "2025",
+      "summary": {
+        "en": "Airtable-based inventory planning system for Maser Academy training centers. Managers select an upcoming course session, training center, student group, and exercises; the system aggregates required supplies across 76 practical exercises, 532 supply types, and 5 suppliers into a purchasing list with references, prices, totals, automations, and CSV export for the buying department.",
+        "fr": "Système Airtable de planification d’inventaire pour les centres de formation Maser Academy. Les managers sélectionnent une session à venir, un centre, un groupe de stagiaires et les travaux pratiques prévus ; le système agrège les fournitures nécessaires sur 76 travaux pratiques, 532 types de fournitures et 5 fournisseurs en liste d’achat avec références, prix, totaux, automatisations et export CSV pour le service achats."
+      },
+      "evidenceLevel": "private-client",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "client-delivery"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "76 practical exercises",
+            "fr": "76 travaux pratiques"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "532 supply types",
+            "fr": "532 types de fournitures"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "5 suppliers",
+            "fr": "5 fournisseurs"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Automatic purchase lists",
+            "fr": "Listes d’achat automatiques"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "CSV purchasing export",
+            "fr": "Export CSV achats"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        }
+      ],
+      "stack": [
+        "Airtable",
+        "Airtable Automations",
+        "Linked Records",
+        "Formulas",
+        "CSV",
+        "Inventory Modeling"
+      ],
+      "links": [
+        {
+          "label": "Maser Academy",
+          "href": "https://www.maser-academy.com/"
+        }
+      ]
+    },
+    {
+      "id": "proj-roland-garros-navigation",
+      "name": {
+        "en": "Roland-Garros: Staff Navigation PWA",
+        "fr": "Roland-Garros: PWA de guidage du personnel"
+      },
+      "organization": {
+        "en": "Maser Engineering for CRIT / Roland-Garros",
+        "fr": "Maser Engineering pour CRIT / Roland-Garros"
+      },
+      "period": "2022",
+      "summary": {
+        "en": "Navigation PWA for temporary staff working at Roland-Garros, guiding people across venue halls, corridors, workspaces, and access paths with manual step plans, road and hallway photos, mini-maps, directional arrows, and Chrome text-to-speech instructions.",
+        "fr": "PWA de navigation pour les intérimaires travaillant à Roland-Garros, guidant les personnes dans les halls, couloirs, espaces de travail et chemins d’accès via plans manuels, photos de routes et couloirs, mini-cartes, flèches directionnelles et instructions vocales Chrome TTS."
+      },
+      "evidenceLevel": "private-client",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "client-delivery"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "PWA for temporary staff",
+            "fr": "PWA pour intérimaires"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Step-by-step visual routing",
+            "fr": "Guidage visuel étape par étape"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Chrome TTS directions",
+            "fr": "Instructions vocales Chrome TTS"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        },
+        {
+          "label": {
+            "en": "Live Airtable updates",
+            "fr": "Mises à jour Airtable live"
+          },
+          "evidenceLevel": "private-client",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "client-delivery"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.",
+            "fr": "Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite."
+          }
+        }
+      ],
+      "stack": [
+        "Vanilla JavaScript",
+        "HTML5",
+        "CSS3",
+        "PWA",
+        "Chrome TTS",
+        "Airtable"
+      ],
+      "links": []
+    },
+    {
+      "id": "proj-public-health-analytics",
+      "name": {
+        "en": "Public Health Analytics Dashboards",
+        "fr": "Dashboards d’analyse santé publique"
+      },
+      "organization": {
+        "en": "Independent",
+        "fr": "Indépendant"
+      },
+      "period": "2021 – present",
+      "summary": {
+        "en": "Public Power BI dashboards consuming French public-health open data, including DREES vaccination datasets and COVID-19 indicators published as a data.gouv.fr reuse. Built comparative views by vaccination status, age, date range, hospitalization, ICU occupancy, deaths, positivity, tests, and demographic breakdowns.",
+        "fr": "Dashboards Power BI publics consommant des données ouvertes françaises de santé publique, dont les datasets DREES vaccination et indicateurs COVID-19 publiés comme réutilisation data.gouv.fr. Vues comparatives par statut vaccinal, âge, période, hospitalisations, réanimation, décès, positivité, tests et ventilations démographiques."
+      },
+      "evidenceLevel": "public",
+      "confidence": "medium",
+      "schemaKind": "SoftwareSourceCode",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence",
+        "public-health-data-gouv"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "8K data.gouv views",
+            "fr": "8K vues data.gouv"
+          },
+          "evidenceLevel": "public",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "public-health-data-gouv"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "DREES + COVID indicators",
+            "fr": "Indicateurs DREES + COVID"
+          },
+          "evidenceLevel": "public",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "public-health-data-gouv"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Vaccination-status analysis",
+            "fr": "Analyse par statut vaccinal"
+          },
+          "evidenceLevel": "public",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "public-health-data-gouv"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Power BI public reports",
+            "fr": "Rapports Power BI publics"
+          },
+          "evidenceLevel": "public",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "public-health-data-gouv"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        }
+      ],
+      "stack": [
+        "Power BI"
+      ],
+      "links": [
+        {
+          "label": "Stats COVID",
+          "href": "https://www.data.gouv.fr/reuses/stats-covid-france"
+        },
+        {
+          "label": "Stats DREES",
+          "href": "https://app.powerbi.com/view?r=eyJrIjoiYWRlZjQ5ZjAtZjllYy00OGNmLWI3NDctMzdkM2Y3YzkxMjUyIiwidCI6ImUxNTkwMzRhLTc5ODQtNDQ2ZS1iODM0LWUxZTM3ZDE2NzY3OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "proj-healthmon",
+      "name": {
+        "en": "HealthMonitoring: Error Tracking",
+        "fr": "HealthMonitoring: Suivi d’erreurs"
+      },
+      "organization": {
+        "en": "Index Multimedia",
+        "fr": "Index Multimedia"
+      },
+      "period": "2006 – 2013",
+      "summary": {
+        "en": "Aggregated error-tracking back office built on .NET HealthMonitoring. It tracked SQL, IIS, .NET, application, and client-side errors; grouped incidents by machine, exception, and message; and exposed drill-downs into stack traces, request context, and browser metadata.",
+        "fr": "Back-office de suivi d’erreurs agrégé basé sur .NET HealthMonitoring. Il suivait les erreurs SQL, IIS, .NET, applicatives et client ; regroupait les incidents par machine, exception et message ; et exposait stack traces, contexte requête et métadonnées navigateur."
+      },
+      "evidenceLevel": "self-attested",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "Days-to-minutes fixes",
+            "fr": "Résolution de jours à minutes"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "SQL/IIS/.NET/client errors",
+            "fr": "Erreurs SQL/IIS/.NET/client"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "Stack-trace back office",
+            "fr": "Back-office stack traces"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        }
+      ],
+      "stack": [
+        "ASP.NET",
+        ".NET Framework",
+        "HealthMonitoring"
+      ],
+      "links": []
+    },
+    {
+      "id": "proj-jsonr",
+      "name": {
+        "en": "JsonRaw: Lightweight JSON Protocol",
+        "fr": "JsonRaw: Protocole JSON léger"
+      },
+      "organization": {
+        "en": "Index Multimedia",
+        "fr": "Index Multimedia"
+      },
+      "period": "2012 – 2013",
+      "summary": {
+        "en": "Production lightweight JSON protocol used by the tchatche.com chat platform to reduce bandwidth on high-volume Ajax traffic. It removed repeated object keys from payloads and reconstructed data from implicit schemas or type hints, anticipating the same shape-aware compression idea now seen in LLM-oriented formats like TOON.",
+        "fr": "Protocole JSON léger utilisé en production par la plateforme de chat tchatche.com pour réduire la bande passante sur du trafic Ajax à fort volume. Il supprimait les clés d’objet répétées des payloads, puis reconstruisait les données via schémas implicites ou indices de type, anticipant la même idée de compression orientée structure que l’on retrouve aujourd’hui dans des formats pour LLM comme TOON."
+      },
+      "evidenceLevel": "public",
+      "confidence": "high",
+      "schemaKind": "SoftwareSourceCode",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence",
+        "jsonraw-github"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "Production chat traffic",
+            "fr": "Trafic chat en production"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "jsonraw-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "43-51% smaller payloads",
+            "fr": "Payloads réduits de 43-51%"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "jsonraw-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Schema-aware key elision",
+            "fr": "Élimination des clés par schéma"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "jsonraw-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "TOON-like idea in 2012",
+            "fr": "Idée proche de TOON en 2012"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "jsonraw-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        }
+      ],
+      "stack": [
+        "JavaScript",
+        "C#",
+        ".NET",
+        "JSON"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/itechnology/JsonRaw"
+        }
+      ]
+    },
+    {
+      "id": "proj-powertoys",
+      "name": {
+        "en": "PowerToys for OpenAI",
+        "fr": "PowerToys pour OpenAI"
+      },
+      "organization": {
+        "en": "Independent",
+        "fr": "Indépendant"
+      },
+      "period": "2023 – archived",
+      "summary": {
+        "en": "Archived Chrome and Edge extension built when early GPT interfaces were still limited. It added chat history, voice-to-text, custom profiles, and search-provider integration that injected a ChatGPT-style box directly into Google and other search result pages.",
+        "fr": "Extension Chrome et Edge archivée, créée lorsque les premières interfaces GPT restaient limitées. Elle ajoutait historique de chat, voix vers texte, profils personnalisés et intégration moteurs de recherche injectant une boîte type ChatGPT directement dans Google et d’autres pages de résultats."
+      },
+      "evidenceLevel": "self-attested",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "Chrome + Edge extension",
+            "fr": "Extension Chrome + Edge"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "Search-page GPT injection",
+            "fr": "Injection GPT dans les résultats"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "Voice-to-text",
+            "fr": "Voix vers texte"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "Custom prompt profiles",
+            "fr": "Profils de prompts personnalisés"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        }
+      ],
+      "stack": [
+        "Browser Extension",
+        "JavaScript",
+        "OpenAI API",
+        "Chrome",
+        "Edge"
+      ],
+      "links": []
+    },
+    {
+      "id": "proj-microcoil",
+      "name": {
+        "en": "MicroCoil Calculator: Web & Mobile",
+        "fr": "Calculateur MicroCoil: Web & mobile"
+      },
+      "organization": {
+        "en": "Independent",
+        "fr": "Indépendant"
+      },
+      "period": "2014 – present",
+      "summary": {
+        "en": "Community toolset for DIY vapers, combining a mobile app and mobile-first web app deployed across major French vaping e-commerce sites. It helped users calculate coil resistance and estimate liquid consumption while transitioning from smoking to vaping.",
+        "fr": "Outils communautaires pour vapoteurs DIY, combinant application mobile et application web mobile-first déployée sur de grands sites e-commerce français de vape. Ils aidaient à calculer la résistance de coils et estimer la consommation de liquide lors de la transition du tabac vers la vape."
+      },
+      "evidenceLevel": "self-attested",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "50K+ monthly active web users",
+            "fr": "50K+ utilisateurs web actifs/mois"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "10K+ Android installs",
+            "fr": "10K+ installations Android"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "Major French vape sites",
+            "fr": "Grands sites vape français"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        }
+      ],
+      "stack": [
+        "VueJS",
+        "Cordova",
+        "AngularJS",
+        "Bootstrap"
+      ],
+      "links": []
+    },
+    {
+      "id": "proj-webmonitor",
+      "name": {
+        "en": "Web-Monitor.NET",
+        "fr": "Web-Monitor.NET"
+      },
+      "organization": {
+        "en": "Independent",
+        "fr": "Indépendant"
+      },
+      "period": "2014 – 2015",
+      "summary": {
+        "en": "Full rewrite of the HealthMonitoring concept as a cloud-era testbed, integrating social SSO through LinkedIn, Google, Facebook, and Live, with hosting on Windows Azure, Azure SQL, and cloud messaging via Mandrill.",
+        "fr": "Réécriture complète du concept HealthMonitoring comme banc d’essai cloud, intégrant SSO social via LinkedIn, Google, Facebook et Live, avec hébergement Windows Azure, Azure SQL et messagerie cloud Mandrill."
+      },
+      "evidenceLevel": "self-attested",
+      "confidence": "medium",
+      "schemaKind": "CreativeWork",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "Cloud rewrite",
+            "fr": "Réécriture cloud"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "Multi-provider SSO",
+            "fr": "SSO multi-fournisseurs"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        },
+        {
+          "label": {
+            "en": "Azure-hosted",
+            "fr": "Hébergé sur Azure"
+          },
+          "evidenceLevel": "self-attested",
+          "confidence": "medium",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": true,
+          "qualifier": {
+            "en": "Self-attested career metric from portfolio source material; keep the approximate wording where shown.",
+            "fr": "Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée."
+          }
+        }
+      ],
+      "stack": [
+        "AngularJS",
+        "MVC5",
+        "Bootstrap",
+        "Azure",
+        "Azure SQL"
+      ],
+      "links": []
+    },
+    {
+      "id": "proj-phantomui",
+      "name": {
+        "en": "PhantomUI: Web-to-PDF Converter",
+        "fr": "PhantomUI: Convertisseur web vers PDF"
+      },
+      "organization": {
+        "en": "Independent",
+        "fr": "Indépendant"
+      },
+      "period": "2015 – present",
+      "summary": {
+        "en": "Desktop utility that converts local and remote web pages to PDF or image output, wrapping a modified and recompiled PhantomJS build with broad HTML5 and CSS3 rendering support.",
+        "fr": "Utilitaire desktop convertissant des pages web locales et distantes en PDF ou image, encapsulant un build PhantomJS modifié et recompilé avec un large support de rendu HTML5 et CSS3."
+      },
+      "evidenceLevel": "public",
+      "confidence": "high",
+      "schemaKind": "SoftwareSourceCode",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence",
+        "phantomui-github"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "Local/remote rendering",
+            "fr": "Rendu local/distant"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "phantomui-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "PDF and image output",
+            "fr": "Sortie PDF et image"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "phantomui-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "Modified PhantomJS build",
+            "fr": "Build PhantomJS modifié"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "phantomui-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        }
+      ],
+      "stack": [
+        "C#",
+        "WPF",
+        "PhantomJS"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/itechnology/PhantomUI"
+        }
+      ]
+    },
+    {
+      "id": "proj-mario",
+      "name": {
+        "en": "jQuery Mario: Nicky Larson POC",
+        "fr": "jQuery Mario: POC Nicky Larson"
+      },
+      "organization": {
+        "en": "Index Multimedia",
+        "fr": "Index Multimedia"
+      },
+      "period": "2011",
+      "summary": {
+        "en": "Lightweight browser-game proof of concept built to test whether a Flash game from the Nicky Larson franchise could be ported to the web with a jQuery-based implementation.",
+        "fr": "Preuve de concept de jeu navigateur léger pour tester le portage web d’un jeu Flash de la franchise Nicky Larson avec une implémentation basée sur jQuery."
+      },
+      "evidenceLevel": "public",
+      "confidence": "high",
+      "schemaKind": "SoftwareSourceCode",
+      "visibility": {
+        "homepage": true,
+        "projectIndex": true,
+        "projectPage": false,
+        "hiringBrief": false,
+        "llmsTxt": true,
+        "knowledgeJson": true
+      },
+      "sourceRefs": [
+        "portfolio-source",
+        "career-evidence",
+        "jquery-mario-demo",
+        "jquery-mario-github"
+      ],
+      "highlights": [
+        {
+          "label": {
+            "en": "Nicky Larson Flash port POC",
+            "fr": "POC portage Flash Nicky Larson"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "jquery-mario-demo",
+            "jquery-mario-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        },
+        {
+          "label": {
+            "en": "jQuery browser-game prototype",
+            "fr": "Prototype jeu navigateur jQuery"
+          },
+          "evidenceLevel": "public",
+          "confidence": "high",
+          "sourceRefs": [
+            "portfolio-source",
+            "career-evidence",
+            "jquery-mario-demo",
+            "jquery-mario-github"
+          ],
+          "schemaVisibility": "visible",
+          "requiresQualifier": false,
+          "lastVerified": "2026-06-13"
+        }
+      ],
+      "stack": [
+        "jQuery"
+      ],
+      "links": [
+        {
+          "label": "Demo",
+          "href": "https://itechnology.github.io/jQuery.Mario/#game"
+        },
+        {
+          "label": "GitHub",
+          "href": "https://github.com/itechnology/jQuery.Mario"
+        }
+      ]
+    }
+  ],
+  "sourceRefs": [
+    {
+      "id": "portfolio-source",
+      "label": "Typed portfolio project records",
+      "type": "internal-evidence"
+    },
+    {
+      "id": "cv-source",
+      "label": "Generated CV source data",
+      "type": "internal-evidence"
+    },
+    {
+      "id": "career-evidence",
+      "label": "Career and delivery evidence curated for this portfolio",
+      "type": "internal-evidence"
+    },
+    {
+      "id": "client-delivery",
+      "label": "Client delivery evidence from professional project records",
+      "type": "client-context"
+    },
+    {
+      "id": "portfolio-live",
+      "label": "i-technology.net live portfolio",
+      "type": "live-site",
+      "url": "https://i-technology.net/"
+    },
+    {
+      "id": "github-profile",
+      "label": "Robert Hoffmann GitHub profile",
+      "type": "profile",
+      "url": "https://github.com/robert-hoffmann"
+    },
+    {
+      "id": "linkedin-profile",
+      "label": "Robert Hoffmann LinkedIn profile",
+      "type": "profile",
+      "url": "https://www.linkedin.com/in/hoffmannrobert"
+    },
+    {
+      "id": "x-profile",
+      "label": "i-technology.net X profile",
+      "type": "profile",
+      "url": "https://x.com/itechnologynet"
+    },
+    {
+      "id": "scrum-profile",
+      "label": "Scrum.org certification profile",
+      "type": "profile",
+      "url": "https://www.scrum.org/user/614185"
+    },
+    {
+      "id": "pagespeed-mobile",
+      "label": "Google PageSpeed mobile result",
+      "type": "performance-report",
+      "url": "https://pagespeed.web.dev/analysis/https-i-technology-net/vahahakfk6?form_factor=mobile",
+      "lastChecked": "2026-06-13"
+    },
+    {
+      "id": "pagespeed-desktop",
+      "label": "Google PageSpeed desktop result",
+      "type": "performance-report",
+      "url": "https://pagespeed.web.dev/analysis/https-i-technology-net/vahahakfk6?form_factor=desktop",
+      "lastChecked": "2026-06-13"
+    },
+    {
+      "id": "uncle-bob-docs",
+      "label": "Uncle Bob documentation site",
+      "type": "site-docs",
+      "url": "https://robert-hoffmann.github.io/uncle-bob/"
+    },
+    {
+      "id": "uncle-bob-github",
+      "label": "Uncle Bob GitHub repository",
+      "type": "repository",
+      "url": "https://github.com/robert-hoffmann/uncle-bob"
+    },
+    {
+      "id": "parallax-live",
+      "label": "Parallax Designer live app",
+      "type": "live-site",
+      "url": "https://robert-hoffmann.github.io/parallax-designer/"
+    },
+    {
+      "id": "parallax-docs",
+      "label": "Parallax Designer documentation",
+      "type": "site-docs",
+      "url": "https://robert-hoffmann.github.io/parallax-designer/docs/"
+    },
+    {
+      "id": "parallax-github",
+      "label": "Parallax Designer GitHub repository",
+      "type": "repository",
+      "url": "https://github.com/robert-hoffmann/parallax-designer"
+    },
+    {
+      "id": "headjs-docs",
+      "label": "HeadJS documentation site",
+      "type": "site-docs",
+      "url": "https://headjs.github.io/",
+      "lastChecked": "2026-06-13"
+    },
+    {
+      "id": "headjs-github",
+      "label": "HeadJS GitHub repository",
+      "type": "repository",
+      "url": "https://github.com/headjs/headjs",
+      "lastChecked": "2026-06-13"
+    },
+    {
+      "id": "t4resx-nuget",
+      "label": "T4ResX NuGet package",
+      "type": "package-registry",
+      "url": "https://www.nuget.org/packages/T4ResX",
+      "lastChecked": "2026-06-13"
+    },
+    {
+      "id": "t4resx-marketplace",
+      "label": "T4ResX Visual Studio Marketplace listing",
+      "type": "marketplace",
+      "url": "https://marketplace.visualstudio.com/items?itemName=RobertHoffmann.T4ResX",
+      "lastChecked": "2026-06-13"
+    },
+    {
+      "id": "t4resx-github",
+      "label": "T4ResX GitHub repository",
+      "type": "repository",
+      "url": "https://github.com/itechnology/T4ResX"
+    },
+    {
+      "id": "findunused-marketplace",
+      "label": "FindUnusedFiles Visual Studio Marketplace listing",
+      "type": "marketplace",
+      "url": "https://marketplace.visualstudio.com/items?itemName=RobertHoffmann.FindUnusedFiles",
+      "lastChecked": "2026-06-13"
+    },
+    {
+      "id": "jsonraw-github",
+      "label": "JsonRaw GitHub repository",
+      "type": "repository",
+      "url": "https://github.com/itechnology/JsonRaw"
+    },
+    {
+      "id": "phantomui-github",
+      "label": "PhantomUI GitHub repository",
+      "type": "repository",
+      "url": "https://github.com/itechnology/PhantomUI"
+    },
+    {
+      "id": "jquery-mario-demo",
+      "label": "jQuery Mario demo",
+      "type": "live-site",
+      "url": "https://itechnology.github.io/jQuery.Mario/#game"
+    },
+    {
+      "id": "jquery-mario-github",
+      "label": "jQuery Mario GitHub repository",
+      "type": "repository",
+      "url": "https://github.com/itechnology/jQuery.Mario"
+    },
+    {
+      "id": "public-health-data-gouv",
+      "label": "Public health analytics data.gouv.fr reuse",
+      "type": "public-data",
+      "url": "https://www.data.gouv.fr/reuses/stats-covid-france",
+      "lastChecked": "2026-06-13"
+    }
+  ]
+}

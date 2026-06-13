@@ -1,5 +1,14 @@
 import type { Localized } from '../../types/desktop'
 import type { MessageCatalog } from '../interface'
+import type {
+  ClaimConfidence,
+  EvidenceLevel,
+  ProjectCanonicalMetadata,
+  ProjectHighlightPolicy,
+  ProjectVisibility,
+  RouteMetadata,
+  SchemaKind,
+} from '../portfolio/types'
 
 // #region Messages
 export const projectsMessages = {
@@ -1331,8 +1340,345 @@ const projectRecords = [
   },
 ] as const
 
-export type Project = (typeof projectRecords)[number]
-export type ProjectId = Project['id']
+type RawProject = (typeof projectRecords)[number]
+export type ProjectId = RawProject['id']
+
+const siteUrl = 'https://i-technology.net'
+
+const defaultVisibility = {
+  homepage      : true,
+  projectIndex  : true,
+  projectPage   : false,
+  hiringBrief   : false,
+  llmsTxt       : true,
+  knowledgeJson : true,
+} satisfies ProjectVisibility
+
+const routeVisibility = {
+  ...defaultVisibility,
+  projectPage : true,
+  hiringBrief : true,
+} satisfies ProjectVisibility
+
+const privateClaimQualifier = {
+  en :
+    'Client or internal delivery claim; keep the employer/client context and avoid implying client endorsement.',
+  fr :
+    'Preuve de livraison client ou interne ; conserver le contexte employeur/client et éviter toute approbation implicite.',
+} satisfies Localized
+
+const selfAttestedQualifier = {
+  en :
+    'Self-attested career metric from portfolio source material; keep the approximate wording where shown.',
+  fr :
+    'Métrique de carrière auto-déclarée depuis les sources du portfolio ; conserver la formulation approximative affichée.',
+} satisfies Localized
+
+function projectRoute(
+  slug: string,
+  title: Localized,
+  description: Localized,
+  proofAngle: Localized,
+  schemaKind: SchemaKind,
+): RouteMetadata {
+  const path = `/projects/${slug}/` as `/${string}/`
+
+  return {
+    slug,
+    path,
+    title,
+    description,
+    proofAngle,
+    schemaKind,
+    canonicalUrl     : `${siteUrl}/en${path}` as `https://${string}/`,
+    includeInSitemap : true,
+    sitemapPriority  : 0.72,
+    changeFrequency  : 'yearly',
+  }
+}
+
+const routeMetadataByProjectId: Partial<Record<ProjectId, RouteMetadata>> = {
+  'proj-chatapp' : projectRoute(
+    'tchatche-media-community-ecosystem',
+    {
+      en : 'tchatche.com media and community ecosystem | Robert Hoffmann',
+      fr : 'Ecosysteme media et communautaire tchatche.com | Robert Hoffmann',
+    },
+    {
+      en :
+        'Technical ownership of high-traffic white-label real-time chat products, frontend architecture, APIs, caching, moderation, i18n, and production support.',
+      fr :
+        'Responsabilite technique de produits de chat temps reel marque blanche a fort trafic, architecture frontend, APIs, cache, moderation, i18n et support production.',
+    },
+    {
+      en : 'High-traffic real-time product ownership across browser UX, APIs, caching, moderation, and i18n.',
+      fr : 'Responsabilite produit temps reel a fort trafic, du navigateur aux APIs, cache, moderation et i18n.',
+    },
+    'CreativeWork',
+  ),
+  'proj-adproxy' : projectRoute(
+    'ad-proxy-ad-distribution-server',
+    {
+      en : 'Ad Proxy ad-distribution server | Robert Hoffmann',
+      fr : 'Serveur de distribution publicitaire Ad Proxy | Robert Hoffmann',
+    },
+    {
+      en :
+        'Ad-distribution infrastructure that consolidated scheduling, targeting, site routing, and performance delivery across media and white-label properties.',
+      fr :
+        'Infrastructure de distribution publicitaire consolidant planification, ciblage, routage site et performance sur des proprietes media et marque blanche.',
+    },
+    {
+      en : 'Revenue-critical backend infrastructure built for high-volume media operations.',
+      fr : 'Infrastructure backend critique pour le revenu et les operations media a volume eleve.',
+    },
+    'CreativeWork',
+  ),
+  'proj-tmip-scheduler' : projectRoute(
+    'tmip-scheduler-aerospace-data-orchestration',
+    {
+      en : 'TMIP Scheduler aerospace data orchestration | Robert Hoffmann',
+      fr : 'TMIP Scheduler orchestration de donnees aeronautiques | Robert Hoffmann',
+    },
+    {
+      en :
+        'Aerospace smart-cabinet orchestration across Nexess servers, Google Workspace, Skywise datasets, internal tools, and typed observable Python infrastructure.',
+      fr :
+        'Orchestration aeronautique d armoires connectees entre serveurs Nexess, Google Workspace, datasets Skywise, outils internes et infrastructure Python typee et observable.',
+    },
+    {
+      en : 'Modernizing a legacy operational system into typed, observable production infrastructure.',
+      fr : 'Modernisation d un systeme operationnel legacy vers une infrastructure production typee et observable.',
+    },
+    'CreativeWork',
+  ),
+  'proj-tmip-logger' : projectRoute(
+    'tmip-logger-observability',
+    {
+      en : 'TMIP Logger observability and KPI platform | Robert Hoffmann',
+      fr : 'TMIP Logger plateforme observabilite et KPI | Robert Hoffmann',
+    },
+    {
+      en :
+        'Structured logging and observability layer for TMIP operations, SQLite inspection, Vue UI, Skywise feeds, alerts, and plant-level diagnosis.',
+      fr :
+        'Couche de logging structure et d observabilite pour operations TMIP, inspection SQLite, UI Vue, flux Skywise, alertes et diagnostic par usine.',
+    },
+    {
+      en : 'Operational observability that turns raw job events into diagnosis, alerts, and KPI evidence.',
+      fr : 'Observabilite operationnelle transformant les evenements de jobs en diagnostic, alertes et preuves KPI.',
+    },
+    'CreativeWork',
+  ),
+  'proj-uncle-bob' : projectRoute(
+    'uncle-bob-agentic-ai-workflow-system',
+    {
+      en : 'Uncle Bob agentic AI workflow system | Robert Hoffmann',
+      fr : 'Uncle Bob systeme de workflow IA agentique | Robert Hoffmann',
+    },
+    {
+      en :
+        'Portable skill system for AI coding agents with quality, workflow, governance, authoring, evidence routing, docs sync, and deterministic validation controls.',
+      fr :
+        'Systeme de skills portable pour agents de code IA avec qualite, workflow, gouvernance, authoring, routage evidence, sync docs et validation deterministe.',
+    },
+    {
+      en : 'Human-owned AI delivery controls packaged as portable agent skills.',
+      fr : 'Controles de livraison IA sous responsabilite humaine, packages en skills agents portables.',
+    },
+    'SoftwareSourceCode',
+  ),
+  'proj-desktop-portfolio' : projectRoute(
+    'i-technology-desktop-portfolio',
+    {
+      en : 'i-technology.net desktop portfolio case study | Robert Hoffmann',
+      fr : 'i-technology.net portfolio desktop case study | Robert Hoffmann',
+    },
+    {
+      en :
+        'AI-directed desktop portfolio with Vue, TypeScript, mobile shell, prerendered SEO, structured metadata, generated assets, and measured PageSpeed scores.',
+      fr :
+        'Portfolio desktop pilote par IA avec Vue, TypeScript, shell mobile, SEO prerendu, donnees structurees, assets generes et scores PageSpeed mesures.',
+    },
+    {
+      en : 'A resume turned into a product surface with human-owned AI-directed delivery.',
+      fr : 'Un CV transforme en surface produit par livraison IA controlee humainement.',
+    },
+    'WebPage',
+  ),
+  'proj-parallax-designer' : projectRoute(
+    'parallax-designer',
+    {
+      en : 'Parallax Designer visual builder | Robert Hoffmann',
+      fr : 'Parallax Designer builder visuel | Robert Hoffmann',
+    },
+    {
+      en :
+        'Browser-based parallax scene editor with real-time preview, layer controls, local asset storage, runtime HTML export, schema validation, and VitePress docs.',
+      fr :
+        'Editeur navigateur de scenes parallax avec preview temps reel, controles de couches, assets locaux, export HTML runtime, validation schema et docs VitePress.',
+    },
+    {
+      en : 'A practical visual tooling product for designing and exporting layered web scenes.',
+      fr : 'Un outil visuel concret pour concevoir et exporter des scenes web multicouches.',
+    },
+    'SoftwareSourceCode',
+  ),
+  'proj-headjs' : projectRoute(
+    'headjs',
+    {
+      en : 'HeadJS open-source JavaScript library | Robert Hoffmann',
+      fr : 'HeadJS bibliotheque JavaScript open source | Robert Hoffmann',
+    },
+    {
+      en :
+        'Open-source JavaScript library for non-blocking script loading, resource management, responsive helpers, feature detection, HTML5 enabling, and shims.',
+      fr :
+        'Bibliotheque JavaScript open source pour chargement non bloquant, gestion de ressources, helpers responsive, detection de fonctionnalites, HTML5 et shims.',
+    },
+    {
+      en : 'Public open-source maintenance of a widely used JavaScript loading and feature-detection library.',
+      fr : 'Maintenance open source publique d une bibliotheque JavaScript de chargement et detection largement utilisee.',
+    },
+    'SoftwareSourceCode',
+  ),
+}
+
+const privateClientProjectIds = new Set<ProjectId>([
+  'proj-tmip-scheduler',
+  'proj-tmip-logger',
+  'proj-sbm-compliance',
+  'proj-hutchinson-work-instructions',
+  'proj-wind-maintenance',
+  'proj-attendance-billing',
+  'proj-maser-academy-inventory',
+  'proj-roland-garros-navigation',
+])
+
+const publicEvidenceProjectIds = new Set<ProjectId>([
+  'proj-uncle-bob',
+  'proj-desktop-portfolio',
+  'proj-parallax-designer',
+  'proj-headjs',
+  'proj-t4resx',
+  'proj-findunused',
+  'proj-public-health-analytics',
+  'proj-jsonr',
+  'proj-phantomui',
+  'proj-mario',
+])
+
+const publicMetricProjectIds = publicEvidenceProjectIds
+
+const sourceRefsByProjectId: Partial<Record<ProjectId, readonly string[]>> = {
+  'proj-uncle-bob'               : ['uncle-bob-docs', 'uncle-bob-github'],
+  'proj-desktop-portfolio'       : ['portfolio-live', 'pagespeed-mobile', 'pagespeed-desktop'],
+  'proj-parallax-designer'       : ['parallax-live', 'parallax-docs', 'parallax-github'],
+  'proj-headjs'                  : ['headjs-docs', 'headjs-github'],
+  'proj-t4resx'                  : ['t4resx-nuget', 't4resx-marketplace', 't4resx-github'],
+  'proj-findunused'              : ['findunused-marketplace'],
+  'proj-public-health-analytics' : ['public-health-data-gouv'],
+  'proj-jsonr'                   : ['jsonraw-github'],
+  'proj-phantomui'               : ['phantomui-github'],
+  'proj-mario'                   : ['jquery-mario-demo', 'jquery-mario-github'],
+}
+
+const highlightPolicyOverridesByProjectId: Partial<
+  Record<ProjectId, Record<string, ProjectHighlightPolicy>>
+> = {
+  'proj-uncle-bob' : {
+    'Production aerospace use' : {
+      evidenceLevel     : 'private-client',
+      confidence        : 'medium',
+      sourceRefs        : ['portfolio-source', 'client-delivery'],
+      schemaVisibility  : 'visible',
+      requiresQualifier : true,
+      qualifier         : privateClaimQualifier,
+    },
+  },
+}
+
+function resolveEvidenceLevel(projectId: ProjectId): EvidenceLevel {
+  if (privateClientProjectIds.has(projectId)) return 'private-client'
+  if (publicEvidenceProjectIds.has(projectId)) return 'public'
+
+  return 'self-attested'
+}
+
+function resolveConfidence(projectId: ProjectId, evidenceLevel: EvidenceLevel): ClaimConfidence {
+  if (evidenceLevel === 'private-client') return 'medium'
+  if (evidenceLevel === 'self-attested') return 'medium'
+  if (projectId === 'proj-public-health-analytics') return 'medium'
+
+  return 'high'
+}
+
+function resolveSchemaKind(projectId: ProjectId): SchemaKind {
+  return routeMetadataByProjectId[projectId]?.schemaKind ??
+    (publicEvidenceProjectIds.has(projectId) ? 'SoftwareSourceCode' : 'CreativeWork')
+}
+
+function resolveSourceRefs(projectId: ProjectId, evidenceLevel: EvidenceLevel): readonly string[] {
+  const projectSourceRefs = sourceRefsByProjectId[projectId] ?? []
+  const baseSourceRefs = evidenceLevel === 'private-client'
+    ? ['portfolio-source', 'client-delivery']
+    : ['portfolio-source', 'career-evidence']
+
+  return [...baseSourceRefs, ...projectSourceRefs]
+}
+
+function buildProjectMetadata(projectId: ProjectId): ProjectCanonicalMetadata {
+  const evidenceLevel = resolveEvidenceLevel(projectId)
+  const confidence = resolveConfidence(projectId, evidenceLevel)
+
+  return {
+    evidenceLevel,
+    confidence,
+    schemaKind : resolveSchemaKind(projectId),
+    sourceRefs : resolveSourceRefs(projectId, evidenceLevel),
+    visibility : routeMetadataByProjectId[projectId] ? routeVisibility : defaultVisibility,
+    route      : routeMetadataByProjectId[projectId],
+  }
+}
+
+function buildHighlightPolicy(
+  projectId: ProjectId,
+  metadata: ProjectCanonicalMetadata,
+  label: Localized,
+): ProjectHighlightPolicy {
+  const override = highlightPolicyOverridesByProjectId[projectId]?.[label.en]
+
+  if (override) return override
+
+  const requiresQualifier = metadata.evidenceLevel !== 'public'
+
+  return {
+    evidenceLevel     : metadata.evidenceLevel,
+    confidence        : metadata.confidence,
+    sourceRefs        : metadata.sourceRefs,
+    schemaVisibility  : 'visible',
+    requiresQualifier,
+    qualifier         : metadata.evidenceLevel === 'private-client'
+      ? privateClaimQualifier
+      : metadata.evidenceLevel === 'self-attested'
+        ? selfAttestedQualifier
+        : undefined,
+    lastVerified      : publicMetricProjectIds.has(projectId) ? '2026-06-13' : undefined,
+  }
+}
+
+function enrichProject(record: RawProject) {
+  const metadata = buildProjectMetadata(record.id)
+
+  return {
+    ...record,
+    ...metadata,
+    highlights : record.highlights.map(label => ({
+      label,
+      ...buildHighlightPolicy(record.id, metadata, label),
+    })),
+  }
+}
 
 const projectDisplayOrder = [
   'proj-chatapp',
@@ -1368,5 +1714,7 @@ const projectOrder = new Map<ProjectId, number>(
 export const projects = [...projectRecords].sort(
   (left, right) => (projectOrder.get(left.id) ?? projectRecords.length) -
     (projectOrder.get(right.id) ?? projectRecords.length),
-)
+).map(enrichProject)
+
+export type Project = (typeof projects)[number]
 // #endregion Content

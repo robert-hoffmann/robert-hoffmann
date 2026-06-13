@@ -48,6 +48,8 @@ For non-trivial work in `app/docs/`:
   `public/` runtime files versus `design/` source and review media.
 - `profile/positioning-guide.md`                               : durable target narrative,
   role fit, environment fit, AI framing, and claim-safety guidance.
+- `profile/hiring-brief.md`                                    : human-owned backup/source
+  material for the generated `/hiring-brief/` canonical route.
 - `profile/project-evidence.md`                                : project-claim evidence,
   claim ledger, ordering, interview prompts, and rough content research.
 - `profile/linkedin.md`                                        : LinkedIn-specific headline,
@@ -70,7 +72,7 @@ For non-trivial work in `app/docs/`:
   `app/scripts/AGENTS.md`, and the generator that owns the output.
 - Change public profile copy       : start with `profile/positioning-guide.md`
   and the relevant channel note, then manually promote stable facts into
-  `src/data/apps/`, `src/data/docs/cv.ts`, `public/hiring-brief.md`, or
+  `src/data/apps/`, `src/data/docs/cv.ts`, `src/data/portfolio/`, or
   `public/llms.txt` when they become source truth.
 - Change project claims            : start with `profile/project-evidence.md`,
   then verify current app data, public links, private/self-attested boundaries,

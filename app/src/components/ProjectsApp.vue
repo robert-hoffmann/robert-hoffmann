@@ -216,9 +216,9 @@ onBeforeUnmount(() => {
       <div class="project-highlights">
         <span
           v-for="highlight in project.highlights"
-          :key="`${project.id}-${l(highlight)}`"
+          :key="`${project.id}-${l(highlight.label)}`"
           class="content-highlight"
-        >{{ l(highlight) }}</span>
+        >{{ l(highlight.label) }}</span>
       </div>
 
       <p class="panel-paragraph">{{ l(project.summary) }}</p>

@@ -19,9 +19,10 @@ For non-trivial work in `app/src/`:
 1. Read the repository root `AGENTS.md`.
 2. Read `app/AGENTS.md`.
 3. Read this `app/src/AGENTS.md`.
-4. Identify the owning folder and key files below.
-5. Search nearby source with `rg` before editing.
-6. Inspect relevant data, types, styles, and tests if present before changing
+4. Read a deeper `AGENTS.md` when the owning folder provides one.
+5. Identify the owning folder and key files below.
+6. Search nearby source with `rg` before editing.
+7. Inspect relevant data, types, styles, and tests if present before changing
    behavior.
 
 ## Folder TOC
@@ -50,6 +51,9 @@ For non-trivial work in `app/src/`:
   gallery, GeoWars, music, projects, resume, terminal, and video.
 - `data/docs/`         : document assembly data derived from app content,
   currently the CV data model used by document generation.
+- `data/portfolio/`    : canonical retrieval contracts, source refs, route
+  manifest, route HTML/SEO builders, generated artifact builders, and content
+  validation helpers derived from app data.
 - `modules/`           : non-Vue runtime modules, currently the Three.js
   GeoWars engine.
 - `types/`             : shared TypeScript contracts for desktop/window state,
@@ -59,7 +63,7 @@ For non-trivial work in `app/src/`:
 ## Key Files
 
 - App entry/shell      : `main.ts`, `App.vue`, `components/DesktopShell.vue`,
-  `components/MobileApp.vue`.
+  `components/MobileApp.vue`, `components/CanonicalPage.vue`.
 - App registry         : `data/registry.ts`.
 - Desktop state        : `composables/useWindowManager.ts`,
   `composables/useDesktopIcons.ts`.
@@ -69,7 +73,7 @@ For non-trivial work in `app/src/`:
 - Cross-app navigation : `composables/usePortfolioNavigation.ts`.
 - Global copy/i18n     : `data/interface.ts`, `composables/useLocale.ts`.
 - Portfolio content    : `data/apps/projects.ts`, `data/apps/gallery.ts`,
-  `data/apps/resume.ts`, `data/docs/cv.ts`.
+  `data/apps/resume.ts`, `data/docs/cv.ts`, `data/portfolio/`.
 - Media system         : `components/UnifiedMediaPlayer.vue`,
   `composables/useAudioMediaTransport.ts`,
   `composables/useYouTubePlaylistTransport.ts`,
@@ -96,6 +100,9 @@ For non-trivial work in `app/src/`:
 - Change gallery/projects     : start with `data/apps/projects.ts`,
   `data/apps/gallery.ts`, `components/ProjectsApp.vue`,
   `components/ImageViewerApp.vue`, and `components/ImageViewerLightbox.vue`.
+- Change canonical routes     : start with `data/apps/projects.ts`,
+  `data/portfolio/projectRoutes.ts`, `data/portfolio/canonical.ts`,
+  `components/CanonicalPage.vue`, and `../../prerender.ts`.
 - Change media playback       : start with `components/UnifiedMediaPlayer.vue`,
   the media transport composable, `types/media.ts`, and
   `data/mediaPlayerPresets.ts`.

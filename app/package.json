@@ -15,10 +15,14 @@
     "audit"                   : "npm audit --audit-level=moderate",
     "optimize-images"         : "node scripts/optimize-images.mjs",
     "generate-og-image"       : "node scripts/generate-og-image.mjs",
+    "content:generate"        : "node scripts/generate-content-artifacts.mjs",
+    "content:validate"        : "node scripts/validate-content-artifacts.mjs",
+    "seo:validate"            : "node scripts/validate-dist-seo.mjs",
+    "verify"                  : "npm run check && npm run content:validate && npm run build && npm run seo:validate",
     "gallery:generate-test"   : "node scripts/generate-gallery-test-images.mjs",
     "docs:cv"                 : "node scripts/generate-cv-docs.mjs",
     "docs:cv:install-browsers": "playwright install chromium",
-    "prebuild"                : "node scripts/optimize-images.mjs && node scripts/generate-og-image.mjs"
+    "prebuild"                : "node scripts/generate-content-artifacts.mjs && node scripts/optimize-images.mjs && node scripts/generate-og-image.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",

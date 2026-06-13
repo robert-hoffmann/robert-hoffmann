@@ -27,6 +27,28 @@ const PUBLIC_ASSET_VERSIONED_OUTPUT_EXTENSIONS = new Set([
   '.html',
   '.js',
 ])
+const STATIC_CANONICAL_ROUTE_REMOVAL_PATTERNS = [
+  /\s*<script\b(?=[^>]*\bdata-app-boot="true")[\s\S]*?<\/script>\s*/giu,
+  /\s*<style\b(?=[^>]*\bdata-app-boot="true")[\s\S]*?<\/style>\s*/giu,
+  /\s*<script\b(?=[^>]*\btype="module")[^>]*><\/script>\s*/giu,
+  /\s*<link\b(?=[^>]*\brel="modulepreload")[^>]*>\s*/giu,
+  /\s*<link\b(?=[^>]*\bdata-interactive-preload="true")[^>]*>\s*/giu,
+  /\s*<link\b(?=[^>]*\brel="preload")(?=[^>]*\bas="style")[^>]*>\s*<noscript><link\b(?=[^>]*\brel="stylesheet")[^>]*><\/noscript>\s*/giu,
+]
+const STATIC_CANONICAL_ROUTE_REPLACEMENTS = [
+  {
+    pattern     : /<html\b([^>]*)\sdata-theme="[^"]*"([^>]*)>/iu,
+    replacement : '<html$1$2>',
+  },
+  {
+    pattern     : /<meta\b(?=[^>]*\bid="app-theme-color-meta")(?=[^>]*\bname="theme-color")[^>]*>/iu,
+    replacement : '<meta name="theme-color" content="#f6f8f9" />',
+  },
+  {
+    pattern     : /<meta\b(?=[^>]*\bname="color-scheme")[^>]*>/iu,
+    replacement : '<meta name="color-scheme" content="light" />',
+  },
+]
 
 function collectPublicAssetFiles(dir: string): string[] {
   if (!existsSync(dir)) return []
@@ -79,6 +101,38 @@ function replacePublicAssetVersionTokensInDir(dir: string, version: string) {
   }
 }
 
+function simplifyStaticCanonicalRoutesInDir(dir: string, rootDir = dir) {
+  if (!existsSync(dir)) return
+
+  for (const entry of readdirSync(dir, { withFileTypes : true })) {
+    const path = join(dir, entry.name)
+
+    if (entry.isDirectory()) {
+      simplifyStaticCanonicalRoutesInDir(path, rootDir)
+      continue
+    }
+
+    if (!entry.isFile()) continue
+    if (extname(entry.name).toLowerCase() !== '.html') continue
+    if (relative(rootDir, path).split(sep).join('/') === 'index.html') continue
+
+    const source = readFileSync(path, 'utf8')
+    if (!source.includes('data-canonical-route="true"')) continue
+
+    let output = source
+
+    for (const pattern of STATIC_CANONICAL_ROUTE_REMOVAL_PATTERNS) {
+      output = output.replace(pattern, '\n')
+    }
+
+    for (const { pattern, replacement } of STATIC_CANONICAL_ROUTE_REPLACEMENTS) {
+      output = output.replace(pattern, replacement)
+    }
+
+    writeFileSync(path, output)
+  }
+}
+
 function publicAssetVersionTokenPlugin(version: string): Plugin {
   const replaceVersionToken = (value: string) => value.replaceAll(PUBLIC_ASSET_VERSION_TOKEN, version)
   let outDir = resolve(__dirname, 'dist')
@@ -114,6 +168,7 @@ function publicAssetVersionTokenPlugin(version: string): Plugin {
     },
     closeBundle() {
       replacePublicAssetVersionTokensInDir(outDir, version)
+      simplifyStaticCanonicalRoutesInDir(outDir)
     },
   }
 }
@@ -152,12 +207,27 @@ function deferEntryStylesheetPlugin(): Plugin {
   }
 }
 
+function manualChunks(id: string) {
+  const normalizedId = id.split(sep).join('/')
+
+  if (normalizedId.endsWith('/src/utils/publicAssets.ts')) {
+    return 'public-assets'
+  }
+}
+
 const publicAssetVersion = createPublicAssetVersion()
 
 export default defineConfig({
   base    : '/',
   define  : {
     [PUBLIC_ASSET_VERSION_TOKEN] : JSON.stringify(publicAssetVersion),
+  },
+  build   : {
+    rollupOptions : {
+      output : {
+        manualChunks,
+      },
+    },
   },
   plugins : [
     vue(),

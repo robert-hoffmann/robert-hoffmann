@@ -25,7 +25,7 @@ Keep only these categories in `public/`:
   as `404.html`, `fonts/`, `music.mp3`, `nope-penguin.gif`, and
   `parallax/desktop.scene.json`.
 - Static deploy files such as `CNAME`, `.nojekyll`, `robots.txt`,
-  `sitemap.xml`, `site.webmanifest`, `llms.txt`, and `hiring-brief.md`.
+  `sitemap.xml`, `site.webmanifest`, and `llms.txt`.
 
 ## Source And Review Files
 
