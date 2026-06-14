@@ -57,6 +57,16 @@ export const galleryImageDisplayOrder = [
   'proj-parallax-designer-1',
   'proj-parallax-designer-2',
   'proj-sbm-compliance-1',
+  'proj-tmip-logger-1',
+  'proj-tmip-logger-2',
+  'proj-tmip-logger-3',
+  'proj-hutchinson-work-instructions-1',
+  'proj-hutchinson-work-instructions-2',
+  'proj-wind-maintenance-1',
+  'proj-wind-maintenance-2',
+  'proj-attendance-billing-1',
+  'proj-attendance-billing-2',
+  'proj-roland-garros-navigation-1',
 ] satisfies readonly [ProjectScopedGalleryImageId, ...ProjectScopedGalleryImageId[]]
 
 export type GalleryImageId = (typeof galleryImageDisplayOrder)[number]
@@ -250,6 +260,232 @@ const galleryImageContentById = {
       fr : 'Dashboard conformité SBM avec cartes d’administration et menu latéral profil',
     } satisfies Localized,
   },
+
+  'proj-tmip-logger-1'                  : {
+    projectId : 'proj-tmip-logger',
+    title     : {
+      en : 'TMIP Logger: Metadata Inspector',
+      fr : 'TMIP Logger : inspecteur de métadonnées',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Log inspection view showing a failed Google Drive job beside performance events, ' +
+        'with a metadata modal exposing the program, widget, and folder context needed to ' +
+        'diagnose the error.',
+      fr :
+        'Vue d’inspection des logs montrant un job Google Drive en échec à côté d’événements ' +
+        'de performance, avec une fenêtre de métadonnées exposant le programme, le widget et ' +
+        'le dossier nécessaires au diagnostic.',
+    } satisfies Localized,
+    alt       : {
+      en :
+        'TMIP Logger table with error and performance rows and a metadata details modal for ' +
+        'a failed archive job',
+      fr :
+        'Table TMIP Logger avec lignes d’erreur et de performance et fenêtre de métadonnées ' +
+        'pour un job d’archivage en échec',
+    } satisfies Localized,
+  },
+  'proj-tmip-logger-2'                  : {
+    projectId : 'proj-tmip-logger',
+    title     : {
+      en : 'TMIP Logger: Filter Panel',
+      fr : 'TMIP Logger : panneau de filtres',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Expanded filter panel for narrowing high-volume SQLite log records by level, run, ' +
+        'batch, job, program, operation state, duration, exception details, metadata, and time ' +
+        'window.',
+      fr :
+        'Panneau de filtres étendu pour réduire un volume élevé de logs SQLite par niveau, ' +
+        'run, batch, job, programme, état d’opération, durée, détails d’exception, métadonnées ' +
+        'et fenêtre temporelle.',
+    } satisfies Localized,
+    alt       : {
+      en : 'TMIP Logger filter panel above a log table with operation and exception filters visible',
+      fr :
+        'Panneau de filtres TMIP Logger au-dessus d’une table de logs avec filtres d’opération ' +
+        'et d’exception visibles',
+    } satisfies Localized,
+  },
+  'proj-tmip-logger-3'                  : {
+    projectId : 'proj-tmip-logger',
+    title     : {
+      en : 'TMIP Logger: Error Spike Alert',
+      fr : 'TMIP Logger : alerte de pics d’erreurs',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Automated email report grouping error spikes by operation, time bucket, count, ' +
+        'impacted program, job, message, metadata, and exception details when alert thresholds ' +
+        'are crossed.',
+      fr :
+        'Rapport email automatisé regroupant les pics d’erreurs par opération, fenêtre ' +
+        'temporelle, volume, programme impacté, job, message, métadonnées et détails ' +
+        'd’exception lorsque les seuils d’alerte sont dépassés.',
+    } satisfies Localized,
+    alt       : {
+      en : 'Email report titled Log Error Spike Report with parameters and an error spike table',
+      fr : 'Rapport email intitulé Log Error Spike Report avec paramètres et table de pics d’erreurs',
+    } satisfies Localized,
+  },
+  'proj-hutchinson-work-instructions-1' : {
+    projectId : 'proj-hutchinson-work-instructions',
+    title     : {
+      en : 'Hutchinson: Operator Work Step',
+      fr : 'Hutchinson : étape opérateur',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Tablet work-instruction screen used at the workstation, combining step progress, ' +
+        'safety/tool reminders, annotated part imagery, blueprint/video access, and ' +
+        'glove-friendly navigation controls.',
+      fr :
+        'Écran tablette d’instruction utilisé au poste de travail, combinant progression de ' +
+        'l’étape, rappels sécurité/outils, image annotée de la pièce, accès plan/vidéo et ' +
+        'contrôles adaptés à l’usage avec gants.',
+    } satisfies Localized,
+    alt       : {
+      en :
+        'Tablet work instruction screen for a lower-shell step with annotated ' +
+        'part photo and tool icons',
+      fr :
+        'Écran tablette d’instruction pour une étape lower shell avec photo ' +
+        'annotée de pièce et icônes d’outils',
+    } satisfies Localized,
+  },
+  'proj-hutchinson-work-instructions-2' : {
+    projectId : 'proj-hutchinson-work-instructions',
+    title     : {
+      en : 'Hutchinson: Blueprint Viewer',
+      fr : 'Hutchinson : visionneuse de plan',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'In-app blueprint viewer giving operators access to technical drawings without leaving ' +
+        'the work-instruction flow, including zoom controls for assembly details.',
+      fr :
+        'Visionneuse de plan intégrée donnant aux opérateurs accès aux dessins techniques sans ' +
+        'quitter le flux d’instruction, avec contrôles de zoom pour les détails d’assemblage.',
+    } satisfies Localized,
+    alt       : {
+      en : 'Blueprint viewer showing a technical drawing of an aircraft cooling duct with zoom controls',
+      fr :
+        'Visionneuse de plan affichant le dessin technique d’un conduit de refroidissement ' +
+        'aéronautique avec contrôles de zoom',
+    } satisfies Localized,
+  },
+  'proj-wind-maintenance-1'             : {
+    projectId : 'proj-wind-maintenance',
+    title     : {
+      en : 'Wind Maintenance: Planning Back Office',
+      fr : 'Maintenance éolienne : back-office de planning',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Manager view listing turbine maintenance interventions with park, machine reference, ' +
+        'intervention type, turbine status, planned dates, assigned technicians, and detail actions.',
+      fr :
+        'Vue manager listant les interventions de maintenance éolienne avec parc, référence ' +
+        'machine, type d’intervention, état de l’éolienne, dates prévues, techniciens assignés ' +
+        'et actions de détail.',
+    } satisfies Localized,
+    alt       : {
+      en : 'Back-office table of planned and completed wind turbine gearbox maintenance interventions',
+      fr :
+        'Table back-office d’interventions planifiées et terminées pour la maintenance de ' +
+        'gearbox d’éoliennes',
+    } satisfies Localized,
+  },
+  'proj-wind-maintenance-2'             : {
+    projectId : 'proj-wind-maintenance',
+    title     : {
+      en : 'Wind Maintenance: Offline Field App',
+      fr : 'Maintenance éolienne : application terrain hors ligne',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Mobile technician view for confirming intervention and equipment status, recording ' +
+        'actual timestamps, adding photo-backed comments, and syncing updates back to the ' +
+        'planning back office.',
+      fr :
+        'Vue mobile technicien pour confirmer l’état d’intervention et d’équipement, saisir ' +
+        'les horaires réels, ajouter des commentaires avec photo et synchroniser les mises à ' +
+        'jour vers le back-office.',
+    } satisfies Localized,
+    alt       : {
+      en : 'Mobile maintenance intervention screen with status controls, technician details, and a photo comment',
+      fr :
+        'Écran mobile d’intervention de maintenance avec contrôles de statut, détails ' +
+        'technicien et commentaire photo',
+    } satisfies Localized,
+  },
+  'proj-attendance-billing-1'           : {
+    projectId : 'proj-attendance-billing',
+    title     : {
+      en : 'Attendance Billing: Teacher Signature',
+      fr : 'Pointage & facturation : signature formateur',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Mobile attendance sheet where a trainer reviews the session roster, marks student ' +
+        'presence or absence, captures a teacher signature, and validates the session.',
+      fr :
+        'Feuille de présence mobile où un formateur vérifie la liste de session, marque les ' +
+        'présences ou absences, capture la signature enseignant et valide la séance.',
+    } satisfies Localized,
+    alt       : {
+      en : 'Mobile attendance screen with a teacher signature modal over a student roster',
+      fr :
+        'Écran mobile de présence avec fenêtre de signature enseignant au-dessus d’une liste ' +
+        'de stagiaires',
+    } satisfies Localized,
+  },
+  'proj-attendance-billing-2'           : {
+    projectId : 'proj-attendance-billing',
+    title     : {
+      en : 'Attendance Billing: HR Back Office',
+      fr : 'Pointage & facturation : back-office RH',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'HR back-office register for filtering courses, sessions, students, presence states, ' +
+        'dates, durations, PDFs, and attendance records used for billing control.',
+      fr :
+        'Registre back-office RH permettant de filtrer les cours, séances, stagiaires, états ' +
+        'de présence, dates, durées, PDFs et enregistrements de présence utilisés pour le ' +
+        'contrôle de facturation.',
+    } satisfies Localized,
+    alt       : {
+      en : 'Attendance back-office table with course, session, student, presence, PDF, and action columns',
+      fr :
+        'Table back-office d’émargement avec colonnes cours, séance, stagiaire, présence, PDF ' +
+        'et actions',
+    } satisfies Localized,
+  },
+  'proj-roland-garros-navigation-1'     : {
+    projectId : 'proj-roland-garros-navigation',
+    title     : {
+      en : 'Roland-Garros: Mobile Access Portal',
+      fr : 'Roland-Garros : portail d’accès mobile',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Staff navigation landing page with mobile access QR code and phone preview showing ' +
+        'the route map, step photo, directional overlay, and voice-guidance state.',
+      fr :
+        'Page d’accueil du guidage personnel avec QR code d’accès mobile et aperçu téléphone ' +
+        'affichant la carte du parcours, la photo d’étape, l’indication directionnelle et ' +
+        'l’état du guidage vocal.',
+    } satisfies Localized,
+    alt       : {
+      en : 'Roland-Garros staff navigation landing page with QR code and simulated phone route preview',
+      fr :
+        'Page d’accès au guidage personnel Roland-Garros avec QR code et aperçu de parcours ' +
+        'dans un téléphone simulé',
+    } satisfies Localized,
+  },
 } satisfies Record<GalleryImageId, GalleryImageContentEntry>
 
 function createGalleryImage(galleryImageId: GalleryImageId): GalleryImageContent {
@@ -269,8 +505,6 @@ export const galleryImages = [
 
 // #region Slides
 interface GalleryResponsiveSource {
-  avifSrc    : string
-  avifSrcset : string
   src        : string
   webpSrcset : string
   width      : number
@@ -327,17 +561,12 @@ const sampleAccents = [
 function galleryResponsiveImageName(
   galleryImageId : GalleryImageId,
   width          : number,
-  format         : 'avif' | 'webp',
 ) {
-  const suffix = width === 1600 ? '' : `-${width}`
-
-  return `image-gallery/images/${galleryImageId}${suffix}.${format}`
+  return `image-gallery/images/${galleryImageId}-${width}.webp`
 }
 
 function galleryThumbnailName(galleryImageId: GalleryImageId, width: number) {
-  const suffix = width === 360 ? '' : `-${width}`
-
-  return `image-gallery/thumbs/${galleryImageId}${suffix}.webp`
+  return `image-gallery/thumbs/${galleryImageId}-${width}.webp`
 }
 
 function createSrcset<const TWidth extends readonly number[]>(
@@ -351,15 +580,10 @@ function createSrcset<const TWidth extends readonly number[]>(
 
 function createGalleryImageSource(galleryImageId: GalleryImageId): GalleryResponsiveSource {
   return {
-    avifSrc    : publicAssetUrl(galleryResponsiveImageName(galleryImageId, 1600, 'avif')),
-    avifSrcset : createSrcset(
-      galleryImageWidths,
-      width => galleryResponsiveImageName(galleryImageId, width, 'avif'),
-    ),
-    src        : publicAssetUrl(galleryResponsiveImageName(galleryImageId, 1600, 'webp')),
+    src        : publicAssetUrl(galleryResponsiveImageName(galleryImageId, 1600)),
     webpSrcset : createSrcset(
       galleryImageWidths,
-      width => galleryResponsiveImageName(galleryImageId, width, 'webp'),
+      width => galleryResponsiveImageName(galleryImageId, width),
     ),
     width      : 1600,
     height     : 1000,

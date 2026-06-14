@@ -163,17 +163,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-tmip-logger',
-    name       : {
+    id             : 'proj-tmip-logger',
+    galleryImageId : 'proj-tmip-logger-1',
+    name           : {
       en : 'TMIP Logger: QoS & KPI Observability',
       fr : 'TMIP Logger: Observabilité QoS & KPI',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Maser Engineering for Airbus',
       fr : 'Maser Engineering pour Airbus',
     } satisfies Localized,
-    period     : '2025 – present',
-    summary    : {
+    period         : '2025 – present',
+    summary        : {
       en :
         'Structured logging and observability layer for TMIP operations, turning raw job ' +
         'events into searchable SQLite records, a VueJS inspection UI, Skywise dashboard ' +
@@ -184,7 +185,7 @@ const projectRecords = [
         'flux dashboard Skywise et alertes automatisées sur les pics d\u2019erreurs, la santé des ' +
         'jobs et l\u2019impact par usine.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : '10x error reduction',
         fr : '10x moins d\u2019erreurs',
@@ -202,7 +203,7 @@ const projectRecords = [
         fr : 'Près de 300 jobs planifiés',
       },
     ] satisfies Localized[],
-    stack      : [
+    stack          : [
       'Python',
       'VueJS',
       'SQLite',
@@ -420,17 +421,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-hutchinson-work-instructions',
-    name       : {
+    id             : 'proj-hutchinson-work-instructions',
+    galleryImageId : 'proj-hutchinson-work-instructions-1',
+    name           : {
       en : 'Hutchinson: Digital Work Instructions',
       fr : 'Hutchinson: Instructions de travail digitales',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Maser Engineering for Hutchinson',
       fr : 'Maser Engineering pour Hutchinson',
     } satisfies Localized,
-    period     : '2022 – 2023',
-    summary    : {
+    period         : '2022 – 2023',
+    summary        : {
       en :
         'Tablet work-instruction platform for transferring composite-manufacturing know-how ' +
         'between factories. Operators used it with safety gloves at the workstation, with ' +
@@ -442,7 +444,7 @@ const projectRecords = [
         'sécurité au poste, avec accès hors ligne aux plans PDF, vidéos MP4, images annotées, ' +
         'schémas, contrôles EPI, matériaux, outils et guidage d\u2019assemblage étape par étape.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : '512 parts',
         fr : '512 pièces',
@@ -460,7 +462,7 @@ const projectRecords = [
         fr : '10 contributeurs Airtable',
       },
     ] satisfies Localized[],
-    stack      : [
+    stack          : [
       'Quasar',
       'VueJS',
       'Airtable',
@@ -690,17 +692,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-wind-maintenance',
-    name       : {
+    id             : 'proj-wind-maintenance',
+    galleryImageId : 'proj-wind-maintenance-1',
+    name           : {
       en : 'Wind Turbine Maintenance Operations Platform',
       fr : 'Plateforme d\u2019opérations de maintenance éolienne',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Maser Engineering',
       fr : 'Maser Engineering',
     } satisfies Localized,
-    period     : '2022 – 2024',
-    summary    : {
+    period         : '2022 – 2024',
+    summary        : {
       en :
         'Production maintenance operations platform for Maser Engineering\u2019s renewable-energy ' +
         'field teams, combining a Symfony planning back office with an offline-capable Quasar ' +
@@ -717,7 +720,7 @@ const projectRecords = [
         'photos, signatures, horodatages, rapports de travaux, directions Google Maps, statut ' +
         'machine, temps d\u2019arrêt et synchronisation en file d\u2019attente au retour réseau.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : 'Hundreds of turbines',
         fr : 'Des centaines d\u2019éoliennes',
@@ -735,7 +738,7 @@ const projectRecords = [
         fr : 'Sync hors ligne Dexie',
       },
     ] satisfies Localized[],
-    stack      : [
+    stack          : [
       'Symfony',
       'Live Components',
       'Bootstrap',
@@ -748,7 +751,7 @@ const projectRecords = [
       'Google Maps',
       'PDF',
     ],
-    links      : [
+    links          : [
       {
         label : 'Maser Engineering: Pole Maintenance',
         href  : 'https://maser-engineering.com/specialite-maintenance/',
@@ -756,17 +759,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-attendance-billing',
-    name       : {
+    id             : 'proj-attendance-billing',
+    galleryImageId : 'proj-attendance-billing-1',
+    name           : {
       en : 'Student Attendance & Invoicing System',
       fr : 'Application de pointage & facturation',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Maser Engineering',
       fr : 'Maser Engineering',
     } satisfies Localized,
-    period     : '2023',
-    summary    : {
+    period         : '2023',
+    summary        : {
       en :
         'Digital attendance and billing workflow for an aerospace training center. Teachers ' +
         'collected student signatures digitally; HR used the back office to track presence, ' +
@@ -778,7 +782,7 @@ const projectRecords = [
         'suivaient présence, absences, heures, associations client, PDF d\u2019émargement, exports ' +
         'CSV de facturation et données de facturation automatique pour les entreprises clientes.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : 'Hundreds of students/year',
         fr : 'Plusieurs centaines de stagiaires/an',
@@ -796,7 +800,7 @@ const projectRecords = [
         fr : 'Exports de facturation automatisés',
       },
     ] satisfies Localized[],
-    stack      : [
+    stack          : [
       'VueJS',
       'Symfony',
       'Live Components',
@@ -805,11 +809,11 @@ const projectRecords = [
       'PDF',
       'CSV',
     ],
-    links      : [
+    links          : [
       {
         label : 'Maser Engineering: Pole Conseil',
         href  : 'https://maser-engineering.com/pole-conseil/',
-      }
+      },
     ],
   },
   {
@@ -876,17 +880,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-roland-garros-navigation',
-    name       : {
+    id             : 'proj-roland-garros-navigation',
+    galleryImageId : 'proj-roland-garros-navigation-1',
+    name           : {
       en : 'Roland-Garros: Staff Navigation PWA',
       fr : 'Roland-Garros: PWA de guidage du personnel',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Maser Engineering for CRIT / Roland-Garros',
       fr : 'Maser Engineering pour CRIT / Roland-Garros',
     } satisfies Localized,
-    period     : '2022',
-    summary    : {
+    period         : '2022',
+    summary        : {
       en :
         'Navigation PWA for temporary staff working at Roland-Garros, guiding people across ' +
         'venue halls, corridors, workspaces, and access paths with manual step plans, road and ' +
@@ -897,7 +902,7 @@ const projectRecords = [
         'manuels, photos de routes et couloirs, mini-cartes, flèches directionnelles et ' +
         'instructions vocales Chrome TTS.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : 'PWA for temporary staff',
         fr : 'PWA pour intérimaires',
@@ -915,7 +920,7 @@ const projectRecords = [
         fr : 'Mises à jour Airtable live',
       },
     ] satisfies Localized[],
-    stack      : [
+    stack          : [
       'Vanilla JavaScript',
       'HTML5',
       'CSS3',

@@ -60,19 +60,11 @@ const GALLERY_THUMB_WIDTHS = [
   180,
   360,
 ]
-const GALLERY_FULL_QUALITY = {
-  avif : {
-    480  : 39,
-    800  : 43,
-    1200 : 48,
-    1600 : 52,
-  },
-  webp : {
-    480  : 70,
-    800  : 76,
-    1200 : 82,
-    1600 : 86,
-  },
+const GALLERY_FULL_WEBP_QUALITY = {
+  480  : 70,
+  800  : 76,
+  1200 : 82,
+  1600 : 86,
 }
 const DESKTOP_PARALLAX_WIDTHS               = [1280, 1920, 2560]
 const MOBILE_BACKGROUND_WIDTHS              = [480, 768, 1024]
@@ -133,16 +125,15 @@ function parseGallerySourceName(fileName) {
   }
 }
 
-function galleryResponsiveFileName(galleryImageId, width, format) {
-  const suffix = width === GALLERY_FULL_SIZE.width ? '' : `-${width}`
-
-  return `${galleryImageId}${suffix}.${format}`
+function galleryResponsiveFileName(
+  galleryImageId,
+  width,
+) {
+  return `${galleryImageId}-${width}.webp`
 }
 
 function galleryThumbnailFileName(galleryImageId, width) {
-  const suffix = width === Math.max(...GALLERY_THUMB_WIDTHS) ? '' : `-${width}`
-
-  return `${galleryImageId}${suffix}.webp`
+  return `${galleryImageId}-${width}.webp`
 }
 
 function vignetteSvg(width, height) {
@@ -328,36 +319,23 @@ async function writeGalleryRuntimeAssets() {
     const canvas     = await createGalleryCanvas(sourcePath)
 
     await Promise.all([
-      ...GALLERY_FULL_WIDTHS.flatMap((width) => {
+      ...GALLERY_FULL_WIDTHS.map((width) => {
         const resized = sharp(canvas).resize({
           width              : width,
           withoutEnlargement : true,
         })
         const webpOutput = join(
           GALLERY_IMAGE_OUTPUT_DIR,
-          galleryResponsiveFileName(entry.galleryImageId, width, 'webp'),
-        )
-        const avifOutput = join(
-          GALLERY_IMAGE_OUTPUT_DIR,
-          galleryResponsiveFileName(entry.galleryImageId, width, 'avif'),
+          galleryResponsiveFileName(entry.galleryImageId, width),
         )
 
-        return [
-          resized
-            .clone()
-            .webp({
-              effort  : 6,
-              quality : GALLERY_FULL_QUALITY.webp[width],
-            })
-            .toFile(webpOutput),
-          resized
-            .clone()
-            .avif({
-              effort  : 6,
-              quality : GALLERY_FULL_QUALITY.avif[width],
-            })
-            .toFile(avifOutput),
-        ]
+        return resized
+          .clone()
+          .webp({
+            effort  : 6,
+            quality : GALLERY_FULL_WEBP_QUALITY[width],
+          })
+          .toFile(webpOutput)
       }),
       ...GALLERY_THUMB_WIDTHS.map(async (width) => {
         const thumbnail = await createGalleryThumbnail(canvas, width)
