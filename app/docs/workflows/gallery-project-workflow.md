@@ -107,8 +107,8 @@ Runtime file names match the stable `galleryImageId`:
 ```text
 public/image-gallery/images/proj-chatapp-1-1600.webp
 public/image-gallery/images/proj-chatapp-1-800.webp
-public/image-gallery/thumbs/proj-chatapp-1-360.webp
-public/image-gallery/thumbs/proj-chatapp-1-180.webp
+public/image-gallery/thumbs/proj-chatapp-1-256.webp
+public/image-gallery/thumbs/proj-chatapp-1-128.webp
 public/image-gallery/previews/proj-chatapp-1.webp
 ```
 
@@ -118,7 +118,7 @@ from `galleryImageId`:
 ```text
 galleryImageId proj-chatapp-1
   -> images/proj-chatapp-1[-480|-800|-1200|-1600].webp
-  -> thumbs/proj-chatapp-1[-180|-360].webp
+  -> thumbs/proj-chatapp-1[-128|-256].webp
   -> previews/proj-chatapp-1.webp
 ```
 
@@ -127,7 +127,7 @@ Current runtime dimensions:
 - Full canvas         : `1600x1000`
 - Full image variants : `480`, `800`, `1200`, and `1600` widths as WebP,
   always with an explicit width suffix
-- Thumbnail variants  : `180x180` and `360x360` WebP, always with an
+- Thumbnail variants  : `128x128` and `256x256` WebP, always with an
   explicit width suffix
 - Preview image       : `160x100` WebP
 
@@ -137,6 +137,19 @@ thumbnails, preview, and matching `gallery.ts` slide.
 `gallery.ts` models the gallery image source used by the current lightweight
 viewer: a simple `img` element with WebP `src`/`srcset` and CSS loading
 background.
+
+The viewer keeps URL attachment explicit to reduce cold-cache image
+competition:
+
+- The active slide gets its full image immediately with high fetch priority.
+- Adjacent full images are attached and preloaded only after the active full
+  image has loaded.
+- Far carousel slides do not receive full-image `src`/`srcset` until selected
+  or adjacent.
+- Filmstrip thumbnails receive `src`/`srcset` only once their buttons are
+  visible or near-visible in the filmstrip viewport.
+- Previews are LQIP backgrounds for active and adjacent slide shells, not a
+  replacement for the visible thumbnail or full image.
 
 ## Source Image Contract
 
@@ -369,7 +382,7 @@ Before committing gallery changes:
 - Every generated full image is derived from the `1600x1000` normalized canvas.
 - Every generated full image variant exists for `480`, `800`, `1200`, and
   `1600` widths in WebP.
-- Every generated thumbnail variant exists for `180x180` and `360x360` WebP.
+- Every generated thumbnail variant exists for `128x128` and `256x256` WebP.
 - Every generated preview exists as `160x100` WebP.
 - `blur-card` preserves important UI details.
 - Thumbnails are recognizable enough for filmstrip navigation.

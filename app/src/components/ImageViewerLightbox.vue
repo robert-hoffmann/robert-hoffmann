@@ -7,6 +7,7 @@ import {
   ref,
   watch,
   type ComponentPublicInstance,
+  type Ref,
 } from 'vue'
 import type {
   GalleryImageId,
@@ -39,6 +40,7 @@ const FULLSCREEN_SWIPE_MIN_SPEED  = 0.02
 const FULLSCREEN_SWIPE_RELEASE_MS = 120
 const DOUBLE_TAP_MAX_DELAY_MS     = 300
 const DOUBLE_TAP_MAX_DISTANCE_PX  = 30
+const ADJACENT_IMAGE_PRELOAD_DELAY_MS = 240
 
 type FullscreenGestureMode = 'idle' | 'pan' | 'pinch' | 'swipe' | 'close'
 
@@ -102,6 +104,8 @@ const fullscreenTranslateY  = ref(0)
 const fullscreenDismissY    = ref(0)
 const fullscreenGestureMode = ref<FullscreenGestureMode>('idle')
 const loadedImageIds        = ref<Set<GalleryImageId>>(new Set())
+const allowedMainImageIds   = ref<Set<GalleryImageId>>(new Set())
+const allowedPreviewIds     = ref<Set<GalleryImageId>>(new Set())
 const fullscreenImageSizes  = useElementImageSizes(fullscreenStageEl, 960)
 
 const fullscreenPointers = new Map<number, GesturePoint>()
@@ -134,7 +138,7 @@ const fullscreenGestureState: FullscreenGestureState = {
 }
 
 let fullscreenSwipeFrame: number | null = null
-let fullscreenAdjacentImagePreloadFrame: number | null = null
+let fullscreenAdjacentImagePreloadTimer: number | null = null
 
 const slideCount = computed(() => props.slides.length)
 const fullscreenSlide = computed<ImageViewerSlide>(() =>
@@ -173,15 +177,52 @@ function logicalIndexToTrackIndex(index: number) {
 }
 
 function setSelectedIndex(index: number) {
-  emit('update:selectedIndex', normalizeIndex(index))
+  const normalizedIndex = normalizeIndex(index)
+
+  allowSelectedSlideAssets(normalizedIndex)
+  emit('update:selectedIndex', normalizedIndex)
 }
 
 function getSlideAtIndex(index: number) {
   return props.slides[normalizeIndex(index)] ?? props.slides[0]
 }
 
+function addGalleryImageId(
+  setRef         : Ref<Set<GalleryImageId>>,
+  galleryImageId : GalleryImageId,
+) {
+  if (setRef.value.has(galleryImageId)) return
+
+  const nextIds = new Set(setRef.value)
+  nextIds.add(galleryImageId)
+  setRef.value = nextIds
+}
+
+function allowMainImage(slide: ImageViewerSlide) {
+  addGalleryImageId(allowedMainImageIds, slide.galleryImageId)
+}
+
+function allowPreviewImage(slide: ImageViewerSlide) {
+  addGalleryImageId(allowedPreviewIds, slide.galleryImageId)
+}
+
+function allowSelectedSlideAssets(index: number) {
+  const slide = getSlideAtIndex(index)
+
+  allowMainImage(slide)
+  allowPreviewImage(slide)
+  allowPreviewImage(getSlideAtIndex(index - 1))
+  allowPreviewImage(getSlideAtIndex(index + 1))
+}
+
+allowSelectedSlideAssets(props.selectedIndex)
+
 function isSelectedFullscreenSlide(entry: FullscreenCarouselSlide) {
   return entry.slideIndex === props.selectedIndex && !entry.isClone
+}
+
+function shouldRenderFullscreenImage(entry: FullscreenCarouselSlide) {
+  return allowedMainImageIds.value.has(entry.slide.galleryImageId)
 }
 
 function fullscreenSlideLoading(entry: FullscreenCarouselSlide) {
@@ -201,11 +242,17 @@ function isSlideImageLoaded(slide: ImageViewerSlide) {
 }
 
 function markSlideImageLoaded(slide: ImageViewerSlide) {
-  if (isSlideImageLoaded(slide)) return
+  const isAlreadyLoaded = isSlideImageLoaded(slide)
 
-  const nextLoadedImageIds = new Set(loadedImageIds.value)
-  nextLoadedImageIds.add(slide.galleryImageId)
-  loadedImageIds.value = nextLoadedImageIds
+  if (!isAlreadyLoaded) {
+    const nextLoadedImageIds = new Set(loadedImageIds.value)
+    nextLoadedImageIds.add(slide.galleryImageId)
+    loadedImageIds.value = nextLoadedImageIds
+  }
+
+  if (slide.galleryImageId === getSlideAtIndex(props.selectedIndex).galleryImageId) {
+    scheduleFullscreenAdjacentImagePreload()
+  }
 }
 
 function maybeMarkSlideImageElementLoaded(
@@ -237,6 +284,8 @@ function setSlideImageElement(
 }
 
 function imageViewerPreviewStyle(slide: ImageViewerSlide) {
+  if (!allowedPreviewIds.value.has(slide.galleryImageId)) return undefined
+
   return {
     '--image-viewer-preview': `url("${slide.preview.src}")`,
   }
@@ -265,17 +314,20 @@ function cancelFullscreenSwipeMomentum() {
 }
 
 function cancelFullscreenAdjacentImagePreload() {
-  if (fullscreenAdjacentImagePreloadFrame !== null) {
-    cancelAnimationFrame(fullscreenAdjacentImagePreloadFrame)
-    fullscreenAdjacentImagePreloadFrame = null
+  if (fullscreenAdjacentImagePreloadTimer !== null) {
+    window.clearTimeout(fullscreenAdjacentImagePreloadTimer)
+    fullscreenAdjacentImagePreloadTimer = null
   }
 }
 
-function preloadFullscreenAdjacentGalleryImages() {
+function preloadFullscreenAdjacentGalleryImages(index = props.selectedIndex) {
   if (slideCount.value <= 1) return
 
-  const nextSlide     = getSlideAtIndex(props.selectedIndex + 1)
-  const previousSlide = getSlideAtIndex(props.selectedIndex - 1)
+  const nextSlide     = getSlideAtIndex(index + 1)
+  const previousSlide = getSlideAtIndex(index - 1)
+
+  allowMainImage(nextSlide)
+  allowMainImage(previousSlide)
 
   preloadGalleryImage(nextSlide.image, fullscreenImageSizes.value, 'low')
 
@@ -284,15 +336,21 @@ function preloadFullscreenAdjacentGalleryImages() {
   }
 }
 
-function scheduleFullscreenAdjacentImagePreload() {
+function scheduleFullscreenAdjacentImagePreload(index = props.selectedIndex) {
   if (typeof window === 'undefined') return
+  if (!isSlideImageLoaded(getSlideAtIndex(index))) return
 
   cancelFullscreenAdjacentImagePreload()
 
-  fullscreenAdjacentImagePreloadFrame = window.requestAnimationFrame(() => {
-    fullscreenAdjacentImagePreloadFrame = null
-    preloadFullscreenAdjacentGalleryImages()
-  })
+  const scheduledIndex = normalizeIndex(index)
+
+  fullscreenAdjacentImagePreloadTimer = window.setTimeout(() => {
+    fullscreenAdjacentImagePreloadTimer = null
+
+    if (props.selectedIndex !== scheduledIndex) return
+
+    preloadFullscreenAdjacentGalleryImages(scheduledIndex)
+  }, ADJACENT_IMAGE_PRELOAD_DELAY_MS)
 }
 
 function shouldSkipFullscreenSwipeMomentum(velocityX: number) {
@@ -889,7 +947,9 @@ function onWindowResize() {
 watch(
   () => props.selectedIndex,
   () => {
+    allowSelectedSlideAssets(props.selectedIndex)
     resetFullscreenZoom()
+    scheduleFullscreenAdjacentImagePreload()
   },
 )
 
@@ -997,6 +1057,7 @@ onBeforeUnmount(() => {
             :aria-hidden="entry.slideIndex === selectedIndex && !entry.isClone ? undefined : 'true'"
           >
             <img
+              v-if="shouldRenderFullscreenImage(entry)"
               class="image-viewer-lightbox-image"
               :class="{
                 'image-viewer-lightbox-image--adjacent':

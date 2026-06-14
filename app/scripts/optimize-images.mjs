@@ -57,8 +57,8 @@ const GALLERY_FULL_WIDTHS = [
   1600,
 ]
 const GALLERY_THUMB_WIDTHS = [
-  180,
-  360,
+  128,
+  256,
 ]
 const GALLERY_FULL_WEBP_QUALITY = {
   480  : 70,
@@ -284,7 +284,7 @@ async function createGalleryThumbnail(fullImageBuffer, size) {
     ])
     .webp({
       effort  : 6,
-      quality : size <= 180 ? 72 : 82,
+      quality : size <= 128 ? 72 : 82,
     })
     .toBuffer()
 }

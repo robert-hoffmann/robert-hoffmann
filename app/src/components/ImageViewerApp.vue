@@ -75,6 +75,8 @@ const FILMSTRIP_MOMENTUM_MIN_VELOCITY = 0.02
 const DOUBLE_TAP_MAX_DELAY_MS         = 300
 const DOUBLE_TAP_MAX_DISTANCE_PX      = 30
 const TAP_MAX_DISTANCE_PX             = 10
+const ADJACENT_IMAGE_PRELOAD_DELAY_MS = 240
+const THUMBNAIL_OBSERVER_ROOT_MARGIN  = '160px'
 
 interface FilmstripSlide {
   key        : string
@@ -121,19 +123,24 @@ const isFilmstripDragging  = ref(false)
 const isFullscreenOpen     = ref(false)
 const lockedCaptionIndex   = ref<number | null>(null)
 const loadedImageIds       = ref<Set<GalleryImageId>>(new Set())
+const allowedMainImageIds  = ref<Set<GalleryImageId>>(new Set())
+const allowedPreviewIds    = ref<Set<GalleryImageId>>(new Set())
+const allowedThumbnailIds  = ref<Set<GalleryImageId>>(new Set())
 let trackResizeObserver        : ResizeObserver | null = null
+let thumbnailObserver          : IntersectionObserver | null = null
 let filmstripPointerSlideIndex : number | null          = null
 let filmstripMomentumFrame     : number | null          = null
 let filmstripFollowFrame       : number | null          = null
 let programmaticScrollTarget   : number | null          = null
 let programmaticScrollTrack    : number | null          = null
-let adjacentImagePreloadFrame  : number | null          = null
+let adjacentImagePreloadTimer  : number | null          = null
 
 let suppressFilmstripClick = false
 
 const mainImageSizes = useElementImageSizes(trackEl, 960)
 
 const embeddedPointers = new Map<number, GesturePoint>()
+const thumbnailElements = new Map<HTMLElement, GalleryImageId>()
 
 const embeddedTapState: EmbeddedTapState = {
   pointerId   : null,
@@ -213,15 +220,51 @@ function persistGalleryImageIndex(index: number) {
   })
 }
 
+function addGalleryImageId(
+  setRef         : Ref<Set<GalleryImageId>>,
+  galleryImageId : GalleryImageId,
+) {
+  if (setRef.value.has(galleryImageId)) return
+
+  const nextIds = new Set(setRef.value)
+  nextIds.add(galleryImageId)
+  setRef.value = nextIds
+}
+
+function allowMainImage(slide: ImageViewerSlide) {
+  addGalleryImageId(allowedMainImageIds, slide.galleryImageId)
+}
+
+function allowPreviewImage(slide: ImageViewerSlide) {
+  addGalleryImageId(allowedPreviewIds, slide.galleryImageId)
+}
+
+function allowThumbnailImage(slide: ImageViewerSlide) {
+  addGalleryImageId(allowedThumbnailIds, slide.galleryImageId)
+}
+
+function allowSelectedSlideAssets(index: number) {
+  const slide = getSlideAtIndex(index)
+
+  allowMainImage(slide)
+  allowPreviewImage(slide)
+  allowPreviewImage(getSlideAtIndex(index - 1))
+  allowPreviewImage(getSlideAtIndex(index + 1))
+  allowThumbnailImage(slide)
+}
+
 function setSelectedIndex(index: number, updateCaption = lockedCaptionIndex.value === null) {
   const normalizedIndex = normalizeIndex(index)
 
+  allowSelectedSlideAssets(normalizedIndex)
   selectedIndex.value = normalizedIndex
   persistGalleryImageIndex(normalizedIndex)
 
   if (updateCaption) {
     captionIndex.value = normalizedIndex
   }
+
+  scheduleAdjacentImagePreload(normalizedIndex)
 }
 
 function lockCaption(index: number) {
@@ -374,8 +417,14 @@ function getSlideAtIndex(index: number) {
   return imageViewerSlides[normalizeIndex(index)] ?? imageViewerSlides[0]
 }
 
+allowSelectedSlideAssets(initialSelectedIndex)
+
 function isSelectedCarouselSlide(entry: ImageViewerCarouselSlide) {
   return entry.slideIndex === selectedIndex.value && !entry.isClone
+}
+
+function shouldRenderCarouselImage(entry: ImageViewerCarouselSlide) {
+  return allowedMainImageIds.value.has(entry.slide.galleryImageId)
 }
 
 function slideLoading(entry: ImageViewerCarouselSlide) {
@@ -395,11 +444,17 @@ function isSlideImageLoaded(slide: ImageViewerSlide) {
 }
 
 function markSlideImageLoaded(slide: ImageViewerSlide) {
-  if (isSlideImageLoaded(slide)) return
+  const isAlreadyLoaded = isSlideImageLoaded(slide)
 
-  const nextLoadedImageIds = new Set(loadedImageIds.value)
-  nextLoadedImageIds.add(slide.galleryImageId)
-  loadedImageIds.value = nextLoadedImageIds
+  if (!isAlreadyLoaded) {
+    const nextLoadedImageIds = new Set(loadedImageIds.value)
+    nextLoadedImageIds.add(slide.galleryImageId)
+    loadedImageIds.value = nextLoadedImageIds
+  }
+
+  if (slide.galleryImageId === getSlideAtIndex(selectedIndex.value).galleryImageId) {
+    scheduleAdjacentImagePreload()
+  }
 }
 
 function maybeMarkSlideImageElementLoaded(
@@ -431,6 +486,8 @@ function setSlideImageElement(
 }
 
 function imageViewerPreviewStyle(slide: ImageViewerSlide) {
+  if (!allowedPreviewIds.value.has(slide.galleryImageId)) return undefined
+
   return {
     '--image-viewer-preview': `url("${slide.preview.src}")`,
   }
@@ -441,17 +498,20 @@ function openProjectInfo() {
 }
 
 function cancelAdjacentImagePreload() {
-  if (adjacentImagePreloadFrame !== null) {
-    cancelAnimationFrame(adjacentImagePreloadFrame)
-    adjacentImagePreloadFrame = null
+  if (adjacentImagePreloadTimer !== null) {
+    window.clearTimeout(adjacentImagePreloadTimer)
+    adjacentImagePreloadTimer = null
   }
 }
 
-function preloadAdjacentGalleryImages() {
+function preloadAdjacentGalleryImages(index = selectedIndex.value) {
   if (slideCount <= 1) return
 
-  const nextSlide     = getSlideAtIndex(selectedIndex.value + 1)
-  const previousSlide = getSlideAtIndex(selectedIndex.value - 1)
+  const nextSlide     = getSlideAtIndex(index + 1)
+  const previousSlide = getSlideAtIndex(index - 1)
+
+  allowMainImage(nextSlide)
+  allowMainImage(previousSlide)
 
   preloadGalleryImage(nextSlide.image, mainImageSizes.value, 'low')
 
@@ -460,15 +520,73 @@ function preloadAdjacentGalleryImages() {
   }
 }
 
-function scheduleAdjacentImagePreload() {
+function scheduleAdjacentImagePreload(index = selectedIndex.value) {
   if (typeof window === 'undefined') return
+  if (!isSlideImageLoaded(getSlideAtIndex(index))) return
 
   cancelAdjacentImagePreload()
 
-  adjacentImagePreloadFrame = window.requestAnimationFrame(() => {
-    adjacentImagePreloadFrame = null
-    preloadAdjacentGalleryImages()
+  const scheduledIndex = normalizeIndex(index)
+
+  adjacentImagePreloadTimer = window.setTimeout(() => {
+    adjacentImagePreloadTimer = null
+
+    if (selectedIndex.value !== scheduledIndex) return
+
+    preloadAdjacentGalleryImages(scheduledIndex)
+  }, ADJACENT_IMAGE_PRELOAD_DELAY_MS)
+}
+
+function shouldRenderThumbnailImage(entry: FilmstripSlide) {
+  return allowedThumbnailIds.value.has(entry.slide.galleryImageId)
+}
+
+function loadAllThumbnailImages() {
+  imageViewerSlides.forEach(allowThumbnailImage)
+}
+
+function onThumbnailIntersection(entries: IntersectionObserverEntry[]) {
+  for (const entry of entries) {
+    if (!entry.isIntersecting) continue
+
+    const thumbnailElement = entry.target instanceof HTMLElement ? entry.target : null
+    const galleryImageId   = thumbnailElement
+      ? thumbnailElements.get(thumbnailElement)
+      : undefined
+
+    if (!galleryImageId) continue
+
+    addGalleryImageId(allowedThumbnailIds, galleryImageId)
+    thumbnailObserver?.unobserve(entry.target)
+  }
+}
+
+function observeFilmstripThumbnails() {
+  if (typeof window === 'undefined') return
+
+  if (!('IntersectionObserver' in window)) {
+    loadAllThumbnailImages()
+    return
+  }
+
+  thumbnailObserver = new window.IntersectionObserver(onThumbnailIntersection, {
+    root       : filmstripEl.value,
+    rootMargin : THUMBNAIL_OBSERVER_ROOT_MARGIN,
   })
+
+  thumbnailElements.forEach((_, element) => {
+    thumbnailObserver?.observe(element)
+  })
+}
+
+function setThumbnailElement(
+  entry   : FilmstripSlide,
+  element : Element | ComponentPublicInstance | null,
+) {
+  if (!(element instanceof HTMLElement)) return
+
+  thumbnailElements.set(element, entry.slide.galleryImageId)
+  thumbnailObserver?.observe(element)
 }
 
 function onOpenPortfolioApp(event: Event) {
@@ -1046,8 +1164,7 @@ watch(
     scheduleAdjacentImagePreload()
   },
   {
-    flush     : 'post',
-    immediate : true,
+    flush : 'post',
   },
 )
 
@@ -1059,6 +1176,7 @@ watch(isMobile, (mobile) => {
 
 onMounted(() => {
   window.addEventListener(OPEN_PORTFOLIO_APP_EVENT, onOpenPortfolioApp)
+  observeFilmstripThumbnails()
 
   void nextTick(() => {
     scrollTrackToIndex(selectedIndex.value, 'instant')
@@ -1081,6 +1199,9 @@ onBeforeUnmount(() => {
   window.removeEventListener(OPEN_PORTFOLIO_APP_EVENT, onOpenPortfolioApp)
   trackResizeObserver?.disconnect()
   trackResizeObserver = null
+  thumbnailObserver?.disconnect()
+  thumbnailObserver = null
+  thumbnailElements.clear()
   resetEmbeddedGestureState()
 })
 </script>
@@ -1143,6 +1264,7 @@ onBeforeUnmount(() => {
                   @dblclick.stop.prevent="openFullscreen"
                 >
                   <img
+                    v-if="shouldRenderCarouselImage(entry)"
                     class="image-viewer-image image-viewer-image--foreground"
                     :src="entry.slide.image.src"
                     :srcset="entry.slide.image.webpSrcset"
@@ -1233,9 +1355,11 @@ onBeforeUnmount(() => {
           :data-slide-index="entry.slideIndex"
           :aria-label="thumbnailLabel(entry.slide, entry.slideIndex)"
           :aria-current="entry.slideIndex === selectedIndex ? 'true' : undefined"
+          :ref="element => setThumbnailElement(entry, element)"
           @click="onThumbnailClick(entry.slideIndex, $event)"
         >
           <img
+            v-if="shouldRenderThumbnailImage(entry)"
             class="image-viewer-thumb-image"
             :src="entry.slide.thumbnail.src"
             :srcset="entry.slide.thumbnail.srcset"

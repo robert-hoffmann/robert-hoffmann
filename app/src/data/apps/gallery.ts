@@ -542,8 +542,8 @@ const galleryImageWidths = [
 ] as const
 
 const galleryThumbnailWidths = [
-  180,
-  360,
+  128,
+  256,
 ] as const
 
 const sampleAccents = [
@@ -592,13 +592,13 @@ function createGalleryImageSource(galleryImageId: GalleryImageId): GalleryRespon
 
 function createGalleryThumbnailSource(galleryImageId: GalleryImageId) {
   return {
-    src    : publicAssetUrl(galleryThumbnailName(galleryImageId, 360)),
+    src    : publicAssetUrl(galleryThumbnailName(galleryImageId, 256)),
     srcset : createSrcset(
       galleryThumbnailWidths,
       width => galleryThumbnailName(galleryImageId, width),
     ),
-    width  : 360,
-    height : 360,
+    width  : 256,
+    height : 256,
   }
 }
 

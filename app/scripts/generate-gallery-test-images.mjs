@@ -26,8 +26,8 @@ const FULL_SIZE = {
 }
 
 const THUMB_SIZE = {
-  width  : 360,
-  height : 360,
+  width  : 256,
+  height : 256,
 }
 
 const ACCEPTED_EXTENSIONS = new Set(['.avif', '.jpeg', '.jpg', '.png', '.webp'])
@@ -414,7 +414,7 @@ function buildPreviewHtml(entries) {
     <h1>Gallery Normalization Tests</h1>
     <p>
       All generated full images are 1600x1000 WebP. All generated thumbnails are
-      360x360 WebP. Runtime folders are untouched.
+      256x256 WebP. Runtime folders are untouched.
     </p>
     <table>
       <thead>
