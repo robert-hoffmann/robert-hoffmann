@@ -67,6 +67,12 @@ export const galleryImageDisplayOrder = [
   'proj-attendance-billing-1',
   'proj-attendance-billing-2',
   'proj-roland-garros-navigation-1',
+  'proj-public-health-analytics-1',
+  'proj-public-health-analytics-3',
+  'proj-public-health-analytics-2',
+  'proj-public-health-analytics-4',
+  'proj-powertoys-1',
+  'proj-mario-1',
 ] satisfies readonly [ProjectScopedGalleryImageId, ...ProjectScopedGalleryImageId[]]
 
 export type GalleryImageId = (typeof galleryImageDisplayOrder)[number]
@@ -484,6 +490,146 @@ const galleryImageContentById = {
       fr :
         'Page d’accès au guidage personnel Roland-Garros avec QR code et aperçu de parcours ' +
         'dans un téléphone simulé',
+    } satisfies Localized,
+  },
+  'proj-public-health-analytics-1'      : {
+    projectId : 'proj-public-health-analytics',
+    title     : {
+      en : 'Stats COVID: data.gouv.fr',
+      fr : 'Stats COVID : data.gouv.fr',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Public data.gouv.fr reuse page for Stats COVID France, connecting the author profile, ' +
+        'public reuse metadata, and an embedded Power BI health-dashboard preview.',
+      fr :
+        'Page de réutilisation data.gouv.fr publique pour Stats COVID France, reliant le profil ' +
+        'auteur, les métadonnées de réutilisation et un aperçu Power BI santé intégré.',
+    } satisfies Localized,
+    alt       : {
+      en :
+        'data.gouv.fr Stats COVID France reuse page by Robert Hoffmann with embedded Power BI ' +
+        'hospitalizations and deaths charts',
+      fr :
+        'Page de réutilisation data.gouv.fr Stats COVID France par Robert Hoffmann avec graphiques ' +
+        'Power BI hospitalisations et décès intégrés',
+    } satisfies Localized,
+  },
+  'proj-public-health-analytics-3'      : {
+    projectId : 'proj-public-health-analytics',
+    title     : {
+      en : 'Stats DREES: Report Menu',
+      fr : 'Stats DREES : menu du rapport',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Stats DREES Power BI landing page organizing 24 report sections across age curves, ' +
+        'bar charts, progression, proportions, effectiveness, regional views, about, and changelog.',
+      fr :
+        'Page d’accueil Power BI Stats DREES organisant 24 sections de rapport entre courbes ' +
+        'par âge, barres, progression, proportions, efficacité, vues régionales, à propos et changelog.',
+    } satisfies Localized,
+    alt       : {
+      en :
+        'Stats DREES France Power BI menu with section buttons for age, effectiveness, regional ' +
+        'views, about, and changelog',
+      fr :
+        'Menu Power BI Stats DREES France avec boutons de sections âge, efficacité, vues régionales, ' +
+        'à propos et changelog',
+    } satisfies Localized,
+  },
+  'proj-public-health-analytics-2'      : {
+    projectId : 'proj-public-health-analytics',
+    title     : {
+      en : 'Stats DREES: Demography and Vaccination',
+      fr : 'Stats DREES : démographie et vaccination',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Demography and vaccination view combining France population splits, eligible populations, ' +
+        'two-dose and three-dose vaccination-rate cards, and age-band bar charts.',
+      fr :
+        'Vue démographie et vaccination combinant répartitions de population France, populations ' +
+        'éligibles, cartes de taux de vaccination deux et trois doses, et barres par tranche d’âge.',
+    } satisfies Localized,
+    alt       : {
+      en :
+        'Power BI dashboard titled Démographie et Vaccination en France with population charts ' +
+        'and vaccination-rate bars by age',
+      fr :
+        'Dashboard Power BI intitulé Démographie et Vaccination en France avec graphiques de ' +
+        'population et barres de taux de vaccination par âge',
+    } satisfies Localized,
+  },
+  'proj-public-health-analytics-4'      : {
+    projectId : 'proj-public-health-analytics',
+    title     : {
+      en : 'Stats DREES: Hospitalization Progression',
+      fr : 'Stats DREES : progression hospitalisation',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Hospitalization progression view comparing vaccinated and non-vaccinated age groups ' +
+        'across hospitalizations, critical-care conversion, and deaths after hospitalization.',
+      fr :
+        'Vue de progression hospitalisation comparant les tranches d’âge vaccinées et non ' +
+        'vaccinées entre hospitalisations, passage en soins critiques et décès après hospitalisation.',
+    } satisfies Localized,
+    alt       : {
+      en :
+        'Power BI hospitalization progression dashboard with vaccinated and non-vaccinated bar ' +
+        'charts by age group',
+      fr :
+        'Dashboard Power BI de progression hospitalisation avec barres vaccinés et non-vaccinés ' +
+        'par tranche d’âge',
+    } satisfies Localized,
+  },
+  'proj-powertoys-1'                    : {
+    projectId : 'proj-powertoys',
+    title     : {
+      en : 'PowerToys: Extension Chat',
+      fr : 'PowerToys : chat d’extension',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Main extension chat surface with conversation history, profile-scoped assistant replies, ' +
+        'prompt input, voice affordance, and multilingual/settings controls for the 10-language ' +
+        'browser extension.',
+      fr :
+        'Surface principale de chat de l’extension avec historique des conversations, réponses ' +
+        'assistant liées au profil, saisie de prompt, commande vocale et réglages multilingues ' +
+        'pour l’extension navigateur en 10 langues.',
+    } satisfies Localized,
+    alt       : {
+      en :
+        'PowerToys for OpenAI Chrome extension chat interface with conversations sidebar and an ' +
+        'example TypeScript prompt',
+      fr :
+        'Interface de chat de l’extension Chrome PowerToys for OpenAI avec barre de conversations ' +
+        'et exemple de prompt TypeScript',
+    } satisfies Localized,
+  },
+  'proj-mario-1'                        : {
+    projectId : 'proj-mario',
+    title     : {
+      en : 'jQuery Mario: Browser Game POC',
+      fr : 'jQuery Mario : POC jeu navigateur',
+    } satisfies Localized,
+    summary   : {
+      en :
+        'Playable jQuery prototype with score counter, keyboard controls, projectiles, enemy ' +
+        'interaction, and a Flash-style game loop used to evaluate a browser-based port.',
+      fr :
+        'Prototype jQuery jouable avec compteur de score, contrôles clavier, projectiles, interaction ' +
+        'ennemi et boucle de jeu style Flash pour évaluer un portage navigateur.',
+    } satisfies Localized,
+    alt       : {
+      en :
+        'Browser game screen titled Mario VS. Bowser with score counter, player sprite, enemy, ' +
+        'projectiles, and keyboard controls',
+      fr :
+        'Écran de jeu navigateur intitulé Mario VS. Bowser avec compteur de score, sprite joueur, ' +
+        'ennemi, projectiles et contrôles clavier',
     } satisfies Localized,
   },
 } satisfies Record<GalleryImageId, GalleryImageContentEntry>

@@ -977,17 +977,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-public-health-analytics',
-    name       : {
+    id             : 'proj-public-health-analytics',
+    galleryImageId : 'proj-public-health-analytics-1',
+    name           : {
       en : 'Public Health Analytics Dashboards',
       fr : 'Dashboards d\u2019analyse santé publique',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Independent',
       fr : 'Indépendant',
     } satisfies Localized,
-    period     : '2021 – present',
-    summary    : {
+    period         : '2021 – present',
+    summary        : {
       en :
         'Public Power BI dashboards consuming French public-health open data, including DREES ' +
         'vaccination datasets and COVID-19 indicators published as a data.gouv.fr reuse. Built ' +
@@ -999,7 +1000,7 @@ const projectRecords = [
         'data.gouv.fr. Vues comparatives par statut vaccinal, âge, période, hospitalisations, ' +
         'réanimation, décès, positivité, tests et ventilations démographiques.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : '8K data.gouv views',
         fr : '8K vues data.gouv',
@@ -1017,8 +1018,8 @@ const projectRecords = [
         fr : 'Rapports Power BI publics',
       },
     ] satisfies Localized[],
-    stack      : ['Power BI'],
-    links      : [
+    stack          : ['Power BI'],
+    links          : [
       {
         label : 'Stats COVID',
         href  : 'https://www.data.gouv.fr/reuses/stats-covid-france',
@@ -1123,17 +1124,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-powertoys',
-    name       : {
+    id             : 'proj-powertoys',
+    galleryImageId : 'proj-powertoys-1',
+    name           : {
       en : 'PowerToys for OpenAI',
       fr : 'PowerToys pour OpenAI',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Independent',
       fr : 'Indépendant',
     } satisfies Localized,
-    period     : '2023 – archived',
-    summary    : {
+    period         : '2023 – archived',
+    summary        : {
       en :
         'Archived Chrome and Edge extension built when early GPT interfaces were still limited. ' +
         'It added chat history, voice-to-text, custom profiles, and search-provider integration ' +
@@ -1144,7 +1146,7 @@ const projectRecords = [
         'intégration moteurs de recherche injectant une boîte type ChatGPT directement dans Google ' +
         'et d\u2019autres pages de résultats.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : 'Chrome + Edge extension',
         fr : 'Extension Chrome + Edge',
@@ -1162,7 +1164,7 @@ const projectRecords = [
         fr : 'Profils de prompts personnalisés',
       },
     ] satisfies Localized[],
-    stack      : [
+    stack          : [
       'Browser Extension',
       'JavaScript',
       'OpenAI API',
@@ -1303,17 +1305,18 @@ const projectRecords = [
     ],
   },
   {
-    id         : 'proj-mario',
-    name       : {
+    id             : 'proj-mario',
+    galleryImageId : 'proj-mario-1',
+    name           : {
       en : 'jQuery Mario: Nicky Larson POC',
       fr : 'jQuery Mario: POC Nicky Larson',
     } satisfies Localized,
-    org        : {
+    org            : {
       en : 'Index Multimedia',
       fr : 'Index Multimedia',
     } satisfies Localized,
-    period     : '2011',
-    summary    : {
+    period         : '2011',
+    summary        : {
       en :
         'Lightweight browser-game proof of concept built to test whether a Flash game from ' +
         'the Nicky Larson franchise could be ported to the web with a jQuery-based implementation.',
@@ -1321,7 +1324,7 @@ const projectRecords = [
         'Preuve de concept de jeu navigateur léger pour tester le portage web d\u2019un jeu Flash ' +
         'de la franchise Nicky Larson avec une implémentation basée sur jQuery.',
     } satisfies Localized,
-    highlights : [
+    highlights     : [
       {
         en : 'Nicky Larson Flash port POC',
         fr : 'POC portage Flash Nicky Larson',
@@ -1331,8 +1334,8 @@ const projectRecords = [
         fr : 'Prototype jeu navigateur jQuery',
       },
     ] satisfies Localized[],
-    stack      : ['jQuery'],
-    links      : [
+    stack          : ['jQuery'],
+    links          : [
       {
         label : 'Demo',
         href  : 'https://itechnology.github.io/jQuery.Mario/#game',
