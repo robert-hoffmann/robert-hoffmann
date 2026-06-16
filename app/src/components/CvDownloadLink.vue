@@ -2,11 +2,14 @@
 import { useCvDownload } from '../composables/useCvDownload'
 
 type CvDownloadLinkPlacement = 'inline' | 'sticky'
+type CvDownloadLinkPresentation = 'label' | 'icon'
 
 const props = withDefaults(defineProps<{
   placement?: CvDownloadLinkPlacement
+  presentation?: CvDownloadLinkPresentation
 }>(), {
-  placement : 'inline',
+  placement     : 'inline',
+  presentation : 'label',
 })
 
 const {
@@ -18,14 +21,21 @@ const {
 
 <template>
   <a
-    class="cv-download-link"
-    :class="`cv-download-link--placement-${props.placement}`"
-    :href="cvPdfUrl"
-    target="_blank"
-    rel="noopener noreferrer"
-    :aria-label="cvPdfLabel"
+    class        = "cv-download-link"
+    :class      = "[
+      `cv-download-link--placement-${props.placement}`,
+      `cv-download-link--presentation-${props.presentation}`,
+    ]"
+    :href       = "cvPdfUrl"
+    target      = "_blank"
+    rel         = "noopener noreferrer"
+    :aria-label = "cvPdfLabel"
+    :title      = "props.presentation === 'icon' ? cvPdfLabel : undefined"
   >
-    <span class="cv-download-link__label">{{ cvPdfLabel }}</span>
+    <span
+      v-if = "props.presentation === 'label'"
+      class = "cv-download-link__label"
+    >{{ cvPdfLabel }}</span>
     <span
       class="icon-sprite cv-download-link__icon"
       :class="`icon-sprite--${cvPdfSprite}`"
@@ -81,6 +91,19 @@ const {
   }
 }
 
+.cv-download-link--presentation-icon {
+  --cv-download-icon-button-size : 2.25rem;
+  --cv-download-icon-size        : 1.8rem;
+
+  display         : inline-grid;
+  place-items     : center;
+  gap             : 0;
+  inline-size     : var(--cv-download-icon-button-size);
+  block-size      : var(--cv-download-icon-button-size);
+  padding         : 0;
+  justify-content : center;
+}
+
 .cv-download-link__label {
   min-inline-size : 0;
   font-weight     : 600;
@@ -90,7 +113,7 @@ const {
 }
 
 .cv-download-link__icon {
-  --sprite-target-w : 2rem;
+  --sprite-target-w : var(--cv-download-icon-size, 2rem);
 
   flex   : 0 0 auto;
   filter : drop-shadow(0 1px 2px oklch(0% 0 0 / 0.18));

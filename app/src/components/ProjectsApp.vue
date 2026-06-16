@@ -8,7 +8,6 @@ import {
   watch,
   type ComponentPublicInstance,
 } from 'vue'
-import { useCvDownload } from '../composables/useCvDownload'
 import { useLocale } from '../composables/useLocale'
 import {
   OPEN_PORTFOLIO_APP_EVENT,
@@ -18,13 +17,9 @@ import {
 import { usePersistedWindowScroll } from '../composables/usePersistedWindowScroll'
 import type { GalleryImageId } from '../data/apps/gallery'
 import { projects, projectsMessages, type Project } from '../data/apps/projects'
+import CvDownloadLink from './CvDownloadLink.vue'
 
 const { l, t } = useLocale(projectsMessages)
-const {
-  cvPdfLabel,
-  cvPdfSprite,
-  cvPdfUrl,
-} = useCvDownload()
 const {
   clearProjectInfoRequest,
   projectInfoRequest,
@@ -143,20 +138,10 @@ onBeforeUnmount(() => {
       class="project-availability"
       aria-labelledby="project-availability-title"
     >
-      <a
-        class="project-availability__download"
-        :href="cvPdfUrl"
-        target="_blank"
-        rel="noopener noreferrer"
-        :aria-label="cvPdfLabel"
-        :title="cvPdfLabel"
-      >
-        <span
-          class="icon-sprite project-availability__download-icon"
-          :class="`icon-sprite--${cvPdfSprite}`"
-          aria-hidden="true"
-        />
-      </a>
+      <CvDownloadLink
+        class        = "project-availability__download"
+        presentation = "icon"
+      />
       <div class="project-availability__content">
         <h3
           id="project-availability-title"
@@ -332,32 +317,10 @@ onBeforeUnmount(() => {
 }
 
 .project-availability__download {
-  display         : inline-grid;
-  place-items     : center;
-  align-self      : start;
-  inline-size     : 2.25rem;
-  block-size      : 2.25rem;
-  border-radius   : var(--radius-md);
-  color           : var(--text-primary);
-  text-decoration : none;
-  transition      : background var(--dur-fast) var(--ease-out),
-                    transform var(--dur-fast) var(--ease-out);
+  --cv-download-icon-button-size : 2.25rem;
+  --cv-download-icon-size        : 1.8rem;
 
-  &:hover {
-    background : color-mix(in oklch, var(--c-accent) 16%, transparent);
-    transform  : translateY(-1px);
-  }
-
-  &:focus-visible {
-    outline        : 2px solid var(--focus-ring);
-    outline-offset : 2px;
-  }
-}
-
-.project-availability__download-icon {
-  --sprite-target-w : 1.8rem;
-
-  filter : drop-shadow(0 1px 2px oklch(0% 0 0 / 0.2));
+  align-self : start;
 }
 
 .project-header {
@@ -458,12 +421,8 @@ onBeforeUnmount(() => {
   }
 
   .project-availability__download {
-    inline-size : 2rem;
-    block-size  : 2rem;
-  }
-
-  .project-availability__download-icon {
-    --sprite-target-w : 1.62rem;
+    --cv-download-icon-button-size : 2rem;
+    --cv-download-icon-size        : 1.62rem;
   }
 }
 </style>
