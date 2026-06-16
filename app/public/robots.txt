@@ -2,6 +2,6 @@ User-agent: GPTBot
 Disallow: /
 
 User-agent: *
-Allow: /
+Disallow: /docs/
 
 Sitemap: https://i-technology.net/sitemap.xml

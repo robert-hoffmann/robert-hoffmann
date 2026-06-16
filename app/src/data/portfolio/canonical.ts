@@ -1664,7 +1664,7 @@ function renderRobotsTxt(): string {
 Disallow: /
 
 User-agent: *
-Allow: /
+Disallow: /docs/
 
 Sitemap: ${siteUrl}/sitemap.xml
 `
