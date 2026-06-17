@@ -42,6 +42,7 @@ const MUSIC_ARTWORK_OUTPUT        = join(PUBLIC, 'rockstar-cover_1000x1000.jpg')
 const PARALLAX_SOURCE_DIR         = join(DESIGN, 'parallax')
 const DESKTOP_SPRITE_SOURCE       = join(DESIGN, 'icons', 'desktop-profile-icons.webp')
 const DESKTOP_SPRITE_RUNTIME      = join(PUBLIC, 'icons', 'desktop-profile-icons-runtime.webp')
+const FAVICON_SOURCE              = join(DESIGN, 'icons', 'favicon-128x128.png')
 const GALLERY_FULL_SIZE = {
   width  : 1600,
   height : 1000,
@@ -424,23 +425,25 @@ async function mobileWallpaperBuffer(crop) {
 }
 
 /* ---- 1. Profile-derived runtime assets ---- */
-const profileSrc = await requireSource(PROFILE_SOURCE, 'profile identity')
-const img        = sharp(profileSrc)
+const profileSrc  = await requireSource(PROFILE_SOURCE, 'profile identity')
+const faviconSrc  = await requireSource(FAVICON_SOURCE, 'browser favicon')
+const img         = sharp(profileSrc)
+const faviconImg  = sharp(faviconSrc)
 
 await Promise.all([
   img.clone().avif({ quality : 55 }).toFile(join(PUBLIC, 'profile.avif')),
-  img.clone().resize(32, 32).png().toFile(join(PUBLIC, 'favicon-32.png')),
-  img.clone().resize(16, 16).png().toFile(join(PUBLIC, 'favicon-16.png')),
-  img.clone().resize(180, 180).png(PWA_ICON_PNG_OPTIONS).toFile(join(PUBLIC, 'apple-touch-icon.png')),
-  img.clone().resize(192, 192).png(PWA_ICON_PNG_OPTIONS).toFile(join(PUBLIC, 'icon-192.png')),
-  img.clone().resize(512, 512).png(PWA_ICON_PNG_OPTIONS).toFile(join(PUBLIC, 'icon-512.png')),
+  faviconImg.clone().resize(32, 32).png().toFile(join(PUBLIC, 'favicon-32.png')),
+  faviconImg.clone().resize(16, 16).png().toFile(join(PUBLIC, 'favicon-16.png')),
+  faviconImg.clone().resize(180, 180).png(PWA_ICON_PNG_OPTIONS).toFile(join(PUBLIC, 'apple-touch-icon.png')),
+  faviconImg.clone().resize(192, 192).png(PWA_ICON_PNG_OPTIONS).toFile(join(PUBLIC, 'icon-192.png')),
+  faviconImg.clone().resize(512, 512).png(PWA_ICON_PNG_OPTIONS).toFile(join(PUBLIC, 'icon-512.png')),
 ])
 
-await img.clone().resize(32, 32).toFormat('png').toFile(join(PUBLIC, 'favicon.ico'))
+await faviconImg.clone().resize(32, 32).toFormat('png').toFile(join(PUBLIC, 'favicon.ico'))
 
 const profileAvifSize = (await stat(join(PUBLIC, 'profile.avif'))).size
 console.log(`✓ Profile runtime: profile.avif (${(profileAvifSize / 1024).toFixed(1)}KB)`)
-console.log('✓ Favicons generated (16, 32, 180, 192, 512)')
+console.log('✓ Favicons generated from favicon-128x128.png (16, 32, 180, 192, 512)')
 
 const aboutAvatarVariants = [
   { size : 80,  quality : 42 },
